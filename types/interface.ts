@@ -1,0 +1,34 @@
+export interface BrandId {
+    id:                     number;
+    brand_id:               number;
+    country_id:             number;
+    product_id:             number;
+    sku:                    string;
+    name:                   string;
+    list_price:             string;
+    standard_dealer_price:  string;
+    supplier_product_id:    string;
+    length:                 number;
+    width:                  number;
+    height:                 number;
+    weight:                 number;
+    upc:                    string;
+    superseded_sku:         null;
+    status_id:              string;
+    status:                 string;
+    unit_of_measurement_id: number;
+    has_map_policy:         boolean;
+    sort:                   number;
+    created_at:             Date;
+    updated_at:             Date;
+    published_at:           Date;
+    product_type:           string;
+    mapp_price:             string;
+    carb:                   null;
+    propd1:                 null;
+    propd2:                 null;
+    prop_65_code:           string;
+    prop_65_detail:         string;
+    drop_ship_fee:          string;
+    drop_ship_eligible:     boolean;
+}
