@@ -8,7 +8,7 @@ export async function getBrandsItems(brandId: string, page: number = 1): Promise
   };
 
   const response = await fetch(
-    `https://api.wps-inc.com/items?filter[brand_id]=${brandId}&page=${page}`,
+    `https://api.wps-inc.com/items?filter[brand_id]=${brandId}&page=${page}&include=images`,
     {
       method: 'GET',
       headers,

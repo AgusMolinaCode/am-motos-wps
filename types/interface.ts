@@ -31,4 +31,24 @@ export interface BrandId {
     prop_65_detail:         string;
     drop_ship_fee:          string;
     drop_ship_eligible:     boolean;
+    images:                 Images;
+}
+
+export interface Images {
+    data: Datum[];
+}
+
+export interface Datum {
+    id:         number;
+    domain:     string;
+    path:       string;
+    filename:   string;
+    alt:        null;
+    mime:       string;
+    width:      number;
+    height:     number;
+    size:       number;
+    signature:  string;
+    created_at: Date;
+    updated_at: Date;
 }

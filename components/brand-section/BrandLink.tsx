@@ -1,53 +1,101 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react'
-import Image from 'next/image'
-import { BrandId } from '@/types/interface'
-import { getBrandsItems } from '@/lib/brands'
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 const BrandLink = () => {
-  const [items, setItems] = useState<BrandId[]>([])
-  const [nextPage, setNextPage] = useState<number | null>(1)
-
   const brands = [
-    { imgUrl: '/images/escudo.png', brandId: '662' },
-  ]
+    {
+      imgUrl:
+        "https://www.mxstore.com.au/assets/webshop/cms/48/2048.jpg?1501504351",
+      brandId: "668",
+      name: "Brand 1",
+    },
 
-  const handleClick = async (brandId: string) => {
-    const { data, nextPage } = await getBrandsItems(brandId)
-    setItems(data)
-    setNextPage(nextPage)
-  };
+    {
+      imgUrl:
+        "https://www.mxstore.com.au/assets/webshop/cms/01/234701.jpg?1566435970",
+      brandId: "669",
+      name: "Brand 5",
+    },
+    {
+      imgUrl:
+        "https://www.mxstore.com.au/assets/webshop/cms/80/256180.jpg?1699932899",
+      brandId: "670",
+      name: "Brand 6",
+    },
 
-  const loadMore = async (brandId: string) => {
-    if (!nextPage) return
-    const { data, nextPage: newPage } = await getBrandsItems(brandId, nextPage)
-    setItems(prevItems => [...prevItems, ...data])
-    setNextPage(newPage)
-  }
+    {
+      imgUrl:
+        "https://www.mxstore.com.au/assets/webshop/cms/60/234660.png?1592284135",
+      brandId: "671",
+      name: "Brand 8",
+    },
+
+    {
+      imgUrl:
+        "https://www.mxstore.com.au/assets/webshop/cms/82/582.jpg?1634613701",
+      brandId: "672",
+      name: "Brand 11",
+    },
+    {
+      imgUrl:
+        "https://www.mxstore.com.au/assets/webshop/cms/43/2143.jpg?1610690995",
+      brandId: "673",
+      name: "Brand 12",
+    },
+    {
+      imgUrl:
+        "https://www.mxstore.com.au/assets/webshop/cms/90/233690.jpg?1515364052",
+      brandId: "674",
+      name: "Brand 13",
+    },
+    {
+      imgUrl:
+        "https://www.mxstore.com.au/assets/webshop/cms/60/231960.jpg?1511237916",
+      brandId: "675",
+      name: "Brand 14",
+    },
+    {
+      imgUrl:
+        "https://www.mxstore.com.au/assets/webshop/cms/50/1750.jpg?1501504351",
+      brandId: "676",
+      name: "Brand 15",
+    },
+
+    {
+      imgUrl:
+        "https://www.mxstore.com.au/assets/webshop/cms/50/2050.jpg?1501504351",
+      brandId: "677",
+      name: "Brand 19",
+    },
+  ];
 
   return (
-    <div>
-      <div className="flex">
-        {brands.map(({ imgUrl, brandId }) => (
-          <div key={brandId} onClick={() => handleClick(brandId)} className="cursor-pointer">
-            <Image src={imgUrl} alt={`Brand ${brandId}`} width={200} height={200} />
-          </div>
+    <div className="pt-6 mx-auto">
+      <div>
+        <h1 className=" text-2xl font-bold underline uppercase">
+          Mejores Marcas
+        </h1>
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-center items-center gap-2 mt-6 mx-auto content-center place-items-center">
+        {brands.map(({ imgUrl, brandId, name }) => (
+          <Link key={brandId} href={`/coleccion/${brandId}`} passHref>
+            <div className="cursor-pointer">
+              <Image
+                src={imgUrl}
+                alt={`Brand ${name}`}
+                width={200}
+                height={200}
+              />
+              {/* <p>{name}</p> */}
+            </div>
+          </Link>
         ))}
       </div>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2'>
-        {items.map(item => (
-          <div key={item.id} className='border p-2 rounded-md'>
-            <h2>{item.name}</h2>
-            <p>Standard Dealer Price: {item.standard_dealer_price}</p>
-          </div>
-        ))}
-      </div>
-      {nextPage && (
-        <button onClick={() => loadMore('662')}>Load More</button>
-      )}
     </div>
-  )
-}
+  );
+};
 
-export default BrandLink
+export default BrandLink;

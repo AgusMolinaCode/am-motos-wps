@@ -6,7 +6,7 @@ export function FlipWordsDemo() {
 
   return (
     <div className="h-[20rem] w-[50rem] flex justify-center items-center px-4">
-      <div className="text-6xl font-semibold text-center text-neutral-600 dark:text-neutral-400">
+      <div className="text-6xl font-semibold text-center text-gray-200">
         Importamos
         <FlipWords words={words} /> <br />
         para tu moto/ATV 
