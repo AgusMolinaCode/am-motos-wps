@@ -1,3 +1,5 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "markdown.preview.fontSize": 13,
+    "tailwindCSS.rootFontSize": 12
 }
