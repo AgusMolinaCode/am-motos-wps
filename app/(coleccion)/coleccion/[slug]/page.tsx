@@ -3,7 +3,6 @@ import { BrandId } from "@/types/interface";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { getUniqueBrands } from "@/lib/actions";
 
 interface PageProps {
   params: {

@@ -53,6 +53,25 @@ const SelectBrand = () => {
     router.push(`/coleccion/${brandId}`);
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollContainer = document.querySelector('.select-content-container');
+      if (!scrollContainer) return;
+      
+      const { scrollHeight, scrollTop, clientHeight } = scrollContainer;
+      const isAtBottom = scrollHeight - (scrollTop + clientHeight) < 100;
+      
+      if (isAtBottom && !isLoadingMore && meta?.cursor.next) {
+        loadMore();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isLoadingMore]);
+
   return (
     <div>
         <Select onValueChange={handleBrandChange}>
