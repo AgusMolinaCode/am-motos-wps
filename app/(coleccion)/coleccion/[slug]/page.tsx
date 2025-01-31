@@ -3,6 +3,7 @@ import { BrandId } from "@/types/interface";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { getUniqueBrands } from "@/lib/actions";
 
 interface PageProps {
   params: {
@@ -17,6 +18,7 @@ export default async function BrandPage({
 }: PageProps) {
   const cursor = searchParams?.cursor || null;
   const { data, meta } = await getBrandsItems(params.slug, cursor);
+  // const uniqueBrands = await getUniqueBrands();
 
   return (
     <div>
@@ -47,6 +49,7 @@ export default async function BrandPage({
           Cargar más
         </Link>
       )}
+      
     </div>
   );
 }
