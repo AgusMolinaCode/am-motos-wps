@@ -9,8 +9,8 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select";
-  import { Brands, Meta } from "@/types/interface";
-  import { getBrands } from "@/lib/brands";
+import { Brands, Meta } from "@/types/interface";
+import { getBrands } from "@/lib/brands";
 
 const SelectBrand = () => {
   const router = useRouter();
@@ -24,7 +24,7 @@ const SelectBrand = () => {
     
     setIsLoadingMore(true);
     try {
-      const { data, meta: newMeta } = await getBrands(meta.cursor.next);
+      const { data, meta: newMeta } = await getBrands(null, meta.cursor.next);
       setBrands(prev => [...prev, ...data]);
       setMeta(newMeta);
     } catch (error) {
@@ -50,7 +50,11 @@ const SelectBrand = () => {
   }, []);
 
   const handleBrandChange = (brandId: string) => {
-    router.push(`/coleccion/${brandId}`);
+    // Asegurarse de que solo se usen IDs numéricos
+    const numericBrandId = brandId.replace(/[^0-9]/g, '');
+    if (numericBrandId) {
+      router.push(`/brand/${numericBrandId}`);
+    }
   };
 
   useEffect(() => {
@@ -80,7 +84,10 @@ const SelectBrand = () => {
           </SelectTrigger>
           <SelectContent>
             {brands.map((brand) => (
-              <SelectItem key={brand.id} value={brand.id.toString()}>
+              <SelectItem 
+                key={brand.id} 
+                value={brand.id.toString()}
+              >
                 {brand.name}
               </SelectItem>
             ))}

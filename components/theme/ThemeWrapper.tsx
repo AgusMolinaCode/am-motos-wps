@@ -41,12 +41,12 @@ export default function ThemeWrapper({ children }: { children: React.ReactNode }
       <div className="pointer-events-none absolute inset-0">
         {theme === 'dark' ? (
           <>
-            <div className="absolute top-0 z-[-2] h-screen w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
+            <div className="absolute top-0 z-[-2]  w-screen bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]" />
             <GrainOverlay />
           </>
         ) : (
           <>
-            <div className="absolute top-0 z-[-2] h-screen w-screen rotate-180 transform bg-gray-100 bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]" />
+            <div className="absolute top-0 z-[-2] w-screen rotate-180 transform bg-gray-100 bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]" />
             <GrainOverlay isLight />
           </>
         )}
