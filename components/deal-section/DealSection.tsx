@@ -3,25 +3,29 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { CardBody, CardWithLines } from "./CardWithLines";
-import { getItemsByStatus } from "@/lib/brands";
+import { getStatusItems } from "@/lib/brands";
 
 export default function DealSection() {
   const [newItems, setNewItems] = useState<any[]>([]);
+  const [closingItems, setClosingItems] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   React.useEffect(() => {
-    async function fetchNewItems() {
+    async function fetchStatusItems() {
       setIsLoading(true);
       try {
-        const { data } = await getItemsByStatus("NEW");
-        setNewItems(data);
+        const newResponse = await getStatusItems("NEW");
+        const closingResponse = await getStatusItems("CLO");
+        
+        setNewItems(newResponse.data);
+        setClosingItems(closingResponse.data);
       } catch (error) {
-        console.error("Error fetching new items:", error);
+        console.error("Error fetching status items:", error);
       } finally {
         setIsLoading(false);
       }
     }
-    fetchNewItems();
+    fetchStatusItems();
   }, []);
 
   return (
@@ -29,13 +33,19 @@ export default function DealSection() {
       <div className="flex flex-col gap-4 justify-between">
         <div className="w-full">
           <CardWithLines>
-            <CardBody type="newProducts" />
+            <CardBody 
+              type="newProducts" 
+              itemCount={newItems.length}
+            />
           </CardWithLines>
         </div>
 
         <div className="w-full">
           <CardWithLines>
-            <CardBody type="deals" />
+            <CardBody 
+              type="deals" 
+              itemCount={closingItems.length}
+            />
           </CardWithLines>
         </div>
 

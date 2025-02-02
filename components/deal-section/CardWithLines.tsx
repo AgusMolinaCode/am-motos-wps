@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Racing_Sans_One } from "next/font/google";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 const racingSansOne = Racing_Sans_One({
   subsets: ["latin"],
@@ -12,20 +13,24 @@ const racingSansOne = Racing_Sans_One({
 const cardContents = {
   newProducts: {
     title: "Productos nuevos",
-    description: "Descubre los últimos productos en stock",
+    description: "Descubre los últimos productos listados",
+    link: "/coleccion/NEW"
   },
   deals: {
     title: "Ofertas especiales",
     description: "Aprovecha nuestras mejores promociones",
+    link: "/coleccion/CLO"
   },
 };
 
 export const CardBody = ({
   type = "newProducts",
   className = "",
+  itemCount = 0
 }: {
   type?: keyof typeof cardContents;
   className?: string;
+  itemCount?: number;
 }) => {
   const content = cardContents[type];
 
@@ -40,12 +45,16 @@ export const CardBody = ({
         >
           {content.title}
         </h3>
-        <p className="text-sm md:text-md  text-zinc-400 font-bold">
+        <p className="text-sm md:text-md text-zinc-400 font-bold">
           {content.description}
         </p>
       </div>
       <div>
-        <Button className="border dark:border-none border-zinc-500">Ver más</Button>
+        <Link href={content.link}>
+          <Button className="border dark:border-none border-zinc-500">
+            Ver más
+          </Button>
+        </Link>
       </div>
     </div>
   );

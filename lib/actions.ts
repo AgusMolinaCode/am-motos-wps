@@ -25,51 +25,34 @@ export async function getCatalog(): Promise<SupabaseCatalog[]> {
     return items as SupabaseCatalog[];
 }
 
-export async function getCatalogCsv(): Promise<SupabaseCatalog[]> {
-    const filePath = path.join(process.cwd(), 'public', 'csv', 'filtered5.csv');
+export async function getCatalogProductTypes(): Promise<Record<string, string[]>> {
+    const filePath = path.join(process.cwd(), 'public', 'csv', 'brands_with_ids.json');
     
-    return new Promise<SupabaseCatalog[]>((resolve) => {
+    return new Promise<Record<string, string[]>>((resolve) => {
         fs.readFile(filePath, 'utf8', (err, fileContents) => {
             if (err) {
-                console.error("Error reading CSV file:", err);
-                resolve([]);
+                console.error("Error reading JSON file:", err);
+                resolve({});
                 return;
             }
 
-            Papa.parse(fileContents, {
-                header: true,
-                complete: (results) => {
-                    // Mapear los datos del CSV al tipo SupabaseCatalog
-                    const catalogItems = (results.data as CSVItem[])
-                        .filter(item => 
-                            item.sku && 
-                            item.name && 
-                            item.brand && 
-                            item.vendor_number && 
-                            item.product_name && 
-                            item.product_type
-                        )
-                        .map(item => ({
-                            sku: item.sku,
-                            name: item.name,
-                            brand: item.brand,
-                            vendor_number: item.vendor_number,
-                            product_name: item.product_name,
-                            product_type: item.product_type
-                        }));
-
-                    resolve(catalogItems);
-                },
-                error: (error: Error) => {
-                    console.error("Error parsing CSV:", error);
-                    resolve([]);
-                }
-            });
+            try {
+                const brandsData = JSON.parse(fileContents);
+                const brandProductTypes = Object.entries(brandsData).reduce((acc, [brandName, brandInfo]) => {
+                    const { id, product_types } = brandInfo as { id: number; product_types: string[] };
+                    acc[id] = product_types;
+                    return acc;
+                }, {} as Record<string, string[]>);
+                resolve(brandProductTypes);
+            } catch (error) {
+                console.error("Error parsing JSON:", error);
+                resolve({});
+            }
         });
     });
 }
 
-export async function getCatalogProductTypes(): Promise<Record<string, string[]>> {
+export async function getProductTypeBrands(): Promise<Record<string, string[]>> {
     const filePath = path.join(process.cwd(), 'public', 'csv', 'filtered5.csv');
     
     return new Promise<Record<string, string[]>>((resolve) => {
@@ -83,22 +66,22 @@ export async function getCatalogProductTypes(): Promise<Record<string, string[]>
             Papa.parse(fileContents, {
                 header: true,
                 complete: (results) => {
-                    // Agrupar product_type por marca, eliminando duplicados
-                    const brandProductTypes = (results.data as CSVItem[]).reduce((acc: Record<string, string[]>, item) => {
+                    // Agrupar marcas por product_type, eliminando duplicados
+                    const productTypeBrands = (results.data as CSVItem[]).reduce((acc: Record<string, string[]>, item) => {
                         const { brand, product_type } = item;
 
                         if (!brand || !product_type) return acc;
 
-                        if (!acc[brand]) {
-                            acc[brand] = [];
+                        if (!acc[product_type]) {
+                            acc[product_type] = [];
                         }
-                        if (!acc[brand].includes(product_type)) {
-                            acc[brand].push(product_type);
+                        if (!acc[product_type].includes(brand)) {
+                            acc[product_type].push(brand);
                         }
                         return acc;
                     }, {});
 
-                    resolve(brandProductTypes);
+                    resolve(productTypeBrands);
                 },
                 error: (error: Error) => {
                     console.error("Error parsing CSV:", error);

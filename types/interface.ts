@@ -72,6 +72,7 @@ export interface Meta {
     next: string | null;
     count: number;
   };
+  productTypes?: string[];
 }
 
 export interface Cursor {

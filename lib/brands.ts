@@ -4,15 +4,29 @@ import { BrandId, Brands, Meta, BrandStatus } from "@/types/interface";
 
 export async function getBrandsItems(
   brandId: string,
-  cursor: string | null = null
+  cursor: string | null = null,
+  productType?: string
 ): Promise<{ data: BrandId[]; meta: Meta }> {
   const headers: HeadersInit = {
     Authorization: process.env.PUBLIC_WPS ?? "",
   };
 
-  const url = cursor 
-    ? `https://api.wps-inc.com/items?filter[brand_id]=${brandId}&include=inventory,images&page[cursor]=${encodeURIComponent(cursor)}`
-    : `https://api.wps-inc.com/items?filter[brand_id]=${brandId}&include=inventory,images`;
+  // Construir la URL base
+  let url = `https://api.wps-inc.com/items?filter[brand_id]=${brandId}&include=inventory,images&page[size]=100`;
+
+  // Agregar filtro de tipo de producto si está presente
+  if (productType) {
+    // Decodificar el tipo de producto y reemplazar '%26' con '&'
+    const decodedProductType = decodeURIComponent(productType)
+      .replace(/%26/g, '&');
+    
+    url += `&filter[product_type]=${encodeURIComponent(decodedProductType)}`;
+  }
+
+  // Agregar cursor si está presente
+  if (cursor) {
+    url += `&page[cursor]=${encodeURIComponent(cursor)}`;
+  }
 
   const response = await fetch(url, {
     method: "GET",
@@ -36,9 +50,27 @@ export async function getBrandsItems(
 
   const result = await response.json();
 
+  // Filtrar productos con inventario total > 0
+  const itemsWithInventory = (result.data as BrandId[]).filter(
+    item => item.inventory?.data?.total !== undefined && 
+            item.inventory.data.total > 0
+  );
+
+  // Eliminar duplicados basados en el ID
+  const uniqueItemsWithInventory = Array.from(
+    new Map(itemsWithInventory.map(item => [item.id, item])).values()
+  );
+
   return {
-    data: result.data as BrandId[],
-    meta: result.meta as Meta
+    data: uniqueItemsWithInventory.slice(0, 30),
+    meta: {
+      ...result.meta,
+      cursor: {
+        ...result.meta.cursor,
+        count: uniqueItemsWithInventory.length,
+        next: result.meta.cursor.next
+      }
+    }
   };
 }
 
@@ -114,7 +146,8 @@ export async function getBrandName(brandId: string): Promise<string> {
 
 export async function getItemsByStatus(
   status: string, 
-  cursor: string | null = null
+  cursor: string | null = null,
+  productType?: string
 ): Promise<{ 
   data: BrandStatus[]; 
   meta: Meta 
@@ -128,9 +161,22 @@ export async function getItemsByStatus(
     ? status.toUpperCase() 
     : 'NEW';
 
-  const url = cursor 
-    ? `https://api.wps-inc.com/items?filter[status_id]=${sanitizedStatus}&filter[product_type]=Engine&include=inventory&page[size]=20&page[cursor]=${encodeURIComponent(cursor)}`
-    : `https://api.wps-inc.com/items?filter[status_id]=${sanitizedStatus}&filter[product_type]=Engine&include=inventory&page[size]=20`;
+  // Construir la URL base
+  let url = `https://api.wps-inc.com/items?filter[status_id]=${sanitizedStatus}&include=inventory&page[size]=20`;
+
+  // Agregar filtro de tipo de producto si está presente
+  if (productType) {
+    // Decodificar el tipo de producto y reemplazar '%26' con '&'
+    const decodedProductType = decodeURIComponent(productType)
+      .replace(/%26/g, '&');
+    
+    url += `&filter[product_type]=${encodeURIComponent(decodedProductType)}`;
+  }
+
+  // Agregar cursor si está presente
+  if (cursor) {
+    url += `&page[cursor]=${encodeURIComponent(cursor)}`;
+  }
 
   try {
     const response = await fetch(url, {
@@ -170,7 +216,8 @@ export async function getItemsByStatus(
 
 export async function getCollectionByProductType(
   productType: string, 
-  cursor: string | null = null
+  cursor: string | null = null,
+  brandId?: string
 ): Promise<{ 
   data: BrandStatus[]; 
   meta: Meta 
@@ -185,9 +232,9 @@ export async function getCollectionByProductType(
     'accesorios': 'Accessories',
     'indumentaria': 'Pants,Jerseys,Footwear,Gloves,Eyewear',
     'cascos': 'Helmets',
-    'proteccion': 'Protective/Safety,Luggage',
+    'proteccion': 'Protective/Safety,Luggage,Bags',
     'herramientas': 'Tools',
-    'casual': 'Vests,Sweaters,Suits,Socks,Shorts,Shoes,Jackets,Hoodies,Bags,Luggage'
+    'casual': 'Vests,Sweaters,Suits,Socks,Shorts,Shoes,Jackets,Hoodies'
   };
 
   // Sanitizar y mapear el tipo de producto
@@ -196,9 +243,10 @@ export async function getCollectionByProductType(
   // Codificar el tipo de producto para la URL
   const encodedProductType = encodeURIComponent(sanitizedProductType);
 
+  // Construir la URL con el filtro de brand_id si está presente
   const url = cursor 
-    ? `https://api.wps-inc.com/items?filter[product_type]=${encodedProductType}&include=inventory,images&page[size]=15&page[cursor]=${encodeURIComponent(cursor)}`
-    : `https://api.wps-inc.com/items?filter[product_type]=${encodedProductType}&include=inventory,images&page[size]=15`;
+    ? `https://api.wps-inc.com/items?filter[product_type]=${encodedProductType}&include=inventory,images&sort[desc]=created_at&page[size]=15&page[cursor]=${encodeURIComponent(cursor)}${brandId ? `&filter[brand_id]=${brandId}` : ''}`
+    : `https://api.wps-inc.com/items?filter[product_type]=${encodedProductType}&include=inventory,images&sort[desc]=created_at&page[size]=15${brandId ? `&filter[brand_id]=${brandId}` : ''}`;
 
   try {
     const response = await fetch(url, {
@@ -229,4 +277,108 @@ export async function getCollectionByProductType(
       meta: { cursor: { current: "", prev: null, next: null, count: 0 } } 
     };
   }
+}
+
+export async function getStatusItems(
+  status: 'NEW' | 'CLO',
+  cursor: string | null = null,
+  productType: string | null = null,
+  accumulatedItems: BrandStatus[] = []
+): Promise<{ data: BrandStatus[]; meta: Meta }> {
+  const headers: HeadersInit = {
+    Authorization: process.env.PUBLIC_WPS ?? "",
+  };
+
+  // Construir la URL base
+  let url = `https://api.wps-inc.com/items?filter[status_id]=${status}&include=inventory,images&page[size]=100&sort[desc]=created_at`;
+
+  // Agregar filtro de tipo de producto si está presente y no es nulo
+  if (productType) {
+    // Decodificar el tipo de producto y reemplazar '%26' con '&'
+    const decodedProductType = decodeURIComponent(productType)
+      .replace(/%26/g, '&');
+    
+    url += `&filter[product_type]=${encodeURIComponent(decodedProductType)}`;
+  }
+
+  // Agregar cursor si está presente
+  if (cursor) {
+    url += `&page[cursor]=${encodeURIComponent(cursor)}`;
+  }
+
+  const response = await fetch(url, {
+    method: "GET",
+    headers,
+    cache: 'no-store' // Asegurar que siempre se obtengan datos frescos
+  });
+
+  if (!response.ok) {
+    console.error(`Error fetching items with status ${status}:`, await response.json());
+    return { 
+      data: accumulatedItems.filter(
+        item => item.inventory?.data?.total !== undefined && 
+                item.inventory.data.total > 0
+      ), 
+      meta: { 
+        cursor: { 
+          current: "", 
+          prev: null, 
+          next: null, 
+          count: 0 
+        } 
+      } 
+    };
+  }
+
+  const result = await response.json();
+
+  // Filtrar productos con inventario total > 0
+  const itemsWithInventory = (result.data as BrandStatus[]).filter(
+    item => item.inventory?.data?.total !== undefined && 
+            item.inventory.data.total > 0
+  );
+
+  // Acumular items con inventario
+  const combinedItems = [...accumulatedItems, ...itemsWithInventory];
+
+  // Si no hay items con inventario y hay más páginas, continuar buscando
+  if (combinedItems.length < 30 && result.meta?.cursor?.next) {
+    return await getStatusItems(
+      status, 
+      result.meta.cursor.next, 
+      productType,
+      combinedItems
+    );
+  }
+
+  // Eliminar duplicados basados en el ID
+  const uniqueItemsWithInventory = Array.from(
+    new Map(combinedItems.map(item => [item.id, item])).values()
+  );
+
+  // Obtener todos los tipos de producto únicos
+  const uniqueProductTypes = Array.from(
+    new Set(
+      uniqueItemsWithInventory
+        .map(item => item.product_type)
+        .filter(Boolean)
+    )
+  );
+
+
+
+  return {
+    data: uniqueItemsWithInventory.slice(0, 30),
+    meta: {
+      ...result.meta,
+      cursor: {
+        ...result.meta.cursor,
+        count: uniqueItemsWithInventory.length,
+        next: uniqueItemsWithInventory.length > 30 
+          ? result.meta.cursor.next 
+          : null
+      },
+      productTypes: uniqueProductTypes
+    }
+  };
 }

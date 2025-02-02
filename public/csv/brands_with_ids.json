@@ -1,0 +1,6519 @@
+{
+    "100-PERCENT": {
+        "id": 2701,
+        "product_types": [
+            "Eyewear",
+            "Gloves",
+            "Luggage"
+        ]
+    },
+    "2 COOL": {
+        "id": 145,
+        "product_types": [
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "A-ME": {
+        "id": 215,
+        "product_types": [
+            "Grips"
+        ]
+    },
+    "ABUS": {
+        "id": 2734,
+        "product_types": [
+            "Security"
+        ]
+    },
+    "ACCEL": {
+        "id": 566,
+        "product_types": [
+            "Gauges/Meters",
+            "Starters",
+            "Electrical",
+            "Spark Plugs",
+            "Switches",
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "ACCUTRONIX": {
+        "id": 629,
+        "product_types": [
+            "Steering",
+            "Illumination",
+            "Luggage",
+            "Mounts/Brackets",
+            "Body",
+            "Foot Controls",
+            "Brakes",
+            "Drive",
+            "Risers"
+        ]
+    },
+    "ACERBIS": {
+        "id": 692,
+        "product_types": [
+            "Handguards",
+            "Hardware/Fasteners/Fittings",
+            "Illumination",
+            "Body",
+            "Mirrors",
+            "Mounts/Brackets",
+            "Drive",
+            "Fuel Containers",
+            "Intake/Carb/Fuel System",
+            "Fuel Tank",
+            "Gas Caps",
+            "Foot Controls",
+            "Seat",
+            "Guards/Braces",
+            "Protective/Safety",
+            "Accessories",
+            "Exhaust",
+            "Brakes",
+            "Stands/Lifts",
+            "Air Filters",
+            "Straps/Tie-Downs",
+            "Suspension",
+            "Chains",
+            "Tank Tops",
+            "Gauges/Meters"
+        ]
+    },
+    "ADAPTIV": {
+        "id": 732,
+        "product_types": [
+            "Accessories",
+            "Electrical",
+            "Mounts/Brackets",
+            "Audio/Visual/Communication"
+        ]
+    },
+    "AIRHAWK": {
+        "id": 39,
+        "product_types": [
+            "Seat",
+            "Accessories"
+        ]
+    },
+    "AIRHEAD": {
+        "id": 54,
+        "product_types": [
+            "Watercraft Towables",
+            "Accessories",
+            "Tubes",
+            "Eyewear"
+        ]
+    },
+    "AIRPRO FORK": {
+        "id": 845,
+        "product_types": [
+            "Suspension",
+            "Exhaust"
+        ]
+    },
+    "ALIENATION": {
+        "id": 84,
+        "product_types": []
+    },
+    "ALL BALLS": {
+        "id": 99,
+        "product_types": [
+            "Drive",
+            "Brakes",
+            "Hand Controls",
+            "Suspension",
+            "Engine",
+            "Steering",
+            "Intake/Carb/Fuel System",
+            "Electrical",
+            "Starters",
+            "Hardware/Fasteners/Fittings",
+            "Tools",
+            "Cable/Hydraulic Control Lines",
+            "Clutch",
+            "Trailer/Towing",
+            "Engine Management",
+            "Jets",
+            "Air Filters",
+            "Gaskets/Seals",
+            "Accessories",
+            "Switches",
+            "Mounts/Brackets",
+            "Throttle",
+            "Gauges/Meters",
+            "Winch",
+            "Wheel Components",
+            "Belts"
+        ]
+    },
+    "ALL RITE": {
+        "id": 113,
+        "product_types": [
+            "Racks",
+            "Hand Controls",
+            "Accessories",
+            "Throttle"
+        ]
+    },
+    "ALLSPORT": {
+        "id": 128,
+        "product_types": [
+            "Protective/Safety"
+        ]
+    },
+    "ALPINESTARS": {
+        "id": 769,
+        "product_types": [
+            "Footwear",
+            "Protective/Safety",
+            "Socks",
+            "Shirts",
+            "Shorts",
+            "Headgear",
+            "Accessories",
+            "Promotional",
+            "Gloves",
+            "Hoodies",
+            "Jackets",
+            "Trailer/Towing",
+            "Tank Tops",
+            "Pants",
+            "Luggage",
+            "Sweaters",
+            "Helmets",
+            "Helmet Accessories",
+            "Guards/Braces",
+            "Undergarments",
+            "Jerseys",
+            "Vests",
+            "Belts",
+            "Suits"
+        ]
+    },
+    "ALTO": {
+        "id": 175,
+        "product_types": [
+            "Clutch"
+        ]
+    },
+    "AMERICAN MFG": {
+        "id": 243,
+        "product_types": [
+            "Trailer/Towing",
+            "Tools",
+            "Plow"
+        ]
+    },
+    "AMK": {
+        "id": 2,
+        "product_types": [
+            "Protective/Safety"
+        ]
+    },
+    "AMMCO": {
+        "id": 272,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "ANARCHY": {
+        "id": 288,
+        "product_types": []
+    },
+    "ANCRA": {
+        "id": 302,
+        "product_types": [
+            "Trailer/Towing",
+            "Straps/Tie-Downs"
+        ]
+    },
+    "ANTIGRAVITY": {
+        "id": 835,
+        "product_types": [
+            "Batteries",
+            "Electrical",
+            "Tools"
+        ]
+    },
+    "AO COOLERS": {
+        "id": 310,
+        "product_types": [
+            "Accessories"
+        ]
+    },
+    "APM": {
+        "id": 838,
+        "product_types": [
+            "Clutch",
+            "Electrical",
+            "Hardware/Fasteners/Fittings",
+            "Drive"
+        ]
+    },
+    "AQUA-HOT": {
+        "id": 332,
+        "product_types": [
+            "Accessories"
+        ]
+    },
+    "AQUACART": {
+        "id": 318,
+        "product_types": [
+            "Stands/Lifts",
+            "Trailer/Towing",
+            "Accessories",
+            "Tools"
+        ]
+    },
+    "AQUATIC AV": {
+        "id": 326,
+        "product_types": [
+            "Audio/Visual/Communication",
+            "Accessories",
+            "Promotional"
+        ]
+    },
+    "ARC": {
+        "id": 344,
+        "product_types": [
+            "Hand Controls",
+            "Levers",
+            "Guards/Braces"
+        ]
+    },
+    "ARISUN": {
+        "id": 372,
+        "product_types": [
+            "Tires",
+            "Tubes"
+        ]
+    },
+    "ARNOTT": {
+        "id": 381,
+        "product_types": [
+            "Suspension"
+        ]
+    },
+    "ATHENA": {
+        "id": 408,
+        "product_types": [
+            "Gaskets/Seals",
+            "Engine",
+            "Piston kits & Components",
+            "Engine Management",
+            "Drive",
+            "Belts",
+            "Exhaust",
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "ATLANTIS": {
+        "id": 420,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Accessories",
+            "Engine",
+            "Body",
+            "Protective/Safety",
+            "Electrical"
+        ]
+    },
+    "ATV TEK": {
+        "id": 447,
+        "product_types": [
+            "Luggage",
+            "Mounts/Brackets",
+            "Trailer/Towing",
+            "Straps/Tie-Downs",
+            "Winch",
+            "Mirrors",
+            "Seat",
+            "Accessories",
+            "Headgear",
+            "Electrical",
+            "Racks",
+            "Security",
+            "Hardware/Fasteners/Fittings",
+            "Illumination"
+        ]
+    },
+    "AUTOLITE": {
+        "id": 458,
+        "product_types": [
+            "Spark Plugs"
+        ]
+    },
+    "AVON": {
+        "id": 472,
+        "product_types": [
+            "Grips",
+            "Foot Controls",
+            "Hand Controls",
+            "Drive"
+        ]
+    },
+    "AWC": {
+        "id": 119,
+        "product_types": [
+            "Wheel Components",
+            "Wheels",
+            "Tires",
+            "Rims",
+            "Tools"
+        ]
+    },
+    "AXIA": {
+        "id": 478,
+        "product_types": [
+            "Clamps",
+            "Mirrors",
+            "Accessories",
+            "Mounts/Brackets",
+            "Illumination"
+        ]
+    },
+    "BAFFIN": {
+        "id": 488,
+        "product_types": [
+            "Footwear"
+        ]
+    },
+    "BAGGERNATION": {
+        "id": 816,
+        "product_types": [
+            "Body",
+            "Accessories",
+            "Illumination",
+            "Foot Controls",
+            "Mirrors",
+            "Grips",
+            "Levers",
+            "Handlebars",
+            "Mounts/Brackets",
+            "Suspension",
+            "Risers",
+            "Steering",
+            "Hardware/Fasteners/Fittings",
+            "Promotional",
+            "Luggage",
+            "Tire And Wheel Kit",
+            "Exhaust",
+            "Brakes",
+            "Hand Controls",
+            "Seat",
+            "Stands/Lifts",
+            "Guards/Braces"
+        ]
+    },
+    "BAKER": {
+        "id": 501,
+        "product_types": [
+            "Drive",
+            "Tools",
+            "Engine"
+        ]
+    },
+    "BANKS": {
+        "id": 555,
+        "product_types": [
+            "Accessories",
+            "Trailer/Towing"
+        ]
+    },
+    "BATTERY TENDER": {
+        "id": 567,
+        "product_types": [
+            "Tools",
+            "Batteries",
+            "Electrical"
+        ]
+    },
+    "BAUER": {
+        "id": 579,
+        "product_types": [
+            "Switches"
+        ]
+    },
+    "BAZZAZ": {
+        "id": 586,
+        "product_types": [
+            "Engine Management"
+        ]
+    },
+    "BBR": {
+        "id": 592,
+        "product_types": [
+            "Seat",
+            "Tire/Wheel Accessories",
+            "Engine",
+            "Clutch",
+            "Guards/Braces",
+            "Drive",
+            "Gas Caps",
+            "Foot Controls",
+            "Handlebars",
+            "Steering",
+            "Levers",
+            "Cable/Hydraulic Control Lines",
+            "Intake/Carb/Fuel System",
+            "Suspension",
+            "Piston kits & Components",
+            "Air Filters",
+            "Electrical",
+            "Grips",
+            "Mounts/Brackets",
+            "Exhaust",
+            "Accessories",
+            "Tools",
+            "Rims"
+        ]
+    },
+    "BDX": {
+        "id": 711,
+        "product_types": [
+            "Clutch",
+            "Drive",
+            "Tools",
+            "Chemicals",
+            "Brakes",
+            "Gaskets/Seals",
+            "Steering",
+            "Intake/Carb/Fuel System",
+            "Sprockets",
+            "Suspension",
+            "Exhaust",
+            "Body",
+            "Engine",
+            "Guards/Braces",
+            "Air Filters"
+        ]
+    },
+    "BEARD": {
+        "id": 604,
+        "product_types": [
+            "Mirrors",
+            "Protective/Safety",
+            "Seat"
+        ]
+    },
+    "BEER OPTICS": {
+        "id": 610,
+        "product_types": [
+            "Eyewear"
+        ]
+    },
+    "BEL-RAY": {
+        "id": 616,
+        "product_types": [
+            "Chemicals",
+            "Promotional"
+        ]
+    },
+    "BETTER BOARDS": {
+        "id": 552,
+        "product_types": [
+            "Foot Controls"
+        ]
+    },
+    "BFGOODRICH": {
+        "id": 841,
+        "product_types": [
+            "Tires"
+        ]
+    },
+    "BIG BIKE PARTS": {
+        "id": 642,
+        "product_types": [
+            "Accessories",
+            "Windshield/Windscreen",
+            "Luggage",
+            "Tire/Wheel Accessories"
+        ]
+    },
+    "BIKE SPIRITS": {
+        "id": 397,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "BLAC-RAC": {
+        "id": 820,
+        "product_types": [
+            "Mounts/Brackets",
+            "Accessories"
+        ]
+    },
+    "BLACK CROWN": {
+        "id": 710,
+        "product_types": [
+            "Sprockets"
+        ]
+    },
+    "BLASTER": {
+        "id": 26,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "BLENDZALL": {
+        "id": 712,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "BLOWSION": {
+        "id": 714,
+        "product_types": [
+            "Steering",
+            "Accessories",
+            "Handlebars",
+            "Intake/Carb/Fuel System",
+            "Body",
+            "Straps/Tie-Downs",
+            "Throttle",
+            "Drive",
+            "Switches"
+        ]
+    },
+    "BLU": {
+        "id": 776,
+        "product_types": [
+            "Tire/Wheel Accessories",
+            "Electrical"
+        ]
+    },
+    "BLUE JOB": {
+        "id": 715,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "BLUE MARBLE": {
+        "id": 716,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "BLUHM": {
+        "id": 717,
+        "product_types": [
+            "Tools",
+            "Illumination",
+            "Electrical"
+        ]
+    },
+    "BMP": {
+        "id": 666,
+        "product_types": [
+            "Engine",
+            "Exhaust",
+            "Clutch"
+        ]
+    },
+    "BOBSTER": {
+        "id": 718,
+        "product_types": [
+            "Eyewear",
+            "Promotional"
+        ]
+    },
+    "BOLT": {
+        "id": 719,
+        "product_types": [
+            "Hardware/Fasteners/Fittings",
+            "Promotional",
+            "Tire/Wheel Accessories",
+            "Suspension",
+            "Drive",
+            "Exhaust",
+            "Oil Filters",
+            "Tools"
+        ]
+    },
+    "BOMBER": {
+        "id": 721,
+        "product_types": [
+            "Promotional",
+            "Eyewear"
+        ]
+    },
+    "BOONDOCKER": {
+        "id": 723,
+        "product_types": [
+            "Videos"
+        ]
+    },
+    "BOSS AUDIO": {
+        "id": 724,
+        "product_types": [
+            "Audio/Visual/Communication",
+            "Promotional",
+            "Accessories",
+            "Gauges/Meters",
+            "Illumination",
+            "Protective/Safety"
+        ]
+    },
+    "BOX": {
+        "id": 726,
+        "product_types": [
+            "Handlebars",
+            "Sprockets",
+            "Cranks",
+            "Brakes",
+            "Tires"
+        ]
+    },
+    "BOYESEN": {
+        "id": 727,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Gaskets/Seals",
+            "Engine"
+        ]
+    },
+    "BRAKING": {
+        "id": 730,
+        "product_types": [
+            "Brakes",
+            "Levers",
+            "Mounts/Brackets"
+        ]
+    },
+    "BRASS BALLS": {
+        "id": 809,
+        "product_types": [
+            "Hand Controls"
+        ]
+    },
+    "BRONCO": {
+        "id": 733,
+        "product_types": [
+            "Suspension",
+            "Electrical",
+            "Engine"
+        ]
+    },
+    "BTL DESIGNS": {
+        "id": 630,
+        "product_types": [
+            "Ice Scratchers",
+            "Chemicals",
+            "Tools",
+            "Clutch",
+            "Suspension",
+            "Track Kit"
+        ]
+    },
+    "BUBBA ROPES": {
+        "id": 2668,
+        "product_types": [
+            "Winch"
+        ]
+    },
+    "BULLDOG": {
+        "id": 735,
+        "product_types": [
+            "Wheel Components",
+            "Tools"
+        ]
+    },
+    "BULLY DOG": {
+        "id": 736,
+        "product_types": [
+            "Accessories",
+            "Engine Management"
+        ]
+    },
+    "BURLY BRAND": {
+        "id": 737,
+        "product_types": [
+            "Hand Controls",
+            "Body",
+            "Handlebars",
+            "Foot Controls",
+            "Seat",
+            "Illumination",
+            "Luggage",
+            "Clutch",
+            "Suspension",
+            "Brakes",
+            "Guards/Braces",
+            "Mounts/Brackets",
+            "Cable/Hydraulic Control Lines",
+            "Mirrors",
+            "Grips"
+        ]
+    },
+    "BUSS": {
+        "id": 738,
+        "product_types": [
+            "Electrical"
+        ]
+    },
+    "BUTTY BUDDY": {
+        "id": 740,
+        "product_types": [
+            "Seat"
+        ]
+    },
+    "BYKAS": {
+        "id": 741,
+        "product_types": [
+            "Tire/Wheel Accessories"
+        ]
+    },
+    "C&A": {
+        "id": 743,
+        "product_types": [
+            "Skis/Carbides/Runners",
+            "Mounts/Brackets"
+        ]
+    },
+    "CALIBER": {
+        "id": 744,
+        "product_types": [
+            "Straps/Tie-Downs",
+            "Trailer/Towing",
+            "Tools",
+            "Wheels",
+            "Chemicals",
+            "Promotional",
+            "Accessories",
+            "Stands/Lifts",
+            "Clamps"
+        ]
+    },
+    "CALIFORNIA HEAT": {
+        "id": 848,
+        "product_types": [
+            "Layers",
+            "Gloves",
+            "Vests",
+            "Headgear",
+            "Accessories",
+            "Batteries",
+            "Electrical",
+            "Pants",
+            "Jackets"
+        ]
+    },
+    "CAMSO": {
+        "id": 747,
+        "product_types": [
+            "Track Kit",
+            "Skis/Carbides/Runners",
+            "Tracks",
+            "Wheels"
+        ]
+    },
+    "CANDLEPOWER": {
+        "id": 748,
+        "product_types": [
+            "Illumination"
+        ]
+    },
+    "CANYON DANCER": {
+        "id": 749,
+        "product_types": [
+            "Straps/Tie-Downs"
+        ]
+    },
+    "CARDO": {
+        "id": 513,
+        "product_types": [
+            "Electrical",
+            "Audio/Visual/Communication",
+            "Helmet Accessories",
+            "Accessories",
+            "Luggage",
+            "Mounts/Brackets"
+        ]
+    },
+    "CARLISLE": {
+        "id": 2041,
+        "product_types": [
+            "Tires"
+        ]
+    },
+    "CASTROL": {
+        "id": 753,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "CAT CRAP": {
+        "id": 794,
+        "product_types": [
+            "Chemicals",
+            "Accessories"
+        ]
+    },
+    "CERWIN VEGA": {
+        "id": 3593,
+        "product_types": [
+            "Audio/Visual/Communication",
+            "Electrical"
+        ]
+    },
+    "CFR": {
+        "id": 4,
+        "product_types": [
+            "Mounts/Brackets",
+            "Luggage",
+            "Handlebars",
+            "Racks",
+            "Clamps",
+            "Hardware/Fasteners/Fittings",
+            "Straps/Tie-Downs",
+            "Grips"
+        ]
+    },
+    "CHASE": {
+        "id": 756,
+        "product_types": [
+            "Bike"
+        ]
+    },
+    "CHASE HARPER": {
+        "id": 3,
+        "product_types": [
+            "Luggage"
+        ]
+    },
+    "CHRIS PRODUCTS": {
+        "id": 6,
+        "product_types": [
+            "Illumination",
+            "Body",
+            "Accessories",
+            "Mounts/Brackets",
+            "Hardware/Fasteners/Fittings"
+        ]
+    },
+    "CIPA": {
+        "id": 7,
+        "product_types": [
+            "Mirrors"
+        ]
+    },
+    "CLASSIC ACC.": {
+        "id": 9,
+        "product_types": [
+            "Storage Covers",
+            "UTV Cab/Roof/Door",
+            "Accessories",
+            "Seat",
+            "Windshield/Windscreen"
+        ]
+    },
+    "CLYMER": {
+        "id": 18,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "COBRA": {
+        "id": 3526,
+        "product_types": [
+            "Body",
+            "Luggage",
+            "Racks",
+            "Foot Controls",
+            "Illumination",
+            "Exhaust",
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "COLONY MACHINE": {
+        "id": 781,
+        "product_types": [
+            "Hardware/Fasteners/Fittings",
+            "Engine",
+            "Suspension"
+        ]
+    },
+    "COM. SEWING": {
+        "id": 23,
+        "product_types": [
+            "Storage Covers"
+        ]
+    },
+    "COMET": {
+        "id": 21,
+        "product_types": [
+            "Belts",
+            "Clutch",
+            "Chemicals",
+            "Tools"
+        ]
+    },
+    "COMETIC": {
+        "id": 22,
+        "product_types": [
+            "Gaskets/Seals",
+            "Engine"
+        ]
+    },
+    "COMP. CHEM.": {
+        "id": 24,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "COMP. WERKES": {
+        "id": 25,
+        "product_types": [
+            "Illumination",
+            "Body",
+            "Hardware/Fasteners/Fittings",
+            "Tire/Wheel Accessories"
+        ]
+    },
+    "COMPUFIRE": {
+        "id": 1117,
+        "product_types": [
+            "Electrical"
+        ]
+    },
+    "CONDOR": {
+        "id": 27,
+        "product_types": [
+            "Trailer/Towing",
+            "Helmet Accessories"
+        ]
+    },
+    "COOL-N-LUBE": {
+        "id": 802,
+        "product_types": [
+            "Ice Scratchers"
+        ]
+    },
+    "COUNTERACT": {
+        "id": 29,
+        "product_types": [
+            "Tire/Wheel Accessories",
+            "Tubes"
+        ]
+    },
+    "COUNTRY ENT.": {
+        "id": 30,
+        "product_types": [
+            "Protective/Safety"
+        ]
+    },
+    "COVERCRAFT": {
+        "id": 31,
+        "product_types": [
+            "Storage Covers"
+        ]
+    },
+    "CP": {
+        "id": 773,
+        "product_types": [
+            "Foot Controls"
+        ]
+    },
+    "CRAMPBUSTER": {
+        "id": 33,
+        "product_types": [
+            "Hand Controls"
+        ]
+    },
+    "CRUPI": {
+        "id": 34,
+        "product_types": [
+            "Steering",
+            "Seat",
+            "Wheels"
+        ]
+    },
+    "CRUZ TOOLS": {
+        "id": 35,
+        "product_types": [
+            "Tools",
+            "Illumination"
+        ]
+    },
+    "CST": {
+        "id": 5,
+        "product_types": [
+            "Tires"
+        ]
+    },
+    "CTEK": {
+        "id": 1909,
+        "product_types": [
+            "Mounts/Brackets",
+            "Accessories",
+            "Batteries"
+        ]
+    },
+    "CURT": {
+        "id": 3394,
+        "product_types": [
+            "Accessories",
+            "Trailer/Towing",
+            "Winch"
+        ]
+    },
+    "CURVE": {
+        "id": 36,
+        "product_types": [
+            "Skis/Carbides/Runners"
+        ]
+    },
+    "CUSTOM ENGRAVING": {
+        "id": 2801,
+        "product_types": [
+            "Body"
+        ]
+    },
+    "CUSTOMACCES": {
+        "id": 2800,
+        "product_types": [
+            "Luggage"
+        ]
+    },
+    "CV4": {
+        "id": 1259,
+        "product_types": [
+            "Engine"
+        ]
+    },
+    "CYCLE COUNTRY": {
+        "id": 40,
+        "product_types": [
+            "Tires",
+            "Hardware/Fasteners/Fittings",
+            "Winch",
+            "Plow"
+        ]
+    },
+    "CYCLE ELECTRIC": {
+        "id": 42,
+        "product_types": [
+            "Electrical"
+        ]
+    },
+    "CYCLE PRO": {
+        "id": 41,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Jets",
+            "Brakes",
+            "Piston kits & Components",
+            "Electrical",
+            "Clutch",
+            "Engine"
+        ]
+    },
+    "CYCLE SOUNDS": {
+        "id": 43,
+        "product_types": [
+            "Audio/Visual/Communication"
+        ]
+    },
+    "CYCLE SPRINGS": {
+        "id": 44,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Engine"
+        ]
+    },
+    "CYCLE WORKS": {
+        "id": 818,
+        "product_types": [
+            "Seat"
+        ]
+    },
+    "CYLINDER WORKS": {
+        "id": 46,
+        "product_types": [
+            "Engine",
+            "Piston kits & Components",
+            "Gaskets/Seals"
+        ]
+    },
+    "CYRON": {
+        "id": 853,
+        "product_types": [
+            "Illumination",
+            "Mounts/Brackets"
+        ]
+    },
+    "D-COR": {
+        "id": 47,
+        "product_types": [
+            "Graphics/Decals",
+            "Seat",
+            "Headgear",
+            "Shirts",
+            "Hoodies",
+            "Promotional",
+            "Accessories",
+            "Sweaters",
+            "Body"
+        ]
+    },
+    "D.I.D": {
+        "id": 48,
+        "product_types": [
+            "Chains",
+            "Engine",
+            "Rims",
+            "Tools"
+        ]
+    },
+    "DANNY GRAY": {
+        "id": 50,
+        "product_types": [
+            "Seat"
+        ]
+    },
+    "DAYCO": {
+        "id": 52,
+        "product_types": [
+            "Belts"
+        ]
+    },
+    "DAYTONA": {
+        "id": 53,
+        "product_types": [
+            "Engine Management",
+            "Electrical",
+            "Hardware/Fasteners/Fittings",
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "DEAD BOLT": {
+        "id": 55,
+        "product_types": [
+            "Security"
+        ]
+    },
+    "DEI": {
+        "id": 58,
+        "product_types": [
+            "Exhaust",
+            "Tools",
+            "Chemicals"
+        ]
+    },
+    "DEUTER": {
+        "id": 60,
+        "product_types": [
+            "Luggage",
+            "Accessories"
+        ]
+    },
+    "DEVIANT RACE PARTS": {
+        "id": 953,
+        "product_types": [
+            "Suspension",
+            "Engine",
+            "Body",
+            "Mounts/Brackets",
+            "Protective/Safety",
+            "Clamps",
+            "Intake/Carb/Fuel System",
+            "Electrical",
+            "Hand Controls",
+            "Mirrors",
+            "Accessories"
+        ]
+    },
+    "DEVOL": {
+        "id": 62,
+        "product_types": [
+            "Suspension",
+            "Guards/Braces"
+        ]
+    },
+    "DFG": {
+        "id": 2932,
+        "product_types": [
+            "Luggage"
+        ]
+    },
+    "DIAG4 BIKE": {
+        "id": 64,
+        "product_types": [
+            "Engine Management",
+            "Electrical",
+            "Tools"
+        ]
+    },
+    "DIAMOND AUDIO": {
+        "id": 3592,
+        "product_types": [
+            "Audio/Visual/Communication"
+        ]
+    },
+    "DIAMOND CHAIN": {
+        "id": 1119,
+        "product_types": [
+            "Drive"
+        ]
+    },
+    "DIAMOND LED": {
+        "id": 1216,
+        "product_types": [
+            "Illumination"
+        ]
+    },
+    "DIRT DIGITS": {
+        "id": 65,
+        "product_types": [
+            "Graphics/Decals"
+        ]
+    },
+    "DIRT TRICKS": {
+        "id": 1051,
+        "product_types": [
+            "Sprockets",
+            "Hardware/Fasteners/Fittings",
+            "Engine",
+            "Tools"
+        ]
+    },
+    "DK CUSTOM PRODUCTS": {
+        "id": 1256,
+        "product_types": [
+            "Hardware/Fasteners/Fittings",
+            "Electrical"
+        ]
+    },
+    "DMP": {
+        "id": 80,
+        "product_types": [
+            "Tire/Wheel Accessories",
+            "Illumination",
+            "Electrical",
+            "Stands/Lifts",
+            "Body"
+        ]
+    },
+    "DOBECK": {
+        "id": 69,
+        "product_types": [
+            "Engine Management",
+            "Electrical",
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "DOMINO RACING": {
+        "id": 3427,
+        "product_types": [
+            "Grips"
+        ]
+    },
+    "DOWCO": {
+        "id": 71,
+        "product_types": [
+            "Storage Covers",
+            "Accessories",
+            "Body",
+            "Luggage"
+        ]
+    },
+    "DR.D": {
+        "id": 78,
+        "product_types": [
+            "Gauges/Meters",
+            "Mounts/Brackets",
+            "Hand Controls",
+            "Engine",
+            "Exhaust"
+        ]
+    },
+    "DRAGON": {
+        "id": 72,
+        "product_types": [
+            "Eyewear",
+            "Shirts",
+            "Promotional"
+        ]
+    },
+    "DRAGONFLY": {
+        "id": 814,
+        "product_types": [
+            "Body"
+        ]
+    },
+    "DRAW-TITE": {
+        "id": 73,
+        "product_types": [
+            "Trailer/Towing"
+        ]
+    },
+    "DRAYKO": {
+        "id": 74,
+        "product_types": [
+            "Pants"
+        ]
+    },
+    "DRC": {
+        "id": 75,
+        "product_types": [
+            "Foot Controls",
+            "Stands/Lifts",
+            "Accessories",
+            "Trailer/Towing",
+            "Tools",
+            "Spark Plugs",
+            "Tire/Wheel Accessories",
+            "Exhaust",
+            "Illumination",
+            "Hardware/Fasteners/Fittings",
+            "Electrical",
+            "Brakes",
+            "Gas Caps",
+            "Suspension",
+            "Handguards",
+            "Guards/Braces",
+            "Clamps",
+            "Body",
+            "Racks",
+            "Risers",
+            "Hand Controls",
+            "Replacement Parts",
+            "Engine"
+        ]
+    },
+    "DRIVEN": {
+        "id": 76,
+        "product_types": [
+            "Tires"
+        ]
+    },
+    "DRYGUY": {
+        "id": 788,
+        "product_types": [
+            "Accessories"
+        ]
+    },
+    "DSG": {
+        "id": 66,
+        "product_types": [
+            "Headgear",
+            "Jackets",
+            "Layers",
+            "Shirts",
+            "Pants",
+            "Footwear",
+            "Promotional",
+            "Gloves",
+            "Hoodies",
+            "Socks",
+            "Luggage",
+            "Suits",
+            "Undergarments",
+            "Vests",
+            "Accessories",
+            "Sweaters",
+            "Batteries"
+        ]
+    },
+    "DSS": {
+        "id": 57,
+        "product_types": [
+            "Tools",
+            "Accessories"
+        ]
+    },
+    "DUBYA": {
+        "id": 767,
+        "product_types": [
+            "Rims",
+            "Wheels",
+            "Wheel Components",
+            "Tire/Wheel Accessories"
+        ]
+    },
+    "DUNLOP": {
+        "id": 1085,
+        "product_types": [
+            "Tires",
+            "Promotional",
+            "Tubes"
+        ]
+    },
+    "DUPONT": {
+        "id": 839,
+        "product_types": [
+            "Hyfax"
+        ]
+    },
+    "DURABLUE": {
+        "id": 791,
+        "product_types": [
+            "Drive",
+            "Suspension",
+            "Hardware/Fasteners/Fittings"
+        ]
+    },
+    "DUX": {
+        "id": 79,
+        "product_types": [
+            "Illumination",
+            "Mounts/Brackets"
+        ]
+    },
+    "DWT": {
+        "id": 70,
+        "product_types": [
+            "Wheels",
+            "Wheel Components",
+            "Accessories"
+        ]
+    },
+    "DYNATEK": {
+        "id": 81,
+        "product_types": [
+            "Engine Management",
+            "Electrical",
+            "Mounts/Brackets",
+            "Engine",
+            "Illumination"
+        ]
+    },
+    "DYNOJET": {
+        "id": 82,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Engine Management",
+            "Electrical",
+            "Mounts/Brackets",
+            "Levers",
+            "Guards/Braces",
+            "Body",
+            "Jets",
+            "Clutch"
+        ]
+    },
+    "E-LINE ACCESSORIES": {
+        "id": 1282,
+        "product_types": [
+            "Guards/Braces",
+            "Accessories",
+            "Exhaust"
+        ]
+    },
+    "E13": {
+        "id": 435,
+        "product_types": [
+            "Tires",
+            "Seat",
+            "Wheels"
+        ]
+    },
+    "EAGLE GRIT": {
+        "id": 1612,
+        "product_types": [
+            "Chemicals",
+            "Mounts/Brackets",
+            "Tools"
+        ]
+    },
+    "EASYMOVE": {
+        "id": 83,
+        "product_types": [
+            "Tools",
+            "Wheels",
+            "Stands/Lifts"
+        ]
+    },
+    "EBC": {
+        "id": 85,
+        "product_types": [
+            "Jets",
+            "Brakes",
+            "Clutch",
+            "Chemicals",
+            "Tools"
+        ]
+    },
+    "ECHO": {
+        "id": 86,
+        "product_types": [
+            "Helmet Accessories"
+        ]
+    },
+    "ECOXGEAR": {
+        "id": 1744,
+        "product_types": [
+            "Audio/Visual/Communication",
+            "Electrical",
+            "Replacement Parts",
+            "Mounts/Brackets",
+            "Illumination",
+            "Accessories"
+        ]
+    },
+    "EK": {
+        "id": 89,
+        "product_types": [
+            "Chains",
+            "Tools"
+        ]
+    },
+    "EKLIPES": {
+        "id": 90,
+        "product_types": [
+            "Accessories",
+            "Electrical"
+        ]
+    },
+    "EKS BRAND": {
+        "id": 91,
+        "product_types": [
+            "Eyewear",
+            "Grips"
+        ]
+    },
+    "ELEMENT FIRE": {
+        "id": 2602,
+        "product_types": [
+            "Accessories",
+            "Mounts/Brackets"
+        ]
+    },
+    "EMD": {
+        "id": 106,
+        "product_types": [
+            "Engine",
+            "Suspension",
+            "Wheels",
+            "Illumination",
+            "Air Filters"
+        ]
+    },
+    "EMERSON": {
+        "id": 94,
+        "product_types": [
+            "Drive"
+        ]
+    },
+    "EMGO": {
+        "id": 95,
+        "product_types": [
+            "Electrical",
+            "Illumination",
+            "Gaskets/Seals",
+            "Handlebars",
+            "Engine",
+            "Foot Controls",
+            "Oil Filters",
+            "Tools",
+            "Hardware/Fasteners/Fittings",
+            "Accessories",
+            "Switches",
+            "Mirrors",
+            "Eyewear",
+            "Mounts/Brackets",
+            "Levers",
+            "Exhaust",
+            "Body",
+            "Windshield/Windscreen",
+            "Grips",
+            "Suspension",
+            "Drive",
+            "Air Filters",
+            "Tire/Wheel Accessories"
+        ]
+    },
+    "ENDURO ENGINEERING": {
+        "id": 1226,
+        "product_types": [
+            "Mounts/Brackets",
+            "Guards/Braces",
+            "Straps/Tie-Downs",
+            "Clutch",
+            "Tools",
+            "Brakes",
+            "Exhaust",
+            "Handguards",
+            "Risers",
+            "Drive",
+            "Body",
+            "Wheel Components",
+            "Handlebars"
+        ]
+    },
+    "ENERGY ONE": {
+        "id": 96,
+        "product_types": [
+            "Clutch"
+        ]
+    },
+    "ENERGY SUSP.": {
+        "id": 98,
+        "product_types": [
+            "Steering",
+            "Hardware/Fasteners/Fittings",
+            "Drive",
+            "Suspension",
+            "Seat",
+            "Mounts/Brackets",
+            "Foot Controls",
+            "Body"
+        ]
+    },
+    "ENGINE ICE": {
+        "id": 45,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "EPI": {
+        "id": 102,
+        "product_types": [
+            "Tools",
+            "Mounts/Brackets",
+            "Drive",
+            "Clutch",
+            "Belts",
+            "Suspension",
+            "Luggage",
+            "Gaskets/Seals"
+        ]
+    },
+    "ERLANDSON": {
+        "id": 103,
+        "product_types": [
+            "Belts"
+        ]
+    },
+    "ERNST": {
+        "id": 104,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "EVANS": {
+        "id": 807,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "EVS": {
+        "id": 108,
+        "product_types": [
+            "Protective/Safety",
+            "Luggage",
+            "Gloves",
+            "Layers",
+            "Footwear",
+            "Shirts",
+            "Vests",
+            "Shorts",
+            "Pants",
+            "Socks"
+        ]
+    },
+    "EXCESS": {
+        "id": 109,
+        "product_types": [
+            "Tubes",
+            "Wheels"
+        ]
+    },
+    "EXTANG": {
+        "id": 850,
+        "product_types": [
+            "Body"
+        ]
+    },
+    "EXTREME TEAM": {
+        "id": 110,
+        "product_types": [
+            "Videos"
+        ]
+    },
+    "EXUSTAR": {
+        "id": 111,
+        "product_types": []
+    },
+    "F2P": {
+        "id": 114,
+        "product_types": [
+            "Accessories"
+        ]
+    },
+    "FABCRAFT": {
+        "id": 115,
+        "product_types": [
+            "Hand Controls",
+            "Drive"
+        ]
+    },
+    "FACTOR 55": {
+        "id": 2239,
+        "product_types": [
+            "Winch"
+        ]
+    },
+    "FACTORY PRO": {
+        "id": 116,
+        "product_types": [
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "FEULING": {
+        "id": 118,
+        "product_types": [
+            "Engine",
+            "Tools"
+        ]
+    },
+    "FIGURE MACHINE": {
+        "id": 121,
+        "product_types": [
+            "Drive",
+            "Engine"
+        ]
+    },
+    "FIMCO": {
+        "id": 122,
+        "product_types": [
+            "Farm/Agriculture",
+            "Mounts/Brackets"
+        ]
+    },
+    "FIRE POWER": {
+        "id": 124,
+        "product_types": [
+            "Exhaust",
+            "Tools",
+            "Intake/Carb/Fuel System",
+            "Throttle",
+            "Handguards",
+            "Hand Controls",
+            "Drive",
+            "Starters",
+            "Electrical",
+            "Body",
+            "Straps/Tie-Downs",
+            "Suspension",
+            "Grips",
+            "Batteries",
+            "Trailer/Towing",
+            "Levers",
+            "Foot Controls",
+            "Switches",
+            "Mounts/Brackets",
+            "Illumination",
+            "Chains",
+            "Tire/Wheel Accessories",
+            "Engine",
+            "Promotional",
+            "Graphics/Decals",
+            "Shirts",
+            "Chemicals",
+            "Oil Filters",
+            "Stands/Lifts",
+            "Headgear",
+            "Racks",
+            "Gas Caps",
+            "Wheels",
+            "Accessories",
+            "Handlebars",
+            "Sprockets",
+            "Utility Containers",
+            "Spark Plugs",
+            "Clutch",
+            "Storage Covers"
+        ]
+    },
+    "FIREBRAND": {
+        "id": 1514,
+        "product_types": [
+            "Exhaust",
+            "Mounts/Brackets",
+            "Gaskets/Seals",
+            "Hardware/Fasteners/Fittings",
+            "Foot Controls"
+        ]
+    },
+    "FIREBRAND-OLD": {
+        "id": 123,
+        "product_types": [
+            "Exhaust",
+            "Engine",
+            "Promotional"
+        ]
+    },
+    "FIRESTIK": {
+        "id": 125,
+        "product_types": [
+            "Protective/Safety",
+            "Mounts/Brackets"
+        ]
+    },
+    "FIRST ALERT": {
+        "id": 832,
+        "product_types": [
+            "Protective/Safety"
+        ]
+    },
+    "FITCH": {
+        "id": 127,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "FIX-A-THRED": {
+        "id": 129,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "FIXT": {
+        "id": 130,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "FLASH2PASS": {
+        "id": 789,
+        "product_types": [
+            "Electrical"
+        ]
+    },
+    "FLAT OUT": {
+        "id": 1381,
+        "product_types": [
+            "Chemicals",
+            "Wheel Components"
+        ]
+    },
+    "FLIP": {
+        "id": 131,
+        "product_types": [
+            "Switches",
+            "Accessories",
+            "Electrical"
+        ]
+    },
+    "FLO MOTORSPORTS": {
+        "id": 132,
+        "product_types": [
+            "Foot Controls",
+            "Guards/Braces",
+            "Levers",
+            "Brakes",
+            "Hand Controls",
+            "Promotional",
+            "Throttle"
+        ]
+    },
+    "FLUIDYNE": {
+        "id": 133,
+        "product_types": [
+            "Engine"
+        ]
+    },
+    "FLY RACING": {
+        "id": 135,
+        "product_types": [
+            "Exhaust",
+            "Tools",
+            "Accessories",
+            "Eyewear",
+            "Suspension",
+            "Handlebars",
+            "Clamps",
+            "Steering",
+            "Risers",
+            "Flotation Vests",
+            "Grips",
+            "Sprockets",
+            "Gas Caps",
+            "Hardware/Fasteners/Fittings",
+            "Luggage",
+            "Replacement Parts",
+            "Protective/Safety",
+            "Straps/Tie-Downs",
+            "Layers",
+            "Headgear",
+            "Shirts",
+            "Shorts",
+            "Hoodies",
+            "Jackets",
+            "Promotional",
+            "Footwear",
+            "Gloves",
+            "Jerseys",
+            "Pants",
+            "Brakes",
+            "Hand Controls",
+            "Batteries",
+            "Vests",
+            "Suits",
+            "Helmet Accessories",
+            "Trailer/Towing",
+            "Levers",
+            "Foot Controls",
+            "Switches",
+            "Stands/Lifts",
+            "Helmets",
+            "Graphics/Decals",
+            "Socks",
+            "Wheels",
+            "Racks",
+            "Chains",
+            "Shoes",
+            "Mounts/Brackets",
+            "Sweaters",
+            "Tank Tops"
+        ]
+    },
+    "FMF": {
+        "id": 137,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Exhaust",
+            "Tools",
+            "Accessories",
+            "Graphics/Decals",
+            "Eyewear"
+        ]
+    },
+    "FMF APPAREL": {
+        "id": 1262,
+        "product_types": [
+            "Shirts",
+            "Hoodies",
+            "Headgear",
+            "Socks",
+            "Tank Tops",
+            "Sweaters"
+        ]
+    },
+    "FMF VISION": {
+        "id": 1265,
+        "product_types": [
+            "Eyewear"
+        ]
+    },
+    "FORBIDDEN": {
+        "id": 140,
+        "product_types": [
+            "Risers",
+            "Handlebars",
+            "Clamps"
+        ]
+    },
+    "FOUR TWELVE": {
+        "id": 141,
+        "product_types": [
+            "Grips"
+        ]
+    },
+    "FOX": {
+        "id": 144,
+        "product_types": [
+            "Suspension",
+            "Tools",
+            "Chemicals",
+            "Graphics/Decals",
+            "Hardware/Fasteners/Fittings",
+            "Mounts/Brackets"
+        ]
+    },
+    "FRAM": {
+        "id": 147,
+        "product_types": [
+            "Oil Filters"
+        ]
+    },
+    "FREEDOM": {
+        "id": 149,
+        "product_types": [
+            "Exhaust",
+            "Mounts/Brackets",
+            "Hardware/Fasteners/Fittings"
+        ]
+    },
+    "FROGG TOGGS": {
+        "id": 150,
+        "product_types": [
+            "Footwear",
+            "Jackets",
+            "Pants"
+        ]
+    },
+    "FROGZ SKIN": {
+        "id": 819,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Accessories",
+            "Body"
+        ]
+    },
+    "FUEL TOOL": {
+        "id": 154,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Tools"
+        ]
+    },
+    "FUELPAX": {
+        "id": 813,
+        "product_types": [
+            "Fuel Containers"
+        ]
+    },
+    "FULL THROTTLE": {
+        "id": 155,
+        "product_types": [
+            "Accessories",
+            "Throttle"
+        ]
+    },
+    "FULTON": {
+        "id": 157,
+        "product_types": [
+            "Trailer/Towing",
+            "Drive",
+            "Winch",
+            "Straps/Tie-Downs"
+        ]
+    },
+    "FUNNELWEB": {
+        "id": 821,
+        "product_types": [
+            "Air Filters"
+        ]
+    },
+    "FUSION": {
+        "id": 158,
+        "product_types": [
+            "Illumination"
+        ]
+    },
+    "GAERNE": {
+        "id": 159,
+        "product_types": [
+            "Socks",
+            "Footwear",
+            "Replacement Parts",
+            "Accessories"
+        ]
+    },
+    "GALFER": {
+        "id": 161,
+        "product_types": [
+            "Brakes",
+            "Cable/Hydraulic Control Lines"
+        ]
+    },
+    "GARDNERWESTCOTT": {
+        "id": 163,
+        "product_types": [
+            "Hardware/Fasteners/Fittings"
+        ]
+    },
+    "GARLAND": {
+        "id": 164,
+        "product_types": [
+            "Hyfax",
+            "Suspension"
+        ]
+    },
+    "GARMIN": {
+        "id": 165,
+        "product_types": [
+            "Mounts/Brackets",
+            "Batteries",
+            "Accessories",
+            "Audio/Visual/Communication",
+            "GPS"
+        ]
+    },
+    "GASGACINCH": {
+        "id": 166,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "GASKET TECH.": {
+        "id": 167,
+        "product_types": [
+            "Gaskets/Seals"
+        ]
+    },
+    "GATES": {
+        "id": 168,
+        "product_types": [
+            "Belts"
+        ]
+    },
+    "GBC": {
+        "id": 169,
+        "product_types": [
+            "Tires"
+        ]
+    },
+    "GEARBRAKE": {
+        "id": 171,
+        "product_types": [
+            "Electrical"
+        ]
+    },
+    "GEARS": {
+        "id": 172,
+        "product_types": [
+            "Storage Covers"
+        ]
+    },
+    "GET": {
+        "id": 173,
+        "product_types": [
+            "Engine Management",
+            "Tools",
+            "Electrical",
+            "Gauges/Meters"
+        ]
+    },
+    "GIANT LOOP": {
+        "id": 810,
+        "product_types": [
+            "Straps/Tie-Downs",
+            "Handguards",
+            "Luggage",
+            "Mounts/Brackets",
+            "Exhaust",
+            "Tools",
+            "Utility Containers",
+            "Racks"
+        ]
+    },
+    "GIVI": {
+        "id": 174,
+        "product_types": [
+            "Luggage",
+            "Hardware/Fasteners/Fittings",
+            "Mounts/Brackets",
+            "Accessories",
+            "Straps/Tie-Downs",
+            "Security",
+            "Guards/Braces",
+            "Body",
+            "Windshield/Windscreen"
+        ]
+    },
+    "GLOVETACTS": {
+        "id": 2074,
+        "product_types": [
+            "Accessories"
+        ]
+    },
+    "GLUE TREAD": {
+        "id": 1447,
+        "product_types": [
+            "Tire/Wheel Accessories",
+            "Tools",
+            "Promotional"
+        ]
+    },
+    "GMAX": {
+        "id": 176,
+        "product_types": [
+            "Helmets",
+            "Headgear",
+            "Helmet Accessories",
+            "Hardware/Fasteners/Fittings",
+            "Promotional",
+            "Graphics/Decals"
+        ]
+    },
+    "GO CRUISE": {
+        "id": 177,
+        "product_types": [
+            "Throttle"
+        ]
+    },
+    "GOLAN": {
+        "id": 1084,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Drive"
+        ]
+    },
+    "GOODRIDGE": {
+        "id": 182,
+        "product_types": [
+            "Brakes",
+            "Hardware/Fasteners/Fittings",
+            "Cable/Hydraulic Control Lines",
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "GRAB ON": {
+        "id": 184,
+        "product_types": [
+            "Grips"
+        ]
+    },
+    "GRABBER": {
+        "id": 185,
+        "product_types": [
+            "Accessories"
+        ]
+    },
+    "GRANT": {
+        "id": 768,
+        "product_types": [
+            "Steering",
+            "Protective/Safety"
+        ]
+    },
+    "GREEN LIGHT TRIGGERS": {
+        "id": 886,
+        "product_types": [
+            "Accessories"
+        ]
+    },
+    "GROTE": {
+        "id": 834,
+        "product_types": [
+            "Illumination",
+            "Trailer/Towing",
+            "Switches",
+            "Electrical"
+        ]
+    },
+    "GRUNGE BRUSH": {
+        "id": 621,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "HABER": {
+        "id": 187,
+        "product_types": [
+            "Eyewear"
+        ]
+    },
+    "HAMMERHEAD": {
+        "id": 188,
+        "product_types": [
+            "Drive",
+            "Body",
+            "Engine",
+            "Foot Controls",
+            "Oil Filters",
+            "Brakes"
+        ]
+    },
+    "HANDY": {
+        "id": 190,
+        "product_types": [
+            "Stands/Lifts",
+            "Tools",
+            "Storage Covers"
+        ]
+    },
+    "HARDDRIVE": {
+        "id": 191,
+        "product_types": [
+            "Starters",
+            "Electrical",
+            "Batteries",
+            "Wheels",
+            "Drive",
+            "Brakes",
+            "Promotional",
+            "Tools",
+            "Gaskets/Seals",
+            "Exhaust",
+            "Clamps",
+            "Spark Plugs",
+            "Illumination",
+            "Hardware/Fasteners/Fittings",
+            "Mounts/Brackets",
+            "Stands/Lifts",
+            "Foot Controls",
+            "Oil Filters",
+            "Mirrors",
+            "Handlebars",
+            "Steering",
+            "Risers",
+            "Hand Controls",
+            "Levers",
+            "Grips",
+            "Accessories",
+            "Suspension",
+            "Seat",
+            "Gas Caps",
+            "Body",
+            "Tire/Wheel Accessories",
+            "Luggage",
+            "Racks",
+            "Engine",
+            "Intake/Carb/Fuel System",
+            "Storage Covers",
+            "Gauges/Meters",
+            "Air Filters",
+            "Clutch",
+            "Switches",
+            "Chains",
+            "Windshield/Windscreen",
+            "Sprockets",
+            "Graphics/Decals",
+            "Throttle",
+            "Piston kits & Components",
+            "Cable/Hydraulic Control Lines",
+            "Chemicals",
+            "Headgear",
+            "Shirts",
+            "Forks",
+            "Wheel Components",
+            "Tires",
+            "Hoodies",
+            "Belts"
+        ]
+    },
+    "HARDLINE": {
+        "id": 192,
+        "product_types": [
+            "Graphics/Decals",
+            "Chemicals",
+            "Accessories",
+            "Stands/Lifts",
+            "Gauges/Meters",
+            "Mounts/Brackets",
+            "Tools",
+            "Tire/Wheel Accessories"
+        ]
+    },
+    "HARDSTREET": {
+        "id": 1257,
+        "product_types": [
+            "Accessories"
+        ]
+    },
+    "HARTMAN": {
+        "id": 193,
+        "product_types": [
+            "Body"
+        ]
+    },
+    "HASTINGS MFG": {
+        "id": 815,
+        "product_types": [
+            "Piston kits & Components"
+        ]
+    },
+    "HAWG HALTERS INC": {
+        "id": 2833,
+        "product_types": [
+            "Brakes",
+            "Sprockets",
+            "Foot Controls",
+            "Clutch",
+            "Throttle",
+            "Electrical",
+            "Steering",
+            "Suspension"
+        ]
+    },
+    "HAYDEN": {
+        "id": 194,
+        "product_types": [
+            "Drive",
+            "Engine",
+            "Gaskets/Seals"
+        ]
+    },
+    "HEAROS": {
+        "id": 195,
+        "product_types": [
+            "Protective/Safety"
+        ]
+    },
+    "HEAT DEMON": {
+        "id": 196,
+        "product_types": [
+            "Hand Controls",
+            "Switches",
+            "Seat",
+            "Grips"
+        ]
+    },
+    "HELIBARS": {
+        "id": 197,
+        "product_types": [
+            "Risers",
+            "Handlebars"
+        ]
+    },
+    "HELIX": {
+        "id": 198,
+        "product_types": [
+            "Tools",
+            "Clamps",
+            "Engine",
+            "Body",
+            "Intake/Carb/Fuel System",
+            "Exhaust",
+            "Chemicals",
+            "Oil Filters",
+            "Cable/Hydraulic Control Lines",
+            "Hardware/Fasteners/Fittings",
+            "Guards/Braces",
+            "Electrical"
+        ]
+    },
+    "HELLA MARINE": {
+        "id": 199,
+        "product_types": [
+            "Electrical"
+        ]
+    },
+    "HELMET FRESH": {
+        "id": 200,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "HIFLOFILTRO": {
+        "id": 201,
+        "product_types": [
+            "Oil Filters",
+            "Air Filters"
+        ]
+    },
+    "HIGH LIFTER": {
+        "id": 202,
+        "product_types": [
+            "Drive",
+            "Suspension",
+            "Clutch",
+            "Intake/Carb/Fuel System",
+            "Mounts/Brackets"
+        ]
+    },
+    "HIGH ROLLER": {
+        "id": 203,
+        "product_types": [
+            "Straps/Tie-Downs",
+            "Trailer/Towing"
+        ]
+    },
+    "HIGHSIDER": {
+        "id": 1348,
+        "product_types": [
+            "Hardware/Fasteners/Fittings",
+            "Handlebars",
+            "Illumination",
+            "Mirrors",
+            "Grips",
+            "Guards/Braces",
+            "Hand Controls",
+            "Mounts/Brackets",
+            "Electrical",
+            "Body"
+        ]
+    },
+    "HIGHWAY 21": {
+        "id": 205,
+        "product_types": [
+            "Footwear",
+            "Gloves",
+            "Jackets",
+            "Vests",
+            "Pants",
+            "Hoodies",
+            "Promotional",
+            "Graphics/Decals",
+            "Shirts",
+            "Headgear",
+            "Shoes",
+            "Helmet Accessories",
+            "Helmets",
+            "Eyewear",
+            "Suits",
+            "Accessories",
+            "Luggage"
+        ]
+    },
+    "HINSON": {
+        "id": 206,
+        "product_types": [
+            "Clutch",
+            "Mounts/Brackets",
+            "Engine",
+            "Headgear",
+            "Shirts"
+        ]
+    },
+    "HIPER": {
+        "id": 207,
+        "product_types": [
+            "Wheels",
+            "Wheel Components"
+        ]
+    },
+    "HMF": {
+        "id": 209,
+        "product_types": [
+            "Exhaust",
+            "Engine Management",
+            "Body",
+            "Racks"
+        ]
+    },
+    "HMK": {
+        "id": 210,
+        "product_types": [
+            "Footwear",
+            "Jackets",
+            "Gloves",
+            "Pants",
+            "Accessories"
+        ]
+    },
+    "HOFMANN DESIGNS": {
+        "id": 2767,
+        "product_types": [
+            "Body",
+            "Steering",
+            "Foot Controls",
+            "Engine",
+            "Suspension",
+            "Handlebars",
+            "Mounts/Brackets",
+            "Gauges/Meters",
+            "Air Filters",
+            "Intake/Carb/Fuel System",
+            "Gas Caps",
+            "Hardware/Fasteners/Fittings",
+            "Hand Controls"
+        ]
+    },
+    "HOG WASH": {
+        "id": 212,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "HOLESHOT": {
+        "id": 213,
+        "product_types": [
+            "Luggage"
+        ]
+    },
+    "HOPKINS": {
+        "id": 218,
+        "product_types": [
+            "Electrical"
+        ]
+    },
+    "HOPNEL": {
+        "id": 1183,
+        "product_types": [
+            "Luggage"
+        ]
+    },
+    "HOPPE": {
+        "id": 1218,
+        "product_types": [
+            "Audio/Visual/Communication"
+        ]
+    },
+    "HORNET": {
+        "id": 219,
+        "product_types": [
+            "Body",
+            "Racks",
+            "Mounts/Brackets",
+            "Fuel Containers",
+            "Accessories",
+            "Trailer/Towing",
+            "Straps/Tie-Downs"
+        ]
+    },
+    "HOT CAMS": {
+        "id": 220,
+        "product_types": [
+            "Engine",
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "HOT PRODUCTS": {
+        "id": 222,
+        "product_types": [
+            "Throttle",
+            "Switches",
+            "Foot Controls"
+        ]
+    },
+    "HOT RODS": {
+        "id": 223,
+        "product_types": [
+            "Engine",
+            "Gaskets/Seals",
+            "Drive",
+            "Clutch",
+            "Piston kits & Components"
+        ]
+    },
+    "HOTBODIES": {
+        "id": 772,
+        "product_types": [
+            "Body",
+            "Illumination",
+            "Exhaust"
+        ]
+    },
+    "HSL": {
+        "id": 214,
+        "product_types": [
+            "Suspension"
+        ]
+    },
+    "HT COMPONENTS": {
+        "id": 833,
+        "product_types": [
+            "Foot Controls"
+        ]
+    },
+    "HT MOTO": {
+        "id": 225,
+        "product_types": [
+            "Tools",
+            "Seat"
+        ]
+    },
+    "HYDRO-TURF": {
+        "id": 227,
+        "product_types": [
+            "Body",
+            "Chemicals"
+        ]
+    },
+    "HYGEAR": {
+        "id": 762,
+        "product_types": [
+            "Suspension",
+            "Tools"
+        ]
+    },
+    "IBEXX": {
+        "id": 954,
+        "product_types": [
+            "Clutch",
+            "Tools",
+            "Mounts/Brackets",
+            "Throttle",
+            "Ice Scratchers",
+            "Engine Management"
+        ]
+    },
+    "IDEAL": {
+        "id": 952,
+        "product_types": [
+            "Stands/Lifts"
+        ]
+    },
+    "IGRIP": {
+        "id": 2536,
+        "product_types": [
+            "Tracks"
+        ]
+    },
+    "IMS": {
+        "id": 232,
+        "product_types": [
+            "Foot Controls",
+            "Body",
+            "Accessories",
+            "Fuel Tank"
+        ]
+    },
+    "IN-HOUSE": {
+        "id": 757,
+        "product_types": [
+            "Body",
+            "Exhaust",
+            "Shirts",
+            "Jerseys",
+            "Hoodies",
+            "Helmets",
+            "Footwear",
+            "Helmet Accessories"
+        ]
+    },
+    "INNOVATIONS": {
+        "id": 170,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "INSIGHT": {
+        "id": 233,
+        "product_types": [
+            "Drive",
+            "Grips",
+            "Seat",
+            "Sprockets",
+            "Cranks",
+            "Brakes",
+            "Handlebars"
+        ]
+    },
+    "IRC": {
+        "id": 237,
+        "product_types": [
+            "Tires",
+            "Tubes"
+        ]
+    },
+    "ISC": {
+        "id": 238,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "ITP": {
+        "id": 239,
+        "product_types": [
+            "Wheels",
+            "Tires",
+            "Wheel Components",
+            "Replacement Parts",
+            "Accessories"
+        ]
+    },
+    "J STRONG": {
+        "id": 242,
+        "product_types": [
+            "Audio/Visual/Communication"
+        ]
+    },
+    "J&M": {
+        "id": 240,
+        "product_types": [
+            "Audio/Visual/Communication",
+            "Electrical"
+        ]
+    },
+    "J&S": {
+        "id": 241,
+        "product_types": [
+            "Accessories"
+        ]
+    },
+    "JAGG": {
+        "id": 245,
+        "product_types": [
+            "Engine",
+            "Gaskets/Seals",
+            "Clamps",
+            "Cable/Hydraulic Control Lines",
+            "Hardware/Fasteners/Fittings",
+            "Switches"
+        ]
+    },
+    "JAMES GASKETS": {
+        "id": 246,
+        "product_types": [
+            "Gaskets/Seals"
+        ]
+    },
+    "JCRACING": {
+        "id": 830,
+        "product_types": [
+            "Mounts/Brackets",
+            "Body"
+        ]
+    },
+    "JET PILOT": {
+        "id": 1975,
+        "product_types": [
+            "Flotation Vests",
+            "Suits",
+            "Jackets",
+            "Footwear"
+        ]
+    },
+    "JETT": {
+        "id": 248,
+        "product_types": [
+            "Footwear"
+        ]
+    },
+    "JETTRIBE": {
+        "id": 249,
+        "product_types": [
+            "Footwear"
+        ]
+    },
+    "JETWORKS": {
+        "id": 250,
+        "product_types": [
+            "Switches",
+            "Engine",
+            "Intake/Carb/Fuel System",
+            "Foot Controls"
+        ]
+    },
+    "JRI SHOCKS": {
+        "id": 2635,
+        "product_types": [
+            "Suspension"
+        ]
+    },
+    "JT": {
+        "id": 253,
+        "product_types": [
+            "Sprockets",
+            "Chains",
+            "Brakes"
+        ]
+    },
+    "JUSTSAIL": {
+        "id": 758,
+        "product_types": [
+            "Tools",
+            "Trailer/Towing",
+            "Straps/Tie-Downs",
+            "Stands/Lifts",
+            "Accessories"
+        ]
+    },
+    "JW SPEAKER": {
+        "id": 837,
+        "product_types": [
+            "Illumination",
+            "Body",
+            "Mounts/Brackets",
+            "Electrical"
+        ]
+    },
+    "K&L": {
+        "id": 255,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Engine",
+            "Gaskets/Seals",
+            "Exhaust",
+            "Hardware/Fasteners/Fittings",
+            "Tools",
+            "Stands/Lifts",
+            "Chemicals",
+            "Brakes",
+            "Drive",
+            "Clamps"
+        ]
+    },
+    "K&N": {
+        "id": 256,
+        "product_types": [
+            "Promotional",
+            "Oil Filters",
+            "Intake/Carb/Fuel System",
+            "Accessories",
+            "Air Filters",
+            "Chemicals",
+            "Engine"
+        ]
+    },
+    "K&S": {
+        "id": 257,
+        "product_types": [
+            "Electrical",
+            "Illumination",
+            "Suspension",
+            "Gaskets/Seals",
+            "Switches",
+            "Mirrors",
+            "Starters",
+            "Intake/Carb/Fuel System",
+            "Engine"
+        ]
+    },
+    "K100": {
+        "id": 254,
+        "product_types": [
+            "Chemicals",
+            "Promotional"
+        ]
+    },
+    "KABUTO": {
+        "id": 259,
+        "product_types": [
+            "Helmet Accessories"
+        ]
+    },
+    "KB PISTONS": {
+        "id": 262,
+        "product_types": [
+            "Piston kits & Components"
+        ]
+    },
+    "KEITI": {
+        "id": 263,
+        "product_types": [
+            "Graphics/Decals",
+            "Hardware/Fasteners/Fittings",
+            "Tire/Wheel Accessories"
+        ]
+    },
+    "KELCH": {
+        "id": 264,
+        "product_types": [
+            "Gas Caps"
+        ]
+    },
+    "KENDA": {
+        "id": 1223,
+        "product_types": [
+            "Tires"
+        ]
+    },
+    "KENS FACTORY": {
+        "id": 1253,
+        "product_types": [
+            "Foot Controls",
+            "Grips",
+            "Gauges/Meters",
+            "Mounts/Brackets",
+            "Risers",
+            "Suspension",
+            "Security",
+            "Gas Caps",
+            "Body",
+            "Brakes",
+            "Levers",
+            "Intake/Carb/Fuel System",
+            "Luggage"
+        ]
+    },
+    "KFI": {
+        "id": 265,
+        "product_types": [
+            "Winch",
+            "Mounts/Brackets",
+            "Trailer/Towing",
+            "Body",
+            "Plow",
+            "Promotional",
+            "Electrical",
+            "Accessories",
+            "Straps/Tie-Downs",
+            "Switches",
+            "Cable/Hydraulic Control Lines",
+            "Hardware/Fasteners/Fittings",
+            "Replacement Parts",
+            "Luggage"
+        ]
+    },
+    "KG": {
+        "id": 266,
+        "product_types": [
+            "Clutch",
+            "Tools"
+        ]
+    },
+    "KIDDE": {
+        "id": 269,
+        "product_types": [
+            "Protective/Safety"
+        ]
+    },
+    "KINGS": {
+        "id": 270,
+        "product_types": [
+            "Tires"
+        ]
+    },
+    "KINGSTAR": {
+        "id": 271,
+        "product_types": []
+    },
+    "KLEER VU": {
+        "id": 273,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "KLOTZ": {
+        "id": 274,
+        "product_types": [
+            "Accessories",
+            "Chemicals"
+        ]
+    },
+    "KLUBER": {
+        "id": 275,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "KNOBBYKNIFE": {
+        "id": 277,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "KODLIN USA": {
+        "id": 1255,
+        "product_types": [
+            "Body",
+            "Engine",
+            "Hand Controls",
+            "Risers",
+            "Mounts/Brackets",
+            "Seat",
+            "Suspension",
+            "Electrical",
+            "Tools",
+            "Accessories",
+            "Guards/Braces",
+            "Foot Controls",
+            "Illumination"
+        ]
+    },
+    "KOLD KUTTER": {
+        "id": 278,
+        "product_types": [
+            "Tire/Wheel Accessories"
+        ]
+    },
+    "KOLPIN": {
+        "id": 279,
+        "product_types": [
+            "Luggage",
+            "Mounts/Brackets",
+            "Seat",
+            "Trailer/Towing",
+            "Mirrors",
+            "Fuel Containers",
+            "UTV Cab/Roof/Door",
+            "Storage Covers",
+            "Accessories",
+            "Racks",
+            "Body",
+            "Exhaust",
+            "Throttle",
+            "Tools",
+            "Replacement Parts",
+            "Windshield/Windscreen",
+            "Grips",
+            "Straps/Tie-Downs"
+        ]
+    },
+    "KORONIS": {
+        "id": 280,
+        "product_types": [
+            "Body",
+            "Tools",
+            "Skis/Carbides/Runners",
+            "Windshield/Windscreen",
+            "Luggage"
+        ]
+    },
+    "KOSO": {
+        "id": 281,
+        "product_types": [
+            "Gauges/Meters",
+            "Mounts/Brackets",
+            "Hardware/Fasteners/Fittings",
+            "Electrical",
+            "Clamps",
+            "Engine Management",
+            "Engine",
+            "Intake/Carb/Fuel System",
+            "Air Filters",
+            "Hand Controls",
+            "Foot Controls",
+            "Clutch",
+            "Body",
+            "Illumination",
+            "Grips",
+            "Accessories",
+            "Mirrors",
+            "Switches",
+            "Handlebars",
+            "Gaskets/Seals"
+        ]
+    },
+    "KPMI": {
+        "id": 267,
+        "product_types": [
+            "Engine",
+            "Clutch",
+            "Tools",
+            "Piston kits & Components",
+            "Hardware/Fasteners/Fittings",
+            "Exhaust"
+        ]
+    },
+    "KREEM": {
+        "id": 282,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "KRUZER KADDY": {
+        "id": 1547,
+        "product_types": [
+            "Accessories",
+            "Mounts/Brackets"
+        ]
+    },
+    "KRYPTONITE": {
+        "id": 283,
+        "product_types": [
+            "Security"
+        ]
+    },
+    "KWIK TEK": {
+        "id": 285,
+        "product_types": [
+            "Accessories",
+            "Luggage",
+            "Protective/Safety",
+            "Straps/Tie-Downs",
+            "Watercraft Towables",
+            "Trailer/Towing"
+        ]
+    },
+    "KYB": {
+        "id": 286,
+        "product_types": [
+            "Suspension",
+            "Chemicals"
+        ]
+    },
+    "L.A. SLEEVE": {
+        "id": 289,
+        "product_types": [
+            "Engine"
+        ]
+    },
+    "LC": {
+        "id": 290,
+        "product_types": [
+            "Fuel Containers",
+            "Utility Containers",
+            "Trailer/Towing",
+            "Accessories"
+        ]
+    },
+    "LDC": {
+        "id": 300,
+        "product_types": []
+    },
+    "LEAD-DOG": {
+        "id": 291,
+        "product_types": [
+            "Accessories"
+        ]
+    },
+    "LECTRONS LLC": {
+        "id": 1249,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Cable/Hydraulic Control Lines"
+        ]
+    },
+    "LEN PERFORMANCE": {
+        "id": 3361,
+        "product_types": [
+            "Suspension"
+        ]
+    },
+    "LETRIC LIGHTING CO": {
+        "id": 1843,
+        "product_types": [
+            "Illumination",
+            "Mounts/Brackets",
+            "Body",
+            "Electrical"
+        ]
+    },
+    "LIGHTSPEED": {
+        "id": 296,
+        "product_types": [
+            "Guards/Braces",
+            "Body",
+            "Foot Controls",
+            "Engine"
+        ]
+    },
+    "LIL LIGHTNING": {
+        "id": 483,
+        "product_types": [
+            "Starters",
+            "Electrical",
+            "Batteries"
+        ]
+    },
+    "LINDBY": {
+        "id": 297,
+        "product_types": [
+            "Body",
+            "Foot Controls"
+        ]
+    },
+    "LIQUID IMAGE": {
+        "id": 298,
+        "product_types": [
+            "Eyewear"
+        ]
+    },
+    "LIQUID PERFORMANCE": {
+        "id": 299,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "LITTLE HOTTIES": {
+        "id": 301,
+        "product_types": [
+            "Accessories"
+        ]
+    },
+    "LOCK AND LOAD": {
+        "id": 840,
+        "product_types": [
+            "Trailer/Towing"
+        ]
+    },
+    "LOCKSTRAPS": {
+        "id": 303,
+        "product_types": [
+            "Straps/Tie-Downs"
+        ]
+    },
+    "LUCAS": {
+        "id": 304,
+        "product_types": [
+            "Chemicals",
+            "Promotional"
+        ]
+    },
+    "LUNATI": {
+        "id": 305,
+        "product_types": [
+            "Engine"
+        ]
+    },
+    "LUSTER LACE": {
+        "id": 306,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "LYNDALL BRAKES": {
+        "id": 307,
+        "product_types": [
+            "Brakes",
+            "Drive",
+            "Sprockets"
+        ]
+    },
+    "MAC": {
+        "id": 311,
+        "product_types": [
+            "Exhaust"
+        ]
+    },
+    "MACK STUDS": {
+        "id": 312,
+        "product_types": [
+            "Tracks"
+        ]
+    },
+    "MAGNAFLOW": {
+        "id": 849,
+        "product_types": [
+            "Exhaust"
+        ]
+    },
+    "MAGURA": {
+        "id": 313,
+        "product_types": [
+            "Levers",
+            "Chemicals",
+            "Throttle",
+            "Foot Controls",
+            "Brakes",
+            "Hand Controls",
+            "Hardware/Fasteners/Fittings",
+            "Clutch",
+            "Cable/Hydraulic Control Lines"
+        ]
+    },
+    "MAIER": {
+        "id": 314,
+        "product_types": [
+            "Mounts/Brackets",
+            "Body",
+            "Handguards",
+            "Exhaust"
+        ]
+    },
+    "MALLORY": {
+        "id": 854,
+        "product_types": [
+            "Electrical"
+        ]
+    },
+    "MAMMUT": {
+        "id": 2569,
+        "product_types": [
+            "Accessories",
+            "Protective/Safety",
+            "Luggage"
+        ]
+    },
+    "MARSHALLS": {
+        "id": 316,
+        "product_types": []
+    },
+    "MASQUE": {
+        "id": 317,
+        "product_types": [
+            "Accessories"
+        ]
+    },
+    "MASTER": {
+        "id": 319,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "MASTER LOCK": {
+        "id": 320,
+        "product_types": [
+            "Trailer/Towing",
+            "Security",
+            "Straps/Tie-Downs"
+        ]
+    },
+    "MAVERICK FISH HUNTER": {
+        "id": 1349,
+        "product_types": [
+            "Luggage"
+        ]
+    },
+    "MAXIMA": {
+        "id": 321,
+        "product_types": [
+            "Chemicals",
+            "Promotional",
+            "Accessories",
+            "Oil Filters",
+            "Tools"
+        ]
+    },
+    "MAXXIS": {
+        "id": 322,
+        "product_types": [
+            "Tires",
+            "Tubes"
+        ]
+    },
+    "MBRP": {
+        "id": 323,
+        "product_types": [
+            "Exhaust"
+        ]
+    },
+    "MC BAGGERS": {
+        "id": 324,
+        "product_types": [
+            "Suspension",
+            "Body"
+        ]
+    },
+    "MECHANICS": {
+        "id": 327,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "MECHANIX": {
+        "id": 328,
+        "product_types": [
+            "Gloves",
+            "Accessories",
+            "Promotional"
+        ]
+    },
+    "METRO VAC": {
+        "id": 1711,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "METZELER": {
+        "id": 329,
+        "product_types": [
+            "Tires"
+        ]
+    },
+    "MICHELIN": {
+        "id": 330,
+        "product_types": [
+            "Promotional",
+            "Tubes",
+            "Tires",
+            "Chemicals",
+            "Tire And Wheel Kit",
+            "Accessories"
+        ]
+    },
+    "MIDWEST CAN": {
+        "id": 333,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "MIGHTY MINI": {
+        "id": 334,
+        "product_types": [
+            "Engine",
+            "Drive"
+        ]
+    },
+    "MIKA METALS": {
+        "id": 335,
+        "product_types": [
+            "Sprockets",
+            "Clamps",
+            "Grips",
+            "Handlebars",
+            "Accessories"
+        ]
+    },
+    "MIKUNI": {
+        "id": 336,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Gaskets/Seals",
+            "Tools",
+            "Jets",
+            "Air Filters",
+            "Throttle",
+            "Hardware/Fasteners/Fittings"
+        ]
+    },
+    "MISCELLANEOUS": {
+        "id": 1316,
+        "product_types": [
+            "Audio/Visual/Communication"
+        ]
+    },
+    "MISSING LINK": {
+        "id": 337,
+        "product_types": [
+            "Layers",
+            "Vests"
+        ]
+    },
+    "MODQUAD": {
+        "id": 338,
+        "product_types": [
+            "Accessories",
+            "Clamps",
+            "Mounts/Brackets",
+            "Suspension",
+            "Intake/Carb/Fuel System",
+            "Engine",
+            "Switches",
+            "Hardware/Fasteners/Fittings",
+            "Drive",
+            "Body",
+            "Foot Controls",
+            "Throttle",
+            "Gas Caps",
+            "Wheel Components",
+            "Starters",
+            "Steering",
+            "Air Filters",
+            "Mirrors",
+            "Trailer/Towing",
+            "Guards/Braces",
+            "Electrical"
+        ]
+    },
+    "MOGO PARTS": {
+        "id": 401,
+        "product_types": [
+            "Gaskets/Seals",
+            "Intake/Carb/Fuel System",
+            "Engine",
+            "Chains",
+            "Electrical",
+            "Air Filters",
+            "Piston kits & Components",
+            "Clutch",
+            "Brakes",
+            "Foot Controls",
+            "Levers",
+            "Throttle",
+            "Cable/Hydraulic Control Lines",
+            "Risers",
+            "Sprockets",
+            "Suspension",
+            "Drive",
+            "Gas Caps",
+            "Tubes",
+            "Belts",
+            "Wheels",
+            "Body"
+        ]
+    },
+    "MONKEY GRIP": {
+        "id": 339,
+        "product_types": [
+            "Engine"
+        ]
+    },
+    "MOROSO": {
+        "id": 341,
+        "product_types": [
+            "Electrical",
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "MOTION PRO": {
+        "id": 345,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Clamps",
+            "Tools",
+            "Throttle",
+            "Security",
+            "Foot Controls",
+            "Chemicals",
+            "Hardware/Fasteners/Fittings",
+            "Gloves",
+            "Oil Filters",
+            "Tire/Wheel Accessories",
+            "Electrical",
+            "Tires",
+            "Levers",
+            "Cable/Hydraulic Control Lines",
+            "Mounts/Brackets",
+            "Grips",
+            "Suspension",
+            "Accessories",
+            "Promotional",
+            "Fuel Tank",
+            "Clutch"
+        ]
+    },
+    "MOTO HOSE": {
+        "id": 347,
+        "product_types": [
+            "Engine"
+        ]
+    },
+    "MOTO POCKETS": {
+        "id": 1810,
+        "product_types": [
+            "Luggage"
+        ]
+    },
+    "MOTO TASSINARI": {
+        "id": 348,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Gaskets/Seals"
+        ]
+    },
+    "MOTO TECH": {
+        "id": 349,
+        "product_types": [
+            "Foot Controls"
+        ]
+    },
+    "MOTO-GATE": {
+        "id": 352,
+        "product_types": [
+            "Trailer/Towing"
+        ]
+    },
+    "MOTOREX": {
+        "id": 354,
+        "product_types": [
+            "Chemicals",
+            "Promotional"
+        ]
+    },
+    "MOTOTRAX": {
+        "id": 844,
+        "product_types": [
+            "Track Kit",
+            "Skis/Carbides/Runners"
+        ]
+    },
+    "MOTOZORB": {
+        "id": 1120,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "MOTUL": {
+        "id": 357,
+        "product_types": [
+            "Chemicals",
+            "Promotional",
+            "Tools"
+        ]
+    },
+    "MSD": {
+        "id": 362,
+        "product_types": [
+            "Spark Plugs"
+        ]
+    },
+    "MUC-OFF": {
+        "id": 1350,
+        "product_types": [
+            "Chemicals",
+            "Tools",
+            "Accessories",
+            "Security"
+        ]
+    },
+    "MXL": {
+        "id": 364,
+        "product_types": [
+            "Helmet Accessories"
+        ]
+    },
+    "N-STYLE": {
+        "id": 389,
+        "product_types": [
+            "Body",
+            "Graphics/Decals",
+            "Seat"
+        ]
+    },
+    "NAMURA": {
+        "id": 366,
+        "product_types": [
+            "Piston kits & Components",
+            "Engine",
+            "Gaskets/Seals"
+        ]
+    },
+    "NAMZ CUSTOM CYCLE": {
+        "id": 1254,
+        "product_types": [
+            "Electrical",
+            "Tools",
+            "Gaskets/Seals",
+            "Switches",
+            "Accessories",
+            "Gauges/Meters"
+        ]
+    },
+    "NASH": {
+        "id": 367,
+        "product_types": [
+            "Handlebars",
+            "Body",
+            "Throttle",
+            "Starters",
+            "Accessories",
+            "Luggage"
+        ]
+    },
+    "NATIONAL CYCLE": {
+        "id": 368,
+        "product_types": [
+            "Windshield/Windscreen",
+            "Chemicals",
+            "Mounts/Brackets",
+            "Hardware/Fasteners/Fittings",
+            "Luggage",
+            "Accessories",
+            "Clamps",
+            "Illumination",
+            "Switches",
+            "Body",
+            "Handguards",
+            "Foot Controls",
+            "Handlebars",
+            "Guards/Braces",
+            "Suspension",
+            "Racks"
+        ]
+    },
+    "NAVATLAS": {
+        "id": 800,
+        "product_types": [
+            "Audio/Visual/Communication",
+            "Mounts/Brackets",
+            "Accessories",
+            "Cable/Hydraulic Control Lines",
+            "Electrical"
+        ]
+    },
+    "NELSON-RIGG": {
+        "id": 371,
+        "product_types": [
+            "Suits",
+            "Storage Covers",
+            "Luggage",
+            "Body",
+            "UTV Cab/Roof/Door",
+            "Tools",
+            "Accessories",
+            "Mounts/Brackets",
+            "Guards/Braces",
+            "Footwear",
+            "Jackets",
+            "Pants",
+            "Straps/Tie-Downs"
+        ]
+    },
+    "NEW RAGE CYCLES": {
+        "id": 3097,
+        "product_types": [
+            "Illumination",
+            "Electrical",
+            "Body",
+            "Mounts/Brackets",
+            "Accessories"
+        ]
+    },
+    "NEW-RAY": {
+        "id": 374,
+        "product_types": [
+            "Accessories",
+            "Promotional"
+        ]
+    },
+    "NEWCOMB": {
+        "id": 375,
+        "product_types": [
+            "Gaskets/Seals"
+        ]
+    },
+    "NGK": {
+        "id": 376,
+        "product_types": [
+            "Electrical",
+            "Promotional",
+            "Spark Plugs"
+        ]
+    },
+    "NISSIN": {
+        "id": 985,
+        "product_types": [
+            "Brakes"
+        ]
+    },
+    "NITERIDER": {
+        "id": 377,
+        "product_types": [
+            "Illumination",
+            "Mounts/Brackets"
+        ]
+    },
+    "NO TOIL": {
+        "id": 378,
+        "product_types": [
+            "Chemicals",
+            "Air Filters",
+            "Oil Filters",
+            "Body",
+            "Gas Caps",
+            "Accessories"
+        ]
+    },
+    "NO-SPILL": {
+        "id": 385,
+        "product_types": [
+            "Fuel Containers"
+        ]
+    },
+    "NOCO GENIUS": {
+        "id": 379,
+        "product_types": [
+            "Tools",
+            "Electrical"
+        ]
+    },
+    "NOMADIC": {
+        "id": 1227,
+        "product_types": [
+            "Handlebars",
+            "Hand Controls",
+            "Mounts/Brackets",
+            "Mirrors",
+            "Brakes",
+            "Luggage",
+            "Switches",
+            "Forks",
+            "Foot Controls"
+        ]
+    },
+    "NORMA": {
+        "id": 382,
+        "product_types": [
+            "Clamps",
+            "Mounts/Brackets"
+        ]
+    },
+    "NORREC": {
+        "id": 383,
+        "product_types": [
+            "Drive"
+        ]
+    },
+    "NOVELLO": {
+        "id": 59,
+        "product_types": [
+            "Body",
+            "Hardware/Fasteners/Fittings",
+            "Foot Controls",
+            "Risers",
+            "Electrical"
+        ]
+    },
+    "NTN": {
+        "id": 387,
+        "product_types": [
+            "Drive"
+        ]
+    },
+    "ODI": {
+        "id": 391,
+        "product_types": [
+            "Grips",
+            "Handlebars",
+            "Steering",
+            "Throttle",
+            "Accessories",
+            "Promotional",
+            "Hand Controls",
+            "Mounts/Brackets",
+            "Tools",
+            "Body"
+        ]
+    },
+    "OGIO": {
+        "id": 393,
+        "product_types": [
+            "Luggage"
+        ]
+    },
+    "OLD STF": {
+        "id": 782,
+        "product_types": [
+            "Engine",
+            "Air Filters",
+            "Cable/Hydraulic Control Lines",
+            "Mounts/Brackets"
+        ]
+    },
+    "ONE EMBLEMS": {
+        "id": 770,
+        "product_types": [
+            "Graphics/Decals",
+            "Helmet Accessories",
+            "Body"
+        ]
+    },
+    "ONGUARD": {
+        "id": 1260,
+        "product_types": [
+            "Security"
+        ]
+    },
+    "OPEN TRAIL": {
+        "id": 396,
+        "product_types": [
+            "Plow",
+            "Mounts/Brackets",
+            "Illumination",
+            "Electrical",
+            "Storage Covers",
+            "Body",
+            "UTV Cab/Roof/Door",
+            "Accessories",
+            "Drive",
+            "Mirrors",
+            "Trailer/Towing",
+            "Promotional",
+            "Luggage",
+            "Windshield/Windscreen",
+            "Graphics/Decals",
+            "Headgear",
+            "Switches",
+            "Winch",
+            "Batteries",
+            "Wheel Components",
+            "Hardware/Fasteners/Fittings"
+        ]
+    },
+    "ORTOVOX": {
+        "id": 398,
+        "product_types": [
+            "Protective/Safety",
+            "Luggage",
+            "Tools",
+            "Accessories"
+        ]
+    },
+    "OTTP": {
+        "id": 402,
+        "product_types": [
+            "Ice Scratchers"
+        ]
+    },
+    "OURY": {
+        "id": 399,
+        "product_types": [
+            "Grips"
+        ]
+    },
+    "OUTERWEARS": {
+        "id": 400,
+        "product_types": [
+            "Suspension",
+            "Air Filters",
+            "Tools"
+        ]
+    },
+    "OXBOW GEAR LLC": {
+        "id": 1263,
+        "product_types": [
+            "Audio/Visual/Communication",
+            "Helmet Accessories",
+            "Tools",
+            "Accessories",
+            "Mounts/Brackets",
+            "Electrical"
+        ]
+    },
+    "P3": {
+        "id": 403,
+        "product_types": [
+            "Exhaust",
+            "Guards/Braces",
+            "Graphics/Decals",
+            "Body",
+            "Fuel Tank"
+        ]
+    },
+    "PARK TOOL": {
+        "id": 404,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "PARTS COMPANY INC": {
+        "id": 3164,
+        "product_types": [
+            "Stands/Lifts"
+        ]
+    },
+    "PATHFINDER": {
+        "id": 405,
+        "product_types": [
+            "Illumination",
+            "Mounts/Brackets",
+            "Electrical",
+            "Accessories"
+        ]
+    },
+    "PATRIOT": {
+        "id": 406,
+        "product_types": [
+            "Suspension"
+        ]
+    },
+    "PAUGHCO": {
+        "id": 407,
+        "product_types": [
+            "Engine",
+            "Exhaust",
+            "Clamps",
+            "Accessories",
+            "Hardware/Fasteners/Fittings",
+            "Illumination",
+            "Risers",
+            "Gaskets/Seals",
+            "Air Filters",
+            "Mounts/Brackets",
+            "Body",
+            "Suspension"
+        ]
+    },
+    "PBI": {
+        "id": 409,
+        "product_types": [
+            "Sprockets"
+        ]
+    },
+    "PCRACING": {
+        "id": 410,
+        "product_types": [
+            "Air Filters",
+            "Intake/Carb/Fuel System",
+            "Accessories",
+            "Suspension",
+            "Gloves",
+            "Chemicals",
+            "Oil Filters",
+            "Helmet Accessories",
+            "Foot Controls",
+            "Gauges/Meters"
+        ]
+    },
+    "PDP": {
+        "id": 452,
+        "product_types": [
+            "Body",
+            "Illumination",
+            "Intake/Carb/Fuel System",
+            "Accessories"
+        ]
+    },
+    "PEDROS": {
+        "id": 411,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "PEET": {
+        "id": 412,
+        "product_types": [
+            "Accessories"
+        ]
+    },
+    "PERFORMANCE TOOL": {
+        "id": 774,
+        "product_types": [
+            "Tools",
+            "Illumination",
+            "Batteries",
+            "Straps/Tie-Downs",
+            "Electrical",
+            "Gloves"
+        ]
+    },
+    "PERMATEX": {
+        "id": 413,
+        "product_types": [
+            "Chemicals",
+            "Gloves"
+        ]
+    },
+    "PHOENIX": {
+        "id": 764,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "PIAA": {
+        "id": 415,
+        "product_types": [
+            "Illumination",
+            "Mounts/Brackets",
+            "Electrical",
+            "Accessories"
+        ]
+    },
+    "PIG SPIT": {
+        "id": 416,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "PINGEL ENT": {
+        "id": 846,
+        "product_types": [
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "PIRELLI": {
+        "id": 417,
+        "product_types": [
+            "Promotional",
+            "Tubes",
+            "Tires"
+        ]
+    },
+    "PIVOT PEGZ": {
+        "id": 418,
+        "product_types": [
+            "Hardware/Fasteners/Fittings",
+            "Foot Controls"
+        ]
+    },
+    "PIVOT WORKS": {
+        "id": 419,
+        "product_types": [
+            "Wheels",
+            "Suspension",
+            "Drive",
+            "Steering",
+            "Hardware/Fasteners/Fittings"
+        ]
+    },
+    "PJ1": {
+        "id": 421,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "PLANO": {
+        "id": 422,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "PLEWS/EDELMANN": {
+        "id": 424,
+        "product_types": []
+    },
+    "PLEXUS": {
+        "id": 425,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "POD": {
+        "id": 426,
+        "product_types": [
+            "Protective/Safety",
+            "Luggage",
+            "Tools",
+            "Promotional",
+            "Guards/Braces"
+        ]
+    },
+    "POLISPORT": {
+        "id": 427,
+        "product_types": [
+            "Body",
+            "Drive",
+            "Stands/Lifts",
+            "Mats/Rugs",
+            "Handguards",
+            "Clamps",
+            "Illumination",
+            "Seat",
+            "Accessories",
+            "Mounts/Brackets",
+            "Guards/Braces",
+            "Hardware/Fasteners/Fittings",
+            "Sprockets",
+            "Luggage",
+            "Replacement Parts",
+            "Engine",
+            "Protective/Safety",
+            "Straps/Tie-Downs",
+            "Levers"
+        ]
+    },
+    "POWERBUILT": {
+        "id": 2140,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "POWERMADD": {
+        "id": 429,
+        "product_types": [
+            "Windshield/Windscreen",
+            "Body",
+            "Throttle",
+            "Levers",
+            "Intake/Carb/Fuel System",
+            "Handguards",
+            "Steering",
+            "Risers",
+            "Mounts/Brackets",
+            "Helmet Accessories",
+            "Straps/Tie-Downs",
+            "Brakes",
+            "Cable/Hydraulic Control Lines",
+            "Electrical",
+            "Hardware/Fasteners/Fittings",
+            "Illumination",
+            "Seat"
+        ]
+    },
+    "POWERTYE": {
+        "id": 430,
+        "product_types": [
+            "Straps/Tie-Downs",
+            "Tools",
+            "Suspension",
+            "Trailer/Towing"
+        ]
+    },
+    "PPD": {
+        "id": 431,
+        "product_types": [
+            "Drive",
+            "Sprockets",
+            "Wheels"
+        ]
+    },
+    "PREC. BILLET": {
+        "id": 434,
+        "product_types": [
+            "Air Filters",
+            "Foot Controls",
+            "Brakes",
+            "Luggage",
+            "Drive",
+            "Storage Covers",
+            "Levers",
+            "Mirrors"
+        ]
+    },
+    "PRESTON PETTY": {
+        "id": 823,
+        "product_types": [
+            "Body",
+            "Illumination"
+        ]
+    },
+    "PRO ARMOR": {
+        "id": 436,
+        "product_types": [
+            "Body",
+            "Suspension",
+            "Intake/Carb/Fuel System",
+            "Windshield/Windscreen",
+            "Racks",
+            "Accessories",
+            "Luggage",
+            "Tools",
+            "Handlebars",
+            "Skis/Carbides/Runners",
+            "UTV Cab/Roof/Door",
+            "Protective/Safety",
+            "Switches",
+            "Electrical",
+            "Brakes",
+            "Straps/Tie-Downs",
+            "Seat",
+            "Mounts/Brackets",
+            "Promotional",
+            "Guards/Braces",
+            "Steering"
+        ]
+    },
+    "PRO CIRCUIT": {
+        "id": 437,
+        "product_types": [
+            "Exhaust",
+            "Shirts",
+            "Headgear",
+            "Accessories",
+            "Luggage",
+            "Engine",
+            "Clutch",
+            "Brakes",
+            "Suspension",
+            "Chemicals",
+            "Graphics/Decals",
+            "Body",
+            "Hand Controls",
+            "Drive",
+            "Guards/Braces"
+        ]
+    },
+    "PRO DESIGN": {
+        "id": 440,
+        "product_types": [
+            "Switches",
+            "Air Filters",
+            "Engine",
+            "Foot Controls",
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "PRO FILTER": {
+        "id": 801,
+        "product_types": [
+            "Oil Filters",
+            "Promotional",
+            "Engine",
+            "Air Filters"
+        ]
+    },
+    "PRO ONE": {
+        "id": 777,
+        "product_types": [
+            "Steering",
+            "Stands/Lifts",
+            "Luggage",
+            "Intake/Carb/Fuel System",
+            "Air Filters",
+            "Storage Covers",
+            "Accessories",
+            "Engine",
+            "Illumination",
+            "Suspension",
+            "Forks",
+            "Foot Controls",
+            "Hand Controls",
+            "Mirrors"
+        ]
+    },
+    "PRO PAD": {
+        "id": 442,
+        "product_types": [
+            "Seat",
+            "Foot Controls",
+            "Accessories"
+        ]
+    },
+    "PRO SERIES": {
+        "id": 443,
+        "product_types": [
+            "Trailer/Towing"
+        ]
+    },
+    "PRO-WHEEL": {
+        "id": 453,
+        "product_types": [
+            "Wheel Components",
+            "Rims",
+            "Suspension",
+            "Wheels"
+        ]
+    },
+    "PROCLEAN": {
+        "id": 444,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "PROFI": {
+        "id": 445,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "PROFILE": {
+        "id": 446,
+        "product_types": [
+            "Sprockets",
+            "Wheel Components"
+        ]
+    },
+    "PROK": {
+        "id": 760,
+        "product_types": [
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "PROMAX": {
+        "id": 450,
+        "product_types": [
+            "Seat",
+            "Handlebars",
+            "Cranks",
+            "Cable/Hydraulic Control Lines",
+            "Brakes",
+            "Levers"
+        ]
+    },
+    "PROTECT ALL": {
+        "id": 451,
+        "product_types": [
+            "Chemicals",
+            "Cable/Hydraulic Control Lines"
+        ]
+    },
+    "PROX": {
+        "id": 454,
+        "product_types": [
+            "Piston kits & Components",
+            "Clutch",
+            "Engine",
+            "Gaskets/Seals",
+            "Suspension",
+            "Drive"
+        ]
+    },
+    "PSR": {
+        "id": 455,
+        "product_types": [
+            "Steering",
+            "Levers",
+            "Stands/Lifts",
+            "Engine",
+            "Suspension",
+            "Accessories",
+            "Mirrors",
+            "Body",
+            "Drive",
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "PSYCHIC": {
+        "id": 1217,
+        "product_types": [
+            "Straps/Tie-Downs"
+        ]
+    },
+    "PUIG": {
+        "id": 456,
+        "product_types": [
+            "Levers",
+            "Hardware/Fasteners/Fittings",
+            "Windshield/Windscreen",
+            "Body",
+            "Foot Controls",
+            "Illumination",
+            "Engine",
+            "Mirrors",
+            "Guards/Braces",
+            "Tire/Wheel Accessories",
+            "Accessories"
+        ]
+    },
+    "PUTCO": {
+        "id": 457,
+        "product_types": [
+            "Illumination"
+        ]
+    },
+    "QUAD WORKS": {
+        "id": 459,
+        "product_types": [
+            "Seat"
+        ]
+    },
+    "QUANTUM": {
+        "id": 775,
+        "product_types": [
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "QUICK STRAP": {
+        "id": 179,
+        "product_types": [
+            "Eyewear"
+        ]
+    },
+    "QUICKLOADER": {
+        "id": 460,
+        "product_types": [
+            "Straps/Tie-Downs"
+        ]
+    },
+    "R&D": {
+        "id": 462,
+        "product_types": [
+            "Drive",
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "RACE FACE": {
+        "id": 465,
+        "product_types": [
+            "Drive",
+            "Seat",
+            "Handlebars",
+            "Cranks",
+            "Wheels",
+            "Grips"
+        ]
+    },
+    "RACE TECH": {
+        "id": 467,
+        "product_types": [
+            "Suspension",
+            "Hardware/Fasteners/Fittings",
+            "Tools",
+            "Accessories"
+        ]
+    },
+    "RACELINE": {
+        "id": 468,
+        "product_types": [
+            "Wheels",
+            "Tire/Wheel Accessories",
+            "Promotional",
+            "Wheel Components",
+            "Rims",
+            "Graphics/Decals"
+        ]
+    },
+    "RACEWERX": {
+        "id": 469,
+        "product_types": [
+            "Body"
+        ]
+    },
+    "RACING 905": {
+        "id": 470,
+        "product_types": [
+            "Body"
+        ]
+    },
+    "RACING BROTHERS": {
+        "id": 843,
+        "product_types": [
+            "Suspension",
+            "Forks",
+            "Wheel Components"
+        ]
+    },
+    "RALE INDUSTRIES": {
+        "id": 1087,
+        "product_types": [
+            "Track Kit",
+            "Shirts",
+            "Replacement Parts",
+            "Skis/Carbides/Runners",
+            "Hyfax",
+            "Tracks",
+            "Steering",
+            "Suspension",
+            "Hardware/Fasteners/Fittings",
+            "Body",
+            "Accessories",
+            "Brakes",
+            "Drive",
+            "Guards/Braces",
+            "Sprockets",
+            "Gaskets/Seals",
+            "Graphics/Decals",
+            "Mounts/Brackets"
+        ]
+    },
+    "RAM": {
+        "id": 471,
+        "product_types": [
+            "Accessories",
+            "Promotional",
+            "Mounts/Brackets"
+        ]
+    },
+    "RAPTOR": {
+        "id": 474,
+        "product_types": [
+            "Foot Controls"
+        ]
+    },
+    "RASCAL GRAFIK": {
+        "id": 475,
+        "product_types": [
+            "Graphics/Decals"
+        ]
+    },
+    "RATIO RITE": {
+        "id": 477,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "RED BULL": {
+        "id": 2866,
+        "product_types": [
+            "Food & Beverage"
+        ]
+    },
+    "RED LINE": {
+        "id": 480,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "REDI LITE": {
+        "id": 763,
+        "product_types": [
+            "Accessories",
+            "Protective/Safety"
+        ]
+    },
+    "REESE": {
+        "id": 484,
+        "product_types": [
+            "Trailer/Towing"
+        ]
+    },
+    "REKLUSE RACING": {
+        "id": 847,
+        "product_types": [
+            "Clutch",
+            "Engine",
+            "Chemicals",
+            "Brakes",
+            "Body",
+            "Drive"
+        ]
+    },
+    "REMA TIP TOP": {
+        "id": 2899,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "RENNEN": {
+        "id": 481,
+        "product_types": [
+            "Sprockets"
+        ]
+    },
+    "RENTHAL": {
+        "id": 482,
+        "product_types": [
+            "Sprockets"
+        ]
+    },
+    "REVARC": {
+        "id": 759,
+        "product_types": [
+            "Trailer/Towing",
+            "Stands/Lifts"
+        ]
+    },
+    "REVIVEX": {
+        "id": 485,
+        "product_types": [
+            "Chemicals",
+            "Accessories"
+        ]
+    },
+    "RICKS": {
+        "id": 486,
+        "product_types": [
+            "Electrical",
+            "Gaskets/Seals",
+            "Starters",
+            "Engine"
+        ]
+    },
+    "RIDE-ON": {
+        "id": 489,
+        "product_types": [
+            "Chemicals",
+            "Tools"
+        ]
+    },
+    "RIGID": {
+        "id": 492,
+        "product_types": [
+            "Illumination",
+            "Mounts/Brackets",
+            "Electrical",
+            "Hardware/Fasteners/Fittings",
+            "Clamps",
+            "Switches",
+            "Batteries",
+            "Tools",
+            "Mirrors",
+            "Body",
+            "Accessories"
+        ]
+    },
+    "RISK RACING": {
+        "id": 493,
+        "product_types": [
+            "Stands/Lifts",
+            "Mats/Rugs",
+            "Straps/Tie-Downs",
+            "Accessories",
+            "Grips",
+            "Gloves",
+            "Tools",
+            "Chemicals",
+            "Utility Containers",
+            "Fuel Containers",
+            "Trailer/Towing",
+            "Mounts/Brackets"
+        ]
+    },
+    "RIVA": {
+        "id": 786,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Clutch",
+            "Electrical",
+            "Exhaust",
+            "Body",
+            "Air Filters",
+            "Gaskets/Seals",
+            "Drive",
+            "Engine",
+            "Tools",
+            "Accessories"
+        ]
+    },
+    "RIVAL POWERSPORTS USA": {
+        "id": 1264,
+        "product_types": [
+            "Guards/Braces",
+            "Body",
+            "Hardware/Fasteners/Fittings",
+            "Accessories",
+            "Racks",
+            "UTV Cab/Roof/Door",
+            "Mounts/Brackets"
+        ]
+    },
+    "RIZOMA": {
+        "id": 2965,
+        "product_types": [
+            "Mirrors",
+            "Mounts/Brackets",
+            "Electrical",
+            "Grips",
+            "Guards/Braces",
+            "Handlebars",
+            "Cable/Hydraulic Control Lines",
+            "Illumination",
+            "Foot Controls",
+            "Fuel Tank",
+            "Clutch",
+            "Brakes",
+            "Levers",
+            "Accessories"
+        ]
+    },
+    "RK EXCEL": {
+        "id": 495,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "RKA": {
+        "id": 3460,
+        "product_types": [
+            "Luggage"
+        ]
+    },
+    "ROCKER LOCKERS": {
+        "id": 1219,
+        "product_types": [
+            "Engine"
+        ]
+    },
+    "ROCKET PERFORMANCE GARAGE LLC": {
+        "id": 780,
+        "product_types": [
+            "Engine",
+            "Clutch",
+            "Air Filters",
+            "Accessories",
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "ROETIN": {
+        "id": 498,
+        "product_types": [
+            "Skis/Carbides/Runners"
+        ]
+    },
+    "ROKSTRAPS": {
+        "id": 798,
+        "product_types": [
+            "Straps/Tie-Downs",
+            "Promotional"
+        ]
+    },
+    "ROOKE": {
+        "id": 499,
+        "product_types": [
+            "Body",
+            "Risers",
+            "Foot Controls",
+            "Mounts/Brackets",
+            "Engine",
+            "Steering"
+        ]
+    },
+    "ROTOPAX": {
+        "id": 500,
+        "product_types": [
+            "Fuel Containers",
+            "Accessories",
+            "Utility Containers",
+            "Mounts/Brackets",
+            "Hardware/Fasteners/Fittings"
+        ]
+    },
+    "ROX": {
+        "id": 503,
+        "product_types": [
+            "Foot Controls",
+            "Skis/Carbides/Runners",
+            "Handguards",
+            "Hand Controls",
+            "Body",
+            "Accessories",
+            "Risers",
+            "Handlebars"
+        ]
+    },
+    "RSI": {
+        "id": 792,
+        "product_types": [
+            "Throttle",
+            "Chemicals",
+            "Hand Controls",
+            "Grips",
+            "Electrical",
+            "Seat",
+            "Handguards",
+            "Handlebars",
+            "Luggage",
+            "Switches",
+            "Mounts/Brackets",
+            "Ice Scratchers",
+            "Accessories",
+            "Replacement Parts"
+        ]
+    },
+    "RST": {
+        "id": 3295,
+        "product_types": [
+            "Pants",
+            "Gloves",
+            "Footwear",
+            "Shirts",
+            "Jackets",
+            "Suits",
+            "Protective/Safety"
+        ]
+    },
+    "RULE": {
+        "id": 504,
+        "product_types": [
+            "Engine"
+        ]
+    },
+    "RUSTY BUTCHER": {
+        "id": 1258,
+        "product_types": [
+            "Foot Controls"
+        ]
+    },
+    "RYDE FX": {
+        "id": 506,
+        "product_types": [
+            "Suspension"
+        ]
+    },
+    "RYDER CLIPS": {
+        "id": 507,
+        "product_types": [
+            "Accessories",
+            "Body",
+            "Foot Controls"
+        ]
+    },
+    "RZ MASK": {
+        "id": 508,
+        "product_types": [
+            "Accessories",
+            "Headgear"
+        ]
+    },
+    "S&S OFFROAD": {
+        "id": 2703,
+        "product_types": [
+            "Exhaust",
+            "Clutch",
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "S100": {
+        "id": 509,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "SADDLE TRAMP": {
+        "id": 1220,
+        "product_types": [
+            "Audio/Visual/Communication",
+            "Body",
+            "Hardware/Fasteners/Fittings",
+            "Hand Controls",
+            "Mounts/Brackets",
+            "Illumination"
+        ]
+    },
+    "SAFETY": {
+        "id": 511,
+        "product_types": [
+            "Protective/Safety"
+        ]
+    },
+    "SANTORO FABWORX": {
+        "id": 2173,
+        "product_types": [
+            "Hardware/Fasteners/Fittings",
+            "Foot Controls",
+            "Suspension",
+            "Accessories",
+            "Guards/Braces",
+            "Body",
+            "Engine",
+            "Mounts/Brackets",
+            "Levers"
+        ]
+    },
+    "SAWICKI": {
+        "id": 512,
+        "product_types": [
+            "Exhaust",
+            "Mounts/Brackets",
+            "Hardware/Fasteners/Fittings",
+            "Guards/Braces",
+            "Tools",
+            "Gaskets/Seals",
+            "Air Filters",
+            "Foot Controls",
+            "Engine"
+        ]
+    },
+    "SCHWALBE": {
+        "id": 515,
+        "product_types": [
+            "Tools",
+            "Tires",
+            "Tubes"
+        ]
+    },
+    "SCORPION EXO": {
+        "id": 806,
+        "product_types": [
+            "Helmet Accessories",
+            "Protective/Safety",
+            "Helmets",
+            "Jackets",
+            "Pants",
+            "Shirts",
+            "Gloves",
+            "Promotional",
+            "Hoodies",
+            "Vests",
+            "Headgear",
+            "Accessories",
+            "Audio/Visual/Communication"
+        ]
+    },
+    "SCOSCHE": {
+        "id": 808,
+        "product_types": [
+            "Audio/Visual/Communication",
+            "Clamps",
+            "Mounts/Brackets",
+            "Accessories",
+            "Batteries",
+            "Electrical"
+        ]
+    },
+    "SCOTT": {
+        "id": 517,
+        "product_types": [
+            "Grips",
+            "Eyewear",
+            "Accessories",
+            "Chemicals",
+            "Headgear",
+            "Luggage"
+        ]
+    },
+    "SDC": {
+        "id": 519,
+        "product_types": [
+            "Electrical",
+            "Mounts/Brackets",
+            "Illumination"
+        ]
+    },
+    "SDG COMPONENTS": {
+        "id": 520,
+        "product_types": [
+            "Seat"
+        ]
+    },
+    "SDG INNOVATIONS": {
+        "id": 521,
+        "product_types": [
+            "Seat",
+            "Grips"
+        ]
+    },
+    "SEDONA": {
+        "id": 522,
+        "product_types": [
+            "Wheels",
+            "Wheel Components",
+            "Tires",
+            "Headgear",
+            "Promotional",
+            "Tools",
+            "Chains",
+            "Tubes",
+            "Graphics/Decals",
+            "Rims",
+            "Mounts/Brackets",
+            "Shirts",
+            "Tire/Wheel Accessories"
+        ]
+    },
+    "SEER": {
+        "id": 527,
+        "product_types": [
+            "Helmet Accessories"
+        ]
+    },
+    "SEIZMIK": {
+        "id": 523,
+        "product_types": [
+            "Windshield/Windscreen",
+            "Mirrors",
+            "UTV Cab/Roof/Door",
+            "Accessories",
+            "Illumination",
+            "Body",
+            "Mounts/Brackets",
+            "Luggage",
+            "Racks",
+            "Promotional"
+        ]
+    },
+    "SENA": {
+        "id": 524,
+        "product_types": [
+            "Accessories",
+            "Audio/Visual/Communication",
+            "Batteries",
+            "Helmets",
+            "Helmet Accessories",
+            "Promotional",
+            "Clamps",
+            "Electrical"
+        ]
+    },
+    "SHIN YO": {
+        "id": 3064,
+        "product_types": [
+            "Illumination",
+            "Mounts/Brackets",
+            "Electrical",
+            "Mirrors",
+            "Body",
+            "Grips"
+        ]
+    },
+    "SHINDY": {
+        "id": 528,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Gaskets/Seals",
+            "Piston kits & Components",
+            "Brakes",
+            "Steering",
+            "Mounts/Brackets",
+            "Electrical",
+            "Engine",
+            "Drive"
+        ]
+    },
+    "SHINKO": {
+        "id": 529,
+        "product_types": [
+            "Promotional",
+            "Tires",
+            "Shirts",
+            "Headgear",
+            "Mats/Rugs",
+            "Graphics/Decals"
+        ]
+    },
+    "SHOCKPROS": {
+        "id": 531,
+        "product_types": [
+            "Suspension"
+        ]
+    },
+    "SHOGUN": {
+        "id": 532,
+        "product_types": [
+            "Body",
+            "Hand Controls"
+        ]
+    },
+    "SHOW CHROME (NEW)": {
+        "id": 2704,
+        "product_types": [
+            "Body",
+            "Accessories",
+            "Audio/Visual/Communication",
+            "Tire/Wheel Accessories",
+            "Luggage",
+            "Illumination",
+            "Racks",
+            "Electrical",
+            "Windshield/Windscreen",
+            "Foot Controls",
+            "Levers",
+            "Mounts/Brackets",
+            "Engine",
+            "Hand Controls",
+            "Mirrors",
+            "Brakes",
+            "Trailer/Towing",
+            "Risers",
+            "Guards/Braces",
+            "Seat",
+            "Grips"
+        ]
+    },
+    "SILKOLENE": {
+        "id": 152,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "SINZ": {
+        "id": 536,
+        "product_types": [
+            "Grips"
+        ]
+    },
+    "SKF": {
+        "id": 526,
+        "product_types": [
+            "Suspension",
+            "Engine",
+            "Drive",
+            "Gaskets/Seals"
+        ]
+    },
+    "SLEDNECKS": {
+        "id": 539,
+        "product_types": [
+            "Headgear",
+            "Shirts"
+        ]
+    },
+    "SLIME": {
+        "id": 540,
+        "product_types": [
+            "Tools",
+            "Tire/Wheel Accessories",
+            "Chemicals"
+        ]
+    },
+    "SLIPSTREAMER": {
+        "id": 541,
+        "product_types": [
+            "Windshield/Windscreen",
+            "Body",
+            "Chemicals",
+            "Hardware/Fasteners/Fittings",
+            "Clamps"
+        ]
+    },
+    "SLP": {
+        "id": 576,
+        "product_types": [
+            "Tools",
+            "Clutch",
+            "Exhaust",
+            "Air Filters",
+            "Body",
+            "Trailer/Towing",
+            "Accessories",
+            "Intake/Carb/Fuel System",
+            "Gaskets/Seals",
+            "Engine Management",
+            "Skis/Carbides/Runners",
+            "Engine",
+            "Mounts/Brackets",
+            "Hyfax",
+            "Hand Controls",
+            "Brakes",
+            "Grips",
+            "Suspension"
+        ]
+    },
+    "SLYDOG": {
+        "id": 542,
+        "product_types": [
+            "Skis/Carbides/Runners",
+            "Mounts/Brackets",
+            "Wheels",
+            "Suspension"
+        ]
+    },
+    "SMITHTOOL": {
+        "id": 544,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "SMOOTH": {
+        "id": 545,
+        "product_types": [
+            "Onesies",
+            "Accessories",
+            "Footwear",
+            "Luggage",
+            "Shirts"
+        ]
+    },
+    "SMP": {
+        "id": 573,
+        "product_types": [
+            "Switches",
+            "Electrical",
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "SNACKERPACKERS": {
+        "id": 546,
+        "product_types": [
+            "Accessories"
+        ]
+    },
+    "SNO-SKINZ": {
+        "id": 549,
+        "product_types": [
+            "Storage Covers"
+        ]
+    },
+    "SNOBUNJE": {
+        "id": 548,
+        "product_types": [
+            "Accessories",
+            "Hand Controls",
+            "Tools"
+        ]
+    },
+    "SNOSTUFF": {
+        "id": 550,
+        "product_types": [
+            "Skis/Carbides/Runners",
+            "Exhaust",
+            "Tools",
+            "Wheels",
+            "Windshield/Windscreen",
+            "Hyfax",
+            "Tracks"
+        ]
+    },
+    "SO EASY RIDER": {
+        "id": 919,
+        "product_types": [
+            "Accessories",
+            "Mounts/Brackets"
+        ]
+    },
+    "SOCALMOTOGEAR": {
+        "id": 787,
+        "product_types": [
+            "Body"
+        ]
+    },
+    "SOLAS": {
+        "id": 553,
+        "product_types": [
+            "Tools",
+            "Gaskets/Seals",
+            "Drive"
+        ]
+    },
+    "SP CONNECT": {
+        "id": 2107,
+        "product_types": [
+            "Mounts/Brackets",
+            "Accessories",
+            "Electrical",
+            "Replacement Parts",
+            "Tools"
+        ]
+    },
+    "SP1": {
+        "id": 842,
+        "product_types": [
+            "Body",
+            "Exhaust",
+            "Tools",
+            "Intake/Carb/Fuel System",
+            "Mounts/Brackets",
+            "Electrical",
+            "Mirrors",
+            "Illumination",
+            "Gaskets/Seals",
+            "Piston kits & Components",
+            "Air Filters",
+            "Oil Filters",
+            "Accessories",
+            "Hardware/Fasteners/Fittings",
+            "Levers",
+            "Cable/Hydraulic Control Lines",
+            "Starters",
+            "Suspension",
+            "Drive",
+            "Clutch",
+            "Engine",
+            "Clamps",
+            "Spark Plugs",
+            "Skis/Carbides/Runners",
+            "Risers",
+            "Ice Scratchers",
+            "Belts",
+            "Switches",
+            "Wheels",
+            "Socks",
+            "Gloves",
+            "Protective/Safety",
+            "Straps/Tie-Downs",
+            "Brakes",
+            "Grips",
+            "Hand Controls",
+            "Windshield/Windscreen",
+            "Headgear",
+            "Tracks",
+            "Gas Caps",
+            "Hyfax",
+            "Sprockets",
+            "Handlebars",
+            "Foot Controls",
+            "Guards/Braces",
+            "Trailer/Towing",
+            "Helmet Accessories",
+            "Stands/Lifts",
+            "Luggage",
+            "Storage Covers",
+            "Engine Management",
+            "Throttle",
+            "Replacement Parts",
+            "Seat",
+            "Cranks"
+        ]
+    },
+    "SPEAQUA": {
+        "id": 554,
+        "product_types": [
+            "Audio/Visual/Communication"
+        ]
+    },
+    "SPECTRO": {
+        "id": 1018,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "SPEED": {
+        "id": 557,
+        "product_types": [
+            "UTV Cab/Roof/Door",
+            "Steering",
+            "Seat",
+            "Protective/Safety"
+        ]
+    },
+    "SPEED-WAY SHELT": {
+        "id": 560,
+        "product_types": [
+            "Storage Covers"
+        ]
+    },
+    "SPEEDLINE": {
+        "id": 558,
+        "product_types": []
+    },
+    "SPEEDO TUNER": {
+        "id": 559,
+        "product_types": [
+            "Electrical"
+        ]
+    },
+    "SPEEDWERX": {
+        "id": 561,
+        "product_types": [
+            "Clutch",
+            "Exhaust",
+            "Engine",
+            "Intake/Carb/Fuel System",
+            "Hardware/Fasteners/Fittings",
+            "Body",
+            "Accessories",
+            "Suspension"
+        ]
+    },
+    "SPG": {
+        "id": 538,
+        "product_types": [
+            "Suspension",
+            "Throttle",
+            "Levers",
+            "Body",
+            "Foot Controls",
+            "Illumination",
+            "Exhaust",
+            "Racks",
+            "Seat",
+            "Accessories",
+            "Luggage",
+            "Handlebars",
+            "Protective/Safety",
+            "Mounts/Brackets",
+            "Hardware/Fasteners/Fittings",
+            "Tools"
+        ]
+    },
+    "SPIDER": {
+        "id": 535,
+        "product_types": [
+            "Grips"
+        ]
+    },
+    "SPIDI": {
+        "id": 562,
+        "product_types": []
+    },
+    "SPIKE": {
+        "id": 793,
+        "product_types": [
+            "Windshield/Windscreen",
+            "UTV Cab/Roof/Door",
+            "Illumination",
+            "Body",
+            "Electrical",
+            "Mirrors"
+        ]
+    },
+    "SPORTECH": {
+        "id": 563,
+        "product_types": [
+            "Windshield/Windscreen",
+            "Electrical",
+            "Body",
+            "Hand Controls",
+            "Sprockets",
+            "Drive",
+            "Grips"
+        ]
+    },
+    "SPORTSTUFF": {
+        "id": 565,
+        "product_types": [
+            "Watercraft Towables"
+        ]
+    },
+    "SPYKE": {
+        "id": 1118,
+        "product_types": [
+            "Starters"
+        ]
+    },
+    "SSI": {
+        "id": 1224,
+        "product_types": [
+            "Exhaust"
+        ]
+    },
+    "SSV WORKS": {
+        "id": 569,
+        "product_types": [
+            "Audio/Visual/Communication",
+            "Electrical",
+            "Accessories",
+            "Mounts/Brackets",
+            "Illumination"
+        ]
+    },
+    "STA-BIL": {
+        "id": 570,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "STACOOL": {
+        "id": 571,
+        "product_types": [
+            "Ice Scratchers"
+        ]
+    },
+    "STAR BRITE": {
+        "id": 575,
+        "product_types": [
+            "Chemicals",
+            "Promotional"
+        ]
+    },
+    "STKR": {
+        "id": 1777,
+        "product_types": [
+            "Illumination",
+            "Tools"
+        ]
+    },
+    "STOMPGRIP": {
+        "id": 581,
+        "product_types": [
+            "Accessories",
+            "Graphics/Decals",
+            "Seat",
+            "Body"
+        ]
+    },
+    "STOP & GO": {
+        "id": 2470,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "STRAIGHTLINE": {
+        "id": 582,
+        "product_types": [
+            "Tools",
+            "Levers",
+            "Ice Scratchers",
+            "Exhaust",
+            "Engine",
+            "Intake/Carb/Fuel System",
+            "Clutch",
+            "Body",
+            "Guards/Braces",
+            "Illumination",
+            "Electrical",
+            "Protective/Safety"
+        ]
+    },
+    "STREAMLINE": {
+        "id": 583,
+        "product_types": [
+            "Brakes",
+            "Steering",
+            "Levers",
+            "Cable/Hydraulic Control Lines"
+        ]
+    },
+    "STREETFX": {
+        "id": 584,
+        "product_types": [
+            "Illumination",
+            "Electrical"
+        ]
+    },
+    "STRIDER": {
+        "id": 585,
+        "product_types": [
+            "Protective/Safety",
+            "Wheels",
+            "Skis/Carbides/Runners",
+            "Accessories",
+            "Promotional",
+            "Bike",
+            "Stands/Lifts"
+        ]
+    },
+    "STUD BOY": {
+        "id": 587,
+        "product_types": [
+            "Skis/Carbides/Runners",
+            "Tracks",
+            "Tools",
+            "Tire/Wheel Accessories",
+            "Hoodies",
+            "Shirts"
+        ]
+    },
+    "SUDCO": {
+        "id": 589,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Jets",
+            "Electrical"
+        ]
+    },
+    "SUNSTAR": {
+        "id": 594,
+        "product_types": [
+            "Sprockets",
+            "Chemicals",
+            "Chains",
+            "Hardware/Fasteners/Fittings"
+        ]
+    },
+    "SUPERCADDY": {
+        "id": 597,
+        "product_types": [
+            "Tools",
+            "Electrical"
+        ]
+    },
+    "SUPERCLAMP": {
+        "id": 598,
+        "product_types": [
+            "Straps/Tie-Downs",
+            "Mounts/Brackets",
+            "Trailer/Towing",
+            "Hardware/Fasteners/Fittings",
+            "Accessories"
+        ]
+    },
+    "SUPERCROSS": {
+        "id": 599,
+        "product_types": [
+            "Handlebars"
+        ]
+    },
+    "SUPERSPROX": {
+        "id": 811,
+        "product_types": [
+            "Sprockets",
+            "Promotional"
+        ]
+    },
+    "SURE GRIP": {
+        "id": 601,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "SURE LOAD": {
+        "id": 602,
+        "product_types": []
+    },
+    "SYMTEC": {
+        "id": 607,
+        "product_types": [
+            "Hand Controls",
+            "Grips",
+            "Steering"
+        ]
+    },
+    "SYSTEM 3": {
+        "id": 3262,
+        "product_types": [
+            "Wheel Components",
+            "Tires",
+            "Wheels",
+            "Tire/Wheel Accessories"
+        ]
+    },
+    "TALON": {
+        "id": 611,
+        "product_types": [
+            "Sprockets",
+            "Tire/Wheel Accessories"
+        ]
+    },
+    "TAMER": {
+        "id": 1480,
+        "product_types": [
+            "Suspension"
+        ]
+    },
+    "TANGENT": {
+        "id": 612,
+        "product_types": [
+            "Grips",
+            "Steering",
+            "Seat",
+            "Body"
+        ]
+    },
+    "TBR": {
+        "id": 651,
+        "product_types": [
+            "Hardware/Fasteners/Fittings",
+            "Exhaust",
+            "Body",
+            "Foot Controls",
+            "Mounts/Brackets",
+            "Air Filters"
+        ]
+    },
+    "TC BROS": {
+        "id": 613,
+        "product_types": [
+            "Foot Controls",
+            "Stands/Lifts",
+            "Body",
+            "Mounts/Brackets",
+            "Seat",
+            "Electrical",
+            "Intake/Carb/Fuel System",
+            "Cable/Hydraulic Control Lines",
+            "Handlebars",
+            "Exhaust",
+            "Hardware/Fasteners/Fittings",
+            "Air Filters",
+            "Throttle"
+        ]
+    },
+    "TECHMOUNT": {
+        "id": 617,
+        "product_types": [
+            "Mounts/Brackets",
+            "Accessories",
+            "Promotional"
+        ]
+    },
+    "TECMATE": {
+        "id": 618,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "TEKVEST": {
+        "id": 620,
+        "product_types": [
+            "Protective/Safety"
+        ]
+    },
+    "TEXA": {
+        "id": 803,
+        "product_types": [
+            "Tools",
+            "Cable/Hydraulic Control Lines",
+            "Electrical",
+            "Engine Management"
+        ]
+    },
+    "THERMACELL": {
+        "id": 622,
+        "product_types": [
+            "Accessories",
+            "Footwear"
+        ]
+    },
+    "THREEBOND": {
+        "id": 624,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "TIER 1": {
+        "id": 804,
+        "product_types": [
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "TIGER LIGHTS": {
+        "id": 2206,
+        "product_types": [
+            "Illumination"
+        ]
+    },
+    "TIMBERSLED": {
+        "id": 625,
+        "product_types": [
+            "Suspension"
+        ]
+    },
+    "TIRE PENZ": {
+        "id": 627,
+        "product_types": [
+            "Accessories"
+        ]
+    },
+    "TIROX": {
+        "id": 628,
+        "product_types": [
+            "Chemicals",
+            "Tools",
+            "Stands/Lifts"
+        ]
+    },
+    "TKI": {
+        "id": 632,
+        "product_types": [
+            "Suspension",
+            "Wheels",
+            "Intake/Carb/Fuel System",
+            "Guards/Braces",
+            "Levers"
+        ]
+    },
+    "TOP SHELF": {
+        "id": 634,
+        "product_types": [
+            "Accessories",
+            "Electrical",
+            "Illumination",
+            "Hardware/Fasteners/Fittings"
+        ]
+    },
+    "TORCH IND.": {
+        "id": 817,
+        "product_types": [
+            "Handlebars"
+        ]
+    },
+    "TORCO": {
+        "id": 635,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "TRAIL TECH": {
+        "id": 637,
+        "product_types": [
+            "Illumination",
+            "Electrical",
+            "Mounts/Brackets",
+            "Stands/Lifts",
+            "Gauges/Meters",
+            "Guards/Braces",
+            "GPS",
+            "Tire/Wheel Accessories"
+        ]
+    },
+    "TRAVELRITE": {
+        "id": 638,
+        "product_types": [
+            "Trailer/Towing"
+        ]
+    },
+    "TRI-FLOW": {
+        "id": 639,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "TRIPLE 9": {
+        "id": 640,
+        "product_types": [
+            "Headgear",
+            "Shirts"
+        ]
+    },
+    "TRU TENSION": {
+        "id": 805,
+        "product_types": [
+            "Tools",
+            "Chemicals"
+        ]
+    },
+    "TRU-FLATE": {
+        "id": 1121,
+        "product_types": [
+            "Tools"
+        ]
+    },
+    "TTS": {
+        "id": 812,
+        "product_types": [
+            "Engine Management",
+            "Engine",
+            "Tools"
+        ]
+    },
+    "TUBLISS": {
+        "id": 646,
+        "product_types": [
+            "Tubes",
+            "Tire/Wheel Accessories",
+            "Tires"
+        ]
+    },
+    "TUFF JUG": {
+        "id": 647,
+        "product_types": [
+            "Utility Containers",
+            "Fuel Containers"
+        ]
+    },
+    "TURTLE FUR": {
+        "id": 649,
+        "product_types": [
+            "Headgear",
+            "Helmet Accessories"
+        ]
+    },
+    "TWIN AIR": {
+        "id": 650,
+        "product_types": [
+            "Air Filters",
+            "Chemicals",
+            "Intake/Carb/Fuel System",
+            "Engine",
+            "Helmet Accessories",
+            "Body",
+            "Oil Filters"
+        ]
+    },
+    "UCLEAR": {
+        "id": 652,
+        "product_types": [
+            "Audio/Visual/Communication",
+            "Accessories",
+            "Replacement Parts"
+        ]
+    },
+    "ULTIMAX": {
+        "id": 752,
+        "product_types": [
+            "Belts"
+        ]
+    },
+    "ULTRACOOL": {
+        "id": 3196,
+        "product_types": [
+            "Engine",
+            "Electrical",
+            "Windshield/Windscreen"
+        ]
+    },
+    "ULTRAGARD": {
+        "id": 1184,
+        "product_types": [
+            "Luggage",
+            "Storage Covers"
+        ]
+    },
+    "UNABIKER": {
+        "id": 656,
+        "product_types": [
+            "Guards/Braces"
+        ]
+    },
+    "UNI": {
+        "id": 657,
+        "product_types": [
+            "Air Filters",
+            "Chemicals",
+            "Body"
+        ]
+    },
+    "UNIT": {
+        "id": 831,
+        "product_types": [
+            "Tools",
+            "Stands/Lifts",
+            "Sprockets",
+            "Accessories",
+            "Straps/Tie-Downs",
+            "Trailer/Towing",
+            "Clamps",
+            "Mounts/Brackets"
+        ]
+    },
+    "UPP": {
+        "id": 658,
+        "product_types": [
+            "Drive",
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "USI SKIS": {
+        "id": 855,
+        "product_types": [
+            "Skis/Carbides/Runners",
+            "Hardware/Fasteners/Fittings"
+        ]
+    },
+    "USWE": {
+        "id": 1225,
+        "product_types": [
+            "Luggage",
+            "Protective/Safety",
+            "Replacement Parts",
+            "Accessories"
+        ]
+    },
+    "VE": {
+        "id": 659,
+        "product_types": [
+            "Engine",
+            "Body",
+            "Mounts/Brackets",
+            "Racks"
+        ]
+    },
+    "VENOM PRODUCTS": {
+        "id": 615,
+        "product_types": [
+            "Clutch",
+            "Drive",
+            "Tools",
+            "Sprockets",
+            "Chains",
+            "Chemicals"
+        ]
+    },
+    "VENTURE": {
+        "id": 660,
+        "product_types": [
+            "Vests",
+            "Layers",
+            "Gloves",
+            "Accessories",
+            "Promotional"
+        ]
+    },
+    "VERTEX": {
+        "id": 662,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Gaskets/Seals",
+            "Exhaust",
+            "Piston kits & Components",
+            "Electrical",
+            "Engine"
+        ]
+    },
+    "VISU-FILTER": {
+        "id": 665,
+        "product_types": [
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "VOODOO": {
+        "id": 667,
+        "product_types": [
+            "Exhaust",
+            "Foot Controls"
+        ]
+    },
+    "VORTEX": {
+        "id": 668,
+        "product_types": [
+            "Handlebars",
+            "Sprockets",
+            "Chemicals",
+            "Hand Controls",
+            "Guards/Braces",
+            "Engine",
+            "Accessories",
+            "Grips",
+            "Body",
+            "Foot Controls",
+            "Hardware/Fasteners/Fittings",
+            "Straps/Tie-Downs",
+            "Chains",
+            "Tires",
+            "Suspension"
+        ]
+    },
+    "VP RACING": {
+        "id": 1222,
+        "product_types": [
+            "Utility Containers",
+            "Replacement Parts",
+            "Accessories",
+            "Chemicals",
+            "Fuel Containers"
+        ]
+    },
+    "VSI": {
+        "id": 669,
+        "product_types": [
+            "Tires"
+        ]
+    },
+    "VURB": {
+        "id": 670,
+        "product_types": []
+    },
+    "WAHL BROS": {
+        "id": 672,
+        "product_types": [
+            "Drive",
+            "Suspension",
+            "Sprockets",
+            "Wheels"
+        ]
+    },
+    "WALBRO": {
+        "id": 673,
+        "product_types": [
+            "Intake/Carb/Fuel System"
+        ]
+    },
+    "WALLINGFORDS": {
+        "id": 674,
+        "product_types": [
+            "Tires"
+        ]
+    },
+    "WARN": {
+        "id": 675,
+        "product_types": [
+            "Winch",
+            "Mounts/Brackets",
+            "Trailer/Towing",
+            "Body",
+            "Plow",
+            "Accessories",
+            "Hardware/Fasteners/Fittings",
+            "Switches",
+            "Luggage",
+            "Electrical"
+        ]
+    },
+    "WD-40": {
+        "id": 676,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "WELD WHEELS": {
+        "id": 1315,
+        "product_types": [
+            "Wheels"
+        ]
+    },
+    "WESBAR": {
+        "id": 822,
+        "product_types": [
+            "Electrical",
+            "Illumination"
+        ]
+    },
+    "WEST-EAGLE": {
+        "id": 677,
+        "product_types": [
+            "Mounts/Brackets",
+            "Body",
+            "Exhaust",
+            "Handlebars",
+            "Hardware/Fasteners/Fittings",
+            "Risers",
+            "Illumination",
+            "Windshield/Windscreen",
+            "Storage Covers",
+            "Seat",
+            "Luggage",
+            "Foot Controls",
+            "Levers"
+        ]
+    },
+    "WHIP IT": {
+        "id": 681,
+        "product_types": [
+            "Accessories",
+            "Protective/Safety",
+            "Illumination",
+            "Mounts/Brackets",
+            "Switches"
+        ]
+    },
+    "WILCOX": {
+        "id": 1645,
+        "product_types": [
+            "Tire/Wheel Accessories",
+            "Tools"
+        ]
+    },
+    "WILD 1": {
+        "id": 683,
+        "product_types": [
+            "Suspension",
+            "Handlebars",
+            "Steering",
+            "Risers",
+            "Hardware/Fasteners/Fittings",
+            "Clamps",
+            "Mounts/Brackets"
+        ]
+    },
+    "WILD ASS": {
+        "id": 3559,
+        "product_types": [
+            "Seat"
+        ]
+    },
+    "WILLIE & MAX": {
+        "id": 684,
+        "product_types": [
+            "Luggage",
+            "Accessories",
+            "Engine",
+            "Steering"
+        ]
+    },
+    "WISECO": {
+        "id": 686,
+        "product_types": [
+            "Piston kits & Components",
+            "Suspension",
+            "Tools",
+            "Engine",
+            "Engine Management",
+            "Gaskets/Seals",
+            "Clutch",
+            "Body"
+        ]
+    },
+    "WIZARDS": {
+        "id": 687,
+        "product_types": [
+            "Chemicals",
+            "Promotional",
+            "Accessories"
+        ]
+    },
+    "WOODYS": {
+        "id": 689,
+        "product_types": [
+            "Tools",
+            "Skis/Carbides/Runners",
+            "Tracks",
+            "Tire/Wheel Accessories",
+            "Body",
+            "Stands/Lifts",
+            "Hardware/Fasteners/Fittings"
+        ]
+    },
+    "WORKS": {
+        "id": 690,
+        "product_types": [
+            "Guards/Braces",
+            "Suspension",
+            "Levers",
+            "Drive",
+            "Foot Controls",
+            "Body",
+            "Throttle",
+            "Engine",
+            "Steering",
+            "Intake/Carb/Fuel System",
+            "Clutch",
+            "Tools",
+            "Hardware/Fasteners/Fittings",
+            "Hand Controls",
+            "Brakes",
+            "Oil Filters"
+        ]
+    },
+    "WORKSHOP HERO": {
+        "id": 691,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "WORX": {
+        "id": 694,
+        "product_types": [
+            "Drive",
+            "Exhaust",
+            "Intake/Carb/Fuel System",
+            "Air Filters"
+        ]
+    },
+    "WPS": {
+        "id": 678,
+        "product_types": [
+            "Tools",
+            "Engine",
+            "Intake/Carb/Fuel System",
+            "Accessories",
+            "Storage Covers",
+            "Mounts/Brackets",
+            "Body",
+            "Batteries",
+            "Trailer/Towing",
+            "Chains",
+            "Tire/Wheel Accessories",
+            "Promotional",
+            "Graphics/Decals",
+            "Replacement Parts"
+        ]
+    },
+    "WSM": {
+        "id": 696,
+        "product_types": [
+            "Intake/Carb/Fuel System",
+            "Oil Filters",
+            "Accessories",
+            "Engine",
+            "Body",
+            "Drive",
+            "Mounts/Brackets",
+            "Gaskets/Seals",
+            "Cable/Hydraulic Control Lines",
+            "Piston kits & Components",
+            "Switches",
+            "Electrical",
+            "Tools",
+            "Hardware/Fasteners/Fittings",
+            "Exhaust",
+            "Mats/Rugs"
+        ]
+    },
+    "X2": {
+        "id": 698,
+        "product_types": [
+            "Engine"
+        ]
+    },
+    "XENA": {
+        "id": 699,
+        "product_types": [
+            "Tools",
+            "Security"
+        ]
+    },
+    "XK GLOW": {
+        "id": 1150,
+        "product_types": [
+            "Illumination",
+            "Audio/Visual/Communication",
+            "Mounts/Brackets",
+            "Electrical"
+        ]
+    },
+    "XPATV": {
+        "id": 700,
+        "product_types": [
+            "Suspension"
+        ]
+    },
+    "XTC POWER PRODUCTS": {
+        "id": 1414,
+        "product_types": [
+            "Electrical",
+            "Illumination",
+            "Accessories",
+            "Mounts/Brackets",
+            "Switches",
+            "Audio/Visual/Communication",
+            "Mirrors"
+        ]
+    },
+    "XTRA SEAL": {
+        "id": 1678,
+        "product_types": [
+            "Tire/Wheel Accessories",
+            "Tools"
+        ]
+    },
+    "XTRIG": {
+        "id": 701,
+        "product_types": [
+            "Suspension",
+            "Handlebars"
+        ]
+    },
+    "YAKTRAX": {
+        "id": 702,
+        "product_types": [
+            "Footwear"
+        ]
+    },
+    "YANA SHIKI": {
+        "id": 703,
+        "product_types": [
+            "Foot Controls",
+            "Body",
+            "Handlebars",
+            "Suspension",
+            "Mirrors",
+            "Hardware/Fasteners/Fittings",
+            "Steering",
+            "Air Filters",
+            "Levers",
+            "Seat",
+            "Electrical",
+            "Illumination",
+            "Windshield/Windscreen"
+        ]
+    },
+    "YESS": {
+        "id": 704,
+        "product_types": [
+            "Bicycle Frames",
+            "Drive"
+        ]
+    },
+    "YOSHIMURA": {
+        "id": 778,
+        "product_types": [
+            "Exhaust",
+            "Body",
+            "Engine",
+            "Foot Controls",
+            "Replacement Parts",
+            "Graphics/Decals",
+            "Mounts/Brackets",
+            "Hand Controls",
+            "Illumination",
+            "Accessories",
+            "Promotional"
+        ]
+    },
+    "YUASA": {
+        "id": 705,
+        "product_types": [
+            "Tools",
+            "Batteries",
+            "Hardware/Fasteners/Fittings"
+        ]
+    },
+    "ZAN": {
+        "id": 706,
+        "product_types": [
+            "Headgear",
+            "Helmet Accessories",
+            "Eyewear",
+            "Promotional",
+            "Layers",
+            "Protective/Safety"
+        ]
+    },
+    "ZBROZ": {
+        "id": 799,
+        "product_types": [
+            "Body",
+            "Suspension",
+            "Foot Controls"
+        ]
+    },
+    "ZEE LINE": {
+        "id": 836,
+        "product_types": [
+            "Chemicals"
+        ]
+    },
+    "ZETA": {
+        "id": 709,
+        "product_types": [
+            "Steering",
+            "Mounts/Brackets",
+            "Electrical",
+            "Clamps",
+            "Levers",
+            "Hand Controls",
+            "Brakes",
+            "Handguards",
+            "Guards/Braces",
+            "Body",
+            "Air Filters",
+            "Engine",
+            "Foot Controls",
+            "Drive",
+            "Gas Caps",
+            "Hardware/Fasteners/Fittings",
+            "Suspension",
+            "Promotional",
+            "Risers",
+            "Replacement Parts",
+            "Accessories",
+            "Stands/Lifts",
+            "Tire/Wheel Accessories",
+            "Handlebars",
+            "Windshield/Windscreen",
+            "Illumination",
+            "Chains"
+        ]
+    }
+}
