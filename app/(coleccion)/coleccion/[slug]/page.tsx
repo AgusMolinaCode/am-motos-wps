@@ -7,6 +7,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import ProductTypeFilter from "@/components/brand-section/ProductTypeFilter";
 import productBrands from "@/public/csv/product_brands.json";
 import BrandFilterButtons from "../../../../components/category-section/CollectionFilterButtons";
+import brandData from "@/public/csv/brand2.json";
 
 // Definir el mapa de tipos de producto
 const productTypeMap: Record<string, string> = {
@@ -31,9 +32,27 @@ interface PageProps {
 export default async function CollectionPage({ params, searchParams }: PageProps) {
   const slug = params.slug;
   
+  // Mapa de tipos de producto para colecciones específicas
+  const productTypeMap: Record<string, string> = {
+    'motor': 'Engine,Piston kits & Components',
+    'accesorios': 'Accessories',
+    'indumentaria': 'Pants,Jerseys,Footwear,Gloves,Eyewear',
+    'cascos': 'Helmets',
+    'proteccion': 'Protective/Safety,Luggage',
+    'herramientas': 'Tools',
+    'casual': 'Vests,Sweaters,Suits,Socks,Shorts,Shoes,Jackets,Hoodies,Bags,Luggage'
+  };
+  
   // Codificar correctamente el productType
   const productType = typeof searchParams.productType === "string" 
     ? searchParams.productType.replace(/&/g, '%26')
+    : productTypeMap[slug.toLowerCase()] 
+      ? productTypeMap[slug.toLowerCase()].replace(/&/g, '%26')
+      : undefined;
+
+  // Obtener el brandId de los searchParams
+  const brandId = typeof searchParams.brandId === "string" 
+    ? searchParams.brandId 
     : undefined;
 
   // Codificar correctamente el cursor
@@ -55,7 +74,11 @@ export default async function CollectionPage({ params, searchParams }: PageProps
     meta = result.meta;
   } else {
     // Obtener los datos de una colección específica
-    const result = await getCollectionByProductType(slug, cursor);
+    const result = await getCollectionByProductType(
+      slug, 
+      cursor, 
+      brandId  // Pasar el brandId aquí
+    );
     data = result.data;
     meta = result.meta;
   }
@@ -158,7 +181,13 @@ export default async function CollectionPage({ params, searchParams }: PageProps
             {meta?.cursor?.prev && (
               <div className="flex justify-center mt-6">
                 <Link
-                  href={`/coleccion/${slug}${productType ? `?productType=${productType}&` : '?'}cursor=${meta.cursor.prev.replace(/&/g, '%26')}`}
+                  href={`/coleccion/${slug}?${
+                    new URLSearchParams({
+                      ...(productType ? { productType } : {}),
+                      ...(brandId ? { brandId } : {}),
+                      cursor: meta.cursor.prev.replace(/&/g, '%26')
+                    }).toString()
+                  }`}
                   className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                 >
                   <ArrowLeftIcon className="w-4 h-4" />
@@ -169,7 +198,13 @@ export default async function CollectionPage({ params, searchParams }: PageProps
             {meta?.cursor?.next && (
               <div className="flex justify-center mt-6">
                 <Link
-                  href={`/coleccion/${slug}${productType ? `?productType=${productType}&` : '?'}cursor=${meta.cursor.next.replace(/&/g, '%26')}`}
+                  href={`/coleccion/${slug}?${
+                    new URLSearchParams({
+                      ...(productType ? { productType } : {}),
+                      ...(brandId ? { brandId } : {}),
+                      cursor: meta.cursor.next.replace(/&/g, '%26')
+                    }).toString()
+                  }`}
                   className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                 >
                   <ArrowRightIcon className="w-4 h-4" />

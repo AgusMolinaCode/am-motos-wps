@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+
 const categories = [
   {
     href: "/coleccion/motor",
@@ -48,29 +49,32 @@ const categories = [
 
 export default async function CategorySection() {
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-2 pt-4 md:pt-10">
-      {categories.map((category, index) => (
-        <Link
-          key={index}
-          href={category.href}
-          className="flex flex-col items-center justify-center border border-gray-300 dark:border-gray-700 rounded-xl hover:dark:bg-gray-900 hover:bg-gray-200 transition-all duration-300"
-        >
-          <Image
-            src={category.imageSrc}
-            alt="category"
-            width={260}
-            height={260}
-          />
-          <div className="py-4">
-            <p className="text-center text-sm md:text-lg font-semibold dark:text-gray-400 text-gray-600">
-              + {category.productCount} productos
-            </p>
-            <p className="text-center text-md md:text-2xl font-bold dark:text-gray-200 text-gray-800">
-              {category.title}
-            </p>
-          </div>
-        </Link>
-      ))}
+    <div>
+      
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-2 pt-4 md:pt-10">
+        {categories.map((category, index) => (
+          <Link
+            key={index}
+            href={category.href}
+            className="flex flex-col items-center justify-center border border-gray-300 dark:border-gray-700 rounded-xl hover:dark:bg-gray-900 hover:bg-gray-200 transition-all duration-300"
+          >
+            <Image
+              src={category.imageSrc}
+              alt="category"
+              width={260}
+              height={260}
+            />
+            <div className="py-4">
+              <p className="text-center text-sm md:text-lg font-semibold dark:text-gray-400 text-gray-600">
+                + {category.productCount} productos
+              </p>
+              <p className="text-center text-md md:text-2xl font-bold dark:text-gray-200 text-gray-800">
+                {category.title}
+              </p>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

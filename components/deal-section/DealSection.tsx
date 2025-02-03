@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { CardBody, CardWithLines } from "./CardWithLines";
 import { getStatusItems } from "@/lib/brands";
+import Link from "next/link";
 
 export default function DealSection() {
   const [newItems, setNewItems] = useState<any[]>([]);
@@ -50,24 +51,28 @@ export default function DealSection() {
         </div>
 
         <div className="w-full">
-          <Image
-            src="/images/fly-banner.webp"
-            alt="deal"
-            width={600}
-            height={600}
-            className="rounded-md h-[100px]"
-          />
+          <Link href="/brand/135">
+            <Image
+              src="/images/fly-banner.webp"
+              alt="deal"
+              width={600}
+              height={600}
+              className="rounded-md h-[100px] object-cover"
+            />
+          </Link>
         </div>
       </div>
 
       <div>
-        <Image
-          src="/images/alpine.jpg"
-          alt="deal"
-          width={600}
-          height={600}
-          className="rounded-xl object-cover h-[342px]"
-        />
+        <Link href="/brand/769">
+          <Image
+            src="/images/alpine.jpg"
+            alt="deal"
+            width={600}
+            height={600}
+            className="rounded-xl object-cover h-[342px]"
+          />
+        </Link>
       </div>
     </div>
   );

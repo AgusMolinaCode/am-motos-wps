@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import "./globals.css";
 import ThemeWrapper from "@/components/theme/ThemeWrapper";
 import Navbar from "@/components/header/navbar";
+import Footer from "@/components/footer/footer";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
           <ThemeWrapper>
             <Navbar />
             {children}
+            <Footer />
           </ThemeWrapper>
         </ThemeProvider>
       </body>

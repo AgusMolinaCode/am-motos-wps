@@ -1,3 +1,4 @@
+import BestSellersSection from "@/components/bestseller-section/BestSellersSection";
 import BrandLink from "@/components/brand-section/BrandLink";
 import CategorySection from "@/components/category-section/CategorySection";
 import DealSection from "@/components/deal-section/DealSection";
@@ -10,6 +11,7 @@ export default function Home() {
       <CategorySection />
       <DealSection />
       <BrandLink />
+      <BestSellersSection />
     </div>
   );
 }

@@ -12,31 +12,33 @@ export function ImagesSliderDemo() {
     "/images/moto33.jpg",
   ];
   return (
-    <ImagesSlider className="h-[26rem] rounded-xl" images={images}>
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: -80,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        transition={{
-          duration: 0.6,
-        }}
-        className="z-50 flex flex-col justify-center items-center"
-      >
-        <div className="flex gap-2 items-center justify-center mx-auto">
-          <Image
-            src="/images/escudo.png"
-            alt="AM Motos Logo"
-            width={500}
-            height={500}
-          />
-          <FlipWordsDemo />
-        </div>
-      </motion.div>
-    </ImagesSlider>
+    <div className="">
+      <ImagesSlider className="h-[26rem] rounded-xl mt-10" images={images}>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: -80,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.6,
+          }}
+          className="z-50 flex flex-col justify-center items-center"
+        >
+          <div className="flex gap-2 items-center justify-center mx-auto">
+            <Image
+              src="/images/escudo.png"
+              alt="AM Motos Logo"
+              width={500}
+              height={500}
+            />
+            <FlipWordsDemo />
+          </div>
+        </motion.div>
+      </ImagesSlider>
+    </div>
   );
 }
