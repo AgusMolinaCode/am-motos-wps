@@ -12,7 +12,7 @@ export async function getBrandsItems(
   };
 
   // Construir la URL base
-  let url = `https://api.wps-inc.com/items?filter[brand_id]=${brandId}&include=inventory,images&page[size]=100`;
+  let url = `https://api.wps-inc.com/items?filter[brand_id]=${brandId}&include=inventory,images&sort[desc]=created_at&page[size]=100`;
 
   // Agregar filtro de tipo de producto si está presente
   if (productType) {
@@ -146,6 +146,52 @@ export async function getBrandName(brandId: string): Promise<string> {
   }
 }
 
+export async function getTypeProducts(productType: string, cursor?: string) {
+  const headers: HeadersInit = {
+    Authorization: process.env.PUBLIC_WPS ?? "",
+  };
+
+  let url = `https://api.wps-inc.com/items?filter[product_type]=${encodeURIComponent(productType)}&include=inventory,images&page[size]=100`;
+
+  if (cursor) {
+    url += `&page[cursor]=${encodeURIComponent(cursor)}`;
+  }
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers,
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`Error fetching items with product type ${productType}:`, errorText);
+      return {
+        data: [],
+        meta: { cursor: { current: "", prev: null, next: null, count: 0 } },
+      };
+    }
+
+    const result = await response.json();
+
+    const itemsWithInventory = (result.data as BrandStatus[]).filter(
+      (item) => item.inventory && item.inventory.data.total > 0
+    );
+
+    return {
+      data: itemsWithInventory,
+      meta: result.meta as Meta,
+    };
+  } catch (error) {
+    console.error(`Unexpected error fetching items with product type ${productType}:`, error);
+    return {
+      data: [],
+      meta: { cursor: { current: "", prev: null, next: null, count: 0 } },
+    };
+  }
+}
+
 export async function getItemsByStatus(
   status: string,
   cursor: string | null = null,
@@ -164,7 +210,7 @@ export async function getItemsByStatus(
     : "NEW";
 
   // Construir la URL base
-  let url = `https://api.wps-inc.com/items?filter[status_id]=${sanitizedStatus}&include=inventory&page[size]=20`;
+  let url = `https://api.wps-inc.com/items?filter[status_id]=${sanitizedStatus}&include=inventory&sort[desc]=created_at&page[size]=20`;
 
   // Agregar filtro de tipo de producto si está presente
   if (productType) {
@@ -256,7 +302,7 @@ export async function getCollectionByProductType(
 
   // Construir la URL con el filtro de brand_id si está presente
   const url = cursor
-    ? `https://api.wps-inc.com/items?filter[product_type]=${encodedProductType}&include=inventory,images&sort[desc]=created_at&page[size]=100&page[cursor]=${encodeURIComponent(
+    ? `https://api.wps-inc.com/items?filter[product_type]=${encodedProductType}&include=inventory,images&page[size]=100&sort[desc]=created_at&page[cursor]=${encodeURIComponent(
         cursor
       )}${brandId ? `&filter[brand_id]=${brandId}` : ""}`
     : `https://api.wps-inc.com/items?filter[product_type]=${encodedProductType}&include=inventory,images&sort[desc]=created_at&page[size]=100${
@@ -284,25 +330,37 @@ export async function getCollectionByProductType(
 
     const result = await response.json();
 
-    // Filtrar productos con inventario total > 0
+    // Filtrar productos con inventario total > 0 y los que tienen inventario = 0
     const itemsWithInventory = (result.data as BrandStatus[]).filter(
-      (item) => item.inventory?.data?.total !== undefined && item.inventory.data.total > 0
+      (item) =>
+        item.inventory?.data?.total !== undefined && item.inventory.data.total > 0
+    );
+    const itemsWithoutInventory = (result.data as BrandStatus[]).filter(
+      (item) =>
+        item.inventory?.data?.total !== undefined && item.inventory.data.total === 0
     );
 
-    // Eliminar duplicados basados en el ID
+    // Eliminar duplicados basados en el ID en cada grupo
     const uniqueItemsWithInventory = Array.from(
       new Map(itemsWithInventory.map((item) => [item.id, item])).values()
     );
+    const uniqueItemsWithoutInventory = Array.from(
+      new Map(itemsWithoutInventory.map((item) => [item.id, item])).values()
+    );
+
+    // Concatenar los dos grupos y limitar a 30 productos
+    const combinedItems = [...uniqueItemsWithInventory, ...uniqueItemsWithoutInventory];
+    const limitedItems = combinedItems.slice(0, 30);
 
     return {
-      data: uniqueItemsWithInventory.slice(0, 30),
+      data: limitedItems,
       meta: {
         ...result.meta,
         cursor: {
           ...result.meta.cursor,
-          count: uniqueItemsWithInventory.length,
-          next: uniqueItemsWithInventory.length > 30 ? result.meta.cursor.next : null
-        }
+          count: combinedItems.length,
+          next: combinedItems.length > 30 ? result.meta.cursor.next : null,
+        },
       },
     };
   } catch (error) {
@@ -452,7 +510,7 @@ export async function getRecommendedItems(
 
   const url = `https://api.wps-inc.com/items?filter[supplier_product_id]=${encodeURIComponent(
     productIdsString
-  )}&include=inventory,images&page[size]=100`;
+  )}&include=inventory,images&sort[desc]=created_at&page[size]=100`;
 
   try {
     const response = await fetch(url, {

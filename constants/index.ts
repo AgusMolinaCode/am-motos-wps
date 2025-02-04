@@ -141,8 +141,8 @@ export const brands = [
 
     {
       imgUrl:
-        "https://www.mxstore.com.au/assets/webshop/cms/01/234701.jpg?1566435970",
-      brandId: "419",
+        "https://www.mxstore.com.au/assets/webshop/cms/05/228705.jpg?1501504346&updated=202501281226",
+      brandId: "99",
       name: "Brand 5",
     },
     {
@@ -197,3 +197,52 @@ export const brands = [
       name: "Brand 19",
     },
   ];
+
+  export const featuredBrands = [
+    { name: "ACERBIS", id: "692" },
+    { name: "ALPINESTARS", id: "769" },
+    { name: "FLY RACING", id: "135" },
+    { name: "FMF", id: "137" },
+    { name: "VERTEX", id: "662" },
+    { name: "PROX", id: "454" },
+    { name: "WISECO", id: "686" },
+    { name: "RACETECH", id: "467" },
+    { name: "CYLINDER WORKS", id: "46" },
+    { name: "HOT CAMS", id: "220" },
+    { name: "HOT RODS", id: "223" },
+    { name: "MOTO TASSINARI", id: "348" },
+    { name: "HINSON", id: "206" },
+    { name: "GAERNE", id: "159" },
+    { name: "ALL BALLS", id: "99" },
+    { name: "PIVOT WORKS", id: "419" },
+  ];
+
+  export const casualTranslations = {
+    'Headgear': 'Gorros',
+    'Shirts': 'Remeras',
+    'Hoodies': 'Buzos',
+    'Jackets': 'Chaquetas',
+    'Pants': 'Pantalones',
+    'Shoes': 'Zapatos',
+    'Shorts': 'Shorts',
+    'Sweaters': 'Suéteres',
+    'Tank%20Tops': 'Camisetas sin mangas',
+    'Vests': 'Chalecos',
+  };
+
+  export const protectionTranslations = {
+    'Protective%2FSafety': 'Protección/Seguridad',
+    'Helmets': 'Cascos',
+  };
+
+  export const apparelTranslations = {
+    'Eyewear': 'Gafas / Lentes',
+    'Footwear': 'Calzado',
+    'Gloves': 'Guantes',
+    'Jackets': 'Camperas',
+    'Jerseys': 'Jerseys',
+    'Pants': 'Pantalones',
+    'Helmets': 'Cascos',
+    'Socks': 'Medias',
+    'Suits': 'Trajes',
+  };
