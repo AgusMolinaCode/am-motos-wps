@@ -7,18 +7,6 @@ import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import ProductTypeFilter from "@/components/brand-section/ProductTypeFilter";
 import productBrands from "@/public/csv/product_brands.json";
 import BrandFilterButtons from "../../../../components/category-section/CollectionFilterButtons";
-import brandData from "@/public/csv/brand2.json";
-
-// Definir el mapa de tipos de producto
-const productTypeMap: Record<string, string> = {
-  'motor': 'Engine,Piston kits & Components',
-  'accesorios': 'Accessories',
-  'indumentaria': 'Pants,Jerseys,Footwear,Gloves,Eyewear',
-  'cascos': 'Helmets',
-  'proteccion': 'Protective/Safety,Luggage',
-  'herramientas': 'Tools',
-  'casual': 'Vests,Sweaters,Suits,Socks,Shorts,Shoes,Jackets,Hoodies,Bags,Luggage'
-};
 
 export const dynamic = "force-dynamic";
 
@@ -35,12 +23,13 @@ export default async function CollectionPage({ params, searchParams }: PageProps
   // Mapa de tipos de producto para colecciones específicas
   const productTypeMap: Record<string, string> = {
     'motor': 'Engine,Piston kits & Components',
-    'accesorios': 'Accessories',
+    'accesorios': 'Accessories,Drive',
     'indumentaria': 'Pants,Jerseys,Footwear,Gloves,Eyewear',
-    'cascos': 'Helmets',
-    'proteccion': 'Protective/Safety,Luggage',
+    'cascos': 'Helmets,Protective/Safety',
+    'proteccion': 'Protective/Safety,Luggage,Bags',
     'herramientas': 'Tools',
-    'casual': 'Vests,Sweaters,Suits,Socks,Shorts,Shoes,Jackets,Hoodies,Bags,Luggage'
+    'casual': 'Vests,Sweaters,Suits,Socks,Shorts,Shoes,Jackets,Hoodies,Bags,Luggage',
+    'protective-safety': 'Protective/Safety',
   };
   
   // Codificar correctamente el productType
@@ -168,7 +157,7 @@ export default async function CollectionPage({ params, searchParams }: PageProps
                   />
                 )}
                 <Link
-                  href={`/product/${item.id}`}
+                  href={`/product/${item.supplier_product_id}`}
                   className="mt-auto inline-block text-sm text-indigo-600 hover:underline text-center"
                 >
                   Ver detalles

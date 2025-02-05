@@ -1,0 +1,391 @@
+{
+  "data": [
+    {
+      "id": 518,
+      "attributekey_id": 1,
+      "name": "Air Filters",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+
+    {
+      "id": 500,
+      "attributekey_id": 1,
+      "name": "Batteries",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 671,
+      "attributekey_id": 1,
+      "name": "Belts",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2019-07-30 20:12:02"
+    },
+
+    {
+      "id": 553,
+      "attributekey_id": 1,
+      "name": "Body",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 1,
+      "attributekey_id": 1,
+      "name": "Brakes",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 649,
+      "attributekey_id": 1,
+      "name": "Cable/Hydraulic Control Lines",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2019-02-04 17:52:44"
+    },
+    {
+      "id": 804,
+      "attributekey_id": 1,
+      "name": "Chains",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 4864,
+      "attributekey_id": 1,
+      "name": "Chemicals",
+      "sort": 0,
+      "created_at": "2017-04-12 13:22:19",
+      "updated_at": "2017-04-12 13:22:19"
+    },
+
+    {
+      "id": 529,
+      "attributekey_id": 1,
+      "name": "Clutch",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 5174,
+      "attributekey_id": 1,
+      "name": "Cranks",
+      "sort": 0,
+      "created_at": "2017-08-14 19:51:37",
+      "updated_at": "2017-08-14 19:51:37"
+    },
+    {
+      "id": 662,
+      "attributekey_id": 1,
+      "name": "Drive",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 652,
+      "attributekey_id": 1,
+      "name": "Electrical",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 663,
+      "attributekey_id": 1,
+      "name": "Engine",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 5624,
+      "attributekey_id": 1,
+      "name": "Engine Management",
+      "sort": 0,
+      "created_at": "2017-12-12 22:44:22",
+      "updated_at": "2018-06-11 21:36:59"
+    },
+    {
+      "id": 524,
+      "attributekey_id": 1,
+      "name": "Exhaust",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 661,
+      "attributekey_id": 1,
+      "name": "Foot Controls",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2018-05-17 16:29:11"
+    },
+    {
+      "id": 5173,
+      "attributekey_id": 1,
+      "name": "Forks",
+      "sort": 0,
+      "created_at": "2017-08-14 19:51:22",
+      "updated_at": "2017-08-14 19:51:22"
+    },
+    {
+      "id": 4107,
+      "attributekey_id": 1,
+      "name": "Fuel Tank",
+      "sort": 0,
+      "created_at": "2017-01-27 14:18:25",
+      "updated_at": "2017-01-27 14:18:25"
+    },
+    {
+      "id": 2503,
+      "attributekey_id": 1,
+      "name": "Gas Caps",
+      "sort": 0,
+      "created_at": "2016-07-14 15:24:09",
+      "updated_at": "2016-07-14 15:24:09"
+    },
+    {
+      "id": 498,
+      "attributekey_id": 1,
+      "name": "Gaskets/Seals",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2017-12-12 21:57:29"
+    },
+    {
+      "id": 5644,
+      "attributekey_id": 1,
+      "name": "Gauges/Meters",
+      "sort": 0,
+      "created_at": "2017-12-13 18:21:57",
+      "updated_at": "2018-01-04 14:09:48"
+    },
+    {
+      "id": 660,
+      "attributekey_id": 1,
+      "name": "Graphics/Decals",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2017-12-18 16:21:25"
+    },
+    {
+      "id": 669,
+      "attributekey_id": 1,
+      "name": "Grips",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 5698,
+      "attributekey_id": 1,
+      "name": "Guards/Braces",
+      "sort": 0,
+      "created_at": "2017-12-19 22:57:21",
+      "updated_at": "2017-12-19 22:57:21"
+    },
+    {
+      "id": 6258,
+      "attributekey_id": 1,
+      "name": "Hand Controls",
+      "sort": 0,
+      "created_at": "2018-05-16 21:55:10",
+      "updated_at": "2018-05-16 21:55:10"
+    },
+    {
+      "id": 5696,
+      "attributekey_id": 1,
+      "name": "Handguards",
+      "sort": 0,
+      "created_at": "2017-12-19 22:39:22",
+      "updated_at": "2017-12-19 22:39:22"
+    },
+    {
+      "id": 4016,
+      "attributekey_id": 1,
+      "name": "Handlebars",
+      "sort": 0,
+      "created_at": "2017-01-24 18:15:25",
+      "updated_at": "2017-01-24 18:15:25"
+    },
+    {
+      "id": 4884,
+      "attributekey_id": 1,
+      "name": "Hardware/Fasteners/Fittings",
+      "sort": 0,
+      "created_at": "2017-04-26 20:56:40",
+      "updated_at": "2017-12-13 18:14:47"
+    },
+    {
+      "id": 5076,
+      "attributekey_id": 1,
+      "name": "Illumination",
+      "sort": 0,
+      "created_at": "2017-07-12 16:56:33",
+      "updated_at": "2017-12-13 17:16:28"
+    },
+    {
+      "id": 531,
+      "attributekey_id": 1,
+      "name": "Intake/Carb/Fuel System",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2017-12-13 18:29:16"
+    },
+    {
+      "id": 5890,
+      "attributekey_id": 1,
+      "name": "Jets",
+      "sort": 0,
+      "created_at": "2018-02-01 16:36:28",
+      "updated_at": "2018-02-01 16:36:28"
+    },
+    {
+      "id": 9610,
+      "attributekey_id": 1,
+      "name": "Layers",
+      "sort": 0,
+      "created_at": "2019-07-31 12:02:16",
+      "updated_at": "2019-07-31 12:02:16"
+    },
+    {
+      "id": 533,
+      "attributekey_id": 1,
+      "name": "Levers",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 657,
+      "attributekey_id": 1,
+      "name": "Mirrors",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 5571,
+      "attributekey_id": 1,
+      "name": "Mounts/Brackets",
+      "sort": 0,
+      "created_at": "2017-12-12 16:58:55",
+      "updated_at": "2017-12-13 18:28:26"
+    },
+    {
+      "id": 526,
+      "attributekey_id": 1,
+      "name": "Oil Filters",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 638,
+      "attributekey_id": 1,
+      "name": "Piston kits & Components",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2020-05-27 17:31:24"
+    },
+    {
+      "id": 6205,
+      "attributekey_id": 1,
+      "name": "Replacement Parts",
+      "sort": 0,
+      "created_at": "2018-04-30 21:31:54",
+      "updated_at": "2018-04-30 21:31:54"
+    },
+    {
+      "id": 666,
+      "attributekey_id": 1,
+      "name": "Seat",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 715,
+      "attributekey_id": 1,
+      "name": "Spark Plugs",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 637,
+      "attributekey_id": 1,
+      "name": "Sprockets",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 5645,
+      "attributekey_id": 1,
+      "name": "Starters",
+      "sort": 0,
+      "created_at": "2017-12-13 19:35:43",
+      "updated_at": "2017-12-13 19:35:43"
+    },
+    {
+      "id": 6255,
+      "attributekey_id": 1,
+      "name": "Steering",
+      "sort": 0,
+      "created_at": "2018-05-16 21:30:49",
+      "updated_at": "2018-05-16 21:30:49"
+    },
+    {
+      "id": 584,
+      "attributekey_id": 1,
+      "name": "Suspension",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 5569,
+      "attributekey_id": 1,
+      "name": "Switches",
+      "sort": 0,
+      "created_at": "2017-12-12 16:52:52",
+      "updated_at": "2017-12-12 16:52:52"
+    },
+    {
+      "id": 727,
+      "attributekey_id": 1,
+      "name": "Throttle",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 653,
+      "attributekey_id": 1,
+      "name": "Tools",
+      "sort": 0,
+      "created_at": "2016-06-17 20:53:25",
+      "updated_at": "2016-06-17 20:53:25"
+    },
+    {
+      "id": 5071,
+      "attributekey_id": 1,
+      "name": "UTV Cab/Roof/Door",
+      "sort": 0,
+      "created_at": "2017-07-11 16:24:04",
+      "updated_at": "2017-07-11 16:24:04"
+    }
+  ]
+}

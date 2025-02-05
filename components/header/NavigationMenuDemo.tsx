@@ -16,34 +16,44 @@ import {
 } from "@/components/ui/navigation-menu";
 import brandData from "@/public/csv/brand2.json";
 import ProductTypeContent from "./ProductTypeContent";
+import BrandMenuContent from "./BrandMenuContent";
+import CubiertasMenuContent from "./CubiertasMenuContent";
+
+// Interfaz para definir la estructura de una marca
+interface Brand {
+  id: number;
+  name: string;
+}
 
 // Marcas destacadas
-const featuredBrands = [
-  { name: "ACERBIS", id: "692" },
-  { name: "ALPINESTARS", id: "769" },
-  { name: "FLY RACING", id: "135" },
-  { name: "FMF", id: "137" },
-  { name: "VERTEX", id: "662" },
-  { name: "PROX", id: "454" },
-  { name: "WISECO", id: "686" },
-  { name: "RACETECH", id: "467" },
-  { name: "CYLINDER WORKS", id: "46" },
-  { name: "HOT CAMS", id: "220" },
-  { name: "HOT RODS", id: "223" },
-  { name: "MOTO TASSINARI", id: "348" },
-  { name: "HINSON", id: "206" },
-  { name: "GAERNE", id: "159" },
-  { name: "ALL BALLS", id: "99" },
-  { name: "PIVOT WORKS", id: "419" },
+const featuredBrands: Brand[] = [
+  { name: "ACERBIS", id: 692 },
+  { name: "ALPINESTARS", id: 769 },
+  { name: "FLY RACING", id: 135 },
+  { name: "FMF", id: 137 },
+  { name: "VERTEX", id: 662 },
+  { name: "PROX", id: 454 },
+  { name: "WISECO", id: 686 },
+  { name: "RACETECH", id: 467 },
+  { name: "CYLINDER WORKS", id: 46 },
+  { name: "HOT CAMS", id: 220 },
+  { name: "HOT RODS", id: 223 },
+  { name: "MOTO TASSINARI", id: 348 },
+  { name: "HINSON", id: 206 },
+  { name: "GAERNE", id: 159 },
+  { name: "ALL BALLS", id: 99 },
+  { name: "PIVOT WORKS", id: 419 },
 ];
 
 // Obtener IDs de featuredBrands para excluir
-const featuredBrandIds = new Set(featuredBrands.map((brand) => brand.id));
+const featuredBrandIds = new Set(
+  featuredBrands.map((brand) => brand.id.toString())
+);
 
 // Filtrar y ordenar allBrands desde brand2.json, excluyendo featuredBrands
-const allBrands = brandData
+const allBrands: Brand[] = brandData
   .filter((brand) => !featuredBrandIds.has(brand.id.toString()))
-  .map((brand) => ({ name: brand.name, id: brand.id.toString() }))
+  .map((brand) => ({ name: brand.name, id: brand.id }))
   .sort((a, b) => a.name.localeCompare(b.name))
   .slice(0, 30); // Limitar a 30 marcas
 
@@ -54,51 +64,10 @@ export function NavigationMenuDemo() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>MARCAS</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid gap-6 p-6 w-[800px]">
-              <div className="grid grid-cols-4 gap-6">
-                {/* Featured Brands */}
-                <div className="col-span-2 bg-gray-200 dark:bg-zinc-900 p-6 rounded-xl shadow-lg">
-                  <h3 className="font-bold text-2xl mb-4 text-black dark:text-white">
-                    Mejores Marcas
-                  </h3>
-                  <div className="grid grid-cols-2 gap-2 text-base">
-                    {featuredBrands.map((brand) => (
-                      <Link
-                        key={brand.id}
-                        href={`/brand/${brand.id}`}
-                        className="hover:bg-gray-300 font-normal dark:hover:bg-gray-800 p-2 rounded text-black dark:text-white"
-                      >
-                        {brand.name}
-                      </Link>
-                    ))}
-                  </div>
-                  {/* View All Brands Link */}
-                </div>
-
-                {/* All Brands */}
-                <div className="col-span-2">
-                  <div className="grid grid-cols-2 gap-1">
-                    {allBrands.map((brand) => (
-                      <Link
-                        key={brand.id}
-                        href={`/brand/${brand.id}`}
-                        className="hover:bg-gray-200 dark:hover:bg-gray-700 p-1 rounded text-xs"
-                      >
-                        {brand.name}
-                      </Link>
-                    ))}
-                  </div>
-                  <div className="mt-4">
-                    <Link
-                      href="/brands"
-                      className="text-black dark:text-white hover:text-gray-800 hover:dark:text-gray-200 font-semibold text-sm"
-                    >
-                      Ver todas las marcas →
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </ul>
+            <BrandMenuContent
+              featuredBrands={featuredBrands}
+              allBrands={allBrands}
+            />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
@@ -110,16 +79,14 @@ export function NavigationMenuDemo() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>PROTECTIVE GEAR</NavigationMenuTrigger>
+          <NavigationMenuTrigger>CUBIERTAS / LLANTAS</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-              {/* Contenido para protective gear */}
-            </ul>
+            <CubiertasMenuContent />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>BIKE PARTS</NavigationMenuTrigger>
+          <NavigationMenuTrigger>REPUESTOS</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               {/* Contenido para bike parts */}
@@ -128,7 +95,7 @@ export function NavigationMenuDemo() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>ACCESSORIES</NavigationMenuTrigger>
+          <NavigationMenuTrigger>ROAD</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               {/* Contenido para accessories */}

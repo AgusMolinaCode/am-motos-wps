@@ -52,15 +52,23 @@ export async function getBrandsItems(
 
   const result = await response.json();
 
-  // Filtrar productos con inventario total > 0
+  // Separar productos con inventario mayor a 0 y con inventario igual a 0
   const itemsWithInventory = (result.data as BrandId[]).filter(
     (item) =>
       item.inventory?.data?.total !== undefined && item.inventory.data.total > 0
   );
 
+  const itemsWithoutInventory = (result.data as BrandId[]).filter(
+    (item) =>
+      !item.inventory?.data?.total || item.inventory.data.total === 0
+  );
+
+  // Combinar los arrays, primero los que tienen inventario
+  const combinedItems = [...itemsWithInventory, ...itemsWithoutInventory];
+
   // Eliminar duplicados basados en el ID
   const uniqueItemsWithInventory = Array.from(
-    new Map(itemsWithInventory.map((item) => [item.id, item])).values()
+    new Map(combinedItems.map((item) => [item.id, item])).values()
   );
 
   return {
@@ -175,13 +183,32 @@ export async function getTypeProducts(productType: string, cursor?: string) {
 
     const result = await response.json();
 
+    // Separar productos con inventario mayor a 0 y con inventario igual a 0
     const itemsWithInventory = (result.data as BrandStatus[]).filter(
       (item) => item.inventory && item.inventory.data.total > 0
     );
 
+    const itemsWithoutInventory = (result.data as BrandStatus[]).filter(
+      (item) => !item.inventory || item.inventory.data.total === 0
+    );
+
+    // Combinar los arrays, primero los que tienen inventario
+    const combinedItems = [...itemsWithInventory, ...itemsWithoutInventory];
+
+    // Eliminar duplicados
+    const uniqueItems = Array.from(
+      new Map(combinedItems.map((item) => [item.id, item])).values()
+    );
+
     return {
-      data: itemsWithInventory,
-      meta: result.meta as Meta,
+      data: uniqueItems.slice(0, 30),
+      meta: {
+        ...result.meta,
+        cursor: {
+          ...result.meta.cursor,
+          count: uniqueItems.length,
+        },
+      },
     };
   } catch (error) {
     console.error(`Unexpected error fetching items with product type ${productType}:`, error);
@@ -249,26 +276,46 @@ export async function getItemsByStatus(
 
     const result = await response.json();
 
-    // Filtrar items con inventario mayor a 0
+    // Separar productos con inventario mayor a 0 y con inventario igual a 0
     const itemsWithInventory = (result.data as BrandStatus[]).filter(
       (item) => item.inventory && item.inventory.data.total > 0
     );
 
+    const itemsWithoutInventory = (result.data as BrandStatus[]).filter(
+      (item) => !item.inventory || item.inventory.data.total === 0
+    );
+
+    // Combinar los arrays, primero los que tienen inventario
+    const combinedItems = [...itemsWithInventory, ...itemsWithoutInventory];
+
+    // Eliminar duplicados
+    const uniqueItems = Array.from(
+      new Map(combinedItems.map((item) => [item.id, item])).values()
+    );
+
     return {
-      data: itemsWithInventory,
-      meta: result.meta as Meta,
+      data: uniqueItems.slice(0, 30),
+      meta: {
+        ...result.meta,
+        cursor: {
+          ...result.meta.cursor,
+          count: uniqueItems.length,
+        },
+      },
     };
   } catch (error) {
-    console.error(
-      `Unexpected error fetching items with status ${sanitizedStatus}:`,
-      error
-    );
+    console.error(`Unexpected error fetching items with status ${sanitizedStatus}:`, error);
     return {
       data: [],
       meta: { cursor: { current: "", prev: null, next: null, count: 0 } },
     };
   }
 }
+
+const ProductTypeUrlReverseMap: Record<string, string> = {
+  'protective-safety': 'Protective/Safety',
+  'tank-tops': 'Tank Tops',
+};
 
 export async function getCollectionByProductType(
   productType: string,
@@ -287,15 +334,19 @@ export async function getCollectionByProductType(
     motor: "Engine,Piston kits & Components",
     accesorios: "Accessories",
     indumentaria: "Pants,Jerseys,Footwear,Gloves,Eyewear",
-    cascos: "Helmets",
+    cascos: "Helmets,Protective/Safety",
     proteccion: "Protective/Safety,Luggage,Bags",
     herramientas: "Tools",
-    casual: "Vests,Sweaters,Suits,Socks,Shorts,Shoes,Jackets,Hoodies",
+    casual: "Vests,Sweaters,Suits,Socks,Shorts,Shoes,Jackets,Hoodies,Bags,Luggage",
+    'protective-safety': 'Protective/Safety',
+    'tank-tops': 'Tank Tops',
   };
 
   // Sanitizar y mapear el tipo de producto
-  const sanitizedProductType =
-    productTypeMap[productType.toLowerCase()] || productType;
+  const sanitizedProductType = 
+    ProductTypeUrlReverseMap[productType.toLowerCase()] || 
+    productTypeMap[productType.toLowerCase()] || 
+    productType;
 
   // Codificar el tipo de producto para la URL
   const encodedProductType = encodeURIComponent(sanitizedProductType);
@@ -488,7 +539,7 @@ export async function getRecommendedItems(
     "378-725L",
     "3768424-2014- M",
     "2010025-4512-11",
-    "2012025-1030-10",
+    "2196-011-12",
     "01.7365.B",
     "808869",
     "23375A",
@@ -530,9 +581,32 @@ export async function getRecommendedItems(
 
     const result = await response.json();
 
+    // Separar productos con inventario mayor a 0 y con inventario igual a 0
+    const itemsWithInventory = (result.data as BrandStatus[]).filter(
+      (item) => item.inventory && item.inventory.data.total > 0
+    );
+
+    const itemsWithoutInventory = (result.data as BrandStatus[]).filter(
+      (item) => !item.inventory || item.inventory.data.total === 0
+    );
+
+    // Combinar los arrays, primero los que tienen inventario
+    const combinedItems = [...itemsWithInventory, ...itemsWithoutInventory];
+
+    // Eliminar duplicados
+    const uniqueItems = Array.from(
+      new Map(combinedItems.map((item) => [item.id, item])).values()
+    );
+
     return {
-      data: result.data as BrandStatus[],
-      meta: result.meta as Meta,
+      data: uniqueItems.slice(0, 30),
+      meta: {
+        ...result.meta,
+        cursor: {
+          ...result.meta.cursor,
+          count: uniqueItems.length,
+        },
+      },
     };
   } catch (error) {
     console.error("Unexpected error fetching recommended items:", error);

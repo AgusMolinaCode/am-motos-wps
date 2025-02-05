@@ -63,7 +63,7 @@ export default async function BestSellersSection() {
                 />
               )}
               <Link
-                href={`/product/${item.id}`}
+                href={`/product/${item.supplier_product_id}`}
                 className="mt-auto inline-block text-sm text-indigo-600 hover:underline text-center"
               >
                 Ver detalles
