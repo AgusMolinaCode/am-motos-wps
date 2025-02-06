@@ -18,6 +18,7 @@ import brandData from "@/public/csv/brand2.json";
 import ProductTypeContent from "./ProductTypeContent";
 import BrandMenuContent from "./BrandMenuContent";
 import CubiertasMenuContent from "./CubiertasMenuContent";
+import RepuestosMenuContent from "./RepuestosMenuContent";
 
 // Interfaz para definir la estructura de una marca
 interface Brand {
@@ -88,9 +89,7 @@ export function NavigationMenuDemo() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>REPUESTOS</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-              {/* Contenido para bike parts */}
-            </ul>
+            <RepuestosMenuContent />
           </NavigationMenuContent>
         </NavigationMenuItem>
 

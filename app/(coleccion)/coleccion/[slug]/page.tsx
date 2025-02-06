@@ -7,6 +7,8 @@ import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import ProductTypeFilter from "@/components/brand-section/ProductTypeFilter";
 import productBrands from "@/public/csv/product_brands.json";
 import BrandFilterButtons from "../../../../components/category-section/CollectionFilterButtons";
+import { productTypeMap } from "@/constants";
+import CursorPage from "@/components/cursor-page/CursorPage";
 
 export const dynamic = "force-dynamic";
 
@@ -17,46 +19,40 @@ interface PageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default async function CollectionPage({ params, searchParams }: PageProps) {
+export default async function CollectionPage({
+  params,
+  searchParams,
+}: PageProps) {
   const slug = params.slug;
-  
+
   // Mapa de tipos de producto para colecciones específicas
-  const productTypeMap: Record<string, string> = {
-    'motor': 'Engine,Piston kits & Components',
-    'accesorios': 'Accessories,Drive',
-    'indumentaria': 'Pants,Jerseys,Footwear,Gloves,Eyewear',
-    'cascos': 'Helmets,Protective/Safety',
-    'proteccion': 'Protective/Safety,Luggage,Bags',
-    'herramientas': 'Tools',
-    'casual': 'Vests,Sweaters,Suits,Socks,Shorts,Shoes,Jackets,Hoodies,Bags,Luggage',
-    'protective-safety': 'Protective/Safety',
-  };
-  
+
   // Codificar correctamente el productType
-  const productType = typeof searchParams.productType === "string" 
-    ? searchParams.productType.replace(/&/g, '%26')
-    : productTypeMap[slug.toLowerCase()] 
-      ? productTypeMap[slug.toLowerCase()].replace(/&/g, '%26')
+  const productType =
+    typeof searchParams.productType === "string"
+      ? searchParams.productType.replace(/&/g, "%26")
+      : productTypeMap[slug.toLowerCase()]
+      ? productTypeMap[slug.toLowerCase()].replace(/&/g, "%26")
       : undefined;
 
   // Obtener el brandId de los searchParams
-  const brandId = typeof searchParams.brandId === "string" 
-    ? searchParams.brandId 
-    : undefined;
+  const brandId =
+    typeof searchParams.brandId === "string" ? searchParams.brandId : undefined;
 
   // Codificar correctamente el cursor
-  const cursor = typeof searchParams.cursor === "string" 
-    ? searchParams.cursor.replace(/&/g, '%26')
-    : null;
+  const cursor =
+    typeof searchParams.cursor === "string"
+      ? searchParams.cursor.replace(/&/g, "%26")
+      : null;
 
   let data: BrandStatus[] = [];
   let meta: any = {};
 
-  if (slug === 'NEW' || slug === 'CLO') {
+  if (slug === "NEW" || slug === "CLO") {
     // Obtener los datos de la colección NEW o CLO
     const result = await getStatusItems(
-      slug === 'NEW' ? 'NEW' : 'CLO', 
-      cursor, 
+      slug === "NEW" ? "NEW" : "CLO",
+      cursor,
       productType
     );
     data = result.data;
@@ -64,16 +60,18 @@ export default async function CollectionPage({ params, searchParams }: PageProps
   } else {
     // Obtener los datos de una colección específica
     const result = await getCollectionByProductType(
-      slug, 
-      cursor, 
-      brandId  // Pasar el brandId aquí
+      slug,
+      cursor,
+      brandId // Pasar el brandId aquí
     );
     data = result.data;
     meta = result.meta;
   }
 
   // Obtener las marcas asociadas a los tipos de producto actuales
-  const currentProductTypes = (productTypeMap[slug.toLowerCase()] || slug).split(',');
+  const currentProductTypes = (
+    productTypeMap[slug.toLowerCase()] || slug
+  ).split(",");
   const associatedBrands = currentProductTypes.reduce<string[]>((acc, type) => {
     const brands = productBrands[type as keyof typeof productBrands] || [];
     return [...acc, ...brands];
@@ -85,35 +83,34 @@ export default async function CollectionPage({ params, searchParams }: PageProps
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 capitalize">
-        {slug === 'NEW' 
-          ? 'Productos Nuevos' 
-          : slug === 'CLO' 
-            ? 'Ofertas Especiales'
-            : slug
-        }
+        {slug === "NEW"
+          ? "Productos Nuevos"
+          : slug === "CLO"
+          ? "Ofertas Especiales"
+          : slug}
       </h1>
 
       {/* Mostrar siempre el selector de tipos de producto */}
-      <ProductTypeFilter 
-        slug={slug} 
+      <ProductTypeFilter
+        slug={slug}
         currentBrandProductTypes={[]}
         selectedProductType={productType}
       />
 
       {/* Mostrar botones para filtrar por brand_id si no es NEW o CLO */}
-      {slug !== 'NEW' && slug !== 'CLO' && uniqueAssociatedBrands.length > 0 && (
-        <BrandFilterButtons 
-          slug={slug} 
-          productType={productType} 
-          associatedBrands={uniqueAssociatedBrands} 
-        />
-      )}
+      {slug !== "NEW" &&
+        slug !== "CLO" &&
+        uniqueAssociatedBrands.length >= 0 && (
+          <BrandFilterButtons
+            slug={slug}
+            productType={productType}
+            associatedBrands={uniqueAssociatedBrands}
+          />
+        )}
 
       {data.length === 0 ? (
         <div className="text-center py-10 bg-gray-100 rounded-lg">
-          <p className="text-xl text-gray-600">
-            No se encontraron productos
-          </p>
+          <p className="text-xl text-gray-600">No se encontraron productos</p>
         </div>
       ) : (
         <>
@@ -166,41 +163,12 @@ export default async function CollectionPage({ params, searchParams }: PageProps
             ))}
           </div>
 
-          <div className="flex justify-center mt-6 gap-4">
-            {meta?.cursor?.prev && (
-              <div className="flex justify-center mt-6">
-                <Link
-                  href={`/coleccion/${slug}?${
-                    new URLSearchParams({
-                      ...(productType ? { productType } : {}),
-                      ...(brandId ? { brandId } : {}),
-                      cursor: meta.cursor.prev.replace(/&/g, '%26')
-                    }).toString()
-                  }`}
-                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                >
-                  <ArrowLeftIcon className="w-4 h-4" />
-                </Link>
-              </div>
-            )}
-
-            {meta?.cursor?.next && (
-              <div className="flex justify-center mt-6">
-                <Link
-                  href={`/coleccion/${slug}?${
-                    new URLSearchParams({
-                      ...(productType ? { productType } : {}),
-                      ...(brandId ? { brandId } : {}),
-                      cursor: meta.cursor.next.replace(/&/g, '%26')
-                    }).toString()
-                  }`}
-                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                >
-                  <ArrowRightIcon className="w-4 h-4" />
-                </Link>
-              </div>
-            )}
-          </div>
+          <CursorPage
+            meta={meta}
+            slug={slug}
+            productType={productType}
+            brandId={brandId}
+          />
         </>
       )}
     </div>

@@ -76,14 +76,6 @@
       "updated_at": "2016-06-17 20:53:25"
     },
     {
-      "id": 5174,
-      "attributekey_id": 1,
-      "name": "Cranks",
-      "sort": 0,
-      "created_at": "2017-08-14 19:51:37",
-      "updated_at": "2017-08-14 19:51:37"
-    },
-    {
       "id": 662,
       "attributekey_id": 1,
       "name": "Drive",
@@ -252,14 +244,6 @@
       "updated_at": "2018-02-01 16:36:28"
     },
     {
-      "id": 9610,
-      "attributekey_id": 1,
-      "name": "Layers",
-      "sort": 0,
-      "created_at": "2019-07-31 12:02:16",
-      "updated_at": "2019-07-31 12:02:16"
-    },
-    {
       "id": 533,
       "attributekey_id": 1,
       "name": "Levers",
@@ -276,14 +260,6 @@
       "updated_at": "2016-06-17 20:53:25"
     },
     {
-      "id": 5571,
-      "attributekey_id": 1,
-      "name": "Mounts/Brackets",
-      "sort": 0,
-      "created_at": "2017-12-12 16:58:55",
-      "updated_at": "2017-12-13 18:28:26"
-    },
-    {
       "id": 526,
       "attributekey_id": 1,
       "name": "Oil Filters",
@@ -298,14 +274,6 @@
       "sort": 0,
       "created_at": "2016-06-17 20:53:25",
       "updated_at": "2020-05-27 17:31:24"
-    },
-    {
-      "id": 6205,
-      "attributekey_id": 1,
-      "name": "Replacement Parts",
-      "sort": 0,
-      "created_at": "2018-04-30 21:31:54",
-      "updated_at": "2018-04-30 21:31:54"
     },
     {
       "id": 666,
@@ -356,14 +324,6 @@
       "updated_at": "2016-06-17 20:53:25"
     },
     {
-      "id": 5569,
-      "attributekey_id": 1,
-      "name": "Switches",
-      "sort": 0,
-      "created_at": "2017-12-12 16:52:52",
-      "updated_at": "2017-12-12 16:52:52"
-    },
-    {
       "id": 727,
       "attributekey_id": 1,
       "name": "Throttle",
@@ -378,14 +338,6 @@
       "sort": 0,
       "created_at": "2016-06-17 20:53:25",
       "updated_at": "2016-06-17 20:53:25"
-    },
-    {
-      "id": 5071,
-      "attributekey_id": 1,
-      "name": "UTV Cab/Roof/Door",
-      "sort": 0,
-      "created_at": "2017-07-11 16:24:04",
-      "updated_at": "2017-07-11 16:24:04"
     }
   ]
 }

@@ -159,7 +159,10 @@ export async function getTypeProducts(productType: string, cursor?: string) {
     Authorization: process.env.PUBLIC_WPS ?? "",
   };
 
-  let url = `https://api.wps-inc.com/items?filter[product_type]=${encodeURIComponent(productType)}&include=inventory,images&page[size]=100`;
+  // Reemplazar guiones por espacios para coincidir con el formato de la API
+  const decodedProductType = productType.replace(/-/g, ' ');
+
+  let url = `https://api.wps-inc.com/items?filter[product_type]=${encodeURIComponent(decodedProductType)}&include=inventory,images&sort[desc]=created_at&page[size]=100`;
 
   if (cursor) {
     url += `&page[cursor]=${encodeURIComponent(cursor)}`;
@@ -315,6 +318,20 @@ export async function getItemsByStatus(
 const ProductTypeUrlReverseMap: Record<string, string> = {
   'protective-safety': 'Protective/Safety',
   'tank-tops': 'Tank Tops',
+  'piston-kits-components': 'Piston kits & Components',
+  'mounts-brackets': 'Mounts/Brackets',
+  'replacement-parts': 'Replacement Parts',
+  'utv-cab-roof-door': 'UTV Cab/Roof/Door',
+  'foot-controls': 'Foot Controls',
+  'utility-containers': 'Utility Containers',
+  'track-kit': 'Track Kit',
+  'air-filters': 'Air Filters',
+  'hardware-fasteners-fittings': 'Hardware/Fasteners/Fittings',
+  'cable-hydraulic-control-lines': 'Cable/Hydraulic Control Lines',
+  'gauges-meters': 'Gauges/Meters',
+  'intake-carb-fuel-system': 'Intake/Carb/Fuel System',
+  'engine-management': 'Engine Management',
+  'fuel-tanks': 'Fuel Tank',
 };
 
 export async function getCollectionByProductType(
@@ -340,6 +357,26 @@ export async function getCollectionByProductType(
     casual: "Vests,Sweaters,Suits,Socks,Shorts,Shoes,Jackets,Hoodies,Bags,Luggage",
     'protective-safety': 'Protective/Safety',
     'tank-tops': 'Tank Tops',
+    'piston-kits-components': 'Piston kits & Components',
+    'mounts-brackets': 'Mounts/Brackets',
+    'replacement-parts': 'Replacement Parts',
+    'utv-cab-roof-door': 'UTV Cab/Roof/Door',
+    'foot-controls': 'Foot Controls',
+    'utility-containers': 'Utility Containers',
+    'track-kit': 'Track Kit',
+    'air-filters': 'Air Filters',
+    'hardware-fasteners-fittings': 'Hardware/Fasteners/Fittings',
+    'cable-hydraulic-control-lines': 'Cable/Hydraulic Control Lines',
+    'gauges-meters': 'Gauges/Meters',
+    'intake-carb-fuel-system': 'Intake/Carb/Fuel System',
+    'engine-management': 'Engine Management',
+    'fuel-tanks': 'Fuel Tank',
+    'gas-caps': 'Gas Caps',
+    'graphics-decals': 'Graphics/Decals',
+    'guards-braces': 'Guards/Braces',
+    'hand-controls': 'Hand Controls',
+    'spark-plugs': 'Spark Plugs',
+    'oil-filters': 'Oil Filters',
   };
 
   // Sanitizar y mapear el tipo de producto
