@@ -10,10 +10,7 @@ import Image from "next/image";
 export default function ProductTypeContent() {
   // Función para obtener la URL amigable de un tipo de producto
   const getProductTypeUrl = (type: string) => {
-    return (
-      ProductTypeUrlMap[type as keyof typeof ProductTypeUrlMap] ||
-      encodeURIComponent(type)
-    );
+    return ProductTypeUrlMap[type as keyof typeof ProductTypeUrlMap] || type.toLowerCase();
   };
 
   return (

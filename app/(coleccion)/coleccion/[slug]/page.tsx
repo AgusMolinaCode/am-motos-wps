@@ -7,7 +7,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import ProductTypeFilter from "@/components/brand-section/ProductTypeFilter";
 import productBrands from "@/public/csv/product_brands.json";
 import BrandFilterButtons from "../../../../components/category-section/CollectionFilterButtons";
-import { productTypeMap } from "@/constants";
+import { productTypeMap, ProductTypeUrlReverseMap } from "@/constants";
 import CursorPage from "@/components/cursor-page/CursorPage";
 import ColeccionImage from "@/components/category-section/ColeccionImage";
 
@@ -26,7 +26,8 @@ export default async function CollectionPage({
 }: PageProps) {
   const slug = params.slug;
 
-  // Mapa de tipos de producto para colecciones específicas
+  // Obtener el tipo de producto original en inglés si existe una traducción
+  const originalProductType = ProductTypeUrlReverseMap[slug.toLowerCase() as keyof typeof ProductTypeUrlReverseMap] || slug;
 
   // Codificar correctamente el productType
   const productType =
@@ -34,7 +35,7 @@ export default async function CollectionPage({
       ? searchParams.productType.replace(/&/g, "%26")
       : productTypeMap[slug.toLowerCase()]
       ? productTypeMap[slug.toLowerCase()].replace(/&/g, "%26")
-      : undefined;
+      : originalProductType;
 
   // Obtener el brandId de los searchParams
   const brandId =
@@ -59,11 +60,11 @@ export default async function CollectionPage({
     data = result.data;
     meta = result.meta;
   } else {
-    // Obtener los datos de una colección específica
+    // Obtener los datos de una colección específica usando el tipo de producto original
     const result = await getCollectionByProductType(
-      slug,
+      originalProductType,
       cursor,
-      brandId // Pasar el brandId aquí
+      brandId
     );
     data = result.data;
     meta = result.meta;
@@ -71,7 +72,7 @@ export default async function CollectionPage({
 
   // Obtener las marcas asociadas a los tipos de producto actuales
   const currentProductTypes = (
-    productTypeMap[slug.toLowerCase()] || slug
+    productTypeMap[slug.toLowerCase()] || originalProductType
   ).split(",");
   const associatedBrands = currentProductTypes.reduce<string[]>((acc, type) => {
     const brands = productBrands[type as keyof typeof productBrands] || [];
@@ -88,7 +89,7 @@ export default async function CollectionPage({
           ? "Productos Nuevos"
           : slug === "productos-ofertas"
           ? "Ofertas Especiales"
-          : slug}
+          : slug.replace(/-/g, ' ')}
       </h1>
 
       {/* Mostrar siempre el selector de tipos de producto */}

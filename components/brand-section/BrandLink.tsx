@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { brands } from "@/constants";
 import SelectBrand from "./SelectBrand";
+import { Button } from "../ui/button";
 
 
 const BrandLink = () => {
@@ -14,7 +15,12 @@ const BrandLink = () => {
         <h1 className=" text-2xl font-bold underline uppercase dark:text-gray-300 text-gray-800">
           Mejores Marcas
         </h1>
-        <SelectBrand />
+        <div className="flex gap-2 items-center">
+          <Link href="/brands">
+            <Button>Ver todas las marcas</Button>
+          </Link>
+          <SelectBrand />
+        </div>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-center items-center gap-2 mt-6 mx-auto content-center place-items-center">
         {brands.map(({ imgUrl, brandId, name }) => {

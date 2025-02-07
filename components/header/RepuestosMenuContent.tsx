@@ -1,14 +1,22 @@
 import React from "react";
 import Link from "next/link";
 import partsData from "@/public/csv/parts_moto.json";
-import { ProductTypeUrlMap } from "@/constants";
+import { ProductTypeUrlMap, Product_Type_Translations } from "@/constants";
 
 const RepuestosMenuContent = () => {
   const getProductTypeUrl = (type: string) => {
-    return (
-      ProductTypeUrlMap[type as keyof typeof ProductTypeUrlMap] ||
-      encodeURIComponent(type)
-    );
+    // Primero intentamos obtener la URL traducida
+    const urlSlug = ProductTypeUrlMap[type as keyof typeof ProductTypeUrlMap];
+    if (urlSlug) {
+      return urlSlug;
+    }
+    // Si no existe, convertimos el tipo a un slug amigable
+    return type.toLowerCase().replace(/\s+/g, '-').replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+  };
+
+  const getTranslatedName = (type: string) => {
+    // Obtener la traducción del nombre si existe
+    return Product_Type_Translations[type as keyof typeof Product_Type_Translations] || type;
   };
 
   const repuestosMasBuscados = {
@@ -106,12 +114,10 @@ const RepuestosMenuContent = () => {
           {repuestosMasBuscadosTraducidos.map((part) => (
             <Link
               key={part.id}
-              href={`/coleccion/${getProductTypeUrl(
-                repuestosMasBuscadosInverso[part.name]
-              )}`}
+              href={`/coleccion/${getProductTypeUrl(part.originalName)}`}
               className="hover:bg-gray-300 font-normal dark:hover:bg-gray-800 p-1 rounded text-black dark:text-white"
             >
-              {part.name}
+              {getTranslatedName(part.originalName)}
             </Link>
           ))}
         </div>
@@ -125,7 +131,7 @@ const RepuestosMenuContent = () => {
               href={`/coleccion/${getProductTypeUrl(part.originalName)}`}
               className="hover:bg-gray-300 font-xs dark:hover:bg-gray-800 p-1 rounded text-black dark:text-white"
             >
-              {part.name}
+              {getTranslatedName(part.originalName)}
             </Link>
           ))}
         </div>
