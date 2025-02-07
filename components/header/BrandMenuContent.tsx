@@ -27,7 +27,7 @@ const BrandMenuContent = ({
             {featuredBrands.map((brand) => (
               <Link
                 key={brand.id}
-                href={`/brand/${brand.id}`}
+                href={`/brand/${brand.name.toLowerCase().replace(/\s+/g, '-')}`}
                 className="hover:bg-gray-300 font-normal dark:hover:bg-gray-800 p-2 rounded text-black dark:text-white"
               >
                 {brand.name}
@@ -43,7 +43,7 @@ const BrandMenuContent = ({
             {allBrands.map((brand) => (
               <Link
                 key={brand.id}
-                href={`/brand/${brand.id}`}
+                href={`/brand/${brand.name.toLowerCase().replace(/\s+/g, '-')}`}
                 className="hover:bg-gray-200 dark:hover:bg-gray-700 p-1 rounded text-xs"
               >
                 {brand.name}

@@ -9,6 +9,7 @@ import productBrands from "@/public/csv/product_brands.json";
 import BrandFilterButtons from "../../../../components/category-section/CollectionFilterButtons";
 import { productTypeMap } from "@/constants";
 import CursorPage from "@/components/cursor-page/CursorPage";
+import ColeccionImage from "@/components/category-section/ColeccionImage";
 
 export const dynamic = "force-dynamic";
 
@@ -48,10 +49,10 @@ export default async function CollectionPage({
   let data: BrandStatus[] = [];
   let meta: any = {};
 
-  if (slug === "NEW" || slug === "CLO") {
+  if (slug === "productos-nuevos" || slug === "productos-ofertas") {
     // Obtener los datos de la colección NEW o CLO
     const result = await getStatusItems(
-      slug === "NEW" ? "NEW" : "CLO",
+      slug === "productos-nuevos" ? "NEW" : "CLO",
       cursor,
       productType
     );
@@ -83,9 +84,9 @@ export default async function CollectionPage({
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 capitalize">
-        {slug === "NEW"
+        {slug === "productos-nuevos"
           ? "Productos Nuevos"
-          : slug === "CLO"
+          : slug === "productos-ofertas"
           ? "Ofertas Especiales"
           : slug}
       </h1>
@@ -98,8 +99,8 @@ export default async function CollectionPage({
       />
 
       {/* Mostrar botones para filtrar por brand_id si no es NEW o CLO */}
-      {slug !== "NEW" &&
-        slug !== "CLO" &&
+      {slug !== "productos-nuevos" &&
+        slug !== "productos-ofertas" &&
         uniqueAssociatedBrands.length >= 0 && (
           <BrandFilterButtons
             slug={slug}
@@ -134,25 +135,7 @@ export default async function CollectionPage({
                     Inventario: {item.inventory?.data?.total || 0}
                   </span>
                 </div>
-                {item.images?.data?.length > 0 ? (
-                  <Image
-                    priority
-                    src={`https://${item.images.data[0].domain}${item.images.data[0].path}${item.images.data[0].filename}`}
-                    alt={item.name}
-                    width={200}
-                    height={200}
-                    className="w-full h-48 object-contain mb-2"
-                  />
-                ) : (
-                  <Image
-                    priority
-                    src="https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg"
-                    alt={item.name}
-                    width={200}
-                    height={200}
-                    className="w-full h-48 object-contain mb-2"
-                  />
-                )}
+                <ColeccionImage item={item} />
                 <Link
                   href={`/product/${item.supplier_product_id}`}
                   className="mt-auto inline-block text-sm text-indigo-600 hover:underline text-center"

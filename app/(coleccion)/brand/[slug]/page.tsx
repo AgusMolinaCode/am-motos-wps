@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getCatalogProductTypes } from "@/lib/actions";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
+import brandData from "@/public/csv/brand2.json";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +19,23 @@ interface PageProps {
 export default async function BrandPage({ params, searchParams }: PageProps) {
   const slug = params.slug;
   
+  // Función para obtener el ID de la marca desde el slug
+  const getBrandIdFromSlug = (slug: string) => {
+    // Si el slug es un número, es un ID directo
+    if (!isNaN(Number(slug))) {
+      return slug;
+    }
+    
+    // Buscar la marca por nombre en el archivo brand2.json
+    const brand = brandData.find(
+      (brand) => brand.name.toLowerCase().replace(/\s+/g, '-') === slug.toLowerCase()
+    );
+    
+    return brand ? brand.id.toString() : slug;
+  };
+
+  const brandId = getBrandIdFromSlug(slug);
+  
   // Codificar correctamente el productType
   const productType = typeof searchParams.productType === "string" 
     ? searchParams.productType.replace(/&/g, '%26')
@@ -28,19 +46,17 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
     ? searchParams.cursor.replace(/&/g, '%26')
     : null;
 
-  // Obtener el nombre de la marca de forma asíncrona
-  const brandName = await getBrandName(slug);
+  // Obtener el nombre de la marca
+  const brandName = await getBrandName(brandId);
 
   // Obtener los datos de la marca
-  const { data, meta } = await getBrandsItems(slug, cursor, productType);
+  const { data, meta } = await getBrandsItems(brandId, cursor, productType);
 
   // Obtener todos los product types
   const brandProductTypes = await getCatalogProductTypes();
 
-  const brandId = parseInt(slug, 10);
-
   // Obtener los product types del brand actual usando el ID
-  const currentBrandProductTypes = brandProductTypes[brandId] || [];
+  const currentBrandProductTypes = brandProductTypes[Number(brandId)] || [];
 
   console.log(currentBrandProductTypes)
   return (

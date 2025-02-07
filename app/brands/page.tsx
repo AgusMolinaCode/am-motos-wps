@@ -7,7 +7,11 @@ import Link from 'next/link';
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
 const sortedBrands = brandData
-  .map((brand) => ({ name: brand.name, id: brand.id.toString() }))
+  .map((brand) => ({ 
+    name: brand.name, 
+    id: brand.id.toString(),
+    slug: brand.name.toLowerCase().replace(/\s+/g, '-')
+  }))
   .sort((a, b) => a.name.localeCompare(b.name));
 
 const Page = () => {
@@ -43,7 +47,7 @@ const Page = () => {
         {filteredBrands.map((brand) => (
           <Link
             key={brand.id}
-            href={`/brand/${brand.id}`}
+            href={`/brand/${brand.slug}`}
             className='block p-2 border rounded hover:shadow-lg'
           >
             {brand.name}

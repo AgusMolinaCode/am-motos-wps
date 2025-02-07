@@ -31,7 +31,7 @@ export default function DealSection() {
 
   return (
     <div className="pt-4 md:pt-10 flex flex-col xl:flex-row gap-6 items-center justify-between">
-      <div className="flex flex-col gap-4 justify-between">
+      <div className="flex flex-col gap-4 justify-between w-2/4">
         <div className="w-full">
           <CardWithLines>
             <CardBody 
@@ -51,20 +51,20 @@ export default function DealSection() {
         </div>
 
         <div className="w-full">
-          <Link href="/brand/135">
+          <Link href="/brand/fly-racing">
             <Image
               src="/images/fly-banner.webp"
               alt="deal"
               width={600}
               height={600}
-              className="rounded-md h-[100px] object-cover"
+              className="rounded-md h-[100px] object-cover w-full"
             />
           </Link>
         </div>
       </div>
 
       <div>
-        <Link href="/brand/769">
+        <Link href="/brand/alpinestars">
           <Image
             src="/images/alpine.jpg"
             alt="deal"

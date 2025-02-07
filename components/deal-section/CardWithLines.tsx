@@ -14,12 +14,12 @@ const cardContents = {
   newProducts: {
     title: "Productos nuevos",
     description: "Descubre los últimos productos listados",
-    link: "/coleccion/NEW"
+    link: "/coleccion/productos-nuevos"
   },
   deals: {
     title: "Ofertas especiales",
     description: "Aprovecha nuestras mejores promociones",
-    link: "/coleccion/CLO"
+    link: "/coleccion/productos-ofertas"
   },
 };
 

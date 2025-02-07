@@ -14,7 +14,7 @@ export default function ProductTypeFilter({
   currentBrandProductTypes,
   selectedProductType,
 }: ProductTypeFilterProps) {
-  if (slug.toUpperCase() !== "NEW" && slug.toUpperCase() !== "CLO") {
+  if (slug.toLowerCase() !== "productos-nuevos" && slug.toLowerCase() !== "productos-ofertas") {
     return null;
   }
 
@@ -44,12 +44,16 @@ export default function ProductTypeFilter({
     const params = new URLSearchParams(searchParams.toString());
 
     if (selectedType) {
-      // Guardamos el tipo original para la URL
+      // Establecer solo el tipo de producto y eliminar el cursor
       params.set("productType", encodeURIComponent(selectedType));
     } else {
       params.delete("productType");
     }
 
+    // Eliminar el cursor
+    params.delete("cursor");
+
+    // Navegamos a la URL sin el cursor
     router.push(
       `/coleccion/${slug}${params.toString() ? `?${params.toString()}` : ""}`
     );

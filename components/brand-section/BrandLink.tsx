@@ -18,13 +18,13 @@ const BrandLink = () => {
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-center items-center gap-2 mt-6 mx-auto content-center place-items-center">
         {brands.map(({ imgUrl, brandId, name }) => {
-          // Asegurarse de que solo se usen IDs numéricos
-          const numericBrandId = brandId.replace(/[^0-9]/g, '');
+          // Crear un slug amigable para SEO
+          const brandSlug = name.toLowerCase().replace(/\s+/g, '-');
           
-          return numericBrandId ? (
+          return (
             <Link
               key={brandId}
-              href={`/brand/${numericBrandId}`}
+              href={`/brand/${brandSlug}`}
               passHref
               className="border border-gray-300 dark:border-none hover:scale-105 transition-all duration-300"
             >
@@ -39,7 +39,7 @@ const BrandLink = () => {
                 {/* <p>{name}</p> */}
               </div>
             </Link>
-          ) : null;
+          );
         })}
       </div>
       
