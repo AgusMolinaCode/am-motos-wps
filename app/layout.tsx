@@ -5,6 +5,7 @@ import "./globals.css";
 import ThemeWrapper from "@/components/theme/ThemeWrapper";
 import Navbar from "@/components/header/navbar";
 import Footer from "@/components/footer/footer";
+import Orb from "@/app/Orb";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -32,9 +33,19 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ThemeWrapper>
-            <Navbar />
-            {children}
-            <Footer />
+            <div className="fixed md:right-4 md:bottom-5 bottom-3 w-[100px] h-[100px] md:w-[120px] md:h-[120px] right-1 z-50">
+              <Orb
+                hoverIntensity={0.5}
+                rotateOnHover={true}
+                hue={0}
+                forceHoverState={false}
+              />
+            </div>
+            <div className="max-w-[90rem] mx-auto px-2">
+              <Navbar />
+              {children}
+              <Footer />
+            </div>
           </ThemeWrapper>
         </ThemeProvider>
       </body>

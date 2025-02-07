@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { getCatalogProductTypes } from "@/lib/actions";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
-import ProductTypeFilter from "@/components/brand-section/ProductTypeFilter";
 
 export const dynamic = "force-dynamic";
 

@@ -3,10 +3,12 @@ import Image from "next/image";
 import { Separator } from "../ui/Separator";
 import Link from "next/link";
 import { Facebook } from "lucide-react";
+import { InfiniteSliderBasic } from "../header/InfiniteSliderBasic";
 
 const footer = () => {
   return (
-    <div className="pt-16 md:pt-28 max-w-7xl mx-auto px-2">
+    <div className="pt-16 md:pt-28">
+      <InfiniteSliderBasic />
       <Separator gradient />
       <div className="flex justify-between py-10">
         <div className="flex flex-col items-center gap-2">
