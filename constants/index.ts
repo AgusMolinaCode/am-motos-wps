@@ -34,7 +34,7 @@ export const Product_Type_Translations = {
   // Indumentaria
   "Protective/Safety": "Protección y Seguridad",
   Eyewear: "Antiparras",
-  Footwear: "Calzado",
+  Footwear: "Botas",
   Gloves: "Guantes",
   Jackets: "Camperas",
   Jerseys: "Jerseys",
@@ -195,7 +195,7 @@ export const casualTranslations = {
 export const apparelTranslations = {
   "Protective/Safety": "Protección y Seguridad",
   Eyewear: "Antiparras",
-  Footwear: "Calzado",
+  Footwear: "Botas",
   Gloves: "Guantes",
   Jackets: "Camperas",
   Jerseys: "Jerseys",
@@ -218,7 +218,7 @@ export const ProductTypeUrlMap = {
   // Indumentaria
   "Protective/Safety": "proteccion-y-seguridad",
   Eyewear: "antiparras",
-  Footwear: "calzado",
+  Footwear: "botas",
   Gloves: "guantes",
   Jackets: "camperas",
   Jerseys: "jerseys",
@@ -291,7 +291,7 @@ export const ProductTypeUrlReverseMap = {
   // Indumentaria
   "proteccion-y-seguridad": "Protective/Safety",
   "antiparras": "Eyewear",
-  "calzado": "Footwear",
+  "botas": "Footwear",
   "guantes": "Gloves",
   "camperas": "Jackets",
   "jerseys": "Jerseys",

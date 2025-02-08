@@ -27,7 +27,10 @@ export default async function CollectionPage({
   const slug = params.slug;
 
   // Obtener el tipo de producto original en inglés si existe una traducción
-  const originalProductType = ProductTypeUrlReverseMap[slug.toLowerCase() as keyof typeof ProductTypeUrlReverseMap] || slug;
+  const originalProductType =
+    ProductTypeUrlReverseMap[
+      slug.toLowerCase() as keyof typeof ProductTypeUrlReverseMap
+    ] || slug;
 
   // Codificar correctamente el productType
   const productType =
@@ -81,6 +84,7 @@ export default async function CollectionPage({
 
   // Eliminar duplicados en la lista de marcas
   const uniqueAssociatedBrands = Array.from(new Set(associatedBrands));
+  console.log(uniqueAssociatedBrands);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -89,7 +93,7 @@ export default async function CollectionPage({
           ? "Productos Nuevos"
           : slug === "productos-ofertas"
           ? "Ofertas Especiales"
-          : slug.replace(/-/g, ' ')}
+          : slug.replace(/-/g, " ")}
       </h1>
 
       {/* Mostrar siempre el selector de tipos de producto */}
@@ -102,7 +106,7 @@ export default async function CollectionPage({
       {/* Mostrar botones para filtrar por brand_id si no es NEW o CLO */}
       {slug !== "productos-nuevos" &&
         slug !== "productos-ofertas" &&
-        uniqueAssociatedBrands.length >= 0 && (
+        uniqueAssociatedBrands.length > 0 && (
           <BrandFilterButtons
             slug={slug}
             productType={productType}

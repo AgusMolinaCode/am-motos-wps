@@ -37,7 +37,12 @@ export default function Navbar() {
             sunClassName={"text-orange-200"}
             moonClassName={"text-gray-700"}
           />
-          <p className="text-lg font-bold">Catalogos</p>
+          <Link
+            href="/catalogos"
+            className="text-lg font-bold hover:dark:text-indigo-300 hover:text-indigo-800 duration-300"
+          >
+            Catalogos
+          </Link>
         </div>
       </div>
       <div className="flex justify-center">

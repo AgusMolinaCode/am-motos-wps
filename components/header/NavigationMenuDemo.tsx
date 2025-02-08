@@ -94,7 +94,7 @@ export function NavigationMenuDemo() {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <Link href="/" legacyBehavior passHref>
+          <Link href="/prox_catalogo" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               <Image
                 src="/images/proX.webp"

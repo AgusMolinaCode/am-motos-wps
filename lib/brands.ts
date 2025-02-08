@@ -240,7 +240,7 @@ export async function getItemsByStatus(
     : "NEW";
 
   // Construir la URL base
-  let url = `https://api.wps-inc.com/items?filter[status_id]=${sanitizedStatus}&include=inventory&sort[desc]=created_at&page[size]=20`;
+  let url = `https://api.wps-inc.com/items?filter[status_id]=${sanitizedStatus}&include=inventory&sort[desc]=created_at&page[size]=100`;
 
   // Agregar filtro de tipo de producto si está presente
   if (productType) {
