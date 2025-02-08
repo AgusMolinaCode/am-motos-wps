@@ -10,6 +10,7 @@ import BrandFilterButtons from "../../../../components/category-section/Collecti
 import { productTypeMap, ProductTypeUrlReverseMap } from "@/constants";
 import CursorPage from "@/components/cursor-page/CursorPage";
 import ColeccionImage from "@/components/category-section/ColeccionImage";
+import ProductDetailsSheet from "@/components/shared/ProductDetailsSheet";
 
 export const dynamic = "force-dynamic";
 
@@ -36,9 +37,7 @@ export default async function CollectionPage({
   const productType =
     typeof searchParams.productType === "string"
       ? searchParams.productType.replace(/&/g, "%26")
-      : productTypeMap[slug.toLowerCase()]
-      ? productTypeMap[slug.toLowerCase()].replace(/&/g, "%26")
-      : originalProductType;
+      : "";
 
   // Obtener el brandId de los searchParams
   const brandId =
@@ -58,7 +57,7 @@ export default async function CollectionPage({
     const result = await getStatusItems(
       slug === "productos-nuevos" ? "NEW" : "CLO",
       cursor,
-      productType
+      productType || undefined
     );
     data = result.data;
     meta = result.meta;
@@ -141,12 +140,7 @@ export default async function CollectionPage({
                   </span>
                 </div>
                 <ColeccionImage item={item} />
-                <Link
-                  href={`/product/${item.supplier_product_id}`}
-                  className="mt-auto inline-block text-sm text-indigo-600 hover:underline text-center"
-                >
-                  Ver detalles
-                </Link>
+                <ProductDetailsSheet item={item} />
               </div>
             ))}
           </div>

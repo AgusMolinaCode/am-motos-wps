@@ -1,14 +1,27 @@
 import React from "react";
 import Image from "next/image";
 
+interface ImageData {
+  domain: string;
+  path: string;
+  filename: string;
+}
+
+interface Item {
+  name: string;
+  images?: {
+    data?: ImageData[];
+  };
+}
+
 interface ColeccionImageProps {
-  item: any;
+  item: Item;
 }
 
 const ColeccionImage = ({ item }: ColeccionImageProps) => {
   return (
     <div>
-      {item.images?.data?.length > 0 ? (
+      {item.images?.data && item.images.data.length > 0 ? (
         <Image
           priority
           src={`https://${item.images.data[0].domain}${item.images.data[0].path}${item.images.data[0].filename}`}

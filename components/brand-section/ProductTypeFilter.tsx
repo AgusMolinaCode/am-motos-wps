@@ -73,10 +73,12 @@ export default function ProductTypeFilter({
       <select
         id="productType"
         className="border rounded px-2 py-1 text-sm"
-        value={selectedProductType || ""}
+        value={decodedSelectedType || ""}
         onChange={(e) => handleTypeChange(e.target.value)}
       >
-        <option value="">Todos los Tipos</option>
+        {!decodedSelectedType && (
+          <option value="">Todos los Tipos</option>
+        )}
         {sortedMostUsedTypes.length > 0 && (
           <optgroup label="Tipos más usados">
             {sortedMostUsedTypes.map((type) => (
@@ -96,6 +98,14 @@ export default function ProductTypeFilter({
           </optgroup>
         )}
       </select>
+      {decodedSelectedType && (
+        <button
+          className="bg-red-500 text-white px-4 py-2 rounded"
+          onClick={() => handleTypeChange("")}
+        >
+          Reset
+        </button>
+      )}
     </div>
   );
 }

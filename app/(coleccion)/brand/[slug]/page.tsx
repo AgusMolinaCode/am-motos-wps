@@ -6,6 +6,8 @@ import Link from "next/link";
 import { getCatalogProductTypes } from "@/lib/actions";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import brandData from "@/public/csv/brand2.json";
+import ColeccionImage from "@/components/category-section/ColeccionImage";
+import ProductDetailsSheet from "@/components/shared/ProductDetailsSheet";
 
 export const dynamic = "force-dynamic";
 
@@ -18,33 +20,36 @@ interface PageProps {
 
 export default async function BrandPage({ params, searchParams }: PageProps) {
   const slug = params.slug;
-  
+
   // Función para obtener el ID de la marca desde el slug
   const getBrandIdFromSlug = (slug: string) => {
     // Si el slug es un número, es un ID directo
     if (!isNaN(Number(slug))) {
       return slug;
     }
-    
+
     // Buscar la marca por nombre en el archivo brand2.json
     const brand = brandData.find(
-      (brand) => brand.name.toLowerCase().replace(/\s+/g, '-') === slug.toLowerCase()
+      (brand) =>
+        brand.name.toLowerCase().replace(/\s+/g, "-") === slug.toLowerCase()
     );
-    
+
     return brand ? brand.id.toString() : slug;
   };
 
   const brandId = getBrandIdFromSlug(slug);
-  
+
   // Codificar correctamente el productType
-  const productType = typeof searchParams.productType === "string" 
-    ? searchParams.productType.replace(/&/g, '%26')
-    : undefined;
+  const productType =
+    typeof searchParams.productType === "string"
+      ? searchParams.productType.replace(/&/g, "%26")
+      : undefined;
 
   // Codificar correctamente el cursor
-  const cursor = typeof searchParams.cursor === "string" 
-    ? searchParams.cursor.replace(/&/g, '%26')
-    : null;
+  const cursor =
+    typeof searchParams.cursor === "string"
+      ? searchParams.cursor.replace(/&/g, "%26")
+      : null;
 
   // Obtener el nombre de la marca
   const brandName = await getBrandName(brandId);
@@ -58,26 +63,24 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
   // Obtener los product types del brand actual usando el ID
   const currentBrandProductTypes = brandProductTypes[Number(brandId)] || [];
 
-  console.log(currentBrandProductTypes)
+  console.log(currentBrandProductTypes);
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 capitalize">Marca: {brandName}</h1>
 
-    
       {currentBrandProductTypes.length > 0 && (
         <div>
           <h2 className="text-2xl font-bold mb-4">Tipos de Productos</h2>
-            <div className="flex flex-col gap-2">
-              {currentBrandProductTypes.map((type) => (
-                <Link 
-                  href={`/brand/${slug}?productType=${encodeURIComponent(type)}`} 
-                  key={type}
-                >
-                  {type}
-                </Link>
-              ))}
-            </div>
-        
+          <div className="flex flex-col gap-2">
+            {currentBrandProductTypes.map((type) => (
+              <Link
+                href={`/brand/${slug}?productType=${encodeURIComponent(type)}`}
+                key={type}
+              >
+                {type}
+              </Link>
+            ))}
+          </div>
         </div>
       )}
 
@@ -109,31 +112,8 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
                     Inventario: {item.inventory?.data?.total || 0}
                   </span>
                 </div>
-                {item.images?.data?.length > 0 ? (
-                  <Image
-                    priority
-                    src={`https://${item.images.data[0].domain}${item.images.data[0].path}${item.images.data[0].filename}`}
-                    alt={item.name}
-                    width={200}
-                    height={200}
-                    className="w-full h-48 object-contain mb-2"
-                  />
-                ) : (
-                  <Image
-                    priority
-                    src="https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg"
-                    alt={item.name}
-                    width={200}
-                    height={200}
-                    className="w-full h-48 object-contain mb-2"
-                  />
-                )}
-                <Link
-                  href={`/product/${item.supplier_product_id}`}
-                  className="mt-auto inline-block text-sm text-indigo-600 hover:underline text-center"
-                >
-                  Ver detalles
-                </Link>
+                <ColeccionImage item={item} />
+                <ProductDetailsSheet item={item} />
               </div>
             ))}
           </div>
@@ -142,7 +122,9 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
             {meta?.cursor?.prev && (
               <div className="flex justify-center mt-6">
                 <Link
-                  href={`/brand/${slug}${productType ? `?productType=${productType}&` : '?'}cursor=${meta.cursor.prev.replace(/&/g, '%26')}`}
+                  href={`/brand/${slug}${
+                    productType ? `?productType=${productType}&` : "?"
+                  }cursor=${meta.cursor.prev.replace(/&/g, "%26")}`}
                   className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                 >
                   <ArrowLeftIcon className="w-4 h-4" />
@@ -153,7 +135,9 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
             {meta?.cursor?.next && (
               <div className="flex justify-center mt-6">
                 <Link
-                  href={`/brand/${slug}${productType ? `?productType=${productType}&` : '?'}cursor=${meta.cursor.next.replace(/&/g, '%26')}`}
+                  href={`/brand/${slug}${
+                    productType ? `?productType=${productType}&` : "?"
+                  }cursor=${meta.cursor.next.replace(/&/g, "%26")}`}
                   className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                 >
                   <ArrowRightIcon className="w-4 h-4" />

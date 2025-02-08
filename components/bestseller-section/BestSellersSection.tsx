@@ -1,15 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
 import { getRecommendedItems } from "@/lib/brands";
-import { BrandStatus } from "@/types/interface";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import ColeccionImage from "../category-section/ColeccionImage";
+import ProductDetailsSheet from '../shared/ProductDetailsSheet';
 
 export default async function BestSellersSection() {
   const recommendedItems = await getRecommendedItems();
@@ -49,66 +40,8 @@ export default async function BestSellersSection() {
                   Inventario: {item.inventory?.data?.total || 0}
                 </span>
               </div>
-              {item.images?.data?.length > 0 ? (
-                <Image
-                  priority
-                  src={`https://${item.images.data[0].domain}${item.images.data[0].path}${item.images.data[0].filename}`}
-                  alt={item.name}
-                  width={200}
-                  height={200}
-                  className="w-full h-48 object-contain mb-2"
-                />
-              ) : (
-                <Image
-                  priority
-                  src="https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg"
-                  alt={item.name}
-                  width={200}
-                  height={200}
-                  className="w-full h-48 object-contain mb-2"
-                />
-              )}
-              <Sheet>
-                <SheetTrigger className="mt-auto inline-block text-sm text-indigo-600 hover:underline text-center">
-                  Ver detalles
-                </SheetTrigger>
-                <SheetContent>
-                  <SheetHeader>
-                    <SheetTitle>{item.name}</SheetTitle>
-                    <SheetDescription>
-                      <div className="space-y-4">
-                        <div className="space-y-2">
-                          <div className="text-sm text-gray-600">
-                            SKU: {item.supplier_product_id}
-                          </div>
-                          <div className="text-lg font-bold text-green-600">
-                            Precio: ${item.standard_dealer_price}
-                          </div>
-                          <div className="text-sm text-blue-600">
-                            Inventario: {item.inventory?.data?.total || 0}
-                          </div>
-                        </div>
-                        {item.images?.data?.length > 0 && (
-                          <Image
-                            priority
-                            src={`https://${item.images.data[0].domain}${item.images.data[0].path}${item.images.data[0].filename}`}
-                            alt={item.name}
-                            width={400}
-                            height={400}
-                            className="w-full object-contain"
-                          />
-                        )}
-                        <Link
-                          href={`/product/${item.supplier_product_id}`}
-                          className="inline-block w-full text-center py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
-                        >
-                          Ver página completa
-                        </Link>
-                      </div>
-                    </SheetDescription>
-                  </SheetHeader>
-                </SheetContent>
-              </Sheet>
+              <ColeccionImage item={item} />
+              <ProductDetailsSheet item={item} />
             </div>
           ))}
         </div>
