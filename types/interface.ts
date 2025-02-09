@@ -147,3 +147,4 @@ export interface Data {
   created_at:    Date;
   updated_at:    Date;
 }
+

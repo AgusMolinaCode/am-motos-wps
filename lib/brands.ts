@@ -653,3 +653,37 @@ export async function getRecommendedItems(
     };
   }
 }
+
+export async function getItemBySupplierProductId(searchTerm: string): Promise<BrandStatus> {
+  const headers: HeadersInit = {
+    Authorization: process.env.PUBLIC_WPS ?? "",
+  };
+
+  // Primero buscar por supplier_product_id
+  let url = `https://api.wps-inc.com/items?filter[supplier_product_id][pre]=${encodeURIComponent(searchTerm)}&include=inventory,images`;
+  
+  let response = await fetch(url, { method: "GET", headers });
+  let result = await response.json();
+
+  // Si no hay resultados, buscar por sku
+  if (!result.data || (Array.isArray(result.data) && result.data.length === 0)) {
+    url = `https://api.wps-inc.com/items?filter[sku][pre]=${encodeURIComponent(searchTerm)}&include=inventory,images`;
+    response = await fetch(url, { method: "GET", headers });
+    result = await response.json();
+  }
+
+  return result.data as BrandStatus;
+}
+
+export async function getRelatedItems(itemId: string): Promise<BrandStatus[]> {
+  const headers: HeadersInit = {
+    Authorization: process.env.PUBLIC_WPS ?? "",
+  };
+
+  const url = `https://api.wps-inc.com/products?include=items.images&filter[sku]=${encodeURIComponent(itemId)}&page[size]=10`;
+
+  const response = await fetch(url, { method: "GET", headers });
+  const result = await response.json();
+
+  return result.data as BrandStatus[];
+}

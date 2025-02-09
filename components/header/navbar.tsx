@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { NavigationMenuDemo } from "./NavigationMenuDemo";
+import { HeartIcon } from "lucide-react";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -37,6 +38,9 @@ export default function Navbar() {
             sunClassName={"text-orange-200"}
             moonClassName={"text-gray-700"}
           />
+          <Link href="/favoritos" className="text-lg font-bold hover:dark:text-indigo-300 hover:text-indigo-800 duration-300">  
+            <HeartIcon className="w-6 h-6" />
+          </Link>
           <Link
             href="/catalogos"
             className="text-lg font-bold hover:dark:text-indigo-300 hover:text-indigo-800 duration-300"

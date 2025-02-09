@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import Image from "next/image";
@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { CarouselComponent } from "./CarouselComponent";
+import FavoriteButton from "./FavoriteButton";
 
 interface ImageData {
   domain: string;
@@ -22,6 +23,7 @@ interface ImageData {
 interface Item {
   id: number;
   name: string;
+  brand_id: number;
   supplier_product_id: string;
   standard_dealer_price: string;
   inventory?: {
@@ -36,19 +38,30 @@ interface Item {
 
 interface ProductDetailsSheetProps {
   item: Item;
+  onOpenChange?: (open: boolean) => void;
+  openAutomatically?: boolean;
 }
 
-const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({ item }) => {
+const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
+  item,
+  onOpenChange,
+  openAutomatically = false,
+}) => {
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
-
+  console.log(item);
   return (
-    <Sheet>
-      <SheetTrigger className="mt-auto inline-block text-sm text-indigo-600 hover:underline text-center">
-        Ver detalles
-      </SheetTrigger>
+    <Sheet defaultOpen={openAutomatically} onOpenChange={onOpenChange}>
+      {!openAutomatically && (
+        <SheetTrigger className="mt-auto inline-block text-sm text-indigo-600 hover:underline text-center">
+          Ver detalles
+        </SheetTrigger>
+      )}
       <SheetContent className="overflow-y-auto">
         <SheetHeader>
-          <SheetTitle>{item.name}</SheetTitle>
+          <div className="flex justify-between items-center">
+            <SheetTitle>{item.name}</SheetTitle>
+            <FavoriteButton item={item} />
+          </div>
         </SheetHeader>
         <div className="mt-4 space-y-4">
           <div className="space-y-2">
@@ -74,7 +87,7 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({ item }) => {
               />
             ) : (
               <>
-                <button 
+                <button
                   onClick={() => setIsCarouselOpen(true)}
                   className="w-full focus:outline-none"
                 >
@@ -113,7 +126,13 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({ item }) => {
             href={`/product/${item.supplier_product_id}`}
             className="inline-block w-full text-center py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
           >
-            Ver página completa
+            Ver descripcion y compatibilidad
+          </Link>
+          <Link
+            href={`/brand/${item.brand_id}`}
+            className="inline-block w-full text-center py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
+          >
+            Ver página de la marca
           </Link>
         </div>
       </SheetContent>
@@ -129,4 +148,4 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({ item }) => {
   );
 };
 
-export default ProductDetailsSheet; 
+export default ProductDetailsSheet;

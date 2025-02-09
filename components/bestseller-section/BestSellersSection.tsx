@@ -1,6 +1,7 @@
 import { getRecommendedItems } from "@/lib/brands";
 import ColeccionImage from "../category-section/ColeccionImage";
 import ProductDetailsSheet from '../shared/ProductDetailsSheet';
+import FavoriteButton from "../shared/FavoriteButton";
 
 export default async function BestSellersSection() {
   const recommendedItems = await getRecommendedItems();
@@ -24,8 +25,11 @@ export default async function BestSellersSection() {
           {recommendedItems.data.map((item) => (
             <div
               key={item.id}
-              className="border rounded-lg p-4 hover:shadow-lg transition-shadow flex flex-col"
+              className="border rounded-lg p-4 hover:shadow-lg transition-shadow flex flex-col relative"
             >
+              <div className="absolute top-2 right-2 z-10">
+                <FavoriteButton item={item} />
+              </div>
               <h2 className="text-lg font-semibold mb-2 truncate">
                 {item.name}
               </h2>

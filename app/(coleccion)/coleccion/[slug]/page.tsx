@@ -11,6 +11,7 @@ import { productTypeMap, ProductTypeUrlReverseMap } from "@/constants";
 import CursorPage from "@/components/cursor-page/CursorPage";
 import ColeccionImage from "@/components/category-section/ColeccionImage";
 import ProductDetailsSheet from "@/components/shared/ProductDetailsSheet";
+import FavoriteButton from "@/components/shared/FavoriteButton";
 
 export const dynamic = "force-dynamic";
 
@@ -123,8 +124,11 @@ export default async function CollectionPage({
             {data.map((item: BrandStatus) => (
               <div
                 key={item.id}
-                className="border rounded-lg p-4 hover:shadow-lg transition-shadow flex flex-col"
+                className="border rounded-lg p-4 hover:shadow-lg transition-shadow flex flex-col relative"
               >
+                <div className="absolute top-2 right-2 z-10">
+                  <FavoriteButton item={item} />
+                </div>
                 <h2 className="text-lg font-semibold mb-2 truncate">
                   {item.name}
                 </h2>
