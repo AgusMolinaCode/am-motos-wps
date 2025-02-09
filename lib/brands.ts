@@ -1,6 +1,6 @@
 "use server";
 
-import { BrandId, Brands, Meta, BrandStatus } from "@/types/interface";
+import { BrandId, Brands, Meta, BrandStatus, VehicleDataId, VehicleCompatibilityData } from "@/types/interface";
 
 export async function getBrandsItems(
   brandId: string,
@@ -686,4 +686,63 @@ export async function getRelatedItems(itemId: string): Promise<BrandStatus[]> {
   const result = await response.json();
 
   return result.data as BrandStatus[];
+}
+
+export async function getVehicleCompatibility(itemId: string): Promise<VehicleDataId[]> {
+  const headers: HeadersInit = {
+    Authorization: process.env.PUBLIC_WPS ?? "",
+  };
+
+  let allVehicles: VehicleDataId[] = [];
+  let nextCursor: string | null = null;
+
+  do {
+    const url: string = `https://api.wps-inc.com/items/${encodeURIComponent(itemId)}/vehicles?page[size]=650${
+      nextCursor ? `&page[cursor]=${nextCursor}` : ''
+    }`;
+
+    try {
+      const response: Response = await fetch(url, { method: "GET", headers });
+      const result: { data: VehicleDataId[]; meta?: { cursor?: { next: string | null } } } = await response.json();
+
+      if (result.data) {
+        allVehicles = [...allVehicles, ...result.data];
+      }
+
+      nextCursor = result.meta?.cursor?.next || null;
+    } catch (error) {
+      console.error("Error fetching vehicle compatibility:", error);
+      break;
+    }
+  } while (nextCursor);
+
+  return allVehicles;
+}
+
+export async function getVehicleCompatibilityByItemId(vehicleIds: number[]): Promise<VehicleCompatibilityData[]> {
+  const headers: HeadersInit = {
+    Authorization: process.env.PUBLIC_WPS ?? "",
+  };
+
+  // Procesar los IDs en grupos de 50 para evitar URLs demasiado largas
+  const chunkSize = 50;
+  const allVehicles: VehicleCompatibilityData[] = [];
+
+  for (let i = 0; i < vehicleIds.length; i += chunkSize) {
+    const chunk = vehicleIds.slice(i, i + chunkSize);
+    const url = `https://api.wps-inc.com/vehicles?filter[id]=${chunk.join(',')}&include=vehiclemodel.vehiclemake,vehicleyear&page[size]=650`;
+
+    try {
+      const response = await fetch(url, { method: "GET", headers });
+      const result = await response.json();
+      
+      if (result.data) {
+        allVehicles.push(...result.data);
+      }
+    } catch (error) {
+      console.error("Error fetching vehicle details:", error);
+    }
+  }
+
+  return allVehicles;
 }

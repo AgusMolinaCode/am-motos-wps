@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { NavigationMenuDemo } from "./NavigationMenuDemo";
 import { HeartIcon } from "lucide-react";
+import BrandSelector from "./BrandSelector";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -49,8 +50,9 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
-      <div className="flex justify-center">
+      <div className="flex flex-col justify-center items-center mx-auto">
         <NavigationMenuDemo />
+        <BrandSelector />
       </div>
     </div>
   );

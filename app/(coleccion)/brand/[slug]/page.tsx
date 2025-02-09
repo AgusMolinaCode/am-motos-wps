@@ -63,7 +63,7 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
   // Obtener los product types del brand actual usando el ID
   const currentBrandProductTypes = brandProductTypes[Number(brandId)] || [];
 
-  console.log(currentBrandProductTypes);
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 capitalize">Marca: {brandName}</h1>

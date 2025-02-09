@@ -54,7 +54,7 @@ export default function FavoritosPage() {
 
   if (favorites.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="mx-auto px-4 py-8 min-h-[30vh]">
         <h1 className="text-3xl font-bold mb-6">Mis Favoritos</h1>
         <div className="text-center py-10 bg-gray-100 dark:bg-gray-800 rounded-lg">
           <p className="text-xl text-gray-600 dark:text-gray-300">

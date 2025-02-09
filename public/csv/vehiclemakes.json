@@ -1,0 +1,157 @@
+[
+  {
+    "id": 2,
+    "db2_key": "APRILIA",
+    "name": "Aprilia"
+  },
+  {
+    "id": 3,
+    "db2_key": "ARCTIC-CAT",
+    "name": "Arctic Cat"
+  },
+  {
+    "id": 5,
+    "db2_key": "BENELLI",
+    "name": "Benelli"
+  },
+  {
+    "id": 7,
+    "db2_key": "BETA",
+    "name": "Beta"
+  },
+  {
+    "id": 10,
+    "db2_key": "BMW",
+    "name": "BMW"
+  },
+  {
+    "id": 14,
+    "db2_key": "CAN-AM",
+    "name": "Can-Am"
+  },
+  {
+    "id": 17,
+    "db2_key": "DUCATI",
+    "name": "Ducati"
+  },
+  {
+    "id": 21,
+    "db2_key": "GAS",
+    "name": "Gas-Gas"
+  },
+  {
+    "id": 22,
+    "db2_key": "HARLEY",
+    "name": "Harley Davidson"
+  },
+  {
+    "id": 23,
+    "db2_key": "HONDA",
+    "name": "Honda"
+  },
+  {
+    "id": 24,
+    "db2_key": "HUSABERG",
+    "name": "Husaberg"
+  },
+  {
+    "id": 25,
+    "db2_key": "HUSQVARNA",
+    "name": "Husqvarna"
+  },
+  {
+    "id": 26,
+    "db2_key": "HYOSUNG",
+    "name": "Hyosung"
+  },
+  {
+    "id": 27,
+    "db2_key": "INDIAN",
+    "name": "Indian"
+  },
+  {
+    "id": 30,
+    "db2_key": "KAWASAKI",
+    "name": "Kawasaki"
+  },
+  {
+    "id": 31,
+    "db2_key": "KTM",
+    "name": "KTM"
+  },
+  {
+    "id": 33,
+    "db2_key": "KYMCO",
+    "name": "Kymco"
+  },
+  {
+    "id": 36,
+    "db2_key": "MOTO-GUZZI",
+    "name": "Moto Guzzi"
+  },
+  {
+    "id": 37,
+    "db2_key": "MV-AGUSTA",
+    "name": "MV Agusta"
+  },
+  {
+    "id": 38,
+    "db2_key": "PIAGGIO",
+    "name": "Piaggio"
+  },
+  {
+    "id": 39,
+    "db2_key": "POLARIS",
+    "name": "Polaris"
+  },
+  {
+    "id": 42,
+    "db2_key": "SUZUKI",
+    "name": "Suzuki"
+  },
+  {
+    "id": 43,
+    "db2_key": "TM",
+    "name": "TM"
+  },
+  {
+    "id": 44,
+    "db2_key": "TRIUMPH",
+    "name": "Triumph"
+  },
+  {
+    "id": 45,
+    "db2_key": "VESPA",
+    "name": "Vespa"
+  },
+  {
+    "id": 48,
+    "db2_key": "YAMAHA",
+    "name": "Yamaha"
+  },
+  {
+    "id": 50,
+    "db2_key": null,
+    "name": "Ski-Doo"
+  },
+  {
+    "id": 51,
+    "db2_key": null,
+    "name": "Sea-Doo"
+  },
+  {
+    "id": 53,
+    "db2_key": null,
+    "name": "Sherco"
+  },
+  {
+    "id": 97,
+    "db2_key": null,
+    "name": "Royal Enfield"
+  },
+  {
+    "id": 163,
+    "db2_key": null,
+    "name": "Rieju"
+  }
+]

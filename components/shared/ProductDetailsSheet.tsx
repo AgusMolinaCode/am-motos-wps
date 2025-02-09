@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/sheet";
 import { CarouselComponent } from "./CarouselComponent";
 import FavoriteButton from "./FavoriteButton";
+import DescriptionAndCompatibility from "./DescriptionAndCompatibility";
+import VehicleCompatibility from "./VehicleCompatibility";
 
 interface ImageData {
   domain: string;
@@ -48,7 +50,7 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
   openAutomatically = false,
 }) => {
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
-  console.log(item);
+
   return (
     <Sheet defaultOpen={openAutomatically} onOpenChange={onOpenChange}>
       {!openAutomatically && (
@@ -122,12 +124,8 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
               </>
             )}
           </div>
-          <Link
-            href={`/product/${item.supplier_product_id}`}
-            className="inline-block w-full text-center py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
-          >
-            Ver descripcion y compatibilidad
-          </Link>
+          <VehicleCompatibility item={item} />
+          <DescriptionAndCompatibility item={item} />
           <Link
             href={`/brand/${item.brand_id}`}
             className="inline-block w-full text-center py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"

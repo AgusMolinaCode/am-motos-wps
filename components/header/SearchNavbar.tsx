@@ -24,7 +24,7 @@ const SearchNavbar = () => {
   const [recentSearches, setRecentSearches] = useState<RecentSearch[]>([]);
   
   // Reducir el tiempo de debounce para una mejor experiencia
-  const debouncedSearchTerm = useDebounce(searchTerm,0);
+  const debouncedSearchTerm = useDebounce(searchTerm, 0);
 
   // Cargar búsquedas recientes al montar el componente
   useEffect(() => {
@@ -54,7 +54,6 @@ const SearchNavbar = () => {
         }
       } else {
         setSearchResults([]);
-        setShowDropdown(true); // Mostrar dropdown con búsquedas recientes cuando el input está vacío
       }
     };
 
@@ -134,11 +133,11 @@ const SearchNavbar = () => {
       </div>
 
       {/* Dropdown de resultados y búsquedas recientes */}
-      {showDropdown && (searchTerm ? searchResults.length > 0 : recentSearches.length > 0) && (
+      {showDropdown && (
         <div className="absolute z-50 w-full mt-1 bg-white dark:bg-gray-800 shadow-lg border dark:border-gray-700">
           {searchTerm ? (
             // Mostrar resultados de búsqueda
-            searchResults.map((product) => (
+            searchResults.length > 0 && searchResults.map((product) => (
               <button
                 key={product.id}
                 className="w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-between"
@@ -156,7 +155,7 @@ const SearchNavbar = () => {
               </button>
             ))
           ) : (
-            // Mostrar búsquedas recientes
+            // Mostrar búsquedas recientes solo si hay búsquedas y el input está enfocado
             recentSearches.length > 0 && (
               <div>
                 <div className="px-4 py-2 text-sm text-gray-500 dark:text-gray-400">

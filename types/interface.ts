@@ -148,3 +148,48 @@ export interface Data {
   updated_at:    Date;
 }
 
+
+// Vehiclemake and Vehicleyear interfaces
+export type VehicleCompatibilityData = {
+  id: number
+  vehiclemodel_id: number
+  vehicleyear_id: number
+  created_at: string
+  updated_at: string
+  vehiclemodel: {
+    data: {
+      id: number
+      vehiclemake_id: number
+      db2_key: string
+      name: string
+      created_at: string
+      updated_at: string
+      vehiclemake: {
+        data: {
+          id: number
+          db2_key: string
+          name: string
+          created_at: string
+          updated_at: string
+        }
+      }
+    }
+  }
+  vehicleyear: {
+    data: {
+      id: number
+      name: number
+      created_at: string
+      updated_at: string
+    }
+  }
+}
+
+export type VehicleDataId = {
+  id: number
+  vehiclemodel_id: number
+  vehicleyear_id: number
+  created_at: string
+  updated_at: string
+}
+

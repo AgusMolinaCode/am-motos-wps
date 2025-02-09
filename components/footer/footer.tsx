@@ -9,7 +9,7 @@ const footer = () => {
   return (
     <div className="pt-16 md:pt-28">
       <InfiniteSliderBasic />
-      <Separator gradient />
+      <Separator />
       <div className="flex justify-between py-10">
         <div className="flex flex-col items-center gap-2">
           <Image

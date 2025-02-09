@@ -1,4 +1,7 @@
-import { cn } from '@/lib/utils';
+import * as React from "react"
+import * as SeparatorPrimitive from "@radix-ui/react-separator"
+
+import { cn } from "@/lib/utils"
 
 /**
  * 
@@ -44,47 +47,27 @@ type SeparatorProps = {
   className?: string;
 };
 //======================================
-export const Separator = ({
-  label,
-  gradient = false,
-  className = '',
-}: SeparatorProps) => {
-  if (label) {
-    return (
-      <div className="flex items-center w-full">
-        <div
-          className={cn(
-            'rounded-full w-full h-[1px]',
-            gradient
-              ? 'bg-gradient-to-r from-transparent dark:from-zinc-800 dark:to-zinc-400 to-zinc-500'
-              : 'bg-zinc-300 dark:bg-zinc-800',
-            className,
-          )}
-        ></div>
-        <div className="text-gray-600 uppercase w-fit dark:text-gray-300 text-nowrap">
-          {label}
-        </div>
-        <div
-          className={cn(
-            'rounded-full w-full h-[1px]',
-            gradient
-              ? 'bg-gradient-to-r from-zinc-500 dark:from-zinc-200 to-transparent dark:to-zinc-700'
-              : 'bg-zinc-300 dark:bg-zinc-800',
-            className,
-          )}
-        ></div>
-      </div>
-    );
-  }
-  return (
-    <div
+const Separator = React.forwardRef<
+  React.ElementRef<typeof SeparatorPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>
+>(
+  (
+    { className, orientation = "horizontal", decorative = true, ...props },
+    ref
+  ) => (
+    <SeparatorPrimitive.Root
+      ref={ref}
+      decorative={decorative}
+      orientation={orientation}
       className={cn(
-        'rounded-full w-full h-[1px]',
-        gradient
-          ? 'bg-gradient-to-r from-transparent via-zinc-500 dark:via-zinc-200 to-transparent dark:from-zinc-800 dark:to-zinc-700'
-          : 'bg-zinc-300 dark:bg-zinc-800',
-        className,
+        "shrink-0 bg-border",
+        orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
+        className
       )}
+      {...props}
     />
-  );
-};
+  )
+)
+Separator.displayName = SeparatorPrimitive.Root.displayName
+
+export { Separator }
