@@ -11,6 +11,7 @@ import {
   } from "@/components/ui/select";
 import { Brands, Meta } from "@/types/interface";
 import { getBrands } from "@/lib/brands";
+import { Button } from "@/components/ui/button";
 
 const SelectBrand = () => {
   const router = useRouter();
@@ -18,6 +19,7 @@ const SelectBrand = () => {
   const [meta, setMeta] = useState<Meta | null>(null);
   const [loading, setLoading] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
 
   const loadMore = async () => {
     if (!meta?.cursor.next || isLoadingMore) return;
@@ -53,8 +55,14 @@ const SelectBrand = () => {
     // Asegurarse de que solo se usen IDs numéricos
     const numericBrandId = brandId.replace(/[^0-9]/g, '');
     if (numericBrandId) {
+      setSelectedBrand(numericBrandId);
       router.push(`/brand/${numericBrandId}`);
     }
+  };
+
+  const handleReset = () => {
+    setSelectedBrand(null);
+    router.push('/brand');
   };
 
   useEffect(() => {
@@ -105,6 +113,15 @@ const SelectBrand = () => {
             )}
           </SelectContent>
         </Select>
+        {selectedBrand !== null && (
+          <Button
+            variant="destructive"
+            onClick={handleReset}
+            className="ml-2"
+          >
+            Reiniciar
+          </Button>
+        )}
     </div>
   )
 }

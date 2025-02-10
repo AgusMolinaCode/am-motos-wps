@@ -1,7 +1,6 @@
-import { getBrands, getBrandsItems, getBrandName } from "@/lib/brands";
+import { getBrandsItems, getBrandName } from "@/lib/brands";
 import { BrandId } from "@/types/interface";
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { getCatalogProductTypes } from "@/lib/actions";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";

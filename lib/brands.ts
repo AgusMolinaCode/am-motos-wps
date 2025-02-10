@@ -1,6 +1,6 @@
 "use server";
 
-import { BrandId, Brands, Meta, BrandStatus, VehicleDataId, VehicleCompatibilityData } from "@/types/interface";
+import { BrandId, Brands, Meta, BrandStatus, VehicleDataId, VehicleCompatibilityData, VehicleModel } from "@/types/interface";
 
 export async function getBrandsItems(
   brandId: string,
@@ -745,4 +745,101 @@ export async function getVehicleCompatibilityByItemId(vehicleIds: number[]): Pro
   }
 
   return allVehicles;
+}
+
+export async function getVehicleModel(yearId: string, makeId: string): Promise<VehicleModel[]> {
+  const headers: HeadersInit = {
+    Authorization: process.env.PUBLIC_WPS ?? "",
+  };
+
+  try {
+    const url = `https://api.wps-inc.com/vehicleyears/${yearId}/vehiclemodels?filter[vehiclemake_id]=${makeId}&page[size]=600`;
+    const response = await fetch(url, { method: "GET", headers });
+    
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error('API Error:', errorData);
+      throw new Error(`API responded with status ${response.status}`);
+    }
+    
+    const result = await response.json();
+    return result.data as VehicleModel[];
+  } catch (error) {
+    console.error("Error fetching vehicle models:", error);
+    return [];
+  }
+}
+
+export async function getVehicleItemsId(modelId: string, yearId: string): Promise<VehicleModel[]> {
+  const headers: HeadersInit = {
+    Authorization: process.env.PUBLIC_WPS ?? "",
+  };
+
+  try {
+    const url = `https://api.wps-inc.com/vehicles?filter[vehiclemodel_id]=${modelId}&filter[vehicleyear_id]=${yearId}&page[size]=600`;
+    const response = await fetch(url, { method: "GET", headers });
+    
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error('API Error:', errorData);
+      throw new Error(`API responded with status ${response.status}`);
+    }
+    
+    const result = await response.json();
+    return result.data as VehicleModel[];
+  } catch (error) {
+    console.error("Error fetching vehicle models:", error);
+    return [];
+  }
+}
+
+export async function getVehicleItems(vehicleId: string): Promise<{ data: any[]; meta: Meta }> {
+  const headers: HeadersInit = {
+    Authorization: process.env.PUBLIC_WPS ?? "",
+  };
+
+  try {
+    const url = `https://api.wps-inc.com/vehicles/${vehicleId}/items?include=inventory,images&page[size]=100`;
+    const response = await fetch(url, { method: "GET", headers });
+
+    if (!response.ok) {
+      const errorData = await response.text();
+      console.error('API Error:', errorData);
+      throw new Error(`API responded with status ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    // Filtrar productos con inventario total > 0 y los que tienen inventario = 0
+    const itemsWithInventory = result.data.filter(
+      (item: any) => item.inventory?.data?.total > 0
+    );
+    const itemsWithoutInventory = result.data.filter(
+      (item: any) => item.inventory?.data?.total === 0
+    );
+
+    // Combinar los arrays, primero los que tienen inventario
+    const combinedItems = [...itemsWithInventory, ...itemsWithoutInventory];
+
+    // Limitar a 30 productos
+    const limitedItems = combinedItems.slice(0, 30);
+
+    return {
+      data: limitedItems,
+      meta: {
+        ...result.meta,
+        cursor: {
+          ...result.meta.cursor,
+          count: combinedItems.length,
+          next: combinedItems.length > 30 ? result.meta.cursor.next : null,
+        },
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching vehicle items:", error);
+    return {
+      data: [],
+      meta: { cursor: { current: "", prev: null, next: null, count: 0 } },
+    };
+  }
 }

@@ -30,7 +30,6 @@ const VehicleCompatibility = ({ item }: { item: any }) => {
         });
 
         setVehicles(sortedVehicles);
-        console.log(sortedVehicles); // Mostrar los vehículos ordenados
       } catch (error) {
         console.error("Error fetching vehicle compatibility:", error);
       } finally {
