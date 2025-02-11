@@ -4,12 +4,23 @@ import { VehicleCompatibilityData } from "@/types/interface";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/Separator";
 
-const VehicleCompatibility = ({ item }: { item: any }) => {
+// Cache para almacenar los resultados de las consultas
+const compatibilityCache: Record<number, VehicleCompatibilityData[]> = {};
+
+const VehicleCompatibility = ({ item, isVisible = false }: { item: any, isVisible: boolean }) => {
   const [vehicles, setVehicles] = useState<VehicleCompatibilityData[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (!isVisible) return;
+
     const fetchVehicleCompatibility = async () => {
+      // Si ya tenemos los datos en caché, los usamos
+      if (compatibilityCache[item.id]) {
+        setVehicles(compatibilityCache[item.id]);
+        return;
+      }
+
       setLoading(true);
       try {
         // Obtener los IDs de los vehículos compatibles
@@ -29,6 +40,8 @@ const VehicleCompatibility = ({ item }: { item: any }) => {
           return a.vehicleyear.data.name - b.vehicleyear.data.name;
         });
 
+        // Guardar en caché y actualizar el estado
+        compatibilityCache[item.id] = sortedVehicles;
         setVehicles(sortedVehicles);
       } catch (error) {
         console.error("Error fetching vehicle compatibility:", error);
@@ -38,11 +51,13 @@ const VehicleCompatibility = ({ item }: { item: any }) => {
     };
 
     fetchVehicleCompatibility();
-  }, [item.id]);
+  }, [item.id, isVisible]);
+
+  if (!isVisible) return null;
 
   return (
-    <div>
-      <h2 className="text-lg font-semibold mb-2">Vehículos compatibles</h2>
+    <div className="my-2">
+      {/* <h2 className="text-lg font-semibold mb-2">Vehículos compatibles</h2> */}
       {loading ? (
         <p>Cargando...</p>
       ) : vehicles.length > 0 ? (

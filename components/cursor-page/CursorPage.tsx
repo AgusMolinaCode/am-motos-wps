@@ -1,4 +1,7 @@
+'use client'
+
 import React from 'react'
+import { useSearchParams } from 'next/navigation'
 import {
   Pagination,
   PaginationContent,
@@ -7,31 +10,27 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 
-const CursorPage = ({ meta, slug, productType, brandId }: { meta: any, slug: string, productType: string, brandId: string } | any) => {
+const CursorPage = ({ meta, slug, vehicleId }: { meta: any, slug: string, vehicleId: string }) => {
+  const searchParams = useSearchParams();
+
+  const createPaginationUrl = (cursor: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('cursor', cursor.replace(/&/g, "%26"));
+    return `/vehiculo/${slug}/${vehicleId}?${params.toString()}`;
+  };
+
   return (
     <Pagination className="my-4">
       <PaginationContent>
         {meta?.cursor?.prev && (
           <PaginationItem>
-            <PaginationPrevious
-              href={`/coleccion/${slug}?${new URLSearchParams({
-                ...(productType ? { productType } : {}),
-                ...(brandId ? { brandId } : {}),
-                cursor: meta.cursor.prev.replace(/&/g, "%26"),
-              }).toString()}`}
-            />
+            <PaginationPrevious href={createPaginationUrl(meta.cursor.prev)} />
           </PaginationItem>
         )}
         
         {meta?.cursor?.next && (
           <PaginationItem>
-            <PaginationNext
-              href={`/coleccion/${slug}?${new URLSearchParams({
-                ...(productType ? { productType } : {}),
-                ...(brandId ? { brandId } : {}),
-                cursor: meta.cursor.next.replace(/&/g, "%26"),
-              }).toString()}`}
-            />
+            <PaginationNext href={createPaginationUrl(meta.cursor.next)} />
           </PaginationItem>
         )}
       </PaginationContent>

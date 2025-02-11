@@ -1,0 +1,200 @@
+[
+  {
+    "id": 458,
+
+    "name": "Audio/Visual/Communication",
+    "name_translated": "Audio/Visual/Comunicación"
+  },
+
+  {
+    "id": 671,
+    "name": "Belts",
+    "name_translated": "Correas"
+  },
+
+  {
+    "id": 649,
+    "name": "Cable/Hydraulic Control Lines",
+    "name_translated": "Cables/Líneas de control hidráulicas"
+  },
+  {
+    "id": 804,
+    "name": "Chains",
+    "name_translated": "Cadenas"
+  },
+  {
+    "id": 4864,
+    "name": "Chemicals",
+    "name_translated": "Aceites y lubricantes"
+  },
+
+  {
+    "id": 661,
+    "name": "Foot Controls",
+    "name_translated": "Apoyapies"
+  },
+
+  {
+    "id": 5173,
+    "name": "Forks",
+    "name_translated": "Amortiguadores"
+  },
+
+  {
+    "id": 4107,
+    "name": "Fuel Tank",
+    "name_translated": "Tanque de combustible"
+  },
+  {
+    "id": 2503,
+    "name": "Gas Caps",
+    "name_translated": "Tapas de nafta"
+  },
+
+  {
+    "id": 5644,
+    "name": "Gauges/Meters",
+    "name_translated": "Medidores / Velocímetros"
+  },
+  {
+    "id": 5708,
+    "name": "GPS",
+    "name_translated": "GPS"
+  },
+  {
+    "id": 660,
+    "name": "Graphics/Decals",
+    "name_translated": "Gráficos / Decalcomanías"
+  },
+  {
+    "id": 669,
+    "name": "Grips",
+    "name_translated": "Puños"
+  },
+  {
+    "id": 5698,
+    "name": "Guards/Braces",
+    "name_translated": "Guardas / Apoyos"
+  },
+  {
+    "id": 6258,
+    "name": "Hand Controls",
+    "name_translated": "Controles de mano"
+  },
+  {
+    "id": 5696,
+    "name": "Handguards",
+    "name_translated": "Cubre Puños"
+  },
+  {
+    "id": 4016,
+    "name": "Handlebars",
+    "name_translated": "Manubrios"
+  },
+  {
+    "id": 5076,
+    "name": "Illumination",
+    "name_translated": "Iluminación"
+  },
+
+  {
+    "id": 5890,
+    "name": "Jets",
+    "name_translated": "Jets"
+  },
+  {
+    "id": 533,
+    "name": "Levers",
+    "name_translated": "Palancas"
+  },
+  {
+    "id": 659,
+    "name": "Luggage",
+    "name_translated": "Equipaje"
+  },
+  {
+    "id": 657,
+    "name": "Mirrors",
+    "name_translated": "Espejos"
+  },
+  {
+    "id": 5571,
+    "name": "Mounts/Brackets",
+    "name_translated": "Monturas / Apoyos"
+  },
+  {
+    "id": 6205,
+    "name": "Replacement Parts",
+    "name_translated": "Repuestos de accesorios"
+  },
+  {
+    "id": 4859,
+    "name": "Risers",
+    "name_translated": "Risers"
+  },
+  {
+    "id": 666,
+    "name": "Seat",
+    "name_translated": "Asiento"
+  },
+  {
+    "id": 4902,
+    "name": "Security",
+    "name_translated": "Seguridad"
+  },
+  {
+    "id": 715,
+    "name": "Spark Plugs",
+    "name_translated": "Bujías"
+  },
+  {
+    "id": 5645,
+    "name": "Starters",
+    "name_translated": "Encendido / Arranque"
+  },
+  {
+    "id": 6255,
+    "name": "Steering",
+    "name_translated": "Dirección"
+  },
+  {
+    "id": 5569,
+    "name": "Switches",
+    "name_translated": "Interruptores"
+  },
+  {
+    "id": 727,
+    "name": "Throttle",
+    "name_translated": "Acelerador"
+  },
+  {
+    "id": 672,
+    "name": "Tire And Wheel Kit",
+    "name_translated": "Kit de llanta y rueda"
+  },
+  {
+    "id": 5706,
+    "name": "Tire/Wheel Accessories",
+    "name_translated": "Accesorios de llanta y rueda"
+  },
+  {
+    "id": 656,
+    "name": "Tubes",
+    "name_translated": "Camaras"
+  },
+  {
+    "id": 5071,
+    "name": "UTV Cab/Roof/Door",
+    "name_translated": "Cabina / Techo / Puerta"
+  },
+  {
+    "id": 9029,
+    "name": "Wheel Components",
+    "name_translated": "Componentes de rueda"
+  },
+  {
+    "id": 543,
+    "name": "Windshield/Windscreen",
+    "name_translated": "Vidrio / Parabrisas"
+  }
+]

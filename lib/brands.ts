@@ -1,6 +1,7 @@
 "use server";
 
 import { BrandId, Brands, Meta, BrandStatus, VehicleDataId, VehicleCompatibilityData, VehicleModel } from "@/types/interface";
+import axios from "axios";
 
 export async function getBrandsItems(
   brandId: string,
@@ -793,13 +794,26 @@ export async function getVehicleItemsId(modelId: string, yearId: string): Promis
   }
 }
 
-export async function getVehicleItems(vehicleId: string): Promise<{ data: any[]; meta: Meta }> {
+export async function getVehicleItems(vehicleId: string, cursor: string | null = null, productType: string | null = null, sort: string | null = null): Promise<{ data: any[]; meta: Meta }> {
   const headers: HeadersInit = {
     Authorization: process.env.PUBLIC_WPS ?? "",
   };
 
   try {
-    const url = `https://api.wps-inc.com/vehicles/${vehicleId}/items?include=inventory,images&page[size]=100`;
+    let url = `https://api.wps-inc.com/vehicles/${vehicleId}/items?include=inventory,images&page[size]=30`;
+
+    if (cursor) {
+      url += `&page[cursor]=${encodeURIComponent(cursor)}`;
+    }
+
+    if (productType) {
+      url += `&filter[product_type]=${encodeURIComponent(productType)}`;
+    }
+
+    if (sort) {
+      url += `&${sort}`;
+    }
+
     const response = await fetch(url, { method: "GET", headers });
 
     if (!response.ok) {
@@ -810,36 +824,26 @@ export async function getVehicleItems(vehicleId: string): Promise<{ data: any[];
 
     const result = await response.json();
 
-    // Filtrar productos con inventario total > 0 y los que tienen inventario = 0
-    const itemsWithInventory = result.data.filter(
-      (item: any) => item.inventory?.data?.total > 0
-    );
-    const itemsWithoutInventory = result.data.filter(
-      (item: any) => item.inventory?.data?.total === 0
-    );
+    // Ordenar los productos por inventario
+    result.data.sort((a: any, b: any) => {
+      const inventoryA = a.inventory?.data?.total || 0;
+      const inventoryB = b.inventory?.data?.total || 0;
+      
+      // Si ambos tienen inventario 0 o ambos tienen inventario > 0, mantener el orden original
+      if ((inventoryA === 0 && inventoryB === 0) || (inventoryA > 0 && inventoryB > 0)) {
+        return 0;
+      }
+      // Si A tiene inventario > 0 y B tiene inventario 0, A va primero
+      if (inventoryA > 0 && inventoryB === 0) {
+        return -1;
+      }
+      // Si B tiene inventario > 0 y A tiene inventario 0, B va primero
+      return 1;
+    });
 
-    // Combinar los arrays, primero los que tienen inventario
-    const combinedItems = [...itemsWithInventory, ...itemsWithoutInventory];
-
-    // Limitar a 30 productos
-    const limitedItems = combinedItems.slice(0, 30);
-
-    return {
-      data: limitedItems,
-      meta: {
-        ...result.meta,
-        cursor: {
-          ...result.meta.cursor,
-          count: combinedItems.length,
-          next: combinedItems.length > 30 ? result.meta.cursor.next : null,
-        },
-      },
-    };
+    return result;
   } catch (error) {
     console.error("Error fetching vehicle items:", error);
-    return {
-      data: [],
-      meta: { cursor: { current: "", prev: null, next: null, count: 0 } },
-    };
+    return { data: [], meta: {} as Meta };
   }
 }

@@ -1,0 +1,97 @@
+[
+  {
+    "id": 663,
+    "name": "Engine",
+    "name_translated": "Motor"
+  },
+  {
+    "id": 638,
+    "name": "Piston kits & Components",
+    "name_translated": "Kit de pistones"
+  },
+  {
+    "id": 498,
+    "name": "Gaskets/Seals",
+    "name_translated": "Kit Juntas"
+  },
+  {
+    "id": 664,
+    "name": "Accessories",
+    "name_translated": "Accesorios"
+  },
+  {
+    "id": 518,
+    "name": "Air Filters",
+    "name_translated": "Filtros de aire"
+  },
+  {
+    "id": 526,
+    "name": "Oil Filters",
+    "name_translated": "Filtros de aceite"
+  },
+  {
+    "id": 553,
+    "name": "Body",
+    "name_translated": "Plasticos y accesorios"
+  },
+  {
+    "id": 524,
+    "name": "Exhaust",
+    "name_translated": "Escapes"
+  },
+  {
+    "id": 1,
+    "name": "Brakes",
+    "name_translated": "Frenos"
+  },
+  {
+    "id": 529,
+    "name": "Clutch",
+    "name_translated": "Embrague"
+  },
+  {
+    "id": 652,
+    "name": "Electrical",
+    "name_translated": "Electrónica"
+  },
+  {
+    "id": 5624,
+    "name": "Engine Management",
+    "name_translated": "CDI o ECU"
+  },
+  {
+    "id": 4884,
+    "name": "Hardware/Fasteners/Fittings",
+    "name_translated": "Tornillos y accesorios"
+  },
+  {
+    "id": 531,
+    "name": "Intake/Carb/Fuel System",
+    "name_translated": "Carburador/Sistema de combustible"
+  },
+  {
+    "id": 4858,
+    "name": "Rims",
+    "name_translated": "Aros llantas"
+  },
+  {
+    "id": 500,
+    "name": "Batteries",
+    "name_translated": "Baterías"
+  },
+  {
+    "id": 637,
+    "name": "Sprockets",
+    "name_translated": "Coronas y Piñones"
+  },
+  {
+    "id": 584,
+    "name": "Suspension",
+    "name_translated": "Suspensión"
+  },
+  {
+    "id": 565,
+    "name": "Tires",
+    "name_translated": "Cubiertas"
+  }
+]

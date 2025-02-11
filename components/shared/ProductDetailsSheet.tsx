@@ -15,6 +15,7 @@ import { CarouselComponent } from "./CarouselComponent";
 import FavoriteButton from "./FavoriteButton";
 import DescriptionAndCompatibility from "./DescriptionAndCompatibility";
 import VehicleCompatibility from "./VehicleCompatibility";
+import { Button } from "@/components/ui/button";
 
 interface ImageData {
   domain: string;
@@ -50,6 +51,7 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
   openAutomatically = false,
 }) => {
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
+  const [showCompatibility, setShowCompatibility] = useState(false);
 
   return (
     <Sheet defaultOpen={openAutomatically} onOpenChange={onOpenChange}>
@@ -124,7 +126,16 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
               </>
             )}
           </div>
-          <VehicleCompatibility item={item} />
+          <div>
+            <button 
+              onClick={() => setShowCompatibility(!showCompatibility)}
+              className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              // variant={showCompatibility ? "secondary" : "default"}
+            >
+              {showCompatibility ? "Ocultar compatibilidad" : "Ver compatibilidad"}
+            </button>
+            <VehicleCompatibility item={item} isVisible={showCompatibility} />
+          </div>
           <DescriptionAndCompatibility item={item} />
           <Link
             href={`/brand/${item.brand_id}`}
