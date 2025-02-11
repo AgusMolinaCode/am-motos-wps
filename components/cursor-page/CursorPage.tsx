@@ -10,12 +10,20 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 
-const CursorPage = ({ meta, slug, vehicleId }: { meta: any, slug: string, vehicleId: string }) => {
+const CursorPage = ({ meta, slug, vehicleId, productType, brandId }: { 
+  meta: any, 
+  slug: string, 
+  vehicleId: string,
+  productType?: string,
+  brandId?: string 
+}) => {
   const searchParams = useSearchParams();
 
   const createPaginationUrl = (cursor: string) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('cursor', cursor.replace(/&/g, "%26"));
+    if (productType) params.set('productType', productType);
+    if (brandId) params.set('brandId', brandId);
     return `/vehiculo/${slug}/${vehicleId}?${params.toString()}`;
   };
 

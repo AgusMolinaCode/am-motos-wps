@@ -1,19 +1,34 @@
 import { getStatusItems, getCollectionByProductType } from "@/lib/brands";
 import { BrandStatus } from "@/types/interface";
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
+import React, { Suspense } from "react";
 import ProductTypeFilter from "@/components/brand-section/ProductTypeFilter";
 import productBrands from "@/public/csv/product_brands.json";
 import BrandFilterButtons from "../../../../components/category-section/CollectionFilterButtons";
 import { productTypeMap, ProductTypeUrlReverseMap } from "@/constants";
 import CursorPage from "@/components/cursor-page/CursorPage";
-import ColeccionImage from "@/components/category-section/ColeccionImage";
-import ProductDetailsSheet from "@/components/shared/ProductDetailsSheet";
-import FavoriteButton from "@/components/shared/FavoriteButton";
+import dynamic from "next/dynamic";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export const dynamic = "force-dynamic";
+// Importar ProductList de manera dinámica
+const ProductList = dynamic(() => import("@/components/vehiculo/ProductList"), {
+  loading: () => <ProductListSkeleton />
+});
+
+// Componente Skeleton para la carga
+const ProductListSkeleton = () => (
+  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+    {[...Array(10)].map((_, i) => (
+      <div key={i} className="border rounded-lg p-4 space-y-4">
+        <Skeleton className="h-4 w-3/4" />
+        <Skeleton className="h-4 w-1/2" />
+        <Skeleton className="h-48 w-full" />
+        <Skeleton className="h-8 w-full" />
+      </div>
+    ))}
+  </div>
+);
+
+export const fetchCache = "force-dynamic";
 
 interface PageProps {
   params: {
@@ -119,40 +134,16 @@ export default async function CollectionPage({
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-            {data.map((item: BrandStatus) => (
-              <div
-                key={item.id}
-                className="border rounded-lg p-4 hover:shadow-lg transition-shadow flex flex-col relative"
-              >
-                <div className="absolute top-2 right-2 z-10">
-                  <FavoriteButton item={item} />
-                </div>
-                <h2 className="text-lg font-semibold mb-2 truncate">
-                  {item.name}
-                </h2>
-                <p className="text-sm text-gray-600 mb-1">
-                  SKU: {item.supplier_product_id}
-                </p>
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-lg font-bold text-green-600">
-                    ${item.standard_dealer_price}
-                  </span>
-                  <span className="text-sm text-blue-600">
-                    Inventario: {item.inventory?.data?.total || 0}
-                  </span>
-                </div>
-                <ColeccionImage item={item} />
-                <ProductDetailsSheet item={item} />
-              </div>
-            ))}
-          </div>
+          <Suspense fallback={<ProductListSkeleton />}>
+            <ProductList data={data} />
+          </Suspense>
 
           <CursorPage
             meta={meta}
             slug={slug}
             productType={productType}
             brandId={brandId}
+            vehicleId={""}
           />
         </>
       )}

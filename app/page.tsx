@@ -2,6 +2,7 @@ import BestSellersSection from "@/components/bestseller-section/BestSellersSecti
 import BrandLink from "@/components/brand-section/BrandLink";
 import CategorySection from "@/components/category-section/CategorySection";
 import DealSection from "@/components/deal-section/DealSection";
+import { GridSection } from "@/components/grid-section/GridSection";
 import { InfiniteSliderBasic } from "@/components/header/InfiniteSliderBasic";
 import { ImagesSliderDemo } from "@/components/hero/ImagesSliderDemo";
 
@@ -14,6 +15,7 @@ export default function Home() {
       <DealSection />
       <BrandLink />
       <BestSellersSection />
+      <GridSection />
     </div>
   );
 }

@@ -1,9 +1,6 @@
-"use client";
-
 import React, { useEffect, useState } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getVehicleModel } from '@/lib/brands';
-import { VehicleModel } from '@/types/interface';
 
 interface ModelSelectorProps {
   selectedYear: string;
@@ -12,40 +9,36 @@ interface ModelSelectorProps {
   setSelectedModel: (model: string) => void;
 }
 
-const ModelSelector: React.FC<ModelSelectorProps> = ({
-  selectedYear,
-  selectedMake,
-  selectedModel,
-  setSelectedModel
-}) => {
-  const [models, setModels] = useState<VehicleModel[]>([]);
+const ModelSelector: React.FC<ModelSelectorProps> = ({ selectedYear, selectedMake, selectedModel, setSelectedModel }) => {
+  const [models, setModels] = useState<{ id: string, name: string }[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchModels = async () => {
-      // Resetear el modelo seleccionado cuando cambia el año o la marca
-      setSelectedModel('');
-      
       if (!selectedYear || !selectedMake) {
         setModels([]);
         return;
       }
 
-      setLoading(true);
-      setError(null);
-
       try {
+        setError(null);
+        setLoading(true);
+        console.log('Fetching models for year:', selectedYear, 'and make:', selectedMake);
         const fetchedModels = await getVehicleModel(selectedYear, selectedMake);
         
-        // Ordenar los modelos por nombre en orden alfabético
-        const sortedModels = [...fetchedModels].sort((a, b) =>
-          a.name.localeCompare(b.name)
-        );
-        
-        setModels(sortedModels);
+        if (fetchedModels && Array.isArray(fetchedModels)) {
+          console.log('Received models:', fetchedModels);
+          setModels(fetchedModels.map(model => ({ 
+            id: model.id.toString(),
+            name: model.name 
+          })));
+        } else {
+          console.error('Invalid models data received:', fetchedModels);
+          setError('No se pudieron cargar los modelos');
+        }
       } catch (error) {
-        console.error('Error al cargar los modelos:', error);
+        console.error('Error in fetchModels:', error);
         setError('Error al cargar los modelos');
       } finally {
         setLoading(false);
@@ -53,42 +46,25 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({
     };
 
     fetchModels();
-  }, [selectedYear, selectedMake, setSelectedModel]);
-
-  const getPlaceholderText = () => {
-    if (loading) return "Cargando...";
-    if (!selectedYear || !selectedMake) return "Seleccione año y marca";
-    if (error) return "Error al cargar";
-    return "Seleccionar modelo";
-  };
+  }, [selectedYear, selectedMake]);
 
   return (
-    <Select 
-      value={selectedModel} 
-      onValueChange={setSelectedModel}
-      disabled={loading || !selectedYear || !selectedMake}
-    >
+    <Select value={selectedModel} onValueChange={setSelectedModel} disabled={loading}>
       <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder={getPlaceholderText()} />
+        <SelectValue placeholder={loading ? "Buscando..." : error || "Seleccionar modelo"} />
       </SelectTrigger>
       <SelectContent>
-        {loading && (
-          <SelectItem value="loading">Cargando modelos...</SelectItem>
-        )}
-        {!loading && models.length === 0 && (
-          <SelectItem value="no-models">
-            {!selectedYear || !selectedMake 
-              ? "Seleccione año y marca primero" 
-              : error 
-                ? "Error al cargar los modelos"
-                : "No hay modelos disponibles"}
+        {models.length > 0 ? (
+          models.map((model) => (
+            <SelectItem key={model.id} value={model.id}>
+              {model.name}
+            </SelectItem>
+          ))
+        ) : (
+          <SelectItem value="" disabled>
+            {loading ? "Cargando modelos..." : error || "No hay modelos disponibles"}
           </SelectItem>
         )}
-        {!loading && models.map((model) => (
-          <SelectItem key={model.id} value={model.id.toString()}>
-            {model.name}
-          </SelectItem>
-        ))}
       </SelectContent>
     </Select>
   );

@@ -27,7 +27,7 @@ export interface BrandId {
   carb: null;
   propd1: null;
   propd2: null;
-  prop_65_code: string;
+  prop_65_code: string | null;
   prop_65_detail: string;
   drop_ship_fee: string;
   drop_ship_eligible: boolean;
