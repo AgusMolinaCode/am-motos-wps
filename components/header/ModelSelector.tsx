@@ -61,7 +61,7 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ selectedYear, selectedMak
             </SelectItem>
           ))
         ) : (
-          <SelectItem value="" disabled>
+          <SelectItem value="no-models" disabled>
             {loading ? "Cargando modelos..." : error || "No hay modelos disponibles"}
           </SelectItem>
         )}

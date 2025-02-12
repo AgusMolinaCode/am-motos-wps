@@ -18,8 +18,8 @@ export const WobbleCard = ({
   const handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
     const { clientX, clientY } = event;
     const rect = event.currentTarget.getBoundingClientRect();
-    const x = (clientX - (rect.left + rect.width / 2)) / 20;
-    const y = (clientY - (rect.top + rect.height / 2)) / 20;
+    const x = (clientX - (rect.left + rect.width / 2)) / 30;
+    const y = (clientY - (rect.top + rect.height / 2)) / 30;
     setMousePosition({ x, y });
   };
   return (
@@ -55,7 +55,7 @@ export const WobbleCard = ({
               : "translate3d(0px, 0px, 0) scale3d(1, 1, 1)",
             transition: "transform 0.1s ease-out",
           }}
-          className={cn("h-full px-4 py-20 sm:px-10", className)}
+          className={cn("h-full px-1 py-20 sm:px-2", className)}
         >
           <Noise />
           {children}
