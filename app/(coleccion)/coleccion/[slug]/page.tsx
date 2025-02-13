@@ -9,7 +9,6 @@ import CursorPage from "@/components/cursor-page/CursorPage";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// Importar ProductList de manera dinámica
 const ProductList = dynamic(() => import("@/components/vehiculo/ProductList"), {
   loading: () => <ProductListSkeleton />
 });
@@ -28,7 +27,7 @@ const ProductListSkeleton = () => (
   </div>
 );
 
-export const fetchCache = "force-dynamic";
+export const revalidate = 0;
 
 interface PageProps {
   params: {

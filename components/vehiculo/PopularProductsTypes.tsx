@@ -42,7 +42,7 @@ const PopularProductsTypes = () => {
               <div className="">
                 <button
                   onClick={() => handleProductTypeClick(currentProductType)}
-                  className="w-full px-4 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                  className="w-full px-4 py-1 text-sm bg-red-500/50 text-white rounded-lg hover:bg-red-600/80 transition-colors"
                 >
                   Limpiar filtro
                 </button>

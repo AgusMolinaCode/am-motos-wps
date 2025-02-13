@@ -21,7 +21,7 @@ export function GridSection() {
           </p>
           <Link
             className="mt-4 inline-block bg-white text-black px-4 py-2 rounded-md"
-            href="/products/athena"
+            href="/brand/athena"
           >
             Ver productos Athena
           </Link>
@@ -54,7 +54,7 @@ export function GridSection() {
           </p>
           <Link
             className="mt-4 inline-block bg-white text-black px-4 py-2 rounded-md"
-            href="/products/ebc"
+            href="/brand/ebc"
           >
             Ver productos EBC
           </Link>

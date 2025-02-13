@@ -44,7 +44,7 @@ export default function ProductTypeContent() {
         </ul>
       </li>
       <li>
-        <Link href="/product/8308123-2217-M">
+        <Link href="/coleccion/cascos?brandId=769&productType=Helmets">
           <h3 className="font-bold text-lg mb-2 text-black dark:text-white">
             Casco Alpinestars S-M5
           </h3>

@@ -27,7 +27,7 @@ const ProductListSkeleton = () => (
   </div>
 );
 
-export const fetchCache = "force-dynamic";
+export const revalidate = 0;
 
 interface PageProps {
   params: {
@@ -83,7 +83,7 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6 capitalize">Marca: {brandName}</h1>
+      <h1 className="text-3xl font-bold mb-6 uppercase">{brandName}</h1>
 
       {currentBrandProductTypes.length > 0 && (
         <div>

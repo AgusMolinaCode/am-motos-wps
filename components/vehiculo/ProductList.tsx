@@ -16,7 +16,7 @@ export default function ProductList({ data }: ProductListProps) {
           key={item.id}
           className="border rounded-lg p-4 hover:shadow-lg transition-shadow flex flex-col relative animate-fade-in"
         >
-          <div className="absolute top-2 right-2 z-10">
+          <div className="absolute top-2 right-2">
             <FavoriteButton item={item} />
           </div>
           <h2 className="text-lg font-semibold mb-2 truncate">
