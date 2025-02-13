@@ -1,7 +1,9 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Product_Type_Translations, Most_Used_Types } from "@/constants";
+import { useState, useEffect } from "react";
+import { Loader2 } from "lucide-react";
 
 interface ProductTypeFilterProps {
   slug: string;
@@ -14,12 +16,19 @@ export default function ProductTypeFilter({
   currentBrandProductTypes,
   selectedProductType,
 }: ProductTypeFilterProps) {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Efecto para detectar cambios en la URL y desactivar el loading
+  useEffect(() => {
+    setIsLoading(false);
+  }, [pathname, searchParams]);
+
   if (slug.toLowerCase() !== "productos-nuevos" && slug.toLowerCase() !== "productos-ofertas") {
     return null;
   }
-
-  const router = useRouter();
-  const searchParams = useSearchParams();
 
   // Función para obtener la traducción de un tipo de producto
   const getTranslation = (type: string) => {
@@ -40,20 +49,18 @@ export default function ProductTypeFilter({
     .filter((type) => !Most_Used_Types.includes(type))
     .sort((a, b) => getTranslation(a).localeCompare(getTranslation(b), "es"));
 
-  const handleTypeChange = (selectedType: string) => {
+  const handleTypeChange = async (selectedType: string) => {
+    setIsLoading(true);
     const params = new URLSearchParams(searchParams.toString());
 
     if (selectedType) {
-      // Establecer solo el tipo de producto y eliminar el cursor
       params.set("productType", encodeURIComponent(selectedType));
     } else {
       params.delete("productType");
     }
 
-    // Eliminar el cursor
     params.delete("cursor");
 
-    // Navegamos a la URL sin el cursor
     router.push(
       `/coleccion/${slug}${params.toString() ? `?${params.toString()}` : ""}`
     );
@@ -70,39 +77,47 @@ export default function ProductTypeFilter({
       <label htmlFor="productType" className="text-sm font-medium">
         Filtrar por Tipo de Producto:
       </label>
-      <select
-        id="productType"
-        className="border rounded px-2 py-1 text-sm"
-        value={decodedSelectedType || ""}
-        onChange={(e) => handleTypeChange(e.target.value)}
-      >
-        {!decodedSelectedType && (
-          <option value="">Todos los Tipos</option>
+      <div className="flex items-center gap-2">
+        <select
+          id="productType"
+          className="border rounded px-2 py-1 text-sm"
+          value={decodedSelectedType || ""}
+          onChange={(e) => handleTypeChange(e.target.value)}
+          disabled={isLoading}
+        >
+          {!decodedSelectedType && (
+            <option value="">Todos los Tipos</option>
+          )}
+          {sortedMostUsedTypes.length > 0 && (
+            <optgroup label="Tipos más usados">
+              {sortedMostUsedTypes.map((type) => (
+                <option key={type} value={type}>
+                  {getTranslation(type)}
+                </option>
+              ))}
+            </optgroup>
+          )}
+          {remainingTypes.length > 0 && (
+            <optgroup label="Otros tipos">
+              {remainingTypes.map((type) => (
+                <option key={type} value={type}>
+                  {getTranslation(type)}
+                </option>
+              ))}
+            </optgroup>
+          )}
+        </select>
+        {isLoading && (
+          <Loader2 className="h-4 w-4 animate-spin" />
         )}
-        {sortedMostUsedTypes.length > 0 && (
-          <optgroup label="Tipos más usados">
-            {sortedMostUsedTypes.map((type) => (
-              <option key={type} value={type}>
-                {getTranslation(type)}
-              </option>
-            ))}
-          </optgroup>
-        )}
-        {remainingTypes.length > 0 && (
-          <optgroup label="Otros tipos">
-            {remainingTypes.map((type) => (
-              <option key={type} value={type}>
-                {getTranslation(type)}
-              </option>
-            ))}
-          </optgroup>
-        )}
-      </select>
+      </div>
       {decodedSelectedType && (
         <button
-          className="bg-red-500 text-white px-4 py-2 rounded"
+          className="bg-red-500 text-white px-4 py-2 rounded flex items-center gap-2 disabled:opacity-50"
           onClick={() => handleTypeChange("")}
+          disabled={isLoading}
         >
+          {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
           Reset
         </button>
       )}
