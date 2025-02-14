@@ -43,23 +43,21 @@ interface ProductDetailsSheetProps {
   item: Item;
   onOpenChange?: (open: boolean) => void;
   openAutomatically?: boolean;
+  children?: React.ReactNode;
 }
 
 const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
   item,
   onOpenChange,
   openAutomatically = false,
+  children,
 }) => {
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
   const [showCompatibility, setShowCompatibility] = useState(false);
 
   return (
     <Sheet defaultOpen={openAutomatically} onOpenChange={onOpenChange}>
-      {!openAutomatically && (
-        <SheetTrigger className="mt-auto inline-block text-sm text-indigo-600 hover:underline text-center">
-          Ver detalles
-        </SheetTrigger>
-      )}
+      {children}
       <SheetContent className="overflow-y-auto">
         <SheetHeader>
           <div className="flex justify-between items-center">

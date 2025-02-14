@@ -10,14 +10,14 @@ import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const ProductList = dynamic(() => import("@/components/vehiculo/ProductList"), {
-  loading: () => <ProductListSkeleton />
+  loading: () => <ProductListSkeleton />,
 });
 
 // Componente Skeleton para la carga
 const ProductListSkeleton = () => (
   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
     {[...Array(10)].map((_, i) => (
-      <div key={i} className="border rounded-lg p-4 space-y-4">
+      <div key={i} className="border rounded-lg p-4 space-y-4 bg-red-100">
         <Skeleton className="h-4 w-3/4" />
         <Skeleton className="h-4 w-1/2" />
         <Skeleton className="h-48 w-full" />

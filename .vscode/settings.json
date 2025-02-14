@@ -3,5 +3,6 @@
     "markdown.preview.fontSize": 13,
     "tailwindCSS.rootFontSize": 12,
     "editor.scrollbar.verticalScrollbarSize": 13,
-    "editor.fontLigatures": false
+    "editor.fontLigatures": false,
+    "CodeGPT.apiKey": "CodeGPT Plus Beta"
 }

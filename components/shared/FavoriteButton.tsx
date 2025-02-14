@@ -129,7 +129,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ item, className = "" })
       className={`p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ${className}`}
     >
       <Heart
-        className={`w-6 h-6 ${
+        className={`w-4 h-4 ${
           isFavorite 
             ? "fill-red-500 stroke-red-500" 
             : "stroke-current"
