@@ -847,3 +847,26 @@ export async function getVehicleItems(vehicleId: string, cursor: string | null =
     return { data: [], meta: {} as Meta };
   }
 }
+
+export async function getValorDolar() {
+  try {
+    const url = "https://criptoya.com/api/dolar";
+    const response = await fetch(url, {
+      headers: {
+        'Accept': 'application/json',
+        'User-Agent': 'Mozilla/5.0',
+      },
+    });
+    
+    if (!response.ok) {
+      console.error("Error en la respuesta de la API del dólar");
+      return 1220; // Valor por defecto si hay error
+    }
+
+    const result = await response.json();
+    return result.blue?.ask || 1220; // Usar 1220 como valor por defecto si no hay blue.ask
+  } catch (error) {
+    console.error("Error al obtener el valor del dólar:", error);
+    return 1220; // Valor por defecto en caso de error
+  }
+}
