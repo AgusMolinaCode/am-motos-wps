@@ -6,17 +6,14 @@ import Link from "next/link";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import { CarouselComponent } from "./CarouselComponent";
 import FavoriteButton from "./FavoriteButton";
 import DescriptionAndCompatibility from "./DescriptionAndCompatibility";
 import VehicleCompatibility from "./VehicleCompatibility";
-import { Button } from "@/components/ui/button";
-import { getValorDolar } from "@/lib/brands";
+import { getBrandName } from "@/lib/brands";
 
 interface ImageData {
   domain: string;
@@ -57,27 +54,31 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
 }) => {
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
   const [showCompatibility, setShowCompatibility] = useState(false);
-  const [dolarBlue, setDolarBlue] = useState<number>(0);
+  const [dolarBlue, setDolarBlue] = useState<number>(
+    parseFloat(process.env.NEXT_PUBLIC_DOLAR_BLUE!) || 1300
+  );
+  const [brandName, setBrandName] = useState<string>("");
 
   useEffect(() => {
-    const fetchDolarValue = async () => {
-      const value = await getValorDolar();
-      setDolarBlue(value);
+    const fetchBrandName = async () => {
+      const name = await getBrandName(item.brand_id.toString());
+      setBrandName(name);
     };
-    fetchDolarValue();
-  }, []);
+    fetchBrandName();
+  }, [item.brand_id]);
 
   const calculateTotalPrice = () => {
     if (!dolarBlue) return null;
 
     const weightInKg = item.weight ? item.weight / 2.205 : 0;
     const weightCost = weightInKg * 50;
-    
+
     // Seleccionar el precio basado en el inventario
-    const dealerPrice = item.inventory?.data?.total && item.inventory.data.total > 0 
-      ? parseFloat(item.standard_dealer_price) || 0
-      : parseFloat(item.list_price) || 0;
-    
+    const dealerPrice =
+      item.inventory?.data?.total && item.inventory.data.total > 0
+        ? parseFloat(item.standard_dealer_price) || 0
+        : parseFloat(item.list_price) || 0;
+
     const totalUsd = weightCost + dealerPrice;
     const totalArs = totalUsd * dolarBlue;
 
@@ -121,7 +122,8 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
   };
 
   const prices = calculateTotalPrice();
-  const hasInventory = item.inventory?.data?.total && item.inventory.data.total > 0;
+  const hasInventory =
+    item.inventory?.data?.total && item.inventory.data.total > 0;
 
   return (
     <Sheet defaultOpen={openAutomatically} onOpenChange={onOpenChange}>
@@ -135,43 +137,34 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
         </SheetHeader>
         <div className="mt-4 space-y-4">
           <div className="space-y-2">
-            <div className="text-sm text-gray-600">
-              SKU: {item.supplier_product_id}
+            <div className="text-base font-semibold text-gray-800 dark:text-gray-400">
+              <div>Numero de Parte: {item.supplier_product_id}</div>
+              <div>Marca: {brandName}</div>
             </div>
             <div className="flex items-center space-x-2">
-              <div 
+              <div
                 className={`w-3 h-3 rounded-full animate-pulse ${
-                  hasInventory ? 'bg-green-500' : 'bg-red-500'
+                  hasInventory ? "bg-green-500" : "bg-yellow-500"
                 }`}
               />
               <span className="text-sm">
-                {hasInventory ? "Con Stock" : "Sin Stock"}
+                {hasInventory
+                  ? "Demora 18 días hábiles"
+                  : "Demora 25 días hábiles"}
               </span>
             </div>
             <div className="space-y-1">
-              <div className="text-xs font-bold text-green-600">
-                {hasInventory ? "Precio Mayorista" : "Precio Público"}: 
-                ${prices?.dealerPrice.toFixed(2)}
-              </div>
-              {prices?.weightInKg > 0 && (
-                <div className="text-xs text-orange-600">
-                  Envío USD: ${prices?.weightCost.toFixed(2)}
+              {item.weight === 0 ? (
+                <span className="text-xs font-bold text-green-600">
+                  Consultar Precio
+                </span>
+              ) : (
+                <div>
+                  <div className="text-2xl font-bold">
+                    {formatPrice(prices?.finalTotalArs || 0)} pesos
+                  </div>
                 </div>
               )}
-              {prices?.additionalCharge > 0 && (
-                <div className="text-xs text-red-600">
-                  Recargo: {formatPrice(prices?.additionalCharge)}
-                </div>
-              )}
-              <div className="text-xs text-red-600">
-                Shipping: {formatPrice(prices?.shippingCharge)}
-              </div>
-              <div className="text-lg font-bold text-blue-600">
-                Total: {formatPrice(prices?.finalTotalArs)}
-              </div>
-              <div className="text-xs text-gray-500">
-                Dólar Blue: ${dolarBlue}
-              </div>
             </div>
           </div>
           <div className="space-y-4">
@@ -222,21 +215,25 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
             )}
           </div>
           <div>
-            <button 
+            <button
               onClick={() => setShowCompatibility(!showCompatibility)}
               className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
             >
-              {showCompatibility ? "Ocultar compatibilidad" : "Ver compatibilidad"}
+              {showCompatibility
+                ? "Ocultar compatibilidad"
+                : "Ver compatibilidad"}
             </button>
             <VehicleCompatibility item={item} isVisible={showCompatibility} />
           </div>
           <DescriptionAndCompatibility item={item} />
-          <Link
-            href={`/brand/${item.brand_id}`}
-            className="inline-block w-full text-center py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
-          >
-            Ver página de la marca
-          </Link>
+          {brandName && (
+            <Link
+              href={`/brand/${brandName.toLowerCase().replace(/\s+/g, "-")}`}
+              className="inline-block w-full text-center py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
+            >
+              Ver página de la marca
+            </Link>
+          )}
         </div>
       </SheetContent>
       {item.images?.data && item.images.data.length > 0 && (

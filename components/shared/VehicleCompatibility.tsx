@@ -57,9 +57,8 @@ const VehicleCompatibility = ({ item, isVisible = false }: { item: any, isVisibl
 
   return (
     <div className="my-2">
-      {/* <h2 className="text-lg font-semibold mb-2">Vehículos compatibles</h2> */}
       {loading ? (
-        <p>Cargando...</p>
+        <p className="text-sm text-gray-600 dark:text-gray-400 text-center mx-auto">Cargando...</p>
       ) : vehicles.length > 0 ? (
         <ScrollArea className="h-[300px] w-full rounded-md border">
           <div className="p-4">

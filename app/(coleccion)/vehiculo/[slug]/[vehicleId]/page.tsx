@@ -86,7 +86,9 @@ async function ProductListContent({
   sort: string | null;
   slug: string;
 }) {
-  const { data: vehicleItems, meta } = await getData(vehicleId, cursor, productType, sort);
+  // Solo usar el parámetro sort para ordenamiento en el servidor si no es finalTotalArs
+  const sortParam = sort?.includes('finalTotalArs') ? null : sort;
+  const { data: vehicleItems, meta } = await getData(vehicleId, cursor, productType, sortParam);
 
   if (vehicleItems.length === 0) {
     return (
@@ -100,7 +102,7 @@ async function ProductListContent({
 
   return (
     <>
-      <ProductList data={vehicleItems} />
+      <ProductList data={vehicleItems} sort={sort} />
       <CursorPage
         meta={meta}
         slug={slug}

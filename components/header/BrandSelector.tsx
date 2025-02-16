@@ -174,7 +174,7 @@ const BrandSelector = () => {
   return (
     <div className="flex flex-col gap-4 py-4">
       <div className="flex gap-4 items-center bg-gray-200 dark:bg-gray-800 rounded-lg p-2">
-        {loading && <p>Cargando...</p>}
+              
         <Select value={selectedYear} onValueChange={setSelectedYear}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Seleccionar año" />
@@ -209,11 +209,15 @@ const BrandSelector = () => {
         />
 
         <div className="flex gap-2">
-          <Button onClick={handleSubmit} className="bg-blue-600 hover:bg-blue-700">
-            Buscar
+          <Button 
+            onClick={handleSubmit} 
+            className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50" 
+            disabled={loading}
+          >
+            {loading ? "Buscando..." : "Buscar"}
           </Button>
           {(selectedYear || selectedMake || selectedModel) && (
-            <Button onClick={handleReset} variant="outline">
+            <Button onClick={handleReset} variant="outline" disabled={loading}>
               Reiniciar
             </Button>
           )}
@@ -221,7 +225,7 @@ const BrandSelector = () => {
             <div className="flex items-center gap-2">
               <Checkbox 
                 checked={isCurrentVehicleSaved}
-                disabled={isCurrentVehicleSaved}
+                disabled={isCurrentVehicleSaved || loading}
                 onCheckedChange={handleSaveVehicle}
                 className="hover:text-white disabled:opacity-50"
               />

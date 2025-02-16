@@ -24,7 +24,14 @@ const CursorPage = ({ meta, slug, vehicleId, productType, brandId }: {
     params.set('cursor', cursor.replace(/&/g, "%26"));
     if (productType) params.set('productType', productType);
     if (brandId) params.set('brandId', brandId);
-    return `/vehiculo/${slug}/${vehicleId}?${params.toString()}`;
+    
+    // Si estamos en una página de vehículo
+    if (vehicleId) {
+      return `/vehiculo/${slug}/${vehicleId}?${params.toString()}`;
+    }
+    
+    // Si estamos en una página de colección
+    return `/coleccion/${slug}?${params.toString()}`;
   };
 
   return (

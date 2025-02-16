@@ -2,6 +2,7 @@
 
 import { BrandId, Brands, Meta, BrandStatus, VehicleDataId, VehicleCompatibilityData, VehicleModel } from "@/types/interface";
 import axios from "axios";
+import brandData from "@/public/csv/brand2.json";
 
 export async function getBrandsItems(
   brandId: string,
@@ -147,6 +148,13 @@ export async function getBrands(
 
 export async function getBrandName(brandId: string): Promise<string> {
   try {
+    // Primero buscar en el archivo local
+    const localBrand = brandData.find(brand => brand.id.toString() === brandId);
+    if (localBrand) {
+      return localBrand.name;
+    }
+
+    // Si no se encuentra localmente, intentar con la API
     const { data } = await getBrands(brandId);
     return data[0]?.name || brandId;
   } catch (error) {
@@ -848,25 +856,3 @@ export async function getVehicleItems(vehicleId: string, cursor: string | null =
   }
 }
 
-export async function getValorDolar() {
-  try {
-    const url = "https://criptoya.com/api/dolar";
-    const response = await fetch(url, {
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0',
-      },
-    });
-    
-    if (!response.ok) {
-      console.error("Error en la respuesta de la API del dólar");
-      return 1220; // Valor por defecto si hay error
-    }
-
-    const result = await response.json();
-    return result.blue?.ask || 1220; // Usar 1220 como valor por defecto si no hay blue.ask
-  } catch (error) {
-    console.error("Error al obtener el valor del dólar:", error);
-    return 1220; // Valor por defecto en caso de error
-  }
-}
