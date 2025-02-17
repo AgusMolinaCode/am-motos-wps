@@ -26,28 +26,22 @@ export default function ProductTypeFilter({
     setIsLoading(false);
   }, [pathname, searchParams]);
 
-  if (slug.toLowerCase() !== "productos-nuevos" && slug.toLowerCase() !== "productos-ofertas") {
-    return null;
-  }
+  // Si no hay tipos de productos, no mostrar el filtro
+  if (!currentBrandProductTypes.length) return null;
 
   // Función para obtener la traducción de un tipo de producto
   const getTranslation = (type: string) => {
-    return (
-      Product_Type_Translations[
-        type as keyof typeof Product_Type_Translations
-      ] || type
-    );
+    return Product_Type_Translations[type] || type;
   };
 
-  // Ordenar los tipos más usados por su traducción
-  const sortedMostUsedTypes = [...Most_Used_Types].sort((a, b) =>
+  // Ordenar los tipos por su traducción
+  const sortedTypes = [...currentBrandProductTypes].sort((a, b) =>
     getTranslation(a).localeCompare(getTranslation(b), "es")
   );
 
-  // Obtener y ordenar los tipos restantes por su traducción
-  const remainingTypes = Object.keys(Product_Type_Translations)
-    .filter((type) => !Most_Used_Types.includes(type))
-    .sort((a, b) => getTranslation(a).localeCompare(getTranslation(b), "es"));
+  // Separar los tipos más usados y los demás
+  const mostUsedTypes = sortedTypes.filter(type => Most_Used_Types.includes(type));
+  const otherTypes = sortedTypes.filter(type => !Most_Used_Types.includes(type));
 
   const handleTypeChange = async (selectedType: string) => {
     setIsLoading(true);
@@ -61,9 +55,7 @@ export default function ProductTypeFilter({
 
     params.delete("cursor");
 
-    router.push(
-      `/coleccion/${slug}${params.toString() ? `?${params.toString()}` : ""}`
-    );
+    router.push(`${pathname}${params.toString() ? `?${params.toString()}` : ""}`);
   };
 
   // Decodificar el tipo de producto seleccionado
@@ -71,35 +63,30 @@ export default function ProductTypeFilter({
 
   return (
     <div className="mb-6 flex items-center space-x-4">
-      <h1 className="text-3xl font-bold">
-        {decodedSelectedType ? getTranslation(decodedSelectedType) : "Todos los Productos"}
-      </h1>
       <label htmlFor="productType" className="text-sm font-medium">
         Filtrar por Tipo de Producto:
       </label>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 flex-1">
         <select
           id="productType"
-          className="border rounded px-2 py-1 text-sm"
+          className="w-full md:w-[380px] p-2 border rounded-lg bg-white dark:bg-gray-800"
           value={decodedSelectedType || ""}
           onChange={(e) => handleTypeChange(e.target.value)}
           disabled={isLoading}
         >
-          {!decodedSelectedType && (
-            <option value="">Todos los Tipos</option>
-          )}
-          {sortedMostUsedTypes.length > 0 && (
+          <option value="">Todos los Tipos</option>
+          {mostUsedTypes.length > 0 && (
             <optgroup label="Tipos más usados">
-              {sortedMostUsedTypes.map((type) => (
+              {mostUsedTypes.map((type) => (
                 <option key={type} value={type}>
                   {getTranslation(type)}
                 </option>
               ))}
             </optgroup>
           )}
-          {remainingTypes.length > 0 && (
+          {otherTypes.length > 0 && (
             <optgroup label="Otros tipos">
-              {remainingTypes.map((type) => (
+              {otherTypes.map((type) => (
                 <option key={type} value={type}>
                   {getTranslation(type)}
                 </option>

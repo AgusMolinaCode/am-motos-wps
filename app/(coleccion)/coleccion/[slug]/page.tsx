@@ -66,6 +66,7 @@ export default async function CollectionPage({
 
   let data: BrandStatus[] = [];
   let meta: any = {};
+  let availableProductTypes: string[] = [];
 
   if (slug === "productos-nuevos" || slug === "productos-ofertas") {
     // Obtener los datos de la colección NEW o CLO
@@ -76,6 +77,8 @@ export default async function CollectionPage({
     );
     data = result.data;
     meta = result.meta;
+    // Obtener los tipos de productos disponibles
+    availableProductTypes = meta.productTypes || [];
   } else {
     // Obtener los datos de una colección específica usando el tipo de producto original
     const result = await getCollectionByProductType(
@@ -112,7 +115,7 @@ export default async function CollectionPage({
       {/* Mostrar siempre el selector de tipos de producto */}
       <ProductTypeFilter
         slug={slug}
-        currentBrandProductTypes={[]}
+        currentBrandProductTypes={availableProductTypes}
         selectedProductType={productType}
       />
 

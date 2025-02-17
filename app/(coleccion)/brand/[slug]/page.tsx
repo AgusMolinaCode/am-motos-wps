@@ -7,6 +7,8 @@ import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import brandData from "@/public/csv/brand2.json";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Product_Type_Translations } from "@/constants";
+import ProductTypeFilter from "@/components/brand-section/ProductTypeFilter";
 
 // Importar ProductList de manera dinámica
 const ProductList = dynamic(() => import("@/components/vehiculo/ProductList"), {
@@ -87,19 +89,11 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
       <h1 className="text-3xl font-bold mb-6 uppercase">{brandName}</h1>
 
       {currentBrandProductTypes.length > 0 && (
-        <div>
-          <h2 className="text-2xl font-bold mb-4">Tipos de Productos</h2>
-          <div className="flex flex-col gap-2">
-            {currentBrandProductTypes.map((type) => (
-              <Link
-                href={`/brand/${slug}?productType=${encodeURIComponent(type)}`}
-                key={type}
-              >
-                {type}
-              </Link>
-            ))}
-          </div>
-        </div>
+        <ProductTypeFilter
+          slug={slug}
+          currentBrandProductTypes={currentBrandProductTypes}
+          selectedProductType={productType}
+        />
       )}
 
       {data.length === 0 ? (

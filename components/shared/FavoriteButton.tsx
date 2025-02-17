@@ -6,8 +6,11 @@ import { Heart } from "lucide-react";
 interface Item {
   id: number;
   name: string;
+  brand_id: number;
   supplier_product_id: string;
   standard_dealer_price: string;
+  weight: number;
+  list_price: string;
   inventory?: {
     data?: {
       total?: number;
@@ -26,8 +29,11 @@ interface Item {
 interface FilteredItem {
   id: number;
   name: string;
+  brand_id: number;
   supplier_product_id: string;
   standard_dealer_price: string;
+  weight: number;
+  list_price: string;
   inventory?: {
     data?: {
       total?: number;
@@ -58,8 +64,11 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ item, className = "" })
     return {
       id: item.id,
       name: item.name,
+      brand_id: item.brand_id,
       supplier_product_id: item.supplier_product_id,
       standard_dealer_price: item.standard_dealer_price,
+      weight: item.weight,
+      list_price: item.list_price,
       inventory: item.inventory ? {
         data: {
           total: item.inventory.data?.total
@@ -126,7 +135,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ item, className = "" })
   return (
     <button
       onClick={toggleFavorite}
-      className={`p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ${className}`}
+      className={`p-[0.30rem] rounded-full dark:hover:bg-gray-500 hover:bg-gray-300 dark:bg-gray-800 transition-colors ${className}`}
     >
       <Heart
         className={`w-4 h-4 ${

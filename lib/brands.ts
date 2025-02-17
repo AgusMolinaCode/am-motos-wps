@@ -1,7 +1,6 @@
 "use server";
 
 import { BrandId, Brands, Meta, BrandStatus, VehicleDataId, VehicleCompatibilityData, VehicleModel } from "@/types/interface";
-import axios from "axios";
 import brandData from "@/public/csv/brand2.json";
 
 export async function getBrandsItems(
@@ -855,4 +854,6 @@ export async function getVehicleItems(vehicleId: string, cursor: string | null =
     return { data: [], meta: {} as Meta };
   }
 }
+
+
 

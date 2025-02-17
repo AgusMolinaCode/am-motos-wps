@@ -24,7 +24,7 @@ const RepuestosMenuContent = () => {
     Engine: "Motor",
     "Piston kits & Components": "Kit de pistones",
     Chemicals: "Aceites",
-    Body: "Chasis",
+    Body: "Plasticos",
     Clutch: "Embragues",
     Exhaust: "Escapes",
     "Air Filters": "Filtros de aire",

@@ -14,6 +14,7 @@ import FavoriteButton from "./FavoriteButton";
 import DescriptionAndCompatibility from "./DescriptionAndCompatibility";
 import VehicleCompatibility from "./VehicleCompatibility";
 import { getBrandName } from "@/lib/brands";
+import { usePriceCalculation } from "@/hooks/usePriceCalculation";
 
 interface ImageData {
   domain: string;
@@ -54,10 +55,8 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
 }) => {
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
   const [showCompatibility, setShowCompatibility] = useState(false);
-  const [dolarBlue, setDolarBlue] = useState<number>(
-    parseFloat(process.env.NEXT_PUBLIC_DOLAR_BLUE!) || 1300
-  );
   const [brandName, setBrandName] = useState<string>("");
+  const { calculateTotalPrice, formatPrice } = usePriceCalculation();
 
   useEffect(() => {
     const fetchBrandName = async () => {
@@ -67,61 +66,7 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
     fetchBrandName();
   }, [item.brand_id]);
 
-  const calculateTotalPrice = () => {
-    if (!dolarBlue) return null;
-
-    const weightInKg = item.weight ? item.weight / 2.205 : 0;
-    const weightCost = weightInKg * 50;
-
-    // Seleccionar el precio basado en el inventario
-    const dealerPrice =
-      item.inventory?.data?.total && item.inventory.data.total > 0
-        ? parseFloat(item.standard_dealer_price) || 0
-        : parseFloat(item.list_price) || 0;
-
-    const totalUsd = weightCost + dealerPrice;
-    const totalArs = totalUsd * dolarBlue;
-
-    // Calcular recargo adicional según el rango de precio
-    let additionalCharge = 0;
-    if (totalArs < 50000) {
-      additionalCharge = 12000;
-    } else if (totalArs >= 50000 && totalArs < 100000) {
-      additionalCharge = 20000;
-    } else if (totalArs >= 100000 && totalArs < 150000) {
-      additionalCharge = 30000;
-    } else if (totalArs >= 150000 && totalArs < 200000) {
-      additionalCharge = 40000;
-    } else if (totalArs >= 200000) {
-      additionalCharge = 50000;
-    }
-
-    // Shipping fijo en ARS
-    const shippingCharge = 14500;
-
-    const finalTotalArs = totalArs + additionalCharge + shippingCharge;
-
-    return {
-      weightInKg,
-      weightCost,
-      dealerPrice,
-      totalUsd,
-      totalArs,
-      additionalCharge,
-      shippingCharge,
-      finalTotalArs,
-    };
-  };
-
-  const formatPrice = (amount: number) => {
-    return new Intl.NumberFormat("es-AR", {
-      style: "currency",
-      currency: "ARS",
-      maximumFractionDigits: 0,
-    }).format(amount);
-  };
-
-  const prices = calculateTotalPrice();
+  const prices = calculateTotalPrice(item as any);
   const hasInventory =
     item.inventory?.data?.total && item.inventory.data.total > 0;
 
@@ -132,7 +77,7 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
         <SheetHeader>
           <div className="flex justify-between items-center">
             <SheetTitle>{item.name}</SheetTitle>
-            <FavoriteButton item={item} />
+            <FavoriteButton item={item as any} />
           </div>
         </SheetHeader>
         <div className="mt-4 space-y-4">
@@ -160,8 +105,8 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
                 </span>
               ) : (
                 <div>
-                  <div className="text-2xl font-bold">
-                    {formatPrice(prices?.finalTotalArs || 0)} pesos
+                  <div className="text-2xl font-bold text-green-600">
+                    {formatPrice(prices?.finalTotalArs || 0)}
                   </div>
                 </div>
               )}
@@ -226,14 +171,14 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
             <VehicleCompatibility item={item} isVisible={showCompatibility} />
           </div>
           <DescriptionAndCompatibility item={item} />
-          {brandName && (
+          
             <Link
               href={`/brand/${brandName.toLowerCase().replace(/\s+/g, "-")}`}
               className="inline-block w-full text-center py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
             >
               Ver página de la marca
             </Link>
-          )}
+   
         </div>
       </SheetContent>
       {item.images?.data && item.images.data.length > 0 && (

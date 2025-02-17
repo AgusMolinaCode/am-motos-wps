@@ -35,7 +35,7 @@ const featuredBrands: Brand[] = [
   { name: "VERTEX", id: 662 },
   { name: "PROX", id: 454 },
   { name: "WISECO", id: 686 },
-  { name: "RACETECH", id: 467 },
+  { name: "RACE TECH", id: 467 },
   { name: "CYLINDER WORKS", id: 46 },
   { name: "HOT CAMS", id: 220 },
   { name: "HOT RODS", id: 223 },

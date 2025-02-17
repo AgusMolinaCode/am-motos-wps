@@ -10,7 +10,7 @@ export async function POST(req: Request) {
       "Eres un experto en repuestos de motos. Proporciona una descripción muy breve y concisa.",
     prompt,
     temperature: 0.7,
-    maxTokens: 300,
+    maxTokens: 400,
   });
 
   return result.toDataStreamResponse();

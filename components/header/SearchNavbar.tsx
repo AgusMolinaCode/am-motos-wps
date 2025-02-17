@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
-import { Search, Loader2, X } from "lucide-react";
+import { Search, Loader2, X, ChevronRight } from "lucide-react";
 import { getItemBySupplierProductId } from "@/lib/brands";
 import { useDebounce } from "@/hooks/useDebounce";
 import { BrandStatus } from "@/types/interface";
@@ -150,18 +150,20 @@ const SearchNavbar = () => {
               searchResults.map((product) => (
                 <button
                   key={product.id}
-                  className="w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-between"
+                  className="w-full px-2 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-between"
                   onClick={() => handleProductClick(product)}
                 >
                   <div>
                     <div className="font-medium">
                       {product.supplier_product_id}
                     </div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400 max-w-[352px] truncate">
-                      {product.name}
-                    </div>
-                    <div className="text-sm text-green-600 dark:text-green-400">
-                      ${product.standard_dealer_price}
+                    <div className="flex items-center justify-between w-full">
+                      <div className="text-sm text-gray-500 dark:text-gray-400 max-w-[354px] truncate">
+                        {product.name}
+                      </div>
+                      <div>
+                        <ChevronRight className="w-4 h-4" />
+                      </div>
                     </div>
                   </div>
                 </button>
