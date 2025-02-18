@@ -11,7 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { usePriceCalculation } from "@/hooks/usePriceCalculation";
 
 const CACHE_KEY = 'recommended_items_cache';
-const CACHE_DURATION = 1000 * 60 * 10; // 10 minutos
+const CACHE_DURATION = 1000 * 60 * 60; // 1 hora
 
 const ProductListSkeleton = () => (
   <div className="py-4 md:py-10">
@@ -76,14 +76,7 @@ export default function BestSellersSection() {
     fetchItems();
   }, []);
 
-  // Precalcular precios para todos los items
-  const itemsWithPrices = recommendedItems.map(item => ({
-    ...item,
-    calculatedPrices: calculateTotalPrice({
-      list_price: "129.97",
-      weight: 1
-    })
-  }));
+  
 
   if (loading) {
     return <ProductListSkeleton />;
@@ -97,7 +90,7 @@ export default function BestSellersSection() {
         </h1>
       </div>
 
-      {itemsWithPrices.length === 0 ? (
+      {recommendedItems.length === 0 ? (
         <div className="text-center py-10 bg-gray-100 rounded-lg">
           <p className="text-xl text-gray-600">
             No se encontraron productos recomendados
@@ -105,7 +98,7 @@ export default function BestSellersSection() {
         </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          {itemsWithPrices.map((item) => (
+          {recommendedItems.map((item) => (
             <ProductDetailsSheet key={item.id} item={item}>
               <SheetTrigger asChild>
                 <div className="border rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col relative animate-fade-in cursor-pointer">
@@ -128,7 +121,7 @@ export default function BestSellersSection() {
                     ) : (
                       <div className="flex flex-col gap-1">
                         <span className="text-md font-bold text-green-600">
-                          {formatPrice(item.calculatedPrices?.finalTotalArs || 0)}
+                          {formatPrice(calculateTotalPrice(item).finalTotalArs)}
                         </span>
                       </div>
                     )}

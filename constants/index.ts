@@ -26,11 +26,11 @@ export const Product_Type_Translations: { [key: string]: string } = {
   "Bags": "Bolsos",
   "Batteries": "Baterías",
   "Belts": "Correas",
-  "Body": "Carrocería",
+  "Body": "Plasticos / Accesorios",
   "Brakes": "Frenos",
   "Cable/Hydraulic Control Lines": "Líneas de Control Hidráulico/Cable",
   "Chains": "Cadenas",
-  "Chemicals": "Químicos",
+  "Chemicals": "Aceites",
   "Clutch": "Embrague",
   "Cooling System": "Sistema de Refrigeración",
   "Drive": "Transmisión",
@@ -392,3 +392,4 @@ export const productTypeMap: Record<string, string> = {
   'spark-plugs': 'Spark Plugs',
   'oil-filters': 'Oil Filters',
 };
+

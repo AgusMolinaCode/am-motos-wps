@@ -13,7 +13,7 @@ export async function getBrandsItems(
   };
 
   // Construir la URL base
-  let url = `https://api.wps-inc.com/items?filter[brand_id]=${brandId}&include=inventory,images&sort[desc]=created_at&page[size]=100`;
+  let url = `https://api.wps-inc.com/items?filter[brand_id]=${brandId}&include=inventory,images,attributevalues&sort[desc]=created_at&page[size]=100`;
 
   // Agregar filtro de tipo de producto si está presente
   if (productType) {
@@ -170,7 +170,7 @@ export async function getTypeProducts(productType: string, cursor?: string) {
   // Reemplazar guiones por espacios para coincidir con el formato de la API
   const decodedProductType = productType.replace(/-/g, ' ');
 
-  let url = `https://api.wps-inc.com/items?filter[product_type]=${encodeURIComponent(decodedProductType)}&include=inventory,images&sort[desc]=created_at&page[size]=100`;
+  let url = `https://api.wps-inc.com/items?filter[product_type]=${encodeURIComponent(decodedProductType)}&include=inventory,images,attributevalues&sort[desc]=created_at&page[size]=100`;
 
   if (cursor) {
     url += `&page[cursor]=${encodeURIComponent(cursor)}`;
@@ -398,10 +398,10 @@ export async function getCollectionByProductType(
 
   // Construir la URL con el filtro de brand_id si está presente
   const url = cursor
-    ? `https://api.wps-inc.com/items?filter[product_type]=${encodedProductType}&include=inventory,images&page[size]=100&sort[desc]=created_at&page[cursor]=${encodeURIComponent(
+    ? `https://api.wps-inc.com/items?filter[product_type]=${encodedProductType}&include=inventory,images,attributevalues&page[size]=100&sort[desc]=created_at&page[cursor]=${encodeURIComponent(
         cursor
       )}${brandId ? `&filter[brand_id]=${brandId}` : ""}`
-    : `https://api.wps-inc.com/items?filter[product_type]=${encodedProductType}&include=inventory,images&sort[desc]=created_at&page[size]=100${
+    : `https://api.wps-inc.com/items?filter[product_type]=${encodedProductType}&include=inventory,images,attributevalues&sort[desc]=created_at&page[size]=100${
         brandId ? `&filter[brand_id]=${brandId}` : ""
       }`;
 
@@ -482,7 +482,7 @@ export async function getStatusItems(
   };
 
   // Construir la URL base
-  let url = `https://api.wps-inc.com/items?filter[status_id]=${status}&include=inventory,images&page[size]=100&sort[desc]=created_at`;
+  let url = `https://api.wps-inc.com/items?filter[status_id]=${status}&include=inventory,images,attributevalues&page[size]=100&sort[desc]=created_at`;
 
   // Agregar filtro de tipo de producto si está presente y no es nulo
   if (productType) {
@@ -606,7 +606,7 @@ export async function getRecommendedItems(
 
   const url = `https://api.wps-inc.com/items?filter[supplier_product_id]=${encodeURIComponent(
     productIdsString
-  )}&include=inventory,images&sort[desc]=created_at&page[size]=100`;
+  )}&include=inventory,images,attributevalues&sort[desc]=created_at&page[size]=100`;
 
   try {
     const response = await fetch(url, {
@@ -668,14 +668,14 @@ export async function getItemBySupplierProductId(searchTerm: string): Promise<Br
   };
 
   // Primero buscar por supplier_product_id
-  let url = `https://api.wps-inc.com/items?filter[supplier_product_id][pre]=${encodeURIComponent(searchTerm)}&include=inventory,images`;
+  let url = `https://api.wps-inc.com/items?filter[supplier_product_id][pre]=${encodeURIComponent(searchTerm)}&include=inventory,images,attributevalues`;
   
   let response = await fetch(url, { method: "GET", headers });
   let result = await response.json();
 
   // Si no hay resultados, buscar por sku
   if (!result.data || (Array.isArray(result.data) && result.data.length === 0)) {
-    url = `https://api.wps-inc.com/items?filter[sku][pre]=${encodeURIComponent(searchTerm)}&include=inventory,images`;
+    url = `https://api.wps-inc.com/items?filter[sku][pre]=${encodeURIComponent(searchTerm)}&include=inventory,images,attributevalues`;
     response = await fetch(url, { method: "GET", headers });
     result = await response.json();
   }
@@ -807,7 +807,7 @@ export async function getVehicleItems(vehicleId: string, cursor: string | null =
   };
 
   try {
-    let url = `https://api.wps-inc.com/vehicles/${vehicleId}/items?include=inventory,images&page[size]=30`;
+    let url = `https://api.wps-inc.com/vehicles/${vehicleId}/items?include=inventory,images,attributevalues&page[size]=30`;
 
     if (cursor) {
       url += `&page[cursor]=${encodeURIComponent(cursor)}`;

@@ -1,0 +1,427 @@
+[
+  {
+    "id": 1,
+    "name": "Product Type",
+    "name_es": "Tipo de Producto"
+  },
+  {
+    "id": 3,
+    "name": "Load Index",
+    "name_es": "Índice de Carga"
+  },
+  {
+    "id": 4,
+    "name": "Speed Rating",
+    "name_es": "Índice de Velocidad"
+  },
+  {
+    "id": 5,
+    "name": "Material",
+    "name_es": "Material"
+  },
+  {
+    "id": 8,
+    "name": "Performance",
+    "name_es": "Rendimiento"
+  },
+  {
+    "id": 9,
+    "name": "Purpose",
+    "name_es": "Propósito"
+  },
+  {
+    "id": 10,
+    "name": "Seal Type",
+    "name_es": "Tipo de Reten"
+  },
+  {
+    "id": 11,
+    "name": "Tire Brand",
+    "name_es": "Marca de Cubierta"
+  },
+  {
+    "id": 13,
+    "name": "Size",
+    "name_es": "Medida"
+  },
+  {
+    "id": 14,
+    "name": "Chain Links",
+    "name_es": "Eslabones de Cadena"
+  },
+  {
+    "id": 15,
+    "name": "Color",
+    "name_es": "Color"
+  },
+  {
+    "id": 17,
+    "name": "Clutch",
+    "name_es": "Embrague"
+  },
+  {
+    "id": 27,
+    "name": "Pitch",
+    "name_es": "Paso"
+  },
+  {
+    "id": 28,
+    "name": "Version",
+    "name_es": "Versión"
+  },
+  {
+    "id": 32,
+    "name": "Rotor",
+    "name_es": "Rotor"
+  },
+  {
+    "id": 33,
+    "name": "Position",
+    "name_es": "Posición"
+  },
+  {
+    "id": 40,
+    "name": "Tip Color",
+    "name_es": "Color de Punta"
+  },
+  {
+    "id": 41,
+    "name": "Tube Type",
+    "name_es": "Tipo de Tubo"
+  },
+  {
+    "id": 46,
+    "name": "Rate",
+    "name_es": "Tasa"
+  },
+  {
+    "id": 47,
+    "name": "Wheel Size",
+    "name_es": "Tamaño de Llanta"
+  },
+  {
+    "id": 48,
+    "name": "Finish",
+    "name_es": "Acabado"
+  },
+  {
+    "id": 49,
+    "name": "Industry Offset",
+    "name_es": "Desplazamiento Industrial"
+  },
+  {
+    "id": 50,
+    "name": "Inside Diameter",
+    "name_es": "Diámetro Interior"
+  },
+  {
+    "id": 51,
+    "name": "Outside Diameter",
+    "name_es": "Diámetro Exterior"
+  },
+  {
+    "id": 52,
+    "name": "Pattern",
+    "name_es": "Patrón"
+  },
+  {
+    "id": 53,
+    "name": "Tire Line",
+    "name_es": "Línea de Cubierta"
+  },
+  {
+    "id": 54,
+    "name": "Wheel Line",
+    "name_es": "Línea de Llanta"
+  },
+  {
+    "id": 57,
+    "name": "Tire Ply Rating",
+    "name_es": "Índice de Ply de Cubierta"
+  },
+  {
+    "id": 58,
+    "name": "Wheel Brand",
+    "name_es": "Marca de Llanta"
+  },
+  {
+    "id": 59,
+    "name": "Tire Width",
+    "name_es": "Ancho de Cubierta"
+  },
+  {
+    "id": 60,
+    "name": "Aspect Ratio",
+    "name_es": "Relación de Aspecto"
+  },
+  {
+    "id": 62,
+    "name": "Cable Type",
+    "name_es": "Tipo de Cable"
+  },
+  {
+    "id": 63,
+    "name": "Maximum Pressure",
+    "name_es": "Presión Máxima"
+  },
+  {
+    "id": 64,
+    "name": "Recommended Rim Size",
+    "name_es": "Tamaño de Llanta Recomendado"
+  },
+  {
+    "id": 65,
+    "name": "Construction",
+    "name_es": "Construcción"
+  },
+  {
+    "id": 66,
+    "name": "Special Description",
+    "name_es": "Descripción Especial"
+  },
+  {
+    "id": 67,
+    "name": "Inflated Pressure",
+    "name_es": "Presión Inflada"
+  },
+  {
+    "id": 68,
+    "name": "Weight",
+    "name_es": "Peso"
+  },
+  {
+    "id": 69,
+    "name": "Bore Size",
+    "name_es": "Tamaño de Orificio"
+  },
+  {
+    "id": 70,
+    "name": "Compression Ratio",
+    "name_es": "Relación de Compresión"
+  },
+  {
+    "id": 72,
+    "name": "Beadlock",
+    "name_es": "Bloquear Llanta"
+  },
+  {
+    "id": 73,
+    "name": "Exhaust Type",
+    "name_es": "Tipo de Escape"
+  },
+  {
+    "id": 149,
+    "name": "Seat Type",
+    "name_es": "Tipo de Asiento"
+  },
+  {
+    "id": 150,
+    "name": "Styling",
+    "name_es": "Estilo"
+  },
+  {
+    "id": 152,
+    "name": "Throttle Type",
+    "name_es": "Tipo de Acelerador"
+  },
+  {
+    "id": 155,
+    "name": "Spokes",
+    "name_es": "Rayos"
+  },
+  {
+    "id": 156,
+    "name": "Bearing",
+    "name_es": "Rodamiento"
+  },
+  {
+    "id": 160,
+    "name": "Pull Back",
+    "name_es": "Retroceso"
+  },
+  {
+    "id": 172,
+    "name": "Piston Type",
+    "name_es": "Tipo de Pistón"
+  },
+  {
+    "id": 173,
+    "name": "Piston Size",
+    "name_es": "Tamaño de Pistón"
+  },
+  {
+    "id": 175,
+    "name": "Tire Size",
+    "name_es": "Tamaño de Cubierta"
+  },
+  {
+    "id": 181,
+    "name": "Wattage",
+    "name_es": "Potencia"
+  },
+  {
+    "id": 182,
+    "name": "Type",
+    "name_es": "Tipo"
+  },
+  {
+    "id": 183,
+    "name": "Voltage",
+    "name_es": "Voltaje"
+  },
+  {
+    "id": 185,
+    "name": "Rim Size",
+    "name_es": "Tamaño de Llanta"
+  },
+  {
+    "id": 186,
+    "name": "Lens Color",
+    "name_es": "Color de Lente"
+  },
+  {
+    "id": 189,
+    "name": "Volume",
+    "name_es": "Volumen"
+  },
+  {
+    "id": 190,
+    "name": "Tire Bead",
+    "name_es": "Bola de Llanta"
+  },
+  {
+    "id": 191,
+    "name": "Tire TPI",
+    "name_es": "TPI de Llanta"
+  },
+  {
+    "id": 193,
+    "name": "Lug Dimension",
+    "name_es": "Dimensión de Llanta"
+  },
+  {
+    "id": 195,
+    "name": "Tire Load Rating",
+    "name_es": "Índice de Carga de Llanta"
+  },
+  {
+    "id": 196,
+    "name": "Tint",
+    "name_es": "Tintado"
+  },
+  {
+    "id": 203,
+    "name": "Rise",
+    "name_es": "Elevación"
+  },
+  {
+    "id": 205,
+    "name": "Elevation",
+    "name_es": "Elevación"
+  },
+  {
+    "id": 207,
+    "name": "Tooth Count",
+    "name_es": "Número de Dientes"
+  },
+  {
+    "id": 208,
+    "name": "Amps",
+    "name_es": "Amperios"
+  },
+  {
+    "id": 212,
+    "name": "LEDs",
+    "name_es": "LEDs"
+  },
+  {
+    "id": 213,
+    "name": "Output",
+    "name_es": "Salida"
+  },
+  {
+    "id": 214,
+    "name": "Power Draw",
+    "name_es": "Dibujado de Potencia"
+  },
+  {
+    "id": 215,
+    "name": "True Offset",
+    "name_es": "Desplazamiento Verdadero"
+  },
+  {
+    "id": 216,
+    "name": "Gender",
+    "name_es": "Género"
+  },
+  {
+    "id": 217,
+    "name": "Age Group",
+    "name_es": "Grupo de Edad"
+  },
+  {
+    "id": 219,
+    "name": "Rim Color",
+    "name_es": "Color de Llanta"
+  },
+  {
+    "id": 220,
+    "name": "Hub Color",
+    "name_es": "Color de Eje"
+  },
+  {
+    "id": 221,
+    "name": "Spoke Color",
+    "name_es": "Color de Rayo"
+  },
+  {
+    "id": 222,
+    "name": "Nipple Color",
+    "name_es": "Color de Tuerca"
+  },
+  {
+    "id": 252,
+    "name": "Permitted Rim Size",
+    "name_es": "Tamaño de Llanta Permitido"
+  },
+  {
+    "id": 285,
+    "name": "Light Color",
+    "name_es": "Color de Luz"
+  },
+  {
+    "id": 287,
+    "name": "Model",
+    "name_es": "Modelo"
+  },
+  {
+    "id": 318,
+    "name": "GMAX Product Type",
+    "name_es": "Tipo de Producto GMAX"
+  },
+  {
+    "id": 351,
+    "name": "Suspension",
+    "name_es": "Suspensión"
+  },
+  {
+    "id": 451,
+    "name": "Rear Tire Size",
+    "name_es": "Tamaño de Llanta Trasera"
+  },
+  {
+    "id": 453,
+    "name": "Rear Shock",
+    "name_es": "Amortiguador Trasero"
+  },
+  {
+    "id": 582,
+    "name": "PFAS (non-compliant)",
+    "name_es": "PFAS (no conforme)"
+  },
+  {
+    "id": 615,
+    "name": "Parts Unlimited",
+    "name_es": "Repuestos Ilimitados"
+  }
+]

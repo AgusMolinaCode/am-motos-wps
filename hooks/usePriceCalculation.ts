@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { BrandStatus, BrandId } from "@/types/interface";
 
 interface PriceCalculation {
@@ -7,21 +6,8 @@ interface PriceCalculation {
 }
 
 export function usePriceCalculation() {
-  const [dolarBlue, setDolarBlue] = useState<number>(1100);
-
-  useEffect(() => {
-    const fetchDolarBlue = async () => {
-      try {
-        const response = await fetch("https://api.bluelytics.com.ar/v2/latest");
-        const data = await response.json();
-        setDolarBlue(data.blue.value_sell);
-      } catch (error) {
-        console.error("Error fetching dolar blue:", error);
-      }
-    };
-
-    fetchDolarBlue();
-  }, []);
+  // Usar el valor de NEXT_PUBLIC_DOLAR_BLUE desde las variables de entorno
+  const dolarBlue = Number(process.env.NEXT_PUBLIC_DOLAR_BLUE) || 1300;
 
   const calculateTotalPrice = (item: Partial<BrandStatus | BrandId>): PriceCalculation => {
     if (!item || !item.list_price || !item.weight) {

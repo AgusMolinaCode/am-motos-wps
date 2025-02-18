@@ -3,6 +3,13 @@
 import React from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import brandData from "@/public/csv/brand2.json";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface CollectionFilterButtonsProps {
   slug: string;
@@ -10,10 +17,10 @@ interface CollectionFilterButtonsProps {
   associatedBrands: string[];
 }
 
-const CollectionFilterButtons: React.FC<CollectionFilterButtonsProps> = ({ 
-  slug, 
-  productType, 
-  associatedBrands 
+const CollectionFilterButtons: React.FC<CollectionFilterButtonsProps> = ({
+  slug,
+  productType,
+  associatedBrands,
 }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -46,12 +53,17 @@ const CollectionFilterButtons: React.FC<CollectionFilterButtonsProps> = ({
     // Crear un nuevo objeto URLSearchParams
     const params = new URLSearchParams(searchParams.toString());
     
-    // Establecer el brandId
-    params.set('brandId', brandId);
-    
-    // Si hay un productType, también lo incluimos
-    if (encodedProductType) {
-      params.set('productType', encodedProductType);
+    if (brandId === "all") {
+      // Si seleccionamos "Todas las Marcas", eliminar el filtro
+      params.delete('brandId');
+    } else {
+      // Establecer el brandId
+      params.set('brandId', brandId);
+      
+      // Si hay un productType, también lo incluimos
+      if (encodedProductType) {
+        params.set('productType', encodedProductType);
+      }
     }
 
     // Eliminar el cursor para comenzar desde el principio
@@ -61,20 +73,35 @@ const CollectionFilterButtons: React.FC<CollectionFilterButtonsProps> = ({
     router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
+  // Ordenar las marcas alfabéticamente
+  const sortedBrands = [...associatedBrands].sort((a, b) => a.localeCompare(b));
+
+  // Obtener el brandId actual de los parámetros de búsqueda
+  const currentBrandId = searchParams.get('brandId') || 'all';
+
   return (
-    <div className="flex flex-wrap gap-2 mb-4">
-      {associatedBrands.map((brandName: string) => {
-        const brandId = brandMap[brandName];
-        return brandId ? (
-          <button
-            key={brandId}
-            onClick={() => handleBrandFilter(brandId)}
-            className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
-          >
-            {brandName}
-          </button>
-        ) : null;
-      })}
+    <div className="mb-6 flex items-center space-x-4">
+      <label htmlFor="brandFilter" className="text-sm font-medium">
+        Filtrar por Marca:
+      </label>
+      <div className="flex items-center gap-2 flex-1">
+        <Select value={currentBrandId} onValueChange={handleBrandFilter}>
+          <SelectTrigger className="w-full md:w-[380px]">
+            <SelectValue placeholder="Todas las Marcas" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">Todas las Marcas</SelectItem>
+            {sortedBrands.map((brandName: string) => {
+              const brandId = brandMap[brandName];
+              return brandId ? (
+                <SelectItem key={brandId} value={brandId}>
+                  {brandName}
+                </SelectItem>
+              ) : null;
+            })}
+          </SelectContent>
+        </Select>
+      </div>
     </div>
   );
 };

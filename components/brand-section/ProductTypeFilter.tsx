@@ -4,6 +4,15 @@ import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { Product_Type_Translations, Most_Used_Types } from "@/constants";
 import { useState, useEffect } from "react";
 import { Loader2 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  SelectGroup,
+  SelectLabel,
+} from "@/components/ui/select";
 
 interface ProductTypeFilterProps {
   slug: string;
@@ -47,10 +56,10 @@ export default function ProductTypeFilter({
     setIsLoading(true);
     const params = new URLSearchParams(searchParams.toString());
 
-    if (selectedType) {
-      params.set("productType", encodeURIComponent(selectedType));
-    } else {
+    if (selectedType === "all") {
       params.delete("productType");
+    } else {
+      params.set("productType", encodeURIComponent(selectedType));
     }
 
     params.delete("cursor");
@@ -59,7 +68,7 @@ export default function ProductTypeFilter({
   };
 
   // Decodificar el tipo de producto seleccionado
-  const decodedSelectedType = selectedProductType ? decodeURIComponent(selectedProductType) : "";
+  const currentValue = selectedProductType ? decodeURIComponent(selectedProductType) : "all";
 
   return (
     <div className="mb-6 flex items-center space-x-4">
@@ -67,47 +76,38 @@ export default function ProductTypeFilter({
         Filtrar por Tipo de Producto:
       </label>
       <div className="flex items-center gap-2 flex-1">
-        <select
-          id="productType"
-          className="w-full md:w-[380px] p-2 border rounded-lg bg-white dark:bg-gray-800"
-          value={decodedSelectedType || ""}
-          onChange={(e) => handleTypeChange(e.target.value)}
-          disabled={isLoading}
-        >
-          <option value="">Todos los Tipos</option>
-          {mostUsedTypes.length > 0 && (
-            <optgroup label="Tipos más usados">
-              {mostUsedTypes.map((type) => (
-                <option key={type} value={type}>
-                  {getTranslation(type)}
-                </option>
-              ))}
-            </optgroup>
-          )}
-          {otherTypes.length > 0 && (
-            <optgroup label="Otros tipos">
-              {otherTypes.map((type) => (
-                <option key={type} value={type}>
-                  {getTranslation(type)}
-                </option>
-              ))}
-            </optgroup>
-          )}
-        </select>
+        <Select value={currentValue} onValueChange={handleTypeChange}>
+          <SelectTrigger className="w-full md:w-[380px]">
+            <SelectValue placeholder="Todos los Tipos" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">Todos los Tipos</SelectItem>
+            {mostUsedTypes.length > 0 && (
+              <SelectGroup>
+                <SelectLabel>Tipos más usados</SelectLabel>
+                {mostUsedTypes.map((type) => (
+                  <SelectItem key={type} value={type}>
+                    {getTranslation(type)}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            )}
+            {otherTypes.length > 0 && (
+              <SelectGroup>
+                <SelectLabel>Otros tipos</SelectLabel>
+                {otherTypes.map((type) => (
+                  <SelectItem key={type} value={type}>
+                    {getTranslation(type)}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            )}
+          </SelectContent>
+        </Select>
         {isLoading && (
           <Loader2 className="h-4 w-4 animate-spin" />
         )}
       </div>
-      {decodedSelectedType && (
-        <button
-          className="bg-red-500 text-white px-4 py-2 rounded flex items-center gap-2 disabled:opacity-50"
-          onClick={() => handleTypeChange("")}
-          disabled={isLoading}
-        >
-          {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
-          Reset
-        </button>
-      )}
     </div>
   );
 }

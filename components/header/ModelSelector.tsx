@@ -24,11 +24,11 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ selectedYear, selectedMak
       try {
         setError(null);
         setLoading(true);
-        console.log('Fetching models for year:', selectedYear, 'and make:', selectedMake);
+    
         const fetchedModels = await getVehicleModel(selectedYear, selectedMake);
         
         if (fetchedModels && Array.isArray(fetchedModels)) {
-          console.log('Received models:', fetchedModels);
+   
           setModels(fetchedModels.map(model => ({ 
             id: model.id.toString(),
             name: model.name 

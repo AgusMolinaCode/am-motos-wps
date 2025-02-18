@@ -201,3 +201,39 @@ export type VehicleModel = {
   created_at: string
   updated_at: string
 }
+
+export interface ImageData {
+  domain: string;
+  path: string;
+  filename: string;
+}
+
+export interface AttributeValue {
+  attributekey_id: number;
+  created_at: string;
+  id: number;
+  name: string;
+  sort: number;
+  updated_at: string;
+}
+
+export interface ItemSheet {
+  id: number;
+  name: string;
+  brand_id: number;
+  supplier_product_id: string;
+  standard_dealer_price: string;
+  list_price: string;
+  weight?: number;
+  inventory?: {
+    data?: {
+      total?: number;
+    };
+  };
+  images?: {
+    data?: ImageData[];
+  };
+  attributevalues?: {
+    data?: AttributeValue[];
+  };
+}

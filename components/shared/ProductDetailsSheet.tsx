@@ -15,33 +15,11 @@ import DescriptionAndCompatibility from "./DescriptionAndCompatibility";
 import VehicleCompatibility from "./VehicleCompatibility";
 import { getBrandName } from "@/lib/brands";
 import { usePriceCalculation } from "@/hooks/usePriceCalculation";
-
-interface ImageData {
-  domain: string;
-  path: string;
-  filename: string;
-}
-
-interface Item {
-  id: number;
-  name: string;
-  brand_id: number;
-  supplier_product_id: string;
-  standard_dealer_price: string;
-  list_price: string;
-  weight?: number;
-  inventory?: {
-    data?: {
-      total?: number;
-    };
-  };
-  images?: {
-    data?: ImageData[];
-  };
-}
+import { ItemSheet } from "@/types/interface";
+import attributeKeys from "@/public/csv/attributekeys.json";
 
 interface ProductDetailsSheetProps {
-  item: Item;
+  item: ItemSheet;
   onOpenChange?: (open: boolean) => void;
   openAutomatically?: boolean;
   children?: React.ReactNode;
@@ -83,8 +61,27 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
         <div className="mt-4 space-y-4">
           <div className="space-y-2">
             <div className="text-base font-semibold text-gray-800 dark:text-gray-400">
-              <div>Numero de Parte: {item.supplier_product_id}</div>
-              <div>Marca: {brandName}</div>
+              <div className="text-sm space-y-1">Marca: {brandName}</div>
+              <div className="text-sm space-y-1">
+                Numero de Parte: {item.supplier_product_id}
+              </div>
+              {item.attributevalues?.data &&
+                item.attributevalues.data.length > 0 && (
+                  <div className="mt-1 space-y-1">
+                    {item.attributevalues.data.map((attr) => {
+                    const attributeKey = attributeKeys.find(
+                      (key) => key.id === attr.attributekey_id
+                    );
+                    if (!attributeKey) return null;
+                    
+                    return (
+                      <div key={attr.id} className="text-sm">
+                        {attributeKey.name_es}: {attr.name}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
             <div className="flex items-center space-x-2">
               <div
@@ -171,14 +168,13 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
             <VehicleCompatibility item={item} isVisible={showCompatibility} />
           </div>
           <DescriptionAndCompatibility item={item} />
-          
-            <Link
-              href={`/brand/${brandName.toLowerCase().replace(/\s+/g, "-")}`}
-              className="inline-block w-full text-center py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
-            >
-              Ver página de la marca
-            </Link>
-   
+
+          <Link
+            href={`/brand/${brandName.toLowerCase().replace(/\s+/g, "-")}`}
+            className="inline-block w-full text-center py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
+          >
+            Ver página de la marca
+          </Link>
         </div>
       </SheetContent>
       {item.images?.data && item.images.data.length > 0 && (
