@@ -23,10 +23,10 @@ export default function Navbar() {
                 alt="AM Motos Logo"
                 width={80}
                 height={80}
-                className="w-auto h-auto"
+                className=" h-12 lg:w-24 lg:h-16"
               />
             )}
-            <h1 className="text-xl font-black hover:dark:text-indigo-300 hover:text-indigo-800 duration-300">
+            <h1 className="text-lg lg:text-xl font-black hover:dark:text-indigo-300 hover:text-indigo-800 duration-300">
               AM MOTOS
             </h1>
           </Link>

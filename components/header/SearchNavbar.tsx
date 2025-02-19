@@ -117,7 +117,7 @@ const SearchNavbar = () => {
 
   return (
     <div className="relative search-container">
-      <div className="flex items-center justify-center relative w-full md:w-96">
+      <div className="flex items-center justify-center relative md:w-80 lg:w-96">
         {isSearching ? (
           <Loader2 className="text-gray-700 dark:text-gray-300 absolute right-4 animate-spin" />
         ) : searchTerm ? (
@@ -158,7 +158,7 @@ const SearchNavbar = () => {
                       {product.supplier_product_id}
                     </div>
                     <div className="flex items-center justify-between w-full">
-                      <div className="text-sm text-gray-500 dark:text-gray-400 max-w-[354px] truncate">
+                      <div className="text-sm text-gray-500 dark:text-gray-400 max-w-[284px] truncate lg:max-w-[354px]">
                         {product.name}
                       </div>
                       <div>

@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "../ui/button";
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/components/ui/checkbox";
 import ModelSelector from "./ModelSelector";
 import {
   getVehicleItems,
@@ -66,20 +66,27 @@ const BrandSelector = () => {
 
   const handleSaveVehicle = async (checked: boolean) => {
     if (!checked) return;
-    
+
     if (selectedYear && selectedMake && selectedModel) {
       const vehicleData = await getVehicleItemsId(selectedModel, selectedYear);
       if (vehicleData.length > 0) {
         const vehicleId = vehicleData[0].id.toString();
-        
+
         // Verificar si ya existe
-        if (savedVehicles.some(v => v.vehicleId === vehicleId)) {
+        if (savedVehicles.some((v) => v.vehicleId === vehicleId)) {
           return;
         }
 
-        const selectedMakeName = vehicleMakes.find((make) => make.id.toString() === selectedMake)?.name || "";
-        const selectedModelName = models.find((model) => model.id.toString() === selectedModel)?.name || "";
-        const selectedYearName = sortedYears.find((year) => year.id.toString() === selectedYear)?.name.toString() || "";
+        const selectedMakeName =
+          vehicleMakes.find((make) => make.id.toString() === selectedMake)
+            ?.name || "";
+        const selectedModelName =
+          models.find((model) => model.id.toString() === selectedModel)?.name ||
+          "";
+        const selectedYearName =
+          sortedYears
+            .find((year) => year.id.toString() === selectedYear)
+            ?.name.toString() || "";
 
         const newVehicle = {
           makeId: selectedMake,
@@ -116,7 +123,7 @@ const BrandSelector = () => {
       const vehicleData = await getVehicleItemsId(selectedModel, selectedYear);
       if (vehicleData.length > 0) {
         const vehicleId = vehicleData[0].id.toString();
-        return savedVehicles.some(v => v.vehicleId === vehicleId);
+        return savedVehicles.some((v) => v.vehicleId === vehicleId);
       }
     }
     return false;
@@ -126,24 +133,35 @@ const BrandSelector = () => {
     if (selectedYear && selectedMake && selectedModel) {
       setLoading(true);
       try {
-        const vehicleData = await getVehicleItemsId(selectedModel, selectedYear);
+        const vehicleData = await getVehicleItemsId(
+          selectedModel,
+          selectedYear
+        );
         if (vehicleData.length > 0) {
           const vehicleId = vehicleData[0].id.toString();
-          const isAlreadySaved = savedVehicles.some(v => v.vehicleId === vehicleId);
-          
+          const isAlreadySaved = savedVehicles.some(
+            (v) => v.vehicleId === vehicleId
+          );
+
           setShowSaveCheckbox(true);
           setIsCurrentVehicleSaved(isAlreadySaved);
 
-          const selectedMakeName = vehicleMakes.find((make) => make.id.toString() === selectedMake)?.name || "unknown-make";
-          const selectedModelName = models.find((model) => model.id.toString() === selectedModel)?.name || "unknown-model";
-          const selectedYearName = sortedYears.find((year) => year.id.toString() === selectedYear)?.name || "unknown-year";
-          
+          const selectedMakeName =
+            vehicleMakes.find((make) => make.id.toString() === selectedMake)
+              ?.name || "unknown-make";
+          const selectedModelName =
+            models.find((model) => model.id.toString() === selectedModel)
+              ?.name || "unknown-model";
+          const selectedYearName =
+            sortedYears.find((year) => year.id.toString() === selectedYear)
+              ?.name || "unknown-year";
+
           const cleanSlug = `${selectedMakeName.toLowerCase()}-${selectedModelName
-            .toLowerCase()   
-            .replace(/[()\/\\,]/g, "") 
+            .toLowerCase()
+            .replace(/[()\/\\,]/g, "")
             .replace(/\s+/g, "-")
             .replace(/-+/g, "-")}-${String(selectedYearName).toLowerCase()}`;
-          
+
           router.push(`/vehiculo/${cleanSlug}/${vehicleId}`);
         }
       } catch (error) {
@@ -172,12 +190,11 @@ const BrandSelector = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 py-4">
-      <div className="flex gap-4 items-center bg-gray-200 dark:bg-gray-800 rounded-lg p-2">
-              
+    <div className="flex flex-col gap-2 py-4 w-full mx-auto justify-end items-center">
+      <div className="flex gap-2 items-center justify-center mx-auto bg-gray-200 dark:bg-gray-800 rounded-lg p-1 w-full md:w-[750px] lg:w-[920px]">
         <Select value={selectedYear} onValueChange={setSelectedYear}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Seleccionar año" />
+          <SelectTrigger className="w-[100px] md:w-[180px]">
+            <SelectValue placeholder="Año" />
           </SelectTrigger>
           <SelectContent>
             {sortedYears.map((year) => (
@@ -189,8 +206,8 @@ const BrandSelector = () => {
         </Select>
 
         <Select value={selectedMake} onValueChange={setSelectedMake}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Seleccionar marca" />
+          <SelectTrigger className="w-[100px] md:w-[180px]">
+            <SelectValue placeholder="Marca" />
           </SelectTrigger>
           <SelectContent>
             {vehicleMakes.map((make) => (
@@ -207,63 +224,93 @@ const BrandSelector = () => {
           selectedModel={selectedModel}
           setSelectedModel={setSelectedModel}
         />
-
-        <div className="flex gap-2">
-          <Button 
-            onClick={handleSubmit} 
-            className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50" 
-            disabled={loading}
-          >
-            {loading ? "Buscando..." : "Buscar"}
-          </Button>
-          {(selectedYear || selectedMake || selectedModel) && (
-            <Button onClick={handleReset} variant="outline" disabled={loading}>
-              Reiniciar
-            </Button>
-          )}
+        <Button
+          onClick={handleSubmit}
+          className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
+          disabled={loading}
+        >
+          {loading ? "Buscando" : "Buscar"}
+        </Button>
+        <div className=" gap-2 hidden lg:block">
           {showSaveCheckbox && (
             <div className="flex items-center gap-2">
-              <Checkbox 
+              <Checkbox
                 checked={isCurrentVehicleSaved}
                 disabled={isCurrentVehicleSaved || loading}
                 onCheckedChange={handleSaveVehicle}
                 className="hover:text-white disabled:opacity-50"
               />
-              <label htmlFor="saveVehicle" className={isCurrentVehicleSaved ? "text-gray-500" : ""}>
-                {isCurrentVehicleSaved ? "Búsqueda Guardada" : "Guardar Búsqueda"}
+              <label
+                htmlFor="saveVehicle"
+                className={
+                  isCurrentVehicleSaved ? "text-gray-500 text-xs" : " text-xs"
+                }
+              >
+                {isCurrentVehicleSaved
+                  ? "Búsqueda Guardada"
+                  : "Guardar Búsqueda"}
               </label>
             </div>
           )}
         </div>
-      {savedVehicles.length > 0 && (
-        <div className="flex gap-2 items-center">
-          <Select onValueChange={handleSelectSavedVehicle}>
-            <SelectTrigger className="w-[220px]">
-              <SelectValue placeholder="Vehículos guardados" />
-            </SelectTrigger>
-            <SelectContent>
-              {savedVehicles.map((vehicle) => (
-                <div
-                  key={`vehicle-${vehicle.vehicleId}`}
-                  className="flex items-center justify-between px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
-                >
-                  <SelectItem value={vehicle.vehicleId}>
-                    {vehicle.makeName} {vehicle.modelName} {vehicle.yearName}
-                  </SelectItem>
-                  <button
-                    onClick={(e) => handleDeleteVehicle(vehicle.vehicleId, e)}
-                    className="text-red-500 hover:text-red-700"
+        {savedVehicles.length > 0 && (
+          <div className="flex gap-2 items-center">
+            <Select onValueChange={handleSelectSavedVehicle}>
+              <SelectTrigger className="w-[220px]">
+                <SelectValue placeholder="Vehículos guardados" />
+              </SelectTrigger>
+              <SelectContent>
+                {savedVehicles.map((vehicle) => (
+                  <div
+                    key={`vehicle-${vehicle.vehicleId}`}
+                    className="flex items-center justify-between px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
                   >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      )}
+                    <SelectItem value={vehicle.vehicleId}>
+                      {vehicle.makeName} {vehicle.modelName} {vehicle.yearName}
+                    </SelectItem>
+                    <button
+                      onClick={(e) => handleDeleteVehicle(vehicle.vehicleId, e)}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
       </div>
 
+      <div className="">
+        {/* {(selectedYear || selectedMake || selectedModel) && (
+            <Button onClick={handleReset} variant="outline" disabled={loading}>
+              Reiniciar
+            </Button>
+          )} */}
+          <div className="gap-2 flex justify-start  lg:hidden">
+          {showSaveCheckbox && (
+            <div className="flex items-center gap-2">
+              <Checkbox
+                checked={isCurrentVehicleSaved}
+                disabled={isCurrentVehicleSaved || loading}
+                onCheckedChange={handleSaveVehicle}
+                className="hover:text-white disabled:opacity-50"
+              />
+              <label
+                htmlFor="saveVehicle"
+                className={
+                  isCurrentVehicleSaved ? "text-gray-500 text-xs" : " text-xs"
+                }
+              >
+                {isCurrentVehicleSaved
+                  ? "Búsqueda Guardada"
+                  : "Guardar Búsqueda"}
+              </label>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

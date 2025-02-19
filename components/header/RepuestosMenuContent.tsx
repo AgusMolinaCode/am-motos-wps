@@ -105,12 +105,12 @@ const RepuestosMenuContent = () => {
   }));
 
   return (
-    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] lg:w-[700px]">
+    <ul className="grid w-[400px] gap-3 p-4 md:w-[700px] lg:w-[1000px]">
       <div className="">
         <h3 className="font-bold text-lg mb-2 text-black dark:text-white">
           Repuestos más buscados
         </h3>
-        <div className="grid grid-cols-5 gap-2 text-base bg-gray-200 dark:bg-zinc-900 p-2 rounded-md">
+        <div className="grid grid-cols-3 lg:grid-cols-5 gap-2 text-base bg-gray-200 dark:bg-zinc-900 p-2 rounded-md">
           {repuestosMasBuscadosTraducidos.map((part) => (
             <Link
               key={part.id}
@@ -124,7 +124,7 @@ const RepuestosMenuContent = () => {
         <h3 className="font-bold text-lg mb-2 text-black dark:text-white">
           Más repuestos
         </h3>
-        <div className="grid grid-cols-4 gap-2 text-sm">
+        <div className="grid grid-cols-3 gap-2 text-sm">
           {masRepuestosTraducidos.map((part) => (
             <Link
               key={part.id}

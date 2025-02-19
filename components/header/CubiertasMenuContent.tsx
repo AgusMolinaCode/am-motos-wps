@@ -32,7 +32,7 @@ const CubiertasMenuContent = () => {
     .slice(0, 8);
 
   return (
-    <ul className="grid gap-6 p-6 w-[800px]">
+    <ul className="grid gap-6 p-6 md:w-[600px]">
       <div className="grid grid-cols-4 gap-6">
         <div className="col-span-2 bg-gray-200 dark:bg-zinc-900 p-6 rounded-xl shadow-lg">
           <h3 className="font-bold text-lg mb-4 text-black dark:text-white">

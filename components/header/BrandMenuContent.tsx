@@ -16,7 +16,7 @@ const BrandMenuContent = ({
   allBrands: Brand[];
 }) => {
   return (
-    <ul className="grid gap-6 p-6 w-[800px]">
+    <ul className="grid gap-6 p-6 w-[700px]">
       <div className="grid grid-cols-4 gap-6">
         {/* Featured Brands */}
         <div className="col-span-2 bg-gray-200 dark:bg-zinc-900 p-6 rounded-xl shadow-lg">
