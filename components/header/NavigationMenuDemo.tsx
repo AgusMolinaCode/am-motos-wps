@@ -60,7 +60,7 @@ const allBrands: Brand[] = brandData
 
 export function NavigationMenuDemo() {
   return (
-    <NavigationMenu>
+    <NavigationMenu className="hidden md:block">
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>MARCAS</NavigationMenuTrigger>

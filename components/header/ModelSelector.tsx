@@ -50,10 +50,10 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ selectedYear, selectedMak
 
   return (
     <Select value={selectedModel} onValueChange={setSelectedModel} disabled={loading}>
-      <SelectTrigger className="w-[180px] lg:w-[230px]">
+      <SelectTrigger className="w-[120px] lg:w-[230px]">
         <SelectValue placeholder={loading ? "Buscando..." : error || "Modelo"} />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className='w-[200px] md:w-[300px]'>
         {models.length > 0 ? (
           models.map((model) => (
             <SelectItem key={model.id} value={model.id}>

@@ -117,7 +117,7 @@ const SearchNavbar = () => {
 
   return (
     <div className="relative search-container">
-      <div className="flex items-center justify-center relative md:w-80 lg:w-96">
+      <div className="flex items-center justify-center relative w-80 lg:w-96">
         {isSearching ? (
           <Loader2 className="text-gray-700 dark:text-gray-300 absolute right-4 animate-spin" />
         ) : searchTerm ? (
