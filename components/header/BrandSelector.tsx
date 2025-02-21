@@ -224,13 +224,15 @@ const BrandSelector = () => {
           selectedModel={selectedModel}
           setSelectedModel={setSelectedModel}
         />
-        <Button
-          onClick={handleSubmit}
-          className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 hidden md:block"
-          disabled={loading}
-        >
-          {loading ? "Buscando" : "Buscar"}
-        </Button>
+        {selectedYear && selectedMake && selectedModel && (
+          <Button
+            onClick={handleSubmit}
+            className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 hidden md:block"
+            disabled={loading}
+          >
+            {loading ? "Buscando" : "Buscar"}
+          </Button>
+        )}
         <div className=" gap-2 hidden lg:block">
           {showSaveCheckbox && (
             <div className="flex items-center gap-2">
@@ -284,13 +286,15 @@ const BrandSelector = () => {
 
       <div className="">
         <div className="gap-2 flex justify-start lg:hidden">
-          <Button
-            onClick={handleSubmit}
-            className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 block md:hidden"
-            disabled={loading}
-          >
-            {loading ? "Buscando" : "Buscar"}
-          </Button>
+          {selectedYear && selectedMake && selectedModel && (
+            <Button
+              onClick={handleSubmit}
+              className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 block md:hidden"
+              disabled={loading}
+            >
+              {loading ? "Buscando" : "Buscar"}
+            </Button>
+          )}
           {showSaveCheckbox && (
             <div className="flex items-center gap-2">
               <Checkbox
@@ -312,29 +316,32 @@ const BrandSelector = () => {
             </div>
           )}
           {savedVehicles.length > 0 && (
-          <div className="flex gap-2 items-center md:hidden">
-            <Select onValueChange={handleSelectSavedVehicle}>
-              <SelectTrigger className="w-[180px] md:w-[220px] ">
-                <SelectValue placeholder="Vehículos guardados" />
-              </SelectTrigger>
-              <SelectContent>
-                {savedVehicles.map((vehicle) => (
-                  <div
-                    key={`vehicle-${vehicle.vehicleId}`}
-                    className="flex items-center justify-between px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 w-[320px]"
-                  >
-                    <SelectItem value={vehicle.vehicleId}>
-                      {vehicle.makeName} {vehicle.modelName} {vehicle.yearName}
-                    </SelectItem>
-                    <button
-                      onClick={(e) => handleDeleteVehicle(vehicle.vehicleId, e)}
-                      className="text-red-500 hover:text-red-700"
+            <div className="flex gap-2 items-center md:hidden">
+              <Select onValueChange={handleSelectSavedVehicle}>
+                <SelectTrigger className="w-[180px] md:w-[220px] ">
+                  <SelectValue placeholder="Vehículos guardados" />
+                </SelectTrigger>
+                <SelectContent>
+                  {savedVehicles.map((vehicle) => (
+                    <div
+                      key={`vehicle-${vehicle.vehicleId}`}
+                      className="flex items-center justify-between px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 w-[320px]"
                     >
-                      <X className="w-4 h-4" />
-                    </button>
-                  </div>
-                ))}
-              </SelectContent>
+                      <SelectItem value={vehicle.vehicleId}>
+                        {vehicle.makeName} {vehicle.modelName}{" "}
+                        {vehicle.yearName}
+                      </SelectItem>
+                      <button
+                        onClick={(e) =>
+                          handleDeleteVehicle(vehicle.vehicleId, e)
+                        }
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </SelectContent>
               </Select>
             </div>
           )}

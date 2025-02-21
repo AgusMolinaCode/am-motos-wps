@@ -50,7 +50,7 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ selectedYear, selectedMak
 
   return (
     <Select value={selectedModel} onValueChange={setSelectedModel} disabled={loading}>
-      <SelectTrigger className="w-[120px] lg:w-[230px]">
+      <SelectTrigger className="w-full md:w-[230px]">
         <SelectValue placeholder={loading ? "Buscando..." : error || "Modelo"} />
       </SelectTrigger>
       <SelectContent className='w-[200px] md:w-[300px]'>

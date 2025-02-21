@@ -30,7 +30,7 @@ export function ThemeToggle({ sunClassName, moonClassName }: ThemeToggleProps) {
       onClick={() => {
         setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
       }}
-      className='bg-transparent'
+      className='bg-transparent px-1'
     >
       {resolvedTheme === 'dark' ? (
         <SunIcon className={`size-4 text-orange-300 ${sunClassName} bg-transparent`} />
