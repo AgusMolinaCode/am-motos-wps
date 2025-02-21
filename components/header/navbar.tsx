@@ -65,7 +65,7 @@ export default function Navbar() {
           </div>
           <Link
             href="/catalogos"
-            className="text-sm md:text-lg font-bold hover:dark:text-indigo-300 hover:text-indigo-800 duration-300"
+            className="text-[1.1rem] md:text-lg font-bold hover:dark:text-indigo-300 hover:text-indigo-800 duration-300"
           >
             Catalogos
           </Link>

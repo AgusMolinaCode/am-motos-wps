@@ -10,11 +10,18 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { CircleEqual, ChevronRight, ArrowLeft } from "lucide-react";
+import {
+  CircleEqual,
+  ChevronRight,
+  ArrowLeft,
+  PanelLeftClose,
+  ArrowLeftCircleIcon,
+} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import brandData from "@/public/csv/brand2.json";
 import { Product_Type_Translations } from "@/constants";
+import { useState } from "react";
 
 const featuredBrands = [
   { name: "ACERBIS", id: 692 },
@@ -35,7 +42,9 @@ const featuredBrands = [
   { name: "PIVOT WORKS", id: 419 },
 ];
 
-const featuredBrandIds = new Set(featuredBrands.map((brand) => brand.id.toString()));
+const featuredBrandIds = new Set(
+  featuredBrands.map((brand) => brand.id.toString())
+);
 const allBrands = brandData
   .filter((brand) => !featuredBrandIds.has(brand.id.toString()))
   .map((brand) => ({ name: brand.name, id: brand.id }))
@@ -43,19 +52,39 @@ const allBrands = brandData
   .slice(0, 30);
 
 export function SheetSide() {
+  const [isMainOpen, setIsMainOpen] = useState(false);
+  const [isBrandsOpen, setIsBrandsOpen] = useState(false);
+  const [isApparelOpen, setIsApparelOpen] = useState(false);
+  const [isTiresOpen, setIsTiresOpen] = useState(false);
+  const [isPartsOpen, setIsPartsOpen] = useState(false);
+
+  const closeAll = () => {
+    setIsMainOpen(false);
+    setIsBrandsOpen(false);
+    setIsApparelOpen(false);
+    setIsTiresOpen(false);
+    setIsPartsOpen(false);
+  };
+
   return (
-    <Sheet>
-      <SheetTrigger asChild className="hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full p-1">
+    <Sheet open={isMainOpen} onOpenChange={setIsMainOpen}>
+      <SheetTrigger
+        asChild
+        className="hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full p-1"
+      >
         <button className="flex items-center gap-1">
           <CircleEqual className="w-6 h-6" />
           <p className="text-sm font-bold">Menú</p>
         </button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-full sm:w-[540px] p-0">
+      <SheetContent side="left" className="w-full  p-0">
         <SheetHeader className="p-4 border-b sticky top-0 bg-background z-10">
-          <SheetTitle className="text-center text-xl font-bold">
-            <SheetClose asChild>
-              <Link href="/" className="flex items-center justify-center gap-2">
+          <SheetTitle className="text-center text-xl font-bold flex items-center justify-between">
+            <div>
+              <button
+                onClick={closeAll}
+                className="flex items-center justify-center gap-2 w-full"
+              >
                 <Image
                   src="/images/escudo.png"
                   alt="AM Motos Logo"
@@ -64,14 +93,20 @@ export function SheetSide() {
                   className="w-24 h-14"
                 />
                 <span>AM MOTOS</span>
-              </Link>
-            </SheetClose>
+              </button>
+            </div>
+            <div>
+              <ArrowLeftCircleIcon
+                onClick={closeAll}
+                className="w-6 h-6 hover:text-red-500 cursor-pointer"
+              />
+            </div>
           </SheetTitle>
         </SheetHeader>
 
         <ScrollArea className="h-[calc(100vh-100px)]">
           <div className="flex flex-col">
-            <Sheet>
+            <Sheet open={isBrandsOpen} onOpenChange={setIsBrandsOpen}>
               <SheetTrigger asChild>
                 <button className="flex items-center justify-between w-full p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors">
                   <span className="text-lg font-semibold">MARCAS</span>
@@ -81,11 +116,12 @@ export function SheetSide() {
               <SheetContent side="left" className="w-full sm:w-[540px] p-0">
                 <SheetHeader className="p-4 border-b sticky top-0 bg-background z-10">
                   <div className="flex items-center gap-2">
-                    <SheetClose asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8">
-                        <ArrowLeft className="h-4 w-4" />
-                      </Button>
-                    </SheetClose>
+                    <button
+                      onClick={() => setIsBrandsOpen(false)}
+                      className="h-8 w-8 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full flex items-center justify-center"
+                    >
+                      <ArrowLeft className="h-4 w-4" />
+                    </button>
                     <SheetTitle>MARCAS</SheetTitle>
                   </div>
                 </SheetHeader>
@@ -93,42 +129,49 @@ export function SheetSide() {
                   <div className="p-4">
                     <div className="space-y-6">
                       <div>
-                        <h3 className="font-semibold mb-3 text-sm text-muted-foreground">Marcas Destacadas</h3>
+                        <h3 className="font-semibold mb-3 text-sm text-muted-foreground">
+                          Marcas Destacadas
+                        </h3>
                         <div className="grid grid-cols-3 gap-2 text-sm">
                           {featuredBrands.map((brand) => (
-                            <SheetClose key={brand.id} asChild>
-                              <Link
-                                href={`/brand/${brand.name.toLowerCase().replace(/\s+/g, '-')}`}
-                                className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
-                              >
-                                {brand.name}
-                              </Link>
-                            </SheetClose>
+                            <Link
+                              key={brand.id}
+                              href={`/brand/${brand.name
+                                .toLowerCase()
+                                .replace(/\s+/g, "-")}`}
+                              onClick={closeAll}
+                              className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
+                            >
+                              {brand.name}
+                            </Link>
                           ))}
                         </div>
                       </div>
                       <div>
-                        <h3 className="font-semibold mb-3 text-sm text-muted-foreground">Todas las Marcas</h3>
+                        <h3 className="font-semibold mb-3 text-sm text-muted-foreground">
+                          Todas las Marcas
+                        </h3>
                         <div className="grid grid-cols-3 gap-2 text-sm">
                           {allBrands.map((brand) => (
-                            <SheetClose key={brand.id} asChild>
-                              <Link
-                                href={`/brand/${brand.name.toLowerCase().replace(/\s+/g, '-')}`}
-                                className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
-                              >
-                                {brand.name}
-                              </Link>
-                            </SheetClose>
+                            <Link
+                              key={brand.id}
+                              href={`/brand/${brand.name
+                                .toLowerCase()
+                                .replace(/\s+/g, "-")}`}
+                              onClick={closeAll}
+                              className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
+                            >
+                              {brand.name}
+                            </Link>
                           ))}
                         </div>
-                        <SheetClose asChild>
-                          <Link
-                            href="/brands"
-                            className="inline-block mt-4 text-blue-600 dark:text-blue-400 hover:underline text-sm"
-                          >
-                            Ver todas las marcas →
-                          </Link>
-                        </SheetClose>
+                        <Link
+                          href="/brands"
+                          onClick={closeAll}
+                          className="inline-block mt-4 text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                        >
+                          Ver todas las marcas →
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -136,7 +179,7 @@ export function SheetSide() {
               </SheetContent>
             </Sheet>
 
-            <Sheet>
+            <Sheet open={isApparelOpen} onOpenChange={setIsApparelOpen}>
               <SheetTrigger asChild>
                 <button className="flex items-center justify-between w-full p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors">
                   <span className="text-lg font-semibold">INDUMENTARIA</span>
@@ -146,11 +189,12 @@ export function SheetSide() {
               <SheetContent side="left" className="w-full sm:w-[540px] p-0">
                 <SheetHeader className="p-4 border-b sticky top-0 bg-background z-10">
                   <div className="flex items-center gap-2">
-                    <SheetClose asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8">
-                        <ArrowLeft className="h-4 w-4" />
-                      </Button>
-                    </SheetClose>
+                    <button
+                      onClick={() => setIsApparelOpen(false)}
+                      className="h-8 w-8 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full flex items-center justify-center"
+                    >
+                      <ArrowLeft className="h-4 w-4" />
+                    </button>
                     <SheetTitle>INDUMENTARIA</SheetTitle>
                   </div>
                 </SheetHeader>
@@ -158,16 +202,27 @@ export function SheetSide() {
                   <div className="p-4">
                     <div className="grid grid-cols-3 gap-2 text-sm">
                       {Object.entries(Product_Type_Translations)
-                        .filter(([key]) => ["Pants", "Jerseys", "Footwear", "Gloves", "Eyewear", "Helmets"].includes(key))
+                        .filter(([key]) =>
+                          [
+                            "Pants",
+                            "Jerseys",
+                            "Footwear",
+                            "Gloves",
+                            "Eyewear",
+                            "Helmets",
+                          ].includes(key)
+                        )
                         .map(([key, value]) => (
-                          <SheetClose key={key} asChild>
-                            <Link
-                              href={`/coleccion/${key.toLowerCase().replace(/\s+/g, "-")}`}
-                              className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
-                            >
-                              {value}
-                            </Link>
-                          </SheetClose>
+                          <Link
+                            key={key}
+                            href={`/coleccion/${key
+                              .toLowerCase()
+                              .replace(/\s+/g, "-")}`}
+                            onClick={closeAll}
+                            className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
+                          >
+                            {value}
+                          </Link>
                         ))}
                     </div>
                   </div>
@@ -175,50 +230,51 @@ export function SheetSide() {
               </SheetContent>
             </Sheet>
 
-            <Sheet>
+            <Sheet open={isTiresOpen} onOpenChange={setIsTiresOpen}>
               <SheetTrigger asChild>
                 <button className="flex items-center justify-between w-full p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors">
-                  <span className="text-lg font-semibold">CUBIERTAS / LLANTAS</span>
+                  <span className="text-lg font-semibold">
+                    CUBIERTAS / LLANTAS
+                  </span>
                   <ChevronRight className="h-5 w-5" />
                 </button>
               </SheetTrigger>
               <SheetContent side="left" className="w-full sm:w-[540px] p-0">
                 <SheetHeader className="p-4 border-b sticky top-0 bg-background z-10">
                   <div className="flex items-center gap-2">
-                    <SheetClose asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8">
-                        <ArrowLeft className="h-4 w-4" />
-                      </Button>
-                    </SheetClose>
+                    <button
+                      onClick={() => setIsTiresOpen(false)}
+                      className="h-8 w-8 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full flex items-center justify-center"
+                    >
+                      <ArrowLeft className="h-4 w-4" />
+                    </button>
                     <SheetTitle>CUBIERTAS / LLANTAS</SheetTitle>
                   </div>
                 </SheetHeader>
                 <ScrollArea className="h-[calc(100vh-80px)]">
                   <div className="p-4">
                     <div className="grid grid-cols-3 gap-2 text-sm">
-                      <SheetClose asChild>
-                        <Link
-                          href="/coleccion/cubiertas"
-                          className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
-                        >
-                          Cubiertas
-                        </Link>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <Link
-                          href="/coleccion/llantas"
-                          className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
-                        >
-                          Llantas
-                        </Link>
-                      </SheetClose>
+                      <Link
+                        href="/coleccion/cubiertas"
+                        onClick={closeAll}
+                        className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
+                      >
+                        Cubiertas
+                      </Link>
+                      <Link
+                        href="/coleccion/llantas"
+                        onClick={closeAll}
+                        className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
+                      >
+                        Llantas
+                      </Link>
                     </div>
                   </div>
                 </ScrollArea>
               </SheetContent>
             </Sheet>
 
-            <Sheet>
+            <Sheet open={isPartsOpen} onOpenChange={setIsPartsOpen}>
               <SheetTrigger asChild>
                 <button className="flex items-center justify-between w-full p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors">
                   <span className="text-lg font-semibold">REPUESTOS</span>
@@ -228,11 +284,12 @@ export function SheetSide() {
               <SheetContent side="left" className="w-full sm:w-[540px] p-0">
                 <SheetHeader className="p-4 border-b sticky top-0 bg-background z-10">
                   <div className="flex items-center gap-2">
-                    <SheetClose asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8">
-                        <ArrowLeft className="h-4 w-4" />
-                      </Button>
-                    </SheetClose>
+                    <button
+                      onClick={() => setIsPartsOpen(false)}
+                      className="h-8 w-8 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full flex items-center justify-center"
+                    >
+                      <ArrowLeft className="h-4 w-4" />
+                    </button>
                     <SheetTitle>REPUESTOS</SheetTitle>
                   </div>
                 </SheetHeader>
@@ -240,16 +297,26 @@ export function SheetSide() {
                   <div className="p-4">
                     <div className="grid grid-cols-3 gap-2 text-sm">
                       {Object.entries(Product_Type_Translations)
-                        .filter(([key]) => ["Engine", "Brakes", "Exhaust", "Air Filters", "Oil Filters"].includes(key))
+                        .filter(([key]) =>
+                          [
+                            "Engine",
+                            "Brakes",
+                            "Exhaust",
+                            "Air Filters",
+                            "Oil Filters",
+                          ].includes(key)
+                        )
                         .map(([key, value]) => (
-                          <SheetClose key={key} asChild>
-                            <Link
-                              href={`/coleccion/${key.toLowerCase().replace(/\s+/g, "-")}`}
-                              className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
-                            >
-                              {value}
-                            </Link>
-                          </SheetClose>
+                          <Link
+                            key={key}
+                            href={`/coleccion/${key
+                              .toLowerCase()
+                              .replace(/\s+/g, "-")}`}
+                            onClick={closeAll}
+                            className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
+                          >
+                            {value}
+                          </Link>
                         ))}
                     </div>
                   </div>
@@ -257,20 +324,19 @@ export function SheetSide() {
               </SheetContent>
             </Sheet>
 
-            <SheetClose asChild>
-              <Link
-                href="/prox_catalogo"
-                className="flex items-center justify-center p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors"
-              >
-                <Image
-                  src="/images/proX.webp"
-                  alt="ProX Catalogo"
-                  width={100}
-                  height={100}
-                  className="w-auto h-8"
-                />
-              </Link>
-            </SheetClose>
+            <Link
+              href="/prox_catalogo"
+              onClick={closeAll}
+              className="flex items-center justify-center p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors"
+            >
+              <Image
+                src="/images/proX.webp"
+                alt="ProX Catalogo"
+                width={100}
+                height={100}
+                className="w-auto h-8"
+              />
+            </Link>
           </div>
         </ScrollArea>
       </SheetContent>
