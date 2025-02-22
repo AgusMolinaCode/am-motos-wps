@@ -69,19 +69,75 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
                 item.attributevalues.data.length > 0 && (
                   <div className="mt-1 space-y-1">
                     {item.attributevalues.data.map((attr) => {
-                    const attributeKey = attributeKeys.find(
-                      (key) => key.id === attr.attributekey_id
-                    );
-                    if (!attributeKey) return null;
-                    
-                    return (
-                      <div key={attr.id} className="text-sm">
-                        {attributeKey.name_es}: {attr.name}
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
+                      const attributeKey = attributeKeys.find(
+                        (key) => key.id === attr.attributekey_id
+                      );
+                      if (!attributeKey) return null;
+
+                      // Traducciones de género
+                      const genderTranslations: { [key: string]: string } = {
+                        Youth: "Niño",
+                        Women: "Mujer",
+                        Men: "Hombre",
+                      };
+
+                      // Verificar si es un atributo de género
+                      const getGenderType = (value: string) => {
+                        if (value.includes("Youth")) return "Youth";
+                        if (value.includes("Women")) return "Women";
+                        if (value.includes("Men") && !value.includes("Women"))
+                          return "Men";
+                        return null;
+                      };
+
+                      const genderType = getGenderType(attr.name);
+                      const isGenderAttribute = genderType !== null;
+
+                      // Si es un atributo de género, no mostrar el nombre del atributo
+                      const shouldShowAttributeName = !isGenderAttribute;
+
+                      // Procesar el texto para reemplazar la parte del género
+                      const processAttributeText = (
+                        text: string,
+                        genderType: string | null
+                      ) => {
+                        if (!genderType) return text;
+                        return text.replace(genderType, "").trim();
+                      };
+
+                      return (
+                        <div
+                          key={attr.id}
+                          className={`text-sm flex items-center ${
+                            isGenderAttribute ? "font-bold" : ""
+                          }`}
+                        >
+                          {isGenderAttribute ? (
+                            <span
+                              className={`px-2 py-1 rounded-full text-xs mr-2 ${
+                                genderType === "Youth"
+                                  ? "bg-purple-200 text-purple-800"
+                                  : genderType === "Women"
+                                  ? "bg-pink-200 text-pink-800"
+                                  : "bg-blue-200 text-blue-800"
+                              }`}
+                            >
+                              {genderTranslations[genderType!]}
+                            </span>
+                          ) : null}
+                          <span>
+                            {shouldShowAttributeName
+                              ? `${attributeKey.name_es}: `
+                              : ""}
+                            {isGenderAttribute
+                              ? processAttributeText(attr.name, genderType)
+                              : attr.name}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
             </div>
             <div className="flex items-center space-x-2">
               <div

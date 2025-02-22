@@ -59,6 +59,10 @@ const allBrands: Brand[] = brandData
   .slice(0, 30); // Limitar a 30 marcas
 
 export function NavigationMenuDemo() {
+  const closeAll = () => {
+    // Implementación de cierre de menús o cualquier lógica necesaria
+  };
+
   return (
     <NavigationMenu className="hidden md:block">
       <NavigationMenuList>
@@ -75,21 +79,21 @@ export function NavigationMenuDemo() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>INDUMENTARIA</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ProductTypeContent />
+            <ProductTypeContent closeAll={closeAll} />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
           <NavigationMenuTrigger>CUBIERTAS / LLANTAS</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <CubiertasMenuContent />
+            <CubiertasMenuContent closeAll={closeAll} />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
           <NavigationMenuTrigger>REPUESTOS</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <RepuestosMenuContent />
+            <RepuestosMenuContent closeAll={closeAll} />
           </NavigationMenuContent>
         </NavigationMenuItem>
 

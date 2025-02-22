@@ -3,7 +3,11 @@ import Link from "next/link";
 import partsData from "@/public/csv/parts_moto.json";
 import { ProductTypeUrlMap, Product_Type_Translations } from "@/constants";
 
-const RepuestosMenuContent = () => {
+interface RepuestosMenuContentProps {
+  closeAll: () => void;
+}
+
+const RepuestosMenuContent: React.FC<RepuestosMenuContentProps> = ({ closeAll }) => {
   const getProductTypeUrl = (type: string) => {
     // Primero intentamos obtener la URL traducida
     const urlSlug = ProductTypeUrlMap[type as keyof typeof ProductTypeUrlMap];
@@ -66,16 +70,6 @@ const RepuestosMenuContent = () => {
     "Hand Controls": "Controles manubrios",
   };
 
-  // Invertir el objeto para obtener el nombre en inglés a partir del nombre en español
-  const repuestosMasBuscadosInverso = Object.fromEntries(
-    Object.entries(repuestosMasBuscados).map(([key, value]) => [value, key])
-  );
-
-  // Invertir el objeto para obtener el nombre en inglés a partir del nombre en español
-  const traduccionesRepuestosInverso = Object.fromEntries(
-    Object.entries(traduccionesRepuestos).map(([key, value]) => [value, key])
-  );
-
   // Filtrar los repuestos más buscados
   const repuestosMasBuscadosTraducidos = partsData.data
     .filter(
@@ -105,33 +99,37 @@ const RepuestosMenuContent = () => {
   }));
 
   return (
-    <ul className="grid w-[400px] gap-3 p-4 md:w-[700px] lg:w-[1000px]">
+    <ul className="grid gap-3 p-4 md:w-[700px] lg:w-[1000px]">
       <div className="">
-        <h3 className="font-bold text-lg mb-2 text-black dark:text-white">
+        <h3 className="font-bold text-sm md:text-lg mb-2 text-black dark:text-white">
           Repuestos más buscados
         </h3>
-        <div className="grid grid-cols-3 lg:grid-cols-5 gap-2 text-base bg-gray-200 dark:bg-zinc-900 p-2 rounded-md">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-sm md:text-base bg-gray-200 dark:bg-zinc-900 p-2 rounded-md">
           {repuestosMasBuscadosTraducidos.map((part) => (
             <Link
               key={part.id}
               href={`/coleccion/${getProductTypeUrl(part.originalName)}`}
               className="hover:bg-gray-300 font-normal dark:hover:bg-gray-800 p-1 rounded text-black dark:text-white"
+              onClick={closeAll}
             >
               {getTranslatedName(part.originalName)}
             </Link>
           ))}
         </div>
-        <h3 className="font-bold text-lg mb-2 text-black dark:text-white">
+        <h3 className="font-bold text-sm md:text-lg mb-2 text-black dark:text-white mt-4 md:mt-0">
           Más repuestos
         </h3>
-        <div className="grid grid-cols-3 gap-2 text-sm">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-sm md:text-base">
           {masRepuestosTraducidos.map((part) => (
             <Link
               key={part.id}
               href={`/coleccion/${getProductTypeUrl(part.originalName)}`}
-              className="hover:bg-gray-300 font-xs dark:hover:bg-gray-800 p-1 rounded text-black dark:text-white"
+              className="hover:bg-gray-300 font-xs dark:hover:bg-gray-800 p-1 rounded text-black dark:text-white flex flex-col items-start"
+              onClick={closeAll}
             >
-              {getTranslatedName(part.originalName)}
+              <span className="break-words w-full">
+                {getTranslatedName(part.originalName)}
+              </span>
             </Link>
           ))}
         </div>

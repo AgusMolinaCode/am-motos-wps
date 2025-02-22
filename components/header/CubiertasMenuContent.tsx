@@ -8,7 +8,11 @@ interface BrandData {
   product_types: string[];
 }
 
-const CubiertasMenuContent = () => {
+interface CubiertasMenuContentProps {
+  closeAll: () => void;
+}
+
+const CubiertasMenuContent: React.FC<CubiertasMenuContentProps> = ({ closeAll }) => {
   // Filtrar marcas para cada categoría
   const tubesBrands = Object.entries(brandsWithIds as Record<string, BrandData>)
     .filter(([_, brandData]) => brandData.product_types.includes("Tubes"))
@@ -32,17 +36,18 @@ const CubiertasMenuContent = () => {
     .slice(0, 8);
 
   return (
-    <ul className="grid gap-6 p-6 md:w-[600px]">
-      <div className="grid grid-cols-4 gap-6">
-        <div className="col-span-2 bg-gray-200 dark:bg-zinc-900 p-6 rounded-xl shadow-lg">
+    <ul className="grid gap-2 md:gap-6 p-2 md:p-6 md:w-[600px]">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="col-span-2 bg-gray-200 dark:bg-zinc-900 p-2 md:p-6 rounded-xl shadow-lg">
           <h3 className="font-bold text-lg mb-4 text-black dark:text-white">
             Marcas de Cubiertas
           </h3>
-          <div className="grid grid-cols-2 gap-2 text-base">
+          <div className="grid grid-cols-3 md:grid-cols-2 gap-2 text-base">
             {TiresBrands.map((brand) => (
               <Link
                 key={brand.id}
                 href={`/brand/${brand.id}`}
+                onClick={closeAll}
                 className="hover:bg-gray-300 font-normal dark:hover:bg-gray-800 p-2 rounded text-black dark:text-white"
               >
                 {brand.name}
@@ -60,6 +65,7 @@ const CubiertasMenuContent = () => {
                 <Link
                   key={brand.id}
                   href={`/brand/${brand.id}?productType=Tubes`}
+                  onClick={closeAll}
                   className="hover:bg-gray-300 font-normal dark:hover:bg-gray-800 p-1 rounded text-black dark:text-white text-xs"
                 >
                   {brand.name}
@@ -76,6 +82,7 @@ const CubiertasMenuContent = () => {
                 <Link
                   key={brand.id}
                   href={`/brand/${brand.id}?productType=Rims`}
+                  onClick={closeAll}
                   className="hover:bg-gray-300 font-normal dark:hover:bg-gray-800 p-1 rounded text-black dark:text-white text-xs"
                 >
                   {brand.name}
@@ -92,6 +99,7 @@ const CubiertasMenuContent = () => {
                 <Link
                   key={brand.id}
                   href={`/brand/${brand.id}?productType=Wheels,Wheel Components`}
+                  onClick={closeAll}
                   className="hover:bg-gray-300 font-normal dark:hover:bg-gray-800 p-1 rounded text-black dark:text-white text-xs"
                 >
                   {brand.name}

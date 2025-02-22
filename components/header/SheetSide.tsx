@@ -22,6 +22,14 @@ import Image from "next/image";
 import brandData from "@/public/csv/brand2.json";
 import { Product_Type_Translations } from "@/constants";
 import { useState } from "react";
+import ProductTypeContent from "./ProductTypeContent";
+import React from "react";
+import CubiertasMenuContent from "./CubiertasMenuContent";
+import RepuestosMenuContent from "./RepuestosMenuContent";
+
+type ProductTypeContentProps = {
+  closeAll: () => void;
+};
 
 const featuredBrands = [
   { name: "ACERBIS", id: 692 },
@@ -57,13 +65,14 @@ export function SheetSide() {
   const [isApparelOpen, setIsApparelOpen] = useState(false);
   const [isTiresOpen, setIsTiresOpen] = useState(false);
   const [isPartsOpen, setIsPartsOpen] = useState(false);
-
+  const [isRepuestosOpen, setIsRepuestosOpen] = useState(false);
   const closeAll = () => {
     setIsMainOpen(false);
     setIsBrandsOpen(false);
     setIsApparelOpen(false);
     setIsTiresOpen(false);
     setIsPartsOpen(false);
+    setIsRepuestosOpen(false);
   };
 
   return (
@@ -98,7 +107,7 @@ export function SheetSide() {
             <div>
               <ArrowLeftCircleIcon
                 onClick={closeAll}
-                className="w-6 h-6 hover:text-red-500 cursor-pointer"
+                className="w-6 h-6 hover:text-red-400 cursor-pointer"
               />
             </div>
           </SheetTitle>
@@ -132,7 +141,7 @@ export function SheetSide() {
                         <h3 className="font-semibold mb-3 text-sm text-muted-foreground">
                           Marcas Destacadas
                         </h3>
-                        <div className="grid grid-cols-3 gap-2 text-sm">
+                        <div className="grid grid-cols-2 gap-2 text-sm">
                           {featuredBrands.map((brand) => (
                             <Link
                               key={brand.id}
@@ -148,23 +157,6 @@ export function SheetSide() {
                         </div>
                       </div>
                       <div>
-                        <h3 className="font-semibold mb-3 text-sm text-muted-foreground">
-                          Todas las Marcas
-                        </h3>
-                        <div className="grid grid-cols-3 gap-2 text-sm">
-                          {allBrands.map((brand) => (
-                            <Link
-                              key={brand.id}
-                              href={`/brand/${brand.name
-                                .toLowerCase()
-                                .replace(/\s+/g, "-")}`}
-                              onClick={closeAll}
-                              className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
-                            >
-                              {brand.name}
-                            </Link>
-                          ))}
-                        </div>
                         <Link
                           href="/brands"
                           onClick={closeAll}
@@ -199,33 +191,7 @@ export function SheetSide() {
                   </div>
                 </SheetHeader>
                 <ScrollArea className="h-[calc(100vh-80px)]">
-                  <div className="p-4">
-                    <div className="grid grid-cols-3 gap-2 text-sm">
-                      {Object.entries(Product_Type_Translations)
-                        .filter(([key]) =>
-                          [
-                            "Pants",
-                            "Jerseys",
-                            "Footwear",
-                            "Gloves",
-                            "Eyewear",
-                            "Helmets",
-                          ].includes(key)
-                        )
-                        .map(([key, value]) => (
-                          <Link
-                            key={key}
-                            href={`/coleccion/${key
-                              .toLowerCase()
-                              .replace(/\s+/g, "-")}`}
-                            onClick={closeAll}
-                            className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
-                          >
-                            {value}
-                          </Link>
-                        ))}
-                    </div>
-                  </div>
+                  {React.createElement(ProductTypeContent, { closeAll })}
                 </ScrollArea>
               </SheetContent>
             </Sheet>
@@ -252,24 +218,7 @@ export function SheetSide() {
                   </div>
                 </SheetHeader>
                 <ScrollArea className="h-[calc(100vh-80px)]">
-                  <div className="p-4">
-                    <div className="grid grid-cols-3 gap-2 text-sm">
-                      <Link
-                        href="/coleccion/cubiertas"
-                        onClick={closeAll}
-                        className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
-                      >
-                        Cubiertas
-                      </Link>
-                      <Link
-                        href="/coleccion/llantas"
-                        onClick={closeAll}
-                        className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
-                      >
-                        Llantas
-                      </Link>
-                    </div>
-                  </div>
+                  <CubiertasMenuContent closeAll={closeAll} />
                 </ScrollArea>
               </SheetContent>
             </Sheet>
@@ -294,32 +243,7 @@ export function SheetSide() {
                   </div>
                 </SheetHeader>
                 <ScrollArea className="h-[calc(100vh-80px)]">
-                  <div className="p-4">
-                    <div className="grid grid-cols-3 gap-2 text-sm">
-                      {Object.entries(Product_Type_Translations)
-                        .filter(([key]) =>
-                          [
-                            "Engine",
-                            "Brakes",
-                            "Exhaust",
-                            "Air Filters",
-                            "Oil Filters",
-                          ].includes(key)
-                        )
-                        .map(([key, value]) => (
-                          <Link
-                            key={key}
-                            href={`/coleccion/${key
-                              .toLowerCase()
-                              .replace(/\s+/g, "-")}`}
-                            onClick={closeAll}
-                            className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
-                          >
-                            {value}
-                          </Link>
-                        ))}
-                    </div>
-                  </div>
+                  <RepuestosMenuContent closeAll={closeAll} />
                 </ScrollArea>
               </SheetContent>
             </Sheet>
