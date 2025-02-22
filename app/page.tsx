@@ -8,7 +8,7 @@ import { ImagesSliderDemo } from "@/components/hero/ImagesSliderDemo";
 
 export default function Home() {
   return (
-    <div className="mt-10">
+    <div className="mt-4 md:mt-8">
       <InfiniteSliderBasic />
       <ImagesSliderDemo />
       <CategorySection />

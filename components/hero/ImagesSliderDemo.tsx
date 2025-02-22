@@ -28,12 +28,13 @@ export function ImagesSliderDemo() {
           }}
           className="z-50 flex flex-col justify-center items-center"
         >
-          <div className="flex gap-2 items-center justify-center mx-auto">
+          <div className="flex flex-col lg:flex-row gap-2 items-center justify-center mx-auto">
             <Image
               src="/images/escudo.png"
               alt="AM Motos Logo"
               width={500}
               height={500}
+              className="w-full md:w-1/2 lg:w-1/3"
             />
             <FlipWordsDemo />
           </div>

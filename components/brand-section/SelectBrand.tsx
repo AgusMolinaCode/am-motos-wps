@@ -87,7 +87,7 @@ const SelectBrand = () => {
   return (
     <div>
         <Select onValueChange={handleBrandChange}>
-          <SelectTrigger className="w-[300px] rounded-xl border dark:border-gray-500 border-gray-800">
+          <SelectTrigger className="w-[180px] md:w-[300px] rounded-xl border dark:border-gray-500 border-gray-800">
             <SelectValue placeholder={loading ? "Cargando..." : "Selecciona una marca"} />
           </SelectTrigger>
           <SelectContent>

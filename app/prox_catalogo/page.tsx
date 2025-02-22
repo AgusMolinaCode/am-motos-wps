@@ -174,7 +174,7 @@ export default function page() {
       )}
 
       {loading && (
-        <p className="text-black text-lg font-semibold my-4">
+        <p className="text-black dark:text-white text-lg font-semibold my-4">
           Buscando numero de pieza: {partNumber}
         </p>
       )}

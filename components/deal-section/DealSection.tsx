@@ -31,7 +31,7 @@ export default function DealSection() {
 
   return (
     <div className="pt-4 md:pt-10 flex flex-col xl:flex-row gap-6 items-center justify-between">
-      <div className="flex flex-col gap-4 justify-between w-2/4">
+      <div className="flex flex-col gap-4 justify-between w-full lg:w-2/4">
         <div className="w-full">
           <CardWithLines>
             <CardBody 
@@ -57,7 +57,7 @@ export default function DealSection() {
               alt="deal"
               width={600}
               height={600}
-              className="rounded-md h-[100px] object-cover w-full"
+              className="rounded-md h-[100px] object-contain md:object-cover w-full"
             />
           </Link>
         </div>
@@ -70,7 +70,7 @@ export default function DealSection() {
             alt="deal"
             width={600}
             height={600}
-            className="rounded-xl object-cover h-[342px]"
+            className="rounded-xl object-contain md:h-[342px] w-full"
           />
         </Link>
       </div>
