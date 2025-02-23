@@ -243,6 +243,7 @@ const BrandSelector = () => {
           {showSaveCheckbox && (
             <div className="flex items-center gap-2">
               <Checkbox
+                id="saveVehicle"
                 checked={isCurrentVehicleSaved}
                 disabled={isCurrentVehicleSaved || loading}
                 onCheckedChange={handleSaveVehicle}
@@ -250,9 +251,10 @@ const BrandSelector = () => {
               />
               <label
                 htmlFor="saveVehicle"
-                className={
-                  isCurrentVehicleSaved ? "text-gray-500 text-xs" : " text-xs"
-                }
+                onClick={!isCurrentVehicleSaved && !loading ? () => handleSaveVehicle(true) : undefined}
+                className={`cursor-pointer ${
+                  isCurrentVehicleSaved ? "text-gray-500 text-xs" : "text-xs"
+                }`}
               >
                 {isCurrentVehicleSaved
                   ? "Búsqueda Guardada"

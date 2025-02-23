@@ -99,7 +99,7 @@ export function NavigationMenuDemo() {
 
         <NavigationMenuItem>
           <Link href="/prox_catalogo">
-            <Image src="/images/proX.png" alt="logo" width={100} height={100} />
+            <Image src="/images/prox.png" alt="logo" width={100} height={100} />
           </Link>
         </NavigationMenuItem>
       </NavigationMenuList>
