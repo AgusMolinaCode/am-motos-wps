@@ -11,7 +11,7 @@ import Loading from "./loading";
 
 // Importar ProductList de manera dinámica con suspense
 const ProductList = dynamic(() => import("@/components/vehiculo/ProductList"), {
-  loading: () => <Loading />
+  loading: () => <Loading />,
 });
 
 interface PageProps {
@@ -23,7 +23,12 @@ interface PageProps {
 }
 
 // Función para obtener datos
-async function getData(vehicleId: string, cursor: string | null, productType: string | null, sort: string | null) {
+async function getData(
+  vehicleId: string,
+  cursor: string | null,
+  productType: string | null,
+  sort: string | null
+) {
   const result = await getVehicleItems(vehicleId, cursor, productType, sort);
   return result;
 }
@@ -39,22 +44,27 @@ export default async function Page({ params, searchParams }: PageProps) {
     typeof searchParams["filter[product_type]"] === "string"
       ? searchParams["filter[product_type]"]
       : null;
-  const sort = 
-    typeof searchParams["sort"] === "string"
-      ? searchParams["sort"]
-      : null;
+  const sort =
+    typeof searchParams["sort"] === "string" ? searchParams["sort"] : null;
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold capitalize">
+    <div className="container mx-auto md:px-4 py-4 md:py-8">
+      <div className="flex justify-center mx-auto md:justify-between items-center mb-6">
+        <h1 className="text-xl md:text-3xl font-bold text-center md:text-left capitalize">
           {make} {model} {year}
         </h1>
-        <SortBy />
+        <div className="hidden md:flex">
+          <SortBy />
+        </div>
       </div>
 
-      <div className="flex gap-6">
-        <PopularProductsTypes />
+      <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+        <div className="flex justify-between gap-2">
+          <PopularProductsTypes />
+          <div className="flex md:hidden">
+            <SortBy />
+          </div>
+        </div>
 
         <div className="flex-1">
           <Suspense fallback={<Loading />}>
@@ -78,7 +88,7 @@ async function ProductListContent({
   cursor,
   productType,
   sort,
-  slug
+  slug,
 }: {
   vehicleId: string;
   cursor: string | null;
@@ -87,15 +97,18 @@ async function ProductListContent({
   slug: string;
 }) {
   // Solo usar el parámetro sort para ordenamiento en el servidor si no es finalTotalArs
-  const sortParam = sort?.includes('finalTotalArs') ? null : sort;
-  const { data: vehicleItems, meta } = await getData(vehicleId, cursor, productType, sortParam);
+  const sortParam = sort?.includes("finalTotalArs") ? null : sort;
+  const { data: vehicleItems, meta } = await getData(
+    vehicleId,
+    cursor,
+    productType,
+    sortParam
+  );
 
   if (vehicleItems.length === 0) {
     return (
       <div className="text-center py-10 bg-gray-100 rounded-lg">
-        <p className="text-xl text-gray-600">
-          No se encontraron productos
-        </p>
+        <p className="text-xl text-gray-600">No se encontraron productos</p>
       </div>
     );
   }
@@ -103,11 +116,7 @@ async function ProductListContent({
   return (
     <>
       <ProductList data={vehicleItems} sort={sort} />
-      <CursorPage
-        meta={meta}
-        slug={slug}
-        vehicleId={vehicleId}
-      />
+      <CursorPage meta={meta} slug={slug} vehicleId={vehicleId} />
     </>
   );
-} 
+}

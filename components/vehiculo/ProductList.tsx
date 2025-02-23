@@ -42,7 +42,7 @@ export default function ProductList({ data, sort }: ProductListProps) {
   });
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1 md:gap-4">
       {sortedItems.map((item) => {
         const hasInventory =
           item.inventory?.data?.total && item.inventory.data.total > 0;

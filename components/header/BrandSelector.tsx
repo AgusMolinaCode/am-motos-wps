@@ -190,15 +190,19 @@ const BrandSelector = () => {
   };
 
   return (
-    <div className="flex flex-col gap-2 py-4 w-full mx-auto justify-end items-center">
-      <div className="flex gap-2 items-center justify-center mx-auto bg-gray-200 dark:bg-gray-800 rounded-lg p-1 w-full md:w-[750px] lg:w-[920px]">
+    <div className="flex flex-col gap-1 py-4 w-full mx-auto justify-end items-center">
+      <div className="flex gap-1 items-center justify-center mx-auto bg-gray-200 dark:bg-gray-800 rounded-lg p-[0.10rem] w-full md:w-[750px] lg:w-[920px]">
         <Select value={selectedYear} onValueChange={setSelectedYear}>
-          <SelectTrigger className="w-[80px] md:w-[180px]">
+          <SelectTrigger className="w-[120px] md:w-[180px] border-none">
             <SelectValue placeholder="Año" />
           </SelectTrigger>
           <SelectContent>
             {sortedYears.map((year) => (
-              <SelectItem key={year.id} value={year.id.toString()}>
+              <SelectItem
+                className="truncate w-[80px] md:w-[180px]"
+                key={year.id}
+                value={year.id.toString()}
+              >
                 {year.name}
               </SelectItem>
             ))}
@@ -206,12 +210,16 @@ const BrandSelector = () => {
         </Select>
 
         <Select value={selectedMake} onValueChange={setSelectedMake}>
-          <SelectTrigger className="w-[100px] md:w-[180px]">
+          <SelectTrigger className="w-[120px] md:w-[180px] border-none">
             <SelectValue placeholder="Marca" />
           </SelectTrigger>
           <SelectContent>
             {vehicleMakes.map((make) => (
-              <SelectItem key={make.id} value={make.id.toString()}>
+              <SelectItem
+                className="truncate md:w-[180px]"
+                key={make.id}
+                value={make.id.toString()}
+              >
                 {make.name}
               </SelectItem>
             ))}
@@ -224,16 +232,25 @@ const BrandSelector = () => {
           selectedModel={selectedModel}
           setSelectedModel={setSelectedModel}
         />
+
         {selectedYear && selectedMake && selectedModel && (
           <Button
             onClick={handleSubmit}
-            className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 hidden md:block"
+            className=" bg-slate-400 dark:bg-slate-300 hover:bg-blue-300 dark:hover:bg-blue-300 duration-300 disabled:opacity-50 hidden md:block w-[120px] md:w-[180px]"
             disabled={loading}
           >
             {loading ? "Buscando" : "Buscar"}
           </Button>
         )}
-        <div className=" gap-2 hidden lg:block">
+        {selectedYear && selectedMake && selectedModel && (
+          <Button
+            onClick={handleReset}
+            className="bg-slate-400 dark:bg-slate-300 hover:bg-red-300 dark:hover:bg-red-300 duration-300 disabled:opacity-50 hidden md:block w-[120px] md:w-[180px]"
+          >
+            Reset
+          </Button>
+        )}
+        <div className="gap-2 hidden md:block">
           {showSaveCheckbox && (
             <div className="flex items-center gap-2">
               <Checkbox
@@ -256,18 +273,18 @@ const BrandSelector = () => {
           )}
         </div>
         {savedVehicles.length > 0 && (
-          <div className="gap-2 items-center hidden md:flex">
+          <div className="md:flex gap-2 items-center hidden">
             <Select onValueChange={handleSelectSavedVehicle}>
-              <SelectTrigger className="w-[220px]">
+              <SelectTrigger className="w-full md:w-[220px] ">
                 <SelectValue placeholder="Vehículos guardados" />
               </SelectTrigger>
               <SelectContent>
                 {savedVehicles.map((vehicle) => (
                   <div
                     key={`vehicle-${vehicle.vehicleId}`}
-                    className="flex items-center justify-between px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className="flex items-center justify-between px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 w-[320px]"
                   >
-                    <SelectItem value={vehicle.vehicleId}>
+                    <SelectItem value={vehicle.vehicleId} className="truncate">
                       {vehicle.makeName} {vehicle.modelName} {vehicle.yearName}
                     </SelectItem>
                     <button
@@ -283,16 +300,54 @@ const BrandSelector = () => {
           </div>
         )}
       </div>
+      {savedVehicles.length > 0 && (
+        <div className="items-center flex md:hidden w-full bg-gray-200 dark:bg-gray-800 rounded-lg p-[0.10rem]">
+          <Select onValueChange={handleSelectSavedVehicle}>
+            <SelectTrigger className="w-full md:w-[220px] border-none p-1">
+              <SelectValue placeholder="Vehículos Guardados" />
+            </SelectTrigger>
+            <SelectContent>
+              {savedVehicles.map((vehicle) => (
+                <div
+                  key={`vehicle-${vehicle.vehicleId}`}
+                  className="flex items-center justify-between px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <SelectItem
+                    value={vehicle.vehicleId}
+                    className="truncate w-[260px] md:w-[280px]"
+                  >
+                    {vehicle.makeName} {vehicle.modelName} {vehicle.yearName}
+                  </SelectItem>
+                  <button
+                    onClick={(e) => handleDeleteVehicle(vehicle.vehicleId, e)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      )}
 
-      <div className="">
-        <div className="gap-2 flex justify-start lg:hidden">
+      <div className="w-full">
+        <div className="gap-2 flex w-full justify-center lg:hidden">
           {selectedYear && selectedMake && selectedModel && (
             <Button
               onClick={handleSubmit}
-              className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 block md:hidden"
+              className=" bg-slate-400 dark:bg-slate-300 hover:bg-blue-300 dark:hover:bg-blue-300 duration-300 disabled:opacity-50 block md:hidden w-full"
               disabled={loading}
             >
               {loading ? "Buscando" : "Buscar"}
+            </Button>
+          )}
+          {selectedYear && selectedMake && selectedModel && (
+            <Button
+              onClick={handleReset}
+              className="bg-slate-400 dark:bg-slate-300 hover:bg-red-300 dark:hover:bg-red-300 duration-300 disabled:opacity-50 block md:hidden w-full"
+            >
+              Reset
             </Button>
           )}
           {showSaveCheckbox && (
@@ -313,36 +368,6 @@ const BrandSelector = () => {
                   ? "Búsqueda Guardada"
                   : "Guardar Búsqueda"}
               </label>
-            </div>
-          )}
-          {savedVehicles.length > 0 && (
-            <div className="flex gap-2 items-center md:hidden">
-              <Select onValueChange={handleSelectSavedVehicle}>
-                <SelectTrigger className="w-[180px] md:w-[220px] ">
-                  <SelectValue placeholder="Vehículos guardados" />
-                </SelectTrigger>
-                <SelectContent>
-                  {savedVehicles.map((vehicle) => (
-                    <div
-                      key={`vehicle-${vehicle.vehicleId}`}
-                      className="flex items-center justify-between px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-800 w-[320px]"
-                    >
-                      <SelectItem value={vehicle.vehicleId}>
-                        {vehicle.makeName} {vehicle.modelName}{" "}
-                        {vehicle.yearName}
-                      </SelectItem>
-                      <button
-                        onClick={(e) =>
-                          handleDeleteVehicle(vehicle.vehicleId, e)
-                        }
-                        className="text-red-500 hover:text-red-700"
-                      >
-                        <X className="w-4 h-4" />
-                      </button>
-                    </div>
-                  ))}
-                </SelectContent>
-              </Select>
             </div>
           )}
         </div>

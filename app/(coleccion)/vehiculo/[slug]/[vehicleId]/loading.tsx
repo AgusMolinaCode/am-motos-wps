@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (
-    <div className="container mx-auto px-2">
+    <div className="container mx-auto">
       <div className="flex gap-6">
         <div className="flex-1">
           {/* Skeleton para la lista de productos */}

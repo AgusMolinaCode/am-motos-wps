@@ -18,6 +18,7 @@ import { usePriceCalculation } from "@/hooks/usePriceCalculation";
 import { ItemSheet } from "@/types/interface";
 import attributeKeys from "@/public/csv/attributekeys.json";
 
+
 interface ProductDetailsSheetProps {
   item: ItemSheet;
   onOpenChange?: (open: boolean) => void;
@@ -211,6 +212,9 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
                 )}
               </>
             )}
+          </div>
+          <div>
+            
           </div>
           <div>
             <button
