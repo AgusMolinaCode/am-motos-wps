@@ -7,6 +7,7 @@ import Navbar from "@/components/header/navbar";
 import Footer from "@/components/footer/footer";
 import Orb from "@/app/Orb";
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react"
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -46,6 +47,7 @@ export default function RootLayout({
               <Navbar />
               {children}
               <SpeedInsights />
+              <Analytics />
               <Footer />
             </div>
           </ThemeWrapper>
