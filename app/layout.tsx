@@ -6,8 +6,9 @@ import ThemeWrapper from "@/components/theme/ThemeWrapper";
 import Navbar from "@/components/header/navbar";
 import Footer from "@/components/footer/footer";
 import Orb from "@/app/Orb";
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
+import Script from "next/script";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -27,6 +28,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
+      <head>
+        <Script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="36578345-3034-4851-93e2-055aa08ec8d8"
+        />
+      </head>
       <body className={`${outfit.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
