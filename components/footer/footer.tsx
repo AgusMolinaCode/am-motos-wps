@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import { Separator } from "../ui/Separator";
 import Link from "next/link";
-import { Facebook } from "lucide-react";
 import { InfiniteSliderBasic } from "../header/InfiniteSliderBasic";
 
 const footer = () => {

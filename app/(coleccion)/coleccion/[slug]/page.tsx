@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { getStatusItems, getCollectionByProductType } from "@/lib/brands";
-import { BrandStatus } from "@/types/interface";
+import { BrandStatus, Meta } from "@/types/interface";
 import ProductTypeFilter from "@/components/brand-section/ProductTypeFilter";
 import productBrands from "@/public/csv/product_brands.json";
 import BrandFilterButtons from "../../../../components/category-section/CollectionFilterButtons";
@@ -65,7 +65,14 @@ export default async function CollectionPage({
       : null;
 
   let data: BrandStatus[] = [];
-  let meta: any = {};
+  let meta: Meta = {
+    cursor: {
+      current: '',
+      prev: null,
+      next: null,
+      count: 0,
+    },
+  };
   let availableProductTypes: string[] = [];
 
   if (slug === "productos-nuevos" || slug === "productos-ofertas") {

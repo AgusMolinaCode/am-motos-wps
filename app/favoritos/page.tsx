@@ -45,7 +45,7 @@ export default function FavoritosPage() {
       const storedFavorites = JSON.parse(
         localStorage.getItem("favorites") || "[]"
       );
-      const processedFavorites = storedFavorites.map((item: any) => ({
+      const processedFavorites = storedFavorites.map((item: Item) => ({
         ...item,
         brand_id: Number(item.brand_id),
       }));

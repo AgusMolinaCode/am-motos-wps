@@ -5,15 +5,14 @@ import Image from "next/image";
 import { CardBody, CardWithLines } from "./CardWithLines";
 import { getStatusItems } from "@/lib/brands";
 import Link from "next/link";
+import { BrandStatus } from "@/types/interface";
 
 export default function DealSection() {
-  const [newItems, setNewItems] = useState<any[]>([]);
-  const [closingItems, setClosingItems] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [newItems, setNewItems] = useState<BrandStatus[]>([]);
+  const [closingItems, setClosingItems] = useState<BrandStatus[]>([]);
+  
   React.useEffect(() => {
     async function fetchStatusItems() {
-      setIsLoading(true);
       try {
         const newResponse = await getStatusItems("NEW");
         const closingResponse = await getStatusItems("CLO");
@@ -22,8 +21,6 @@ export default function DealSection() {
         setClosingItems(closingResponse.data);
       } catch (error) {
         console.error("Error fetching status items:", error);
-      } finally {
-        setIsLoading(false);
       }
     }
     fetchStatusItems();
@@ -36,7 +33,6 @@ export default function DealSection() {
           <CardWithLines>
             <CardBody 
               type="newProducts" 
-              itemCount={newItems.length}
             />
           </CardWithLines>
         </div>
@@ -45,7 +41,6 @@ export default function DealSection() {
           <CardWithLines>
             <CardBody 
               type="deals" 
-              itemCount={closingItems.length}
             />
           </CardWithLines>
         </div>

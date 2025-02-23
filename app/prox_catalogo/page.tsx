@@ -3,8 +3,9 @@
 import ProxCatalog from "@/components/catalogo-prox/ProxCatalogo";
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { Cross, CrossIcon } from "lucide-react";
+import { CrossIcon } from "lucide-react";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 interface ScrapedData {
   title: string | null;
@@ -142,10 +143,12 @@ export default function page() {
             <div className="flex flex-col sm:flex-row gap-2 justify-center mx-auto">
               <div>
                 {scrapedData.imageUrl && (
-                  <img
+                  <Image
                     src={scrapedData.imageUrl}
                     alt={scrapedData.title ?? "No Image"}
                     className="max-w-[400px] max-h-[400px] rounded-lg shadow-lg flex justify-center mx-auto"
+                    width={400}
+                    height={400}
                   />
                 )}
               </div>

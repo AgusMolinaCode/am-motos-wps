@@ -12,15 +12,17 @@ interface CubiertasMenuContentProps {
   closeAll: () => void;
 }
 
-const CubiertasMenuContent: React.FC<CubiertasMenuContentProps> = ({ closeAll }) => {
+const CubiertasMenuContent: React.FC<CubiertasMenuContentProps> = ({
+  closeAll,
+}) => {
   // Filtrar marcas para cada categoría
   const tubesBrands = Object.entries(brandsWithIds as Record<string, BrandData>)
-    .filter(([_, brandData]) => brandData.product_types.includes("Tubes"))
+    .filter(([name, brandData]) => brandData.product_types.includes("Tubes"))
     .map(([name, brandData]) => ({ name, id: brandData.id }))
     .slice(0, 8);
 
   const rimsBrands = Object.entries(brandsWithIds as Record<string, BrandData>)
-    .filter(([_, brandData]) => brandData.product_types.includes("Rims"))
+    .filter(([name, brandData]) => brandData.product_types.includes("Rims"))
     .map(([name, brandData]) => ({ name, id: brandData.id }))
     .slice(0, 8);
 
@@ -28,7 +30,7 @@ const CubiertasMenuContent: React.FC<CubiertasMenuContentProps> = ({ closeAll })
     brandsWithIds as Record<string, BrandData>
   )
     .filter(
-      ([_, brandData]) =>
+      ([name, brandData]) =>
         brandData.product_types.includes("Wheels") ||
         brandData.product_types.includes("Wheel Components")
     )

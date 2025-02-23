@@ -1,9 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -14,13 +12,11 @@ import {
   CircleEqual,
   ChevronRight,
   ArrowLeft,
-  PanelLeftClose,
   ArrowLeftCircleIcon,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import brandData from "@/public/csv/brand2.json";
-import { Product_Type_Translations } from "@/constants";
 import { useState } from "react";
 import ProductTypeContent from "./ProductTypeContent";
 import React from "react";
@@ -53,11 +49,6 @@ const featuredBrands = [
 const featuredBrandIds = new Set(
   featuredBrands.map((brand) => brand.id.toString())
 );
-const allBrands = brandData
-  .filter((brand) => !featuredBrandIds.has(brand.id.toString()))
-  .map((brand) => ({ name: brand.name, id: brand.id }))
-  .sort((a, b) => a.name.localeCompare(b.name))
-  .slice(0, 30);
 
 export function SheetSide() {
   const [isMainOpen, setIsMainOpen] = useState(false);
@@ -65,14 +56,14 @@ export function SheetSide() {
   const [isApparelOpen, setIsApparelOpen] = useState(false);
   const [isTiresOpen, setIsTiresOpen] = useState(false);
   const [isPartsOpen, setIsPartsOpen] = useState(false);
-  const [isRepuestosOpen, setIsRepuestosOpen] = useState(false);
+  
   const closeAll = () => {
     setIsMainOpen(false);
     setIsBrandsOpen(false);
     setIsApparelOpen(false);
     setIsTiresOpen(false);
     setIsPartsOpen(false);
-    setIsRepuestosOpen(false);
+
   };
 
   return (
@@ -261,6 +252,28 @@ export function SheetSide() {
                 className="w-auto h-8"
               />
             </Link>
+
+            <div>
+              <Link
+                href="/favoritos"
+                onClick={closeAll}
+                className="flex items-center justify-between w-full p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors"
+              >
+                <span className="text-lg font-semibold">FAVORITOS</span>
+                <ChevronRight className="h-5 w-5" />
+              </Link>
+            </div>
+
+            <div className="">
+              <Link
+                href="/catalogos"
+                onClick={closeAll}
+                className="flex items-center justify-between w-full p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors"
+              >
+                <span className="text-lg font-semibold">CATALOGOS</span>
+                <ChevronRight className="h-5 w-5" />
+              </Link>
+            </div>
           </div>
         </ScrollArea>
       </SheetContent>

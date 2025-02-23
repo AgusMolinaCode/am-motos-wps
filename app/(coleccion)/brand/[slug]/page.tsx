@@ -1,5 +1,4 @@
 import { getBrandsItems, getBrandName } from "@/lib/brands";
-import { BrandId } from "@/types/interface";
 import React, { Suspense } from "react";
 import Link from "next/link";
 import { getCatalogProductTypes } from "@/lib/actions";
@@ -7,7 +6,6 @@ import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import brandData from "@/public/csv/brand2.json";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Product_Type_Translations } from "@/constants";
 import ProductTypeFilter from "@/components/brand-section/ProductTypeFilter";
 
 // Importar ProductList de manera dinámica

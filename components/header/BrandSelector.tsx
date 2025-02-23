@@ -14,7 +14,6 @@ import { Button } from "../ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import ModelSelector from "./ModelSelector";
 import {
-  getVehicleItems,
   getVehicleItemsId,
   getVehicleModel,
 } from "@/lib/brands";
@@ -118,16 +117,6 @@ const BrandSelector = () => {
     }
   };
 
-  const isVehicleSaved = async () => {
-    if (selectedYear && selectedMake && selectedModel) {
-      const vehicleData = await getVehicleItemsId(selectedModel, selectedYear);
-      if (vehicleData.length > 0) {
-        const vehicleId = vehicleData[0].id.toString();
-        return savedVehicles.some((v) => v.vehicleId === vehicleId);
-      }
-    }
-    return false;
-  };
 
   const handleSubmit = async () => {
     if (selectedYear && selectedMake && selectedModel) {

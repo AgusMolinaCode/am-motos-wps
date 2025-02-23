@@ -1,12 +1,9 @@
 import { getVehicleItems } from "@/lib/brands";
 import React, { Suspense } from "react";
-import ColeccionImage from "@/components/category-section/ColeccionImage";
-import ProductDetailsSheet from "@/components/shared/ProductDetailsSheet";
 import CursorPage from "@/components/cursor-page/CursorPage";
 import PopularProductsTypes from "@/components/vehiculo/PopularProductsTypes";
 import SortBy from "@/components/vehiculo/SortBy";
 import dynamic from "next/dynamic";
-import { Skeleton } from "@/components/ui/skeleton";
 import Loading from "./loading";
 
 // Importar ProductList de manera dinámica con suspense

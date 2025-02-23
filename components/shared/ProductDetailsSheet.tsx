@@ -18,7 +18,6 @@ import { usePriceCalculation } from "@/hooks/usePriceCalculation";
 import { ItemSheet } from "@/types/interface";
 import attributeKeys from "@/public/csv/attributekeys.json";
 
-
 interface ProductDetailsSheetProps {
   item: ItemSheet;
   onOpenChange?: (open: boolean) => void;
@@ -214,7 +213,31 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
             )}
           </div>
           <div>
-            
+            <div>
+              <button
+                onClick={() => {
+                  const message = `Hola, estoy interesado en el producto:
+- Nombre: ${item.name}
+- Número de parte: ${item.supplier_product_id}
+- Precio: ${formatPrice(prices?.finalTotalArs || 0)} pesos
+
+Gracias!`;
+                  const url = `https://wa.me/+541150494936?text=${encodeURIComponent(
+                    message
+                  )}`;
+                  window.open(url, "_blank");
+                }}
+                className="w-full py-2 px-4 bg-green-700 text-white rounded-md hover:bg-green-600 transition-colors flex items-center justify-center gap-2 font-bold"
+              >
+                Comprar
+                <Image
+                  src="/svg/whatsapp.svg"
+                  alt="WhatsApp"
+                  width={26}
+                  height={26}
+                />
+              </button>
+            </div>
           </div>
           <div>
             <button
