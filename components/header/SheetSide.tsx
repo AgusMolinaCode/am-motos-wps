@@ -245,7 +245,7 @@ export function SheetSide() {
               className="flex items-center justify-center p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors"
             >
               <Image
-                src="/images/proX.webp"
+                src="/images/prox.png"
                 alt="ProX Catalogo"
                 width={100}
                 height={100}
