@@ -14,15 +14,8 @@ export default function Navbar() {
 
   return (
     <div>
-      <div className="flex justify-around items-center pt-3 pb-2">
-        <div className="md:hidden flex items-center justify-start">
-          <SheetSide />
-          <ThemeToggle
-            sunClassName={"text-orange-200"}
-            moonClassName={"text-gray-700"}
-          />
-        </div>
-        <div>
+      <div className="flex justify-between items-center pt-3 pb-2">
+      <div>
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/images/escudo.png"
@@ -45,10 +38,18 @@ export default function Navbar() {
             </h1>
           </Link>
         </div>
+        <div className="md:hidden flex items-center justify-start gap-4">
+          <ThemeToggle
+            sunClassName={"text-orange-200"}
+            moonClassName={"text-gray-700"}
+          />
+          <SheetSide />
+        </div>
+        
         <div className="md:flex hidden">
           <SearchNavbar />
         </div>
-        <div className="flex items-center gap-2">
+        <div className="items-center gap-2 md:flex hidden">
           <div className="md:flex hidden">
             <ThemeToggle
               sunClassName={"text-orange-200"}
