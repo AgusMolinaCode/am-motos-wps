@@ -179,7 +179,7 @@ const BrandSelector = () => {
   };
 
   return (
-    <div className="flex flex-col gap-1 py-4 w-full mx-auto justify-end items-center">
+    <div className="flex flex-col gap-1 py-2 w-full mx-auto justify-end items-center">
       <div className="flex gap-1 items-center justify-center mx-auto bg-gray-200 dark:bg-gray-800 rounded-lg p-[0.10rem] w-full md:w-[750px] lg:w-[920px]">
         <Select value={selectedYear} onValueChange={setSelectedYear}>
           <SelectTrigger className="w-[120px] md:w-[180px] border-none">
