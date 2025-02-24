@@ -5,6 +5,8 @@ import DealSection from "@/components/deal-section/DealSection";
 import { GridSection } from "@/components/grid-section/GridSection";
 import { InfiniteSliderBasic } from "@/components/header/InfiniteSliderBasic";
 import { ImagesSliderDemo } from "@/components/hero/ImagesSliderDemo";
+import MercadoLibreBanner from "@/components/shared/MercadoLibreBanner";
+import UsadosSection from "@/components/usados-section/UsadosSection";
 
 export default function Home() {
   return (
@@ -16,6 +18,10 @@ export default function Home() {
       <BrandLink />
       <BestSellersSection />
       <GridSection />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-10">
+        <MercadoLibreBanner />
+        <UsadosSection />
+      </div>
     </div>
   );
 }

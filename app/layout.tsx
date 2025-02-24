@@ -18,7 +18,42 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: "AM MOTOS",
-  description: "AM MOTOS - Venta de repuestos y accesorios para motos - ATV",
+  description:
+    "AM MOTOS - Venta de repuestos, accesorios e indumentaria para motos - ATV",
+  icons: {
+    icon: "/favicon.ico",
+  },
+  openGraph: {
+    title: "AM MOTOS",
+    description:
+      "AM MOTOS - Venta de repuestos, accesorios e indumentaria para motos - ATV",
+    images: "/favicon.ico",
+  },
+  applicationName: "AM MOTOS - by Agustin Molina",
+  authors: [{ name: "Agustin Molina", url: "https://www.linkedin.com/in/agustin-molina-994635138/" }],
+  keywords: [
+    "AM MOTOS",
+    "repuestos",
+    "accesorios",
+    "indumentaria",
+    "motos",
+    "ATV",
+    "Honda",
+    "Yamaha",
+    "Suzuki",
+    "Kawasaki",
+    "BMW",
+    "Ducati",
+    "Harley-Davidson",
+    "KTM",
+    "Husqvarna",
+    "MV Agusta",
+    "Aprilia",
+    "Beta",
+    "Husaberg",
+    "Kit piston",
+    "Kit biela"
+  ],
 };
 
 export default function RootLayout({

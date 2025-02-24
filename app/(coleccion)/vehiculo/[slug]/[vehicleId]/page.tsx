@@ -5,6 +5,7 @@ import PopularProductsTypes from "@/components/vehiculo/PopularProductsTypes";
 import SortBy from "@/components/vehiculo/SortBy";
 import dynamic from "next/dynamic";
 import Loading from "./loading";
+import { Metadata } from "next";
 
 // Importar ProductList de manera dinámica con suspense
 const ProductList = dynamic(() => import("@/components/vehiculo/ProductList"), {
@@ -18,6 +19,22 @@ interface PageProps {
   };
   searchParams: { [key: string]: string | string[] | undefined };
 }
+
+export const generateMetadata = async ({ params }: PageProps): Promise<Metadata> => {
+  const [make, model, year] = params.slug
+    .split("-")
+    .map((part) => part.replace(/\b\w/g, (c) => c.toUpperCase()));
+
+  return {
+    title: `AM MOTOS - ${make} ${model} ${year}`,
+    description: `Venta de repuestos, accesorios e indumentaria para ${make} ${model} ${year}`,
+    openGraph: {
+      title: `AM MOTOS - ${make} ${model} ${year}`,
+      description: `Venta de repuestos, accesorios e indumentaria para ${make} ${model} ${year}`,
+      images: "/favicon.ico",
+    },
+  };
+};
 
 // Función para obtener datos
 async function getData(

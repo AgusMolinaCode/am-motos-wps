@@ -1,5 +1,11 @@
 import React from "react";
 import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "AM MOTOS - CATALOGOS",
+  description: "Catalogos de AM MOTOS",
+};
 
 const page = () => {
   const catalogos = [

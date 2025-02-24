@@ -239,19 +239,6 @@ export function SheetSide() {
               </SheetContent>
             </Sheet>
 
-            <Link
-              href="/prox_catalogo"
-              onClick={closeAll}
-              className="flex items-center justify-center p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors"
-            >
-              <Image
-                src="/images/prox.png"
-                alt="ProX Catalogo"
-                width={100}
-                height={100}
-                className="w-auto h-8"
-              />
-            </Link>
 
             <div>
               <Link
@@ -273,6 +260,20 @@ export function SheetSide() {
                 <span className="text-lg font-semibold">CATALOGOS</span>
                 <ChevronRight className="h-5 w-5" />
               </Link>
+            <Link
+              href="/prox_catalogo"
+              onClick={closeAll}
+              className="flex items-center justify-between p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors gap-2 "
+            >
+              <span className="text-lg font-semibold">CATALOGO</span>
+              <Image
+                src="/images/prox.png"
+                alt="ProX Catalogo"
+                width={100}
+                height={100}
+                className="w-auto h-8"
+              />
+            </Link>
             </div>
           </div>
         </ScrollArea>

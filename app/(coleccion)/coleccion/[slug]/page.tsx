@@ -8,6 +8,7 @@ import { productTypeMap, ProductTypeUrlReverseMap } from "@/constants";
 import CursorPage from "@/components/cursor-page/CursorPage";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Metadata } from "next";
 
 const ProductList = dynamic(() => import("@/components/vehiculo/ProductList"), {
   loading: () => <ProductListSkeleton />,
@@ -35,6 +36,25 @@ interface PageProps {
   };
   searchParams: { [key: string]: string | string[] | undefined };
 }
+
+export const generateMetadata = async ({ params }: PageProps): Promise<Metadata> => {
+  const slug = params.slug;
+  const collectionName = slug === "productos-nuevos"
+    ? "Productos Nuevos"
+    : slug === "productos-ofertas"
+    ? "Ofertas Especiales"
+    : slug.replace(/-/g, " ");
+
+  return {
+    title: `AM MOTOS - ${collectionName}`,
+    description: `Venta de repuestos, accesorios e indumentaria para motos - ATV en la colección ${collectionName}`,
+    openGraph: {
+      title: `AM MOTOS - ${collectionName}`,
+      description: `Venta de repuestos, accesorios e indumentaria para motos - ATV en la colección ${collectionName}`,
+      images: "/favicon.ico",
+    },
+  };
+};
 
 export default async function CollectionPage({
   params,

@@ -7,6 +7,43 @@ import brandData from "@/public/csv/brand2.json";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
 import ProductTypeFilter from "@/components/brand-section/ProductTypeFilter";
+import { Metadata } from "next";
+
+type Props = {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+// Función para obtener el ID de la marca desde el slug
+const getBrandIdFromSlug = (slug: string) => {
+  // Si el slug es un número, es un ID directo
+  if (!isNaN(Number(slug))) {
+    return slug;
+  }
+
+  // Buscar la marca por nombre en el archivo brand2.json
+  const brand = brandData.find(
+    (brand) =>
+      brand.name.toLowerCase().replace(/\s+/g, "-") === slug.toLowerCase()
+  );
+
+  return brand ? brand.id.toString() : slug;
+};
+
+export const generateMetadata = async ({ params }: Props ) : Promise<Metadata> => {
+  const { slug } = await params;
+  const brandId = getBrandIdFromSlug(slug);
+  const brandName = await getBrandName(brandId);
+  return {
+    title: `AM MOTOS - ${brandName}`,
+    description: `Venta de repuestos, accesorios e indumentaria para motos - ATV de la marca ${brandName}`,
+    openGraph: {
+      title: `AM MOTOS - ${brandName}`,
+      description: `Venta de repuestos, accesorios e indumentaria para motos - ATV de la marca ${brandName}`,
+      images: "/favicon.ico",
+    },
+  };
+};
 
 // Importar ProductList de manera dinámica
 const ProductList = dynamic(() => import("@/components/vehiculo/ProductList"), {
@@ -37,24 +74,8 @@ interface PageProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default async function BrandPage({ params, searchParams }: PageProps) {
+export default async function BrandPage({ params, searchParams }: PageProps) { 
   const slug = params.slug;
-
-  // Función para obtener el ID de la marca desde el slug
-  const getBrandIdFromSlug = (slug: string) => {
-    // Si el slug es un número, es un ID directo
-    if (!isNaN(Number(slug))) {
-      return slug;
-    }
-
-    // Buscar la marca por nombre en el archivo brand2.json
-    const brand = brandData.find(
-      (brand) =>
-        brand.name.toLowerCase().replace(/\s+/g, "-") === slug.toLowerCase()
-    );
-
-    return brand ? brand.id.toString() : slug;
-  };
 
   const brandId = getBrandIdFromSlug(slug);
 
