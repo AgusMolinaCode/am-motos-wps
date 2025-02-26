@@ -65,8 +65,8 @@ export default async function page() {
   }));
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Productos Usados y Alternativos</h1>
+    <div className="container mx-auto px-4 py-4 md:py-8">
+      <h1 className="text-2xl md:text-3xl font-bold mb-6">Usados y Alternativos</h1>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-4">
         {formattedItemsUsados?.map((item) => (
           <ProductDetailsSheet key={item.id} item={item} isUsedItem={true}>
@@ -75,7 +75,7 @@ export default async function page() {
                 className="border rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col relative animate-fade-in cursor-pointer"
               >
                 <div className="absolute top-2 right-2">
-                  <FavoriteButton item={item} />
+                  <FavoriteButton item={item} isUsedItem={true} />
                 </div>
                 {item.images.data && item.images.data.length > 0 ? (
                   <Image
