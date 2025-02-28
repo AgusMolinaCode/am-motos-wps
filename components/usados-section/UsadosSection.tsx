@@ -1,20 +1,38 @@
 import React from 'react'
+import Link from 'next/link'
+import { WobbleCard } from '@/components/ui/wobble-card'
+import Image from 'next/image'
 
 const UsadosSection = () => {
   return (
-    <div className="col-span-1 lg:col-span-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-6 mx-auto w-full h-full flex flex-col justify-center">
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[400px]">
-        <div className="col-span-full flex items-center justify-center bg-gray-200 dark:bg-gray-700 rounded-lg p-8">
-          <div className="text-center bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg">
-            <p className="text-2xl font-bold text-gray-700 dark:text-gray-300">
-              Próximamente
+    <div className="col-span-1 lg:col-span-2 rounded-lg mx-auto w-full h-full flex flex-col justify-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full h-full">
+        <WobbleCard
+          containerClassName="col-span-1 lg:col-span-2 h-full bg-black relative overflow-hidden rounded-2xl group"
+          className="z-10 relative h-full"
+        >
+          <div className="max-w-xs relative z-30 p-4 sm:p-6">
+            <h2 className="text-left text-xl sm:text-2xl lg:text-6xl font-bold tracking-[-0.015em] text-white">
+              Usados y Alternativos
+            </h2>
+            <p className="mt-2 sm:mt-4 text-left text-lg sm:text-xl text-neutral-100 font-semibold">
+              Productos usados y alternativos
             </p>
-            <p className="text-lg text-gray-500 dark:text-gray-400 mt-2">
-              Listado de productos usados y alternativos
-            </p>
+            <Link
+              className="mt-2 sm:mt-4 inline-block bg-white text-black px-3 sm:px-4 py-1 sm:py-2 rounded-md"
+              href="/usados-alternativos"
+            >
+              Ver productos usados
+            </Link>
           </div>
-        </div>
+          <Image
+            src="/images/crf.jpg"
+            width={1000}
+            height={1000}
+            alt="Usados y Alternativos"
+            className="absolute inset-0 w-full h-full object-cover grayscale filter rounded-2xl opacity-40 group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-300"
+          />
+        </WobbleCard>
       </div>
     </div>
   )

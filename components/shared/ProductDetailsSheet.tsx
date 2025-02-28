@@ -23,6 +23,7 @@ interface ProductDetailsSheetProps {
   onOpenChange?: (open: boolean) => void;
   openAutomatically?: boolean;
   children?: React.ReactNode;
+  isUsedItem?: boolean;
 }
 
 const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
@@ -30,6 +31,7 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
   onOpenChange,
   openAutomatically = false,
   children,
+  isUsedItem = false,
 }) => {
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
   const [showCompatibility, setShowCompatibility] = useState(false);
@@ -38,11 +40,15 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
 
   useEffect(() => {
     const fetchBrandName = async () => {
-      const name = await getBrandName(item.brand_id.toString());
-      setBrandName(name);
+      if (item.brand_id) {
+        const name = await getBrandName(item.brand_id.toString());
+        setBrandName(name);
+      }
     };
-    fetchBrandName();
-  }, [item.brand_id]);
+    if (!isUsedItem) {
+      fetchBrandName();
+    }
+  }, [item.brand_id, isUsedItem]);
 
   const prices = calculateTotalPrice(item as any);
   const hasInventory =
@@ -61,7 +67,9 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
         <div className="mt-4 space-y-4">
           <div className="space-y-2">
             <div className="text-base font-semibold text-gray-800 dark:text-gray-400">
-              <div className="text-sm space-y-1">Marca: {brandName}</div>
+              <div className="text-sm space-y-1">
+                Marca: {isUsedItem ? item?.brand : brandName}
+              </div>
               <div className="text-sm space-y-1">
                 Numero de Parte: {item.supplier_product_id}
               </div>
@@ -159,7 +167,7 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
               ) : (
                 <div>
                   <div className="text-2xl font-bold text-green-600">
-                    {formatPrice(prices?.finalTotalArs || 0)}
+                    {isUsedItem ? item.priceFormatted : formatPrice(prices?.finalTotalArs || 0)}
                   </div>
                 </div>
               )}
@@ -219,7 +227,7 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
                   const message = `Hola, estoy interesado en el producto:
 - Nombre: ${item.name}
 - Número de parte: ${item.supplier_product_id}
-- Precio: ${formatPrice(prices?.finalTotalArs || 0)} pesos
+- Precio: ${isUsedItem ? item.priceFormatted : formatPrice(prices?.finalTotalArs || 0)} pesos
 
 Gracias!`;
                   const url = `https://wa.me/+541150494936?text=${encodeURIComponent(
@@ -239,25 +247,28 @@ Gracias!`;
               </button>
             </div>
           </div>
-          <div>
-            <button
-              onClick={() => setShowCompatibility(!showCompatibility)}
-              className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-            >
-              {showCompatibility
-                ? "Ocultar compatibilidad"
-                : "Ver compatibilidad"}
-            </button>
-            <VehicleCompatibility item={item} isVisible={showCompatibility} />
-          </div>
+          {!isUsedItem && (
+            <div>
+              <button
+                onClick={() => setShowCompatibility(!showCompatibility)}
+                className="w-full py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              >
+                {showCompatibility
+                  ? "Ocultar compatibilidad"
+                  : "Ver compatibilidad"}
+              </button>
+              <VehicleCompatibility item={item} isVisible={showCompatibility} />
+            </div>
+          )}
           <DescriptionAndCompatibility item={item} />
-
-          <Link
-            href={`/brand/${brandName.toLowerCase().replace(/\s+/g, "-")}`}
-            className="inline-block w-full text-center py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
-          >
-            Ver página de la marca
-          </Link>
+          {!isUsedItem && (
+            <Link
+              href={`/brand/${brandName.toLowerCase().replace(/\s+/g, "-")}`}
+              className="inline-block w-full text-center py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
+            >
+              Ver página de la marca
+            </Link>
+          )}
         </div>
       </SheetContent>
       {item.images?.data && item.images.data.length > 0 && (

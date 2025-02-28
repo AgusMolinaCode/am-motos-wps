@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 import { VehicleModel } from "@/types/interface";
 import { X } from "lucide-react";
 
-const BrandSelector = () => {
+const  BrandSelector = () => {
   const router = useRouter();
   const [selectedYear, setSelectedYear] = useState<string>("");
   const [selectedMake, setSelectedMake] = useState<string>("");

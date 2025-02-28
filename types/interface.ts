@@ -221,10 +221,12 @@ export interface ItemSheet {
   id: number;
   name: string;
   brand_id: number;
+  brand?: string;
   supplier_product_id: string;
   standard_dealer_price: string;
   list_price: string;
   weight?: number;
+  priceFormatted?: string;
   inventory?: {
     data?: {
       total?: number;

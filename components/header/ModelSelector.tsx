@@ -40,7 +40,10 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({
     try {
       const storage = JSON.parse(localStorage.getItem(MODELS_STORAGE_KEY) || '{}') as StorageData;
       const storageKey = getStorageKey(year, make);
-      return storage[storageKey] || null;
+      const storedModels = storage[storageKey] || null;
+      
+      // Si hay modelos almacenados, asegurarse de que estén ordenados alfabéticamente
+      return storedModels ? storedModels.sort((a, b) => a.name.localeCompare(b.name)) : null;
     } catch (error) {
       console.error('Error al leer del almacenamiento:', error);
       return null;
@@ -50,9 +53,12 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({
   // Función para guardar modelos en el almacenamiento
   const saveModelsToStorage = (year: string, make: string, models: { id: string; name: string }[]) => {
     try {
+      // Ordenar modelos alfabéticamente antes de guardar
+      const sortedModels = models.sort((a, b) => a.name.localeCompare(b.name));
+      
       const storage = JSON.parse(localStorage.getItem(MODELS_STORAGE_KEY) || '{}') as StorageData;
       const storageKey = getStorageKey(year, make);
-      storage[storageKey] = models;
+      storage[storageKey] = sortedModels;
       localStorage.setItem(MODELS_STORAGE_KEY, JSON.stringify(storage));
     } catch (error) {
       console.error('Error al guardar en el almacenamiento:', error);
@@ -85,7 +91,9 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({
           const processedModels = fetchedModels.map((model) => ({
             id: model.id.toString(),
             name: model.name,
-          }));
+          }))
+          // Ordenar modelos alfabéticamente
+          .sort((a, b) => a.name.localeCompare(b.name));
           
           setModels(processedModels);
           // Guardar en el almacenamiento permanente
