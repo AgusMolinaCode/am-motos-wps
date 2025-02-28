@@ -29,7 +29,7 @@ const UsadosSection = () => {
             src="/images/crf.jpg"
             width={1000}
             height={1000}
-            alt="Usados y Alternativos"
+            alt="Usado y Alternativo"
             className="absolute inset-0 w-full h-full object-cover grayscale filter rounded-2xl opacity-40 group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-300"
           />
         </WobbleCard>
