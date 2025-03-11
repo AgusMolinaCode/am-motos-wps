@@ -31,6 +31,30 @@ export function CarouselComponent({
   onClose: () => void;
   title?: string;
 }) {
+  const [imageErrors, setImageErrors] = React.useState<Record<number, boolean>>({});
+  
+  // Función para construir la URL de la imagen de manera segura
+  const getImageUrl = (imageData: ImageData) => {
+    if (imageData) {
+      // Verificar si es una URL completa o solo un nombre de archivo
+      if (imageData.domain && imageData.path && imageData.filename) {
+        return `https://${imageData.domain}${imageData.path}${imageData.filename}`;
+      } else if (imageData.filename) {
+        return imageData.filename;
+      }
+    }
+    return null;
+  };
+
+  const handleImageError = (index: number) => {
+    setImageErrors(prev => ({
+      ...prev,
+      [index]: true
+    }));
+  };
+
+  const placeholderUrl = "/images/placeholder-image.png";
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl">
@@ -42,13 +66,25 @@ export function CarouselComponent({
             {images.map((image, index) => (
               <CarouselItem key={index}>
                 <div className="p-1">
-                  <Image
-                    src={`https://${image.domain}${image.path}${image.filename}`}
-                    alt={`Imagen del producto ${index + 1}`}
-                    width={800}
-                    height={800}
-                    className="w-full object-contain rounded-lg h-[600px]"
-                  />
+                  {getImageUrl(image) && !imageErrors[index] ? (
+                    <Image
+                      src={getImageUrl(image) || ""}
+                      alt={`Imagen del producto ${index + 1}`}
+                      width={800}
+                      height={800}
+                      className="w-full object-contain rounded-lg h-[600px]"
+                      onError={() => handleImageError(index)}
+                      unoptimized={true}
+                    />
+                  ) : (
+                    <Image
+                      src={placeholderUrl}
+                      alt={`Imagen del producto ${index + 1}`}
+                      width={800}
+                      height={800}
+                      className="w-full object-contain rounded-lg h-[600px]"
+                    />
+                  )}
                 </div>
               </CarouselItem>
             ))}
