@@ -85,7 +85,7 @@ const SearchNavbar = () => {
   const handleProductClick = (product: BrandStatus) => {
     setSelectedProduct(product);
     addRecentSearch(product.supplier_product_id);
-    setSearchTerm("");
+    setSearchTerm(""); 
     setShowDropdown(false);
   };
 

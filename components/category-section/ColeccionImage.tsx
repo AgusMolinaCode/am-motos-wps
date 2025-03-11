@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 interface ImageData {
@@ -19,22 +19,41 @@ interface ColeccionImageProps {
 }
 
 const ColeccionImage = ({ item }: ColeccionImageProps) => {
+  const [imgError, setImgError] = useState(false);
+  
+  // Función para construir la URL de la imagen de manera segura
+  const getImageUrl = () => {
+    if (item.images?.data && item.images.data.length > 0) {
+      const imageData = item.images.data[0];
+      // Asegurarse de que todos los componentes de la URL estén presentes
+      if (imageData.domain && imageData.path && imageData.filename) {
+        return `https://${imageData.domain}${imageData.path}${imageData.filename}`;
+      }
+    }
+    return null;
+  };
+
+  const imageUrl = getImageUrl();
+  const placeholderUrl = "/images/placeholder-image.png"; // Imagen local como fallback
+
   return (
     <div>
-      {item.images?.data && item.images.data.length > 0 ? (
+      {imageUrl && !imgError ? (
         <Image
           priority
-          src={`https://${item.images.data[0].domain}${item.images.data[0].path}${item.images.data[0].filename}`}
+          src={imageUrl}
           alt={item.name}
           width={200}
           height={200}
           className="w-full h-48 object-contain mb-2"
+          onError={() => setImgError(true)}
+          unoptimized={true} // Evita la optimización de Next.js para URLs externas
         />
       ) : (
         <Image
           priority
-          src="https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg"
-          alt={item.name}
+          src={placeholderUrl}
+          alt={item.name || "Imagen no disponible"}
           width={200}
           height={200}
           className="w-full h-48 object-contain mb-2"
