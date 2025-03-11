@@ -36,6 +36,7 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
   const [isCarouselOpen, setIsCarouselOpen] = useState(false);
   const [showCompatibility, setShowCompatibility] = useState(false);
   const [brandName, setBrandName] = useState<string>("");
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
   const { calculateTotalPrice, formatPrice } = usePriceCalculation();
 
   useEffect(() => {
@@ -53,6 +54,28 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
   const prices = calculateTotalPrice(item as any);
   const hasInventory =
     item.inventory?.data?.total && item.inventory.data.total > 0;
+
+  // Función para construir la URL de la imagen de manera segura
+  const getImageUrl = (imageData: any) => {
+    if (imageData) {
+      // Verificar si es una URL completa o solo un nombre de archivo
+      if (imageData.domain && imageData.path && imageData.filename) {
+        return `https://${imageData.domain}${imageData.path}${imageData.filename}`;
+      } else if (imageData.filename) {
+        return imageData.filename;
+      }
+    }
+    return null;
+  };
+
+  const handleImageError = (imageId: string) => {
+    setImageErrors(prev => ({
+      ...prev,
+      [imageId]: true
+    }));
+  };
+
+  const placeholderUrl = "/images/placeholder-image.png";
 
   return (
     <Sheet defaultOpen={openAutomatically} onOpenChange={onOpenChange}>
@@ -177,7 +200,7 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
             {!item.images?.data || item.images.data.length === 0 ? (
               <Image
                 priority
-                src="https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg"
+                src={placeholderUrl}
                 alt="Imagen no disponible"
                 width={300}
                 height={300}
@@ -189,14 +212,27 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
                   onClick={() => setIsCarouselOpen(true)}
                   className="w-full focus:outline-none"
                 >
-                  <Image
-                    priority
-                    src={`https://${item.images.data[0].domain}${item.images.data[0].path}${item.images.data[0].filename}`}
-                    alt={item.name}
-                    width={300}
-                    height={300}
-                    className="w-full object-contain rounded-lg h-64 hover:opacity-90 transition-opacity"
-                  />
+                  {getImageUrl(item.images.data[0]) && !imageErrors["main"] ? (
+                    <Image
+                      priority
+                      src={getImageUrl(item.images.data[0]) || ""}
+                      alt={item.name}
+                      width={300}
+                      height={300}
+                      className="w-full object-contain rounded-lg h-64 hover:opacity-90 transition-opacity"
+                      onError={() => handleImageError("main")}
+                      unoptimized={true}
+                    />
+                  ) : (
+                    <Image
+                      priority
+                      src={placeholderUrl}
+                      alt={item.name || "Imagen no disponible"}
+                      width={300}
+                      height={300}
+                      className="w-full object-contain rounded-lg h-64"
+                    />
+                  )}
                 </button>
                 {item.images.data.length > 1 && (
                   <div className="grid grid-cols-4 gap-2">
@@ -206,13 +242,25 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
                         onClick={() => setIsCarouselOpen(true)}
                         className="focus:outline-none"
                       >
-                        <Image
-                          src={`https://${image.domain}${image.path}${image.filename}`}
-                          alt={`${item.name} - imagen ${index + 2}`}
-                          width={100}
-                          height={100}
-                          className="w-full object-contain rounded-md hover:opacity-80 transition-opacity cursor-pointer h-24"
-                        />
+                        {getImageUrl(image) && !imageErrors[`thumb-${index}`] ? (
+                          <Image
+                            src={getImageUrl(image) || ""}
+                            alt={`${item.name} - imagen ${index + 2}`}
+                            width={100}
+                            height={100}
+                            className="w-full object-contain rounded-md hover:opacity-80 transition-opacity cursor-pointer h-24"
+                            onError={() => handleImageError(`thumb-${index}`)}
+                            unoptimized={true}
+                          />
+                        ) : (
+                          <Image
+                            src={placeholderUrl}
+                            alt={`${item.name} - imagen ${index + 2}`}
+                            width={100}
+                            height={100}
+                            className="w-full object-contain rounded-md h-24"
+                          />
+                        )}
                       </button>
                     ))}
                   </div>
