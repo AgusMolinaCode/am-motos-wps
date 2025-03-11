@@ -26,6 +26,7 @@ export function UsadosAlternativosContent({
     null
   );
   const [filteredItems, setFilteredItems] = useState(initialItems);
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   const handleCategoriaChange = (categoria: string | null) => {
     setSelectedCategoria(categoria);
@@ -39,6 +40,29 @@ export function UsadosAlternativosContent({
       setFilteredItems(initialItems);
     }
   };
+
+  // Función para construir la URL de la imagen de manera segura
+  const getImageUrl = (item: any) => {
+    if (item.images?.data && item.images.data.length > 0) {
+      const imageData = item.images.data[0];
+      // Verificar si es una URL completa o solo un nombre de archivo
+      if (imageData.domain && imageData.path && imageData.filename) {
+        return `https://${imageData.domain}${imageData.path}${imageData.filename}`;
+      } else if (imageData.filename) {
+        return imageData.filename;
+      }
+    }
+    return null;
+  };
+
+  const handleImageError = (itemId: string) => {
+    setImageErrors(prev => ({
+      ...prev,
+      [itemId]: true
+    }));
+  };
+
+  const placeholderUrl = "/images/placeholder-image.png";
 
   return (
     <div className="container mx-auto px-4 py-4 md:py-8">
@@ -81,22 +105,20 @@ export function UsadosAlternativosContent({
                 <div className="absolute top-2 right-2">
                   <FavoriteButton item={item} isUsedItem={true} />
                 </div>
-                {item.images.data && item.images.data.length > 0 ? (
+                {getImageUrl(item) && !imageErrors[item.id] ? (
                   <Image
-                    src={
-                      item.images.data[0].domain
-                        ? `https://${item.images.data[0].domain}${item.images.data[0].path}${item.images.data[0].filename}`
-                        : item.images.data[0].filename
-                    }
+                    src={getImageUrl(item) || ""}
                     alt={item.name}
                     width={300}
                     height={300}
                     className="w-full h-48 object-contain rounded-lg mb-2"
+                    onError={() => handleImageError(item.id)}
+                    unoptimized={true}
                   />
                 ) : (
                   <Image
-                    src="https://t4.ftcdn.net/jpg/04/70/29/97/360_F_470299797_UD0eoVMMSUbHCcNJCdv2t8B2g1GVqYgs.jpg"
-                    alt="Placeholder Image"
+                    src={placeholderUrl}
+                    alt={item.name || "Imagen no disponible"}
                     width={300}
                     height={300}
                     className="w-full h-48 object-cover rounded-lg mb-2"
