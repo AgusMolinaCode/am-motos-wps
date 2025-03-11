@@ -28,13 +28,15 @@ const ColeccionImage = ({ item }: ColeccionImageProps) => {
       // Asegurarse de que todos los componentes de la URL estén presentes
       if (imageData.domain && imageData.path && imageData.filename) {
         return `https://${imageData.domain}${imageData.path}${imageData.filename}`;
+      } else if (imageData.filename) {
+        return imageData.filename;
       }
     }
     return null;
   };
 
   const imageUrl = getImageUrl();
-  const placeholderUrl = "/images/placeholder-image.png"; // Imagen local como fallback
+  const placeholderUrl = "https://media.istockphoto.com/id/1396814518/es/vector/imagen-pr%C3%B3ximamente-sin-foto-sin-imagen-en-miniatura-disponible-ilustraci%C3%B3n-vectorial.jpg?s=612x612&w=0&k=20&c=aA0kj2K7ir8xAey-SaPc44r5f-MATKGN0X0ybu_A774=";
 
   return (
     <div>
@@ -57,6 +59,7 @@ const ColeccionImage = ({ item }: ColeccionImageProps) => {
           width={200}
           height={200}
           className="w-full h-48 object-contain mb-2"
+          unoptimized={true}
         />
       )}
     </div>

@@ -53,7 +53,10 @@ export function CarouselComponent({
     }));
   };
 
-  const placeholderUrl = "/images/placeholder-image.png";
+  const placeholderUrl = "https://media.istockphoto.com/id/1396814518/es/vector/imagen-pr%C3%B3ximamente-sin-foto-sin-imagen-en-miniatura-disponible-ilustraci%C3%B3n-vectorial.jpg?s=612x612&w=0&k=20&c=aA0kj2K7ir8xAey-SaPc44r5f-MATKGN0X0ybu_A774=";
+
+  // Si no hay imágenes, mostrar al menos una con el placeholder
+  const displayImages = images && images.length > 0 ? images : [{ domain: "", path: "", filename: "" }];
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -63,7 +66,7 @@ export function CarouselComponent({
         </DialogHeader>
         <Carousel className="w-full">
           <CarouselContent>
-            {images.map((image, index) => (
+            {displayImages.map((image, index) => (
               <CarouselItem key={index}>
                 <div className="p-1">
                   {getImageUrl(image) && !imageErrors[index] ? (
@@ -83,6 +86,7 @@ export function CarouselComponent({
                       width={800}
                       height={800}
                       className="w-full object-contain rounded-lg h-[600px]"
+                      unoptimized={true}
                     />
                   )}
                 </div>
