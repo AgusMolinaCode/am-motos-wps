@@ -215,7 +215,7 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
                   {getImageUrl(item.images.data[0]) && !imageErrors["main"] ? (
                     <Image
                       priority
-                      src={getImageUrl(item.images.data[0]) || ""}
+                      src={getImageUrl(item.images.data[0]) || placeholderUrl}
                       alt={item.name}
                       width={300}
                       height={300}
@@ -244,7 +244,7 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
                       >
                         {getImageUrl(image) && !imageErrors[`thumb-${index}`] ? (
                           <Image
-                            src={getImageUrl(image) || ""}
+                            src={getImageUrl(image) || placeholderUrl}
                             alt={`${item.name} - imagen ${index + 2}`}
                             width={100}
                             height={100}
