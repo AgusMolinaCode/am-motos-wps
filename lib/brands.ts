@@ -578,23 +578,22 @@ export async function getStatusItems(
 
 export async function getRecommendedItems(
   supplierProductIds: string[] = [
-    "117-1095",
-    "85-00RCP",
-    "70-2414",
-    "68-2073",
-    "59-67510",
-    "482-29810",
-    "422-40002K",
-    "59-7432AB",
-    "482-12009",
-    "482-32208",
-    "72-7240L",
-    "27363-57837",
-    "421-8665",
-    "59-7237AM",
+    "W86552",
+    "RCP",
     "WR00058",
-    "174-23870A",
-    "792-2225T",
+    "02-0414",
+    "HCSHIM01",
+    "V302B",
+    "2013018-3375-10",
+    "40002-K01",
+    "SC-32AB",
+    "2010520-1991-9",
+    "2015015-4755-8",
+    "M107421096",
+    "2736357837",
+    "8665",
+    "CC-37AM",
+    "VTKTC23870A"
   ]
 ): Promise<{ data: BrandStatus[]; meta: Meta }> {
   const headers: HeadersInit = {
@@ -854,6 +853,3 @@ export async function getVehicleItems(vehicleId: string, cursor: string | null =
     return { data: [], meta: {} as Meta };
   }
 }
-
-
-

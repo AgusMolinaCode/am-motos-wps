@@ -52,6 +52,7 @@ export default function BestSellersSection() {
 
         // Si no hay caché o está expirado, obtener nuevos datos
         const items = await getRecommendedItems();
+        console.log(items);
         
         // Guardar en caché
         localStorage.setItem(CACHE_KEY, JSON.stringify({
