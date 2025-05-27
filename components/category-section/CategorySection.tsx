@@ -6,42 +6,42 @@ const categories = [
   {
     href: "/coleccion/motor",
     imageSrc:
-      "https://www.mxstore.com.au/assets/themes/2-20-43/img/home/home-tiles/bike-parts-icon.svg",
+      "https://www.mxstore.com.au/assets/themes/2-20-66/img/home/home-tiles/bike-parts-icon.svg",
     productCount: "28.600",
     title: "Motor / Kit Pistones",
   },
   {
     href: "/coleccion/accesorios",
     imageSrc:
-      "https://www.mxstore.com.au/assets/themes/2-20-43/img/home/home-tiles/bike-accessories-icon.svg",
+      "https://www.mxstore.com.au/assets/themes/2-20-66/img/home/home-tiles/bike-accessories-icon.svg",
     productCount: "5.200",
     title: "Accesorios",
   },
   {
     href: "/coleccion/indumentaria",
     imageSrc:
-      "https://www.mxstore.com.au/assets/themes/2-20-43/img/home/home-tiles/riding-gear.svg",
+      "https://www.mxstore.com.au/assets/themes/2-20-66/img/home/home-tiles/riding-gear.svg",
     productCount: "1800",
     title: "Indumentaria",
   },
   {
     href: "/coleccion/cascos",
     imageSrc:
-      "https://www.mxstore.com.au/assets/themes/2-20-43/img/home/home-tiles/protection-icon.svg",
+      "https://www.mxstore.com.au/assets/themes/2-20-66/img/home/home-tiles/protection-icon.svg",
     productCount: "1300",
     title: "Cascos / Protección",
   },
   {
     href: "/coleccion/herramientas",
     imageSrc:
-      "https://www.mxstore.com.au/assets/themes/2-20-43/img/home/home-tiles/tools-icon.svg",
+      "https://www.mxstore.com.au/assets/themes/2-20-66/img/home/home-tiles/tools-icon.svg",
     productCount: "3200",
     title: "Herramientas",
   },
   {
     href: "/coleccion/casual",
     imageSrc:
-      "https://www.mxstore.com.au/assets/themes/2-20-43/img/home/home-tiles/lifestyle-icon.svg",
+      "https://www.mxstore.com.au/assets/themes/2-20-66/img/home/home-tiles/lifestyle-icon.svg",
     productCount: "5.200",
     title: "Casual",
   },
