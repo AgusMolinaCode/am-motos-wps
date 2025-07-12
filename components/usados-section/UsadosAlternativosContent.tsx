@@ -79,7 +79,7 @@ export function UsadosAlternativosContent({
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-4">
-        {filteredItems.map((item) => {
+        {filteredItems && filteredItems.length > 0 ? filteredItems.map((item) => {
           // Map SupabaseProductItem to ItemSheet format
           const mappedItem = {
             ...item,
@@ -138,7 +138,11 @@ export function UsadosAlternativosContent({
               </SheetTrigger>
             </ProductDetailsSheet>
           );
-        })}
+        }) : (
+          <div className="col-span-full text-center py-8">
+            <p className="text-gray-500">No hay productos disponibles</p>
+          </div>
+        )}
       </div>
     </div>
   );

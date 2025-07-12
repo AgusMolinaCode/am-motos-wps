@@ -32,13 +32,11 @@ export default async function page() {
   const { data: ItemsUsados } = await supabase.from("productos").select();
 
   // Obtener categorías únicas
-  const categorias = [...new Set(ItemsUsados?.map(item => item.category))];
+  const categorias = [...new Set(ItemsUsados?.map(item => item.category) || [])];
 
-
- 
   return (
     <UsadosAlternativosContent 
-      initialItems={ItemsUsados as SupabaseProductItem[]} 
+      initialItems={ItemsUsados || []} 
       categorias={categorias || []} 
     />
   );
