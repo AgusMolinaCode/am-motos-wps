@@ -12,28 +12,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-interface UsadosAlternativosContentProps {
-  initialItems: any[];
-  categorias: string[];
-}
+import { SupabaseProductItem } from "@/app/usados-alternativos/page";
 
 export function UsadosAlternativosContent({
   initialItems,
   categorias,
-}: UsadosAlternativosContentProps) {
+}: {
+  initialItems: SupabaseProductItem[];
+  categorias: string[];
+}) {
   const [selectedCategoria, setSelectedCategoria] = useState<string | null>(
     null
   );
   const [filteredItems, setFilteredItems] = useState(initialItems);
-  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   const handleCategoriaChange = (categoria: string | null) => {
     setSelectedCategoria(categoria);
 
     if (categoria) {
       const filtered = initialItems.filter(
-        (item) => item.categoria === categoria
+        (item) => item.category === categoria
       );
       setFilteredItems(filtered);
     } else {
@@ -41,29 +39,12 @@ export function UsadosAlternativosContent({
     }
   };
 
-  // Función para construir la URL de la imagen de manera segura
-  const getImageUrl = (item: any) => {
-    if (item.images?.data && item.images.data.length > 0) {
-      const imageData = item.images.data[0];
-      // Verificar si es una URL completa o solo un nombre de archivo
-      if (imageData.domain && imageData.path && imageData.filename) {
-        return `https://${imageData.domain}${imageData.path}${imageData.filename}`;
-      } else if (imageData.filename) {
-        return imageData.filename;
-      }
-    }
-    return null;
-  };
 
-  const handleImageError = (itemId: string) => {
-    setImageErrors(prev => ({
-      ...prev,
-      [itemId]: true
-    }));
-  };
+
+ 
 
   const placeholderUrl = "https://media.istockphoto.com/id/1396814518/es/vector/imagen-pr%C3%B3ximamente-sin-foto-sin-imagen-en-miniatura-disponible-ilustraci%C3%B3n-vectorial.jpg?s=612x612&w=0&k=20&c=aA0kj2K7ir8xAey-SaPc44r5f-MATKGN0X0ybu_A774=";
-
+  
   return (
     <div className="container mx-auto px-4 py-4 md:py-8">
       <div className="flex justify-between items-center mb-6">
@@ -98,54 +79,66 @@ export function UsadosAlternativosContent({
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-4">
-        {filteredItems.map((item) => (
-          <ProductDetailsSheet key={item.id} item={item} isUsedItem={true}>
-            <SheetTrigger asChild>
-              <div className="border rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col relative animate-fade-in cursor-pointer">
-                <div className="absolute top-2 right-2">
-                  <FavoriteButton item={item} isUsedItem={true} />
-                </div>
-                {getImageUrl(item) && !imageErrors[item.id] ? (
-                  <Image
-                    src={getImageUrl(item) || ""}
-                    alt={item.name}
-                    width={300}
-                    height={300}
-                    className="w-full h-48 object-contain rounded-lg mb-2"
-                    onError={() => handleImageError(item.id)}
-                    unoptimized={true}
-                  />
-                ) : (
-                  <Image
-                    src={placeholderUrl}
-                    alt={item.name || "Imagen no disponible"}
-                    width={300}
-                    height={300}
-                    className="w-full h-48 object-cover rounded-lg mb-2"
-                  />
-                )}
-                <h2 className="text-sm font-semibold truncate">{item.name}</h2>
-                <p className="text-xs text-gray-600">
-                  SKU:{" "}
-                  {item.supplier_product_id.length > 32
-                    ? `${item.supplier_product_id.slice(0, 32)}...`
-                    : item.supplier_product_id}
-                </p>
-                <p className="text-xs text-gray-500">
-                  Categoría: {item.categoria}
-                </p>
+        {filteredItems.map((item) => {
+          // Map SupabaseProductItem to ItemSheet format
+          const mappedItem = {
+            ...item,
+            name: item.titulo,
+            brand_id: parseInt(item.marca) || 0,
+            supplier_product_id: item.id.toString(),
+            standard_dealer_price: item.preciopagina.toString(),
+            list_price: item.preciopagina.toString(),
+            brand: item.marca,
+          };
 
-                <div className="flex flex-col gap-1 mt-2">
-                  <div className="flex flex-col gap-1">
-                    <span className="text-md font-bold text-green-600">
-                      {item.priceFormatted}
-                    </span>
+          return (
+            <ProductDetailsSheet key={item.id} item={mappedItem} isUsedItem={true}>
+              <SheetTrigger asChild>
+                <div className="border rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col relative animate-fade-in cursor-pointer">
+                  <div className="absolute top-2 right-2">
+                    <FavoriteButton item={mappedItem} isUsedItem={true} />
+                  </div>
+                  {item.imagenes && item.imagenes[0] ? (
+                    <Image 
+                      src={item.imagenes[0]} 
+                      alt={item.titulo} 
+                      width={300} 
+                      height={300}
+                      className="w-full h-48 object-contain rounded-lg mb-2"
+                      unoptimized={true}
+                    />
+                  ) : (
+                    <Image
+                      src={placeholderUrl}
+                      alt={item.titulo || "Imagen no disponible"}
+                      width={300}
+                      height={300}
+                      className="w-full h-48 object-cover rounded-lg mb-2"
+                    />
+                  )}
+                  <h2 className="text-sm font-semibold truncate">{item.titulo}</h2>
+                  <p className="text-xs text-gray-600">
+                    SKU:{" "}
+                    {item.modelo.toString().length > 32
+                      ? `${item.modelo.toString().slice(0, 32)}...`
+                      : item.modelo.toString()}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                      Categoría: {item.category}
+                  </p>
+
+                  <div className="flex flex-col gap-1 mt-2">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-md font-bold text-green-600">
+                          {item.preciopagina}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </SheetTrigger>
-          </ProductDetailsSheet>
-        ))}
+              </SheetTrigger>
+            </ProductDetailsSheet>
+          );
+        })}
       </div>
     </div>
   );

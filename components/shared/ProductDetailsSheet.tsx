@@ -93,9 +93,32 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
               <div className="text-sm space-y-1">
                 Marca: {isUsedItem ? item?.brand : brandName}
               </div>
-              <div className="text-sm space-y-1">
-                Numero de Parte: {item.supplier_product_id}
-              </div>
+              {!isUsedItem && (
+                <div className="text-sm space-y-1">
+                  Numero de Parte: {item.supplier_product_id}
+                </div>
+              )}
+              {isUsedItem && (item as any).modelo && (
+                <div className="text-sm space-y-1">
+                  Modelo: {(item as any).modelo}
+                </div>
+              )}
+              {isUsedItem && (item as any).condicion && (
+                <div className="text-sm space-y-1">
+                  Condición: {(item as any).condicion}
+                </div>
+              )}
+              {isUsedItem && (item as any).origen && (
+                <div className="text-sm space-y-1">
+                  Origen: {(item as any).origen}
+                </div>
+              )}
+              {isUsedItem && (item as any).descripcion && (
+                <div className="text-sm space-y-1 mt-2">
+                  <div className="font-semibold">Descripción:</div>
+                  <div className="text-gray-600 text-xs">{(item as any).descripcion}</div>
+                </div>
+              )}
               {item.attributevalues?.data &&
                 item.attributevalues.data.length > 0 && (
                   <div className="mt-1 space-y-1">
@@ -197,7 +220,60 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
             </div>
           </div>
           <div className="space-y-4">
-            {!item.images?.data || item.images.data.length === 0 ? (
+            {isUsedItem && (item as any).imagenes ? (
+              // Handle used item images from imagenes array
+              <>
+                {(item as any).imagenes.length > 0 ? (
+                  <>
+                    <button
+                      onClick={() => setIsCarouselOpen(true)}
+                      className="w-full focus:outline-none"
+                    >
+                      <Image
+                        priority
+                        src={(item as any).imagenes[0]}
+                        alt={item.name}
+                        width={300}
+                        height={300}
+                        className="w-full object-contain rounded-lg h-64 hover:opacity-90 transition-opacity"
+                        onError={() => handleImageError("main")}
+                        unoptimized={true}
+                      />
+                    </button>
+                    {(item as any).imagenes.length > 1 && (
+                      <div className="grid grid-cols-4 gap-2">
+                        {(item as any).imagenes.slice(1).map((imageUrl: string, index: number) => (
+                          <button
+                            key={index}
+                            onClick={() => setIsCarouselOpen(true)}
+                            className="focus:outline-none"
+                          >
+                            <Image
+                              src={imageUrl}
+                              alt={`${item.name} - imagen ${index + 2}`}
+                              width={100}
+                              height={100}
+                              className="w-full object-contain rounded-md hover:opacity-80 transition-opacity cursor-pointer h-24"
+                              onError={() => handleImageError(`thumb-${index}`)}
+                              unoptimized={true}
+                            />
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <Image
+                    priority
+                    src={placeholderUrl}
+                    alt="Imagen no disponible"
+                    width={300}
+                    height={300}
+                    className="w-full object-contain rounded-lg h-64"
+                  />
+                )}
+              </>
+            ) : !item.images?.data || item.images.data.length === 0 ? (
               <Image
                 priority
                 src={placeholderUrl}
@@ -308,7 +384,7 @@ Gracias!`;
               <VehicleCompatibility item={item} isVisible={showCompatibility} />
             </div>
           )}
-          <DescriptionAndCompatibility item={item} />
+          {/* <DescriptionAndCompatibility item={item} /> */}
           {!isUsedItem && (
             <Link
               href={`/brand/${brandName.toLowerCase().replace(/\s+/g, "-")}`}
@@ -319,9 +395,13 @@ Gracias!`;
           )}
         </div>
       </SheetContent>
-      {item.images?.data && item.images.data.length > 0 && (
+      {((isUsedItem && (item as any).imagenes && (item as any).imagenes.length > 0) || 
+        (!isUsedItem && item.images?.data && item.images.data.length > 0)) && (
         <CarouselComponent
-          images={item.images.data}
+          images={isUsedItem ? 
+            (item as any).imagenes.map((url: string) => ({ filename: url, domain: '', path: '' })) : 
+            item.images?.data || []
+          }
           isOpen={isCarouselOpen}
           onClose={() => setIsCarouselOpen(false)}
           title={item.name}
