@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/sheet";
 import { CarouselComponent } from "./CarouselComponent";
 import FavoriteButton from "./FavoriteButton";
-import DescriptionAndCompatibility from "./DescriptionAndCompatibility";
 import VehicleCompatibility from "./VehicleCompatibility";
 import { getBrandName } from "@/lib/brands";
 import { usePriceCalculation } from "@/hooks/usePriceCalculation";
@@ -213,7 +212,10 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
               ) : (
                 <div>
                   <div className="text-2xl font-bold text-green-600">
-                    {isUsedItem ? item.priceFormatted : formatPrice(prices?.finalTotalArs || 0)}
+                    {isUsedItem ? 
+                      ((item as any).preciopagina * 1000).toLocaleString('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 0, maximumFractionDigits: 0 }) : 
+                      formatPrice(prices?.finalTotalArs || 0)
+                    }
                   </div>
                 </div>
               )}
@@ -351,7 +353,9 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
                   const message = `Hola, estoy interesado en el producto:
 - Nombre: ${item.name}
 - Número de parte: ${item.supplier_product_id}
-- Precio: ${isUsedItem ? item.priceFormatted : formatPrice(prices?.finalTotalArs || 0)} pesos
+- Precio: ${isUsedItem ? 
+                    ((item as any).preciopagina * 1000).toLocaleString('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 0, maximumFractionDigits: 0 }) : 
+                    formatPrice(prices?.finalTotalArs || 0)} pesos
 
 Gracias!`;
                   const url = `https://wa.me/+541150494936?text=${encodeURIComponent(

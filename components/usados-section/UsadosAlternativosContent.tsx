@@ -130,7 +130,7 @@ export function UsadosAlternativosContent({
                   <div className="flex flex-col gap-1 mt-2">
                     <div className="flex flex-col gap-1">
                       <span className="text-md font-bold text-green-600">
-                          {item.preciopagina}
+                          {(item.preciopagina * 1000).toLocaleString('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 0, maximumFractionDigits: 0 })}
                       </span>
                     </div>
                   </div>
