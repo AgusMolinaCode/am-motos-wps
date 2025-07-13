@@ -142,7 +142,9 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
         <SheetHeader>
           <div className="flex justify-between items-center">
             <SheetTitle>{item.name}</SheetTitle>
-            <FavoriteButton item={item as any} />
+            {!isUsedItem && (
+              <FavoriteButton item={item as any} />
+            )}
           </div>
         </SheetHeader>
         <div className="mt-4 space-y-4">

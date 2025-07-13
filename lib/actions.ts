@@ -92,3 +92,32 @@ export async function getProductTypeBrands(): Promise<Record<string, string[]>> 
     });
 }
 
+export async function getLatestUsedItems() {
+    const supabase = await createClient();
+    const { data: items, error } = await supabase
+        .from("productos")
+        .select("*")
+        .order('id', { ascending: false })
+        .limit(3);
+    
+    if (error) {
+        console.error("Error fetching latest used items:", error);
+        return [];
+    }
+    
+    // Transformar los datos para que sean compatibles con ItemSheet
+    const transformedItems = items?.map(item => ({
+        ...item,
+        name: item.titulo,
+        brand: item.marca,
+        brand_id: 0, // Los productos usados no tienen brand_id
+        supplier_product_id: item.id.toString(),
+        standard_dealer_price: "0",
+        list_price: "0",
+        weight: 1, // Peso por defecto para productos usados
+        images: { data: [] }, // Estructura compatible
+    })) || [];
+    
+    return transformedItems;
+}
+

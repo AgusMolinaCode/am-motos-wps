@@ -7,6 +7,7 @@ import { InfiniteSliderBasic } from "@/components/header/InfiniteSliderBasic";
 import { ImagesSliderDemo } from "@/components/hero/ImagesSliderDemo";
 import MercadoLibreBanner from "@/components/shared/MercadoLibreBanner";
 import UsadosSection from "@/components/usados-section/UsadosSection";
+import BestUsadosSection from "@/components/usados-section/BestUsadosSection";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <InfiniteSliderBasic />
       <ImagesSliderDemo />
       <CategorySection />
+      <BestUsadosSection /> 
       <DealSection />
       <BrandLink />
       <BestSellersSection />

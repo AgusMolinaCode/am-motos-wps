@@ -52,7 +52,6 @@ export default function BestSellersSection() {
 
         // Si no hay caché o está expirado, obtener nuevos datos
         const items = await getRecommendedItems();
-        console.log(items);
         
         // Guardar en caché
         localStorage.setItem(CACHE_KEY, JSON.stringify({
@@ -92,8 +91,8 @@ export default function BestSellersSection() {
       </div>
 
       {recommendedItems.length === 0 ? (
-        <div className="text-center py-10 bg-gray-100 rounded-lg">
-          <p className="text-xl text-gray-600">
+        <div className="text-center py-10 bg-gray-100 dark:bg-gray-800 rounded-lg">
+          <p className="text-xl text-gray-600 dark:text-gray-300">
             No se encontraron productos recomendados
           </p>
         </div>
@@ -108,7 +107,7 @@ export default function BestSellersSection() {
                   </div>
                   <ColeccionImage item={item} />
                   <h2 className="text-sm font-semibold truncate">{item.name}</h2>
-                  <p className="text-xs text-gray-600">
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
                     SKU: {item.supplier_product_id}
                   </p>
 
