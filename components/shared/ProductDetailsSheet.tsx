@@ -71,14 +71,6 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
       return;
     }
 
-    const totalPrice = unitPrice * quantity;
-
-    console.log("Enviando precio unitario:", unitPrice);
-    console.log("Cantidad:", quantity);
-    console.log("Precio total:", totalPrice);
-    console.log("Producto:", item.name);
-    console.log("Es producto usado:", isUsedItem);
-
     try {
       const res = await fetch("/api/mercadopago", {
         method: "POST",
@@ -443,17 +435,17 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
               </>
             )}
           </div>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {/* Contador de cantidad */}
-            <div className="bg-gray-50 dark:bg-gray-800 p-2 rounded-lg">
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg">
               {/* <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Cantidad
               </label> */}
-              <div className="flex items-center justify-center space-x-3">
+              <div className="flex items-center justify-center space-x-4 pt-1">
                 <button
                   onClick={decrementQuantity}
                   disabled={quantity <= 1}
-                  className="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-gray-600 dark:text-gray-400"
+                  className="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-gray-600 dark:text-gray-400 p-1"
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M5 12h14"/>
@@ -467,14 +459,14 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
                 <button
                   onClick={incrementQuantity}
                   disabled={quantity >= 5}
-                  className="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-gray-600 dark:text-gray-400"
+                  className="w-8 h-8 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-gray-600 dark:text-gray-400 p-1"
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M12 5v14m-7-7h14"/>
                   </svg>
                 </button>
               </div>
-              <p className="text-xs text-gray-500 dark:text-gray-400 text-center mt-2">
+              <p className="text-xs text-gray-500 dark:text-gray-400 text-center mt-1">
                 Máximo 5 unidades por compra
               </p>
             </div>
@@ -490,6 +482,7 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
                 
                 return hasValidPrice && (
                   <div className="space-y-3">
+                    {!preferenceId && (
                     <button 
                       onClick={handleClick} 
                       className="w-full py-3 px-4 bg-blue-500 dark:bg-blue-600 text-white rounded-lg hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 font-medium text-base"
@@ -497,8 +490,9 @@ const ProductDetailsSheet: React.FC<ProductDetailsSheetProps> = ({
                       <MercadoPagoLogo width={24} height={16} />
                       MercadoPago
                     </button>
+                    )}
                     {preferenceId && (
-                      <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                      <div className="bg-blue-50 dark:bg-blue-400/20 p-1 rounded-lg">
                         <Wallet initialization={{ preferenceId }} />
                       </div>
                     )}
