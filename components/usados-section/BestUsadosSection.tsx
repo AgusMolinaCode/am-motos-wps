@@ -3,6 +3,8 @@ import { createClient } from "@/utils/supabase/server";
 import ProductDetailsSheet from "../shared/ProductDetailsSheet";
 import { SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 export default async function BestUsadosSection() {
   const supabase = await createClient();
@@ -34,9 +36,12 @@ export default async function BestUsadosSection() {
   return (
     <div className="mx-auto pt-4 md:pt-10">
       <div className="flex justify-between gap-2 items-center mb-4">
-        <h1 className="text-2xl font-bold underline uppercase dark:text-gray-300 text-gray-800">
+        <h1 className="text-xl font-bold underline uppercase dark:text-gray-300 text-gray-800">
           Últimos Agregados
         </h1>
+        <Link href="/usados-alternativos">
+          <Button>Ver todos los usados</Button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">

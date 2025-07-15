@@ -123,9 +123,9 @@ export function UsadosAlternativosContent({
                     </h2>
                     <p className="text-xs text-gray-600">
                       SKU:{" "}
-                      {item.modelo.toString().length > 32
+                      {item.modelo?.toString().length > 32
                         ? `${item.modelo.toString().slice(0, 32)}...`
-                        : item.modelo.toString()}
+                        : item.modelo?.toString() || "N/A"}
                     </p>
                     <p className="text-xs text-gray-500">
                       Categoría: {item.category}

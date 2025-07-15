@@ -85,7 +85,7 @@ export default function BestSellersSection() {
   return (
     <div className="mx-auto pt-4 md:pt-10">
       <div className="flex justify-between gap-2 items-center mb-4">
-        <h1 className="text-2xl font-bold underline uppercase dark:text-gray-300 text-gray-800">
+        <h1 className="text-xl font-bold underline uppercase dark:text-gray-300 text-gray-800">
           Recomendados
         </h1>
       </div>

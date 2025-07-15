@@ -29,7 +29,9 @@ export interface SupabaseProductItem {
 
 export default async function page() {
   const supabase = await createClient();
-  const { data: ItemsUsados } = await supabase.from("productos").select();
+  const { data: ItemsUsados } = await supabase.from("productos").select().order('id', { ascending: false });
+
+  console.log(ItemsUsados);
 
   // Obtener categorías únicas
   const categorias = [...new Set(ItemsUsados?.map(item => item.category) || [])];
