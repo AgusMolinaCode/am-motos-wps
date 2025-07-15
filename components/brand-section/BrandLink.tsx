@@ -13,7 +13,7 @@ const BrandLink = () => {
     <div className="mx-auto pt-4 md:pt-10">
       <div className="flex flex-col md:flex-row justify-between gap-2 items-center">
         <h1 className="text-xl font-bold underline uppercase dark:text-gray-300 text-gray-800">
-          Mejores Marcas
+          Mejores Marcas.
         </h1>
         <div className="flex gap-2 items-center">
           <Link href="/brands">
