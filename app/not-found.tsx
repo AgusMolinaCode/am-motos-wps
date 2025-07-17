@@ -8,7 +8,7 @@ export default function NotFound() {
         <h2 className="text-4xl font-bold mb-4">404 - Página no encontrada</h2>
         <p className="text-xl mb-8">Lo sentimos, la página que estás buscando no existe.</p>
         <Link href="/" className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-200">
-          Volver al inicio
+          Volver al inicio.
         </Link> 
       </div>
       <div className="absolute top-4 right-4">
