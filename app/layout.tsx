@@ -9,7 +9,6 @@ import Orb from "@/app/Orb";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
-import { VemetricScript } from "@vemetric/react";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -99,7 +98,6 @@ export default function RootLayout({
       <body
         className={`${outfit.variable} font-sans antialiased`}
       >
-        <VemetricScript token="PIpA5f4LjR35AZ5K" />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
