@@ -9,11 +9,22 @@ import Orb from "@/app/Orb";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
+import { VemetricScript } from "@vemetric/react";
 
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: [
+    "100",
+    "200",
+    "300",
+    "400",
+    "500",
+    "600",
+    "700",
+    "800",
+    "900",
+  ],
 });
 
 export const metadata: Metadata = {
@@ -29,8 +40,14 @@ export const metadata: Metadata = {
       "AM MOTOS - Venta de repuestos, accesorios e indumentaria para motos - ATV",
     images: "/favicon.ico",
   },
-  applicationName: "AM MOTOS - by Agustin Molina",
-  authors: [{ name: "Agustin Molina", url: "https://www.linkedin.com/in/agustin-molina-994635138/" }],
+  applicationName:
+    "AM MOTOS - by Agustin Molina",
+  authors: [
+    {
+      name: "Agustin Molina",
+      url: "https://www.linkedin.com/in/agustin-molina-994635138/",
+    },
+  ],
   keywords: [
     "AM MOTOS",
     "repuestos",
@@ -52,7 +69,7 @@ export const metadata: Metadata = {
     "Beta",
     "Husaberg",
     "Kit piston",
-    "Kit biela"
+    "Kit biela",
   ],
 };
 
@@ -62,15 +79,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className="scroll-smooth"
+    >
       <head>
         <Script
           defer
           src="https://cloud.umami.is/script.js"
           data-website-id="36578345-3034-4851-93e2-055aa08ec8d8"
         />
+        <Script
+          defer
+          src="https://cdn.vemetric.com/main.js"
+          data-token="PIpA5f4LjR35AZ5K"
+        />
       </head>
-      <body className={`${outfit.variable} font-sans antialiased`}>
+      <body
+        className={`${outfit.variable} font-sans antialiased`}
+      >
+        <VemetricScript token="PIpA5f4LjR35AZ5K" />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
