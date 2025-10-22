@@ -7,7 +7,7 @@ interface PriceCalculation {
 
 export function usePriceCalculation() {
   // Usar el valor de NEXT_PUBLIC_DOLAR_BLUE desde las variables de entorno
-  const dolarBlue = Number(process.env.NEXT_PUBLIC_DOLAR_BLUE) || 1200;
+  const dolarBlue = Number(process.env.NEXT_PUBLIC_DOLAR_BLUE) || 1600;
 
   const calculateTotalPrice = (item: Partial<BrandStatus | BrandId>): PriceCalculation => {
     if (!item || !item.list_price || !item.weight) {
