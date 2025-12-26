@@ -578,21 +578,21 @@ export async function getStatusItems(
 
 export async function getRecommendedItems(
   supplierProductIds: string[] = [
-    "2986510001",
+    "2262-015-43",
+    "AXISS-BK40-SP",
     "2986515226",
-    "8300326-1180-XL",
     "8301026-3126-L",
     "HC313",
     "202076048",
     "CA420-2301",
     "TC-3",
     "8485000003",
-    "2STK-HDNUT",
+    "041606",
     "CW-PV-K02",
-    "E-RF4-0820",
+    "041611",
     "8665",
     "CC-37AM",
-    "VTKTC23870A"
+    "044445"
   ]
 ): Promise<{ data: BrandStatus[]; meta: Meta }> {
   const headers: HeadersInit = {

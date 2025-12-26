@@ -59,13 +59,13 @@ export default function DealSection() {
       </div>
 
       <div>
-        <Link href="/brand/alpinestars">
+        <Link href="/brand/alpinestars" className="cursor-pointer">
           <Image
-            src="/images/alpine.jpg"
+            src="/images/alpinestars-mx-2026.jpg"
             alt="deal"
             width={600}
             height={600}
-            className="rounded-xl object-contain md:h-[342px] w-full"
+            className="rounded-xl object-contain md:h-[342px] w-full "
           />
         </Link>
       </div>
