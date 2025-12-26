@@ -7,7 +7,8 @@ interface PriceCalculation {
 
 export function usePriceCalculation() {
   // Usar el valor de NEXT_PUBLIC_DOLAR_BLUE desde las variables de entorno
-  const dolarBlue = Number(process.env.NEXT_PUBLIC_DOLAR_BLUE) || 1600;
+  const dolarBlue = Number(process.env.NEXT_PUBLIC_DOLAR_BLUE) || 1650;
+  const shippingRate = Number(process.env.NEXT_PUBLIC_SHIPPING_RATE) || 12;
 
   const calculateTotalPrice = (item: Partial<BrandStatus | BrandId>): PriceCalculation => {
     if (!item || !item.list_price || !item.weight) {
@@ -24,7 +25,7 @@ export function usePriceCalculation() {
     const basePrice = listPrice;
 
     // Cálculo del envío en dólares (basado en el peso)
-    const shippingCharge = weight * 12;
+    const shippingCharge = weight * shippingRate;
 
     // Cálculo del total en dólares
     const totalUsd = basePrice + shippingCharge;
