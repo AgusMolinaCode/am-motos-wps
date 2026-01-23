@@ -21,7 +21,9 @@ interface PageProps {
 }
 
 export const generateMetadata = async ({ params }: PageProps): Promise<Metadata> => {
-  const [make, model, year] = params.slug
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug || "";
+  const [make, model, year] = slug
     .split("-")
     .map((part) => part.replace(/\b\w/g, (c) => c.toUpperCase()));
 
@@ -48,7 +50,9 @@ async function getData(
 }
 
 export default async function Page({ params, searchParams }: PageProps) {
-  const [make, model, year] = params.slug
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug || "";
+  const [make, model, year] = slug
     .split("-")
     .map((part) => part.replace(/\b\w/g, (c) => c.toUpperCase()));
 
@@ -83,11 +87,11 @@ export default async function Page({ params, searchParams }: PageProps) {
         <div className="flex-1">
           <Suspense fallback={<Loading />}>
             <ProductListContent
-              vehicleId={params.vehicleId}
+              vehicleId={resolvedParams.vehicleId}
               cursor={cursor}
               productType={productType}
               sort={sort}
-              slug={params.slug}
+              slug={slug}
             />
           </Suspense>
         </div>

@@ -41,6 +41,8 @@ export default function ProductList({ data, sort }: ProductListProps) {
     return 0;
   });
 
+  console.log("data items for schema:", sortedItems);
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1 md:gap-4">
       {sortedItems.map((item) => {

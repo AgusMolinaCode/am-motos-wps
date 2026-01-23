@@ -9,13 +9,15 @@ import { NavigationMenuDemo } from "./NavigationMenuDemo";
 import { HeartIcon } from "lucide-react";
 import BrandSelector from "./BrandSelector";
 import { SheetSide } from "./SheetSide";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+
 export default function Navbar() {
   const pathname = usePathname();
 
   return (
     <div>
       <div className="flex justify-between items-center pt-3 pb-2">
-      <div>
+        <div>
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/images/escudo.png"
@@ -45,7 +47,7 @@ export default function Navbar() {
           />
           <SheetSide />
         </div>
-        
+
         <div className="md:flex hidden">
           <SearchNavbar />
         </div>
@@ -70,6 +72,18 @@ export default function Navbar() {
           >
             Catalogos
           </Link>
+          <div className="md:flex hidden">
+            <SignedOut>
+              <SignInButton mode="modal">
+                <button className="inline-block bg-white text-black px-1 sm:px-4 py-1 sm:py-2 rounded-md cursor-pointer">
+                  Mayoristas
+                </button>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
+          </div>
         </div>
       </div>
       <div className="flex flex-col justify-center items-center mx-auto">

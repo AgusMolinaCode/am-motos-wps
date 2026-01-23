@@ -1,0 +1,16 @@
+-- AlterTable
+ALTER TABLE "Product" ADD COLUMN     "carb" JSONB,
+ADD COLUMN     "country_id" INTEGER,
+ADD COLUMN     "drop_ship_fee" TEXT,
+ADD COLUMN     "has_map_policy" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "inventory_details" JSONB,
+ADD COLUMN     "mapp_price" DECIMAL(10,2),
+ADD COLUMN     "product_id" INTEGER,
+ADD COLUMN     "product_name" TEXT,
+ADD COLUMN     "prop_65_code" TEXT,
+ADD COLUMN     "prop_65_detail" TEXT,
+ADD COLUMN     "sort" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "status_id" TEXT,
+ADD COLUMN     "superseded_sku" TEXT,
+ADD COLUMN     "unit_of_measurement_id" INTEGER,
+ADD COLUMN     "vendor_number" TEXT;

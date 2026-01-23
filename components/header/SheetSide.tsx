@@ -22,6 +22,7 @@ import ProductTypeContent from "./ProductTypeContent";
 import React from "react";
 import CubiertasMenuContent from "./CubiertasMenuContent";
 import RepuestosMenuContent from "./RepuestosMenuContent";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 type ProductTypeContentProps = {
   closeAll: () => void;
@@ -47,7 +48,7 @@ const featuredBrands = [
 ];
 
 const featuredBrandIds = new Set(
-  featuredBrands.map((brand) => brand.id.toString())
+  featuredBrands.map((brand) => brand.id.toString()),
 );
 
 export function SheetSide() {
@@ -56,14 +57,13 @@ export function SheetSide() {
   const [isApparelOpen, setIsApparelOpen] = useState(false);
   const [isTiresOpen, setIsTiresOpen] = useState(false);
   const [isPartsOpen, setIsPartsOpen] = useState(false);
-  
+
   const closeAll = () => {
     setIsMainOpen(false);
     setIsBrandsOpen(false);
     setIsApparelOpen(false);
     setIsTiresOpen(false);
     setIsPartsOpen(false);
-
   };
 
   return (
@@ -239,7 +239,6 @@ export function SheetSide() {
               </SheetContent>
             </Sheet>
 
-
             <div>
               <Link
                 href="/favoritos"
@@ -260,20 +259,32 @@ export function SheetSide() {
                 <span className="text-lg font-semibold">CATALOGOS</span>
                 <ChevronRight className="h-5 w-5" />
               </Link>
-            <Link
-              href="/prox_catalogo"
-              onClick={closeAll}
-              className="flex items-center justify-between p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors gap-2 "
-            >
-              <span className="text-lg font-semibold">CATALOGO</span>
-              <Image
-                src="/images/prox.png"
-                alt="ProX Catalogo"
-                width={100}
-                height={100}
-                className="w-auto h-8"
-              />
-            </Link>
+              <Link
+                href="/prox_catalogo"
+                onClick={closeAll}
+                className="flex items-center justify-between p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors gap-2 "
+              >
+                <span className="text-lg font-semibold">CATALOGO</span>
+                <Image
+                  src="/images/prox.png"
+                  alt="ProX Catalogo"
+                  width={100}
+                  height={100}
+                  className="w-auto h-8"
+                />
+              </Link>
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button className="inline-block bg-white text-black px-1 sm:px-4 py-1 sm:py-2 rounded-md mt-2 w-full text-center cursor-pointer">
+                    Mayoristas
+                  </button>
+                </SignInButton>
+              </SignedOut>
+              <SignedIn>
+                <div className="flex items-center justify-center mt-2">
+                  <UserButton afterSignOutUrl="/" />
+                </div>
+              </SignedIn>
             </div>
           </div>
         </ScrollArea>

@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Product {
+  id                      String    @id @default(uuid())
+  wps_id                  String    @unique  // ID de WPS
+  sku                     String
+  supplier_product_id     String?
+  product_id              Int?
+  name                    String
+  brand_id                Int?
+  product_type            String?
+  list_price              Decimal?  @db.Decimal(10, 2)
+  mapp_price              Decimal?  @db.Decimal(10, 2)
+  dealer_price            Decimal?  @db.Decimal(10, 2)
+  inventory_total         Int       @default(0)
+  inventory_details       Json?     // Warehouses: ca_warehouse, ga_warehouse, id_warehouse, in_warehouse, pa_warehouse, pa2_warehouse, tx_warehouse
+  length                  Decimal?  @db.Decimal(10, 2)
+  width                   Decimal?  @db.Decimal(10, 2)
+  height                  Decimal?  @db.Decimal(10, 2)
+  weight                  Decimal?  @db.Decimal(10, 2)
+  upc                     String?
+  status                  String?
+  status_id               String?
+  drop_ship_eligible      Boolean   @default(false)
+  drop_ship_fee           String?
+  country_id              Int?
+  has_map_policy          Boolean   @default(false)
+  carb                    Json?
+  propd1                  String?
+  propd2                  String?
+  prop_65_code            String?
+  prop_65_detail          String?
+  superseded_sku          String?
+  unit_of_measurement_id  Int?
+  sort                    Int       @default(0)
+  images                  Json?     // Array de images con id, domain, path, filename, alt, mime, width, height, size, signature
+  attributevalues         Json?     // Array de attributevalues con id, attributekey_id, name, sort
+  published_at            DateTime?
+  created_at              DateTime?
+  updated_at              DateTime?
+  last_synced_at          DateTime  @default(now())
+
+  @@index([wps_id])
+  @@index([sku])
+  @@index([brand_id])
+  @@index([product_type])
+  @@index([status])
+}

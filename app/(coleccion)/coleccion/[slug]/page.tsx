@@ -38,7 +38,8 @@ interface PageProps {
 }
 
 export const generateMetadata = async ({ params }: PageProps): Promise<Metadata> => {
-  const slug = params.slug;
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug?.toLowerCase() || "";
   const collectionName = slug === "productos-nuevos"
     ? "Productos Nuevos"
     : slug === "productos-ofertas"
@@ -60,13 +61,12 @@ export default async function CollectionPage({
   params,
   searchParams,
 }: PageProps) {
-  const slug = params.slug;
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug?.toLowerCase() || "";
 
   // Obtener el tipo de producto original en inglés si existe una traducción
   const originalProductType =
-    ProductTypeUrlReverseMap[
-      slug.toLowerCase() as keyof typeof ProductTypeUrlReverseMap
-    ] || slug;
+    ProductTypeUrlReverseMap[slug as keyof typeof ProductTypeUrlReverseMap] || slug;
 
   // Codificar correctamente el productType
   const productType =
@@ -119,7 +119,7 @@ export default async function CollectionPage({
 
   // Obtener las marcas asociadas a los tipos de producto actuales
   const currentProductTypes = (
-    productTypeMap[slug.toLowerCase()] || originalProductType
+    productTypeMap[slug] || originalProductType
   ).split(",");
   const associatedBrands = currentProductTypes.reduce<string[]>((acc, type) => {
     const brands = productBrands[type as keyof typeof productBrands] || [];

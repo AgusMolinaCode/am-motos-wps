@@ -1,6 +1,21 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "mcp__context7__resolve-library-id",
+      "Bash(npx prisma:*)",
+      "Bash(npx prisma migrate dev:*)",
+      "Bash(npx tsx:*)",
+      "Bash(timeout 120 bash:*)",
+      "Bash(timeout 60 bash:*)",
+      "Bash(dir \"C:\\\\Users\\\\urano\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-urano-OneDrive-Escritorio-Programacion-am-motos-wps\\\\tasks\\\\b92e99b.*\")",
+      "Bash(powershell:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker compose:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "supabase"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }

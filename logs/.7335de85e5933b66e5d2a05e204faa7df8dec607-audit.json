@@ -6,9 +6,14 @@
     "auditLog": "C:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\.7335de85e5933b66e5d2a05e204faa7df8dec607-audit.json",
     "files": [
         {
-            "date": 1766749400450,
-            "name": "C:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\mcp-puppeteer-2025-12-26.log",
-            "hash": "2c7de0d9dce27a6a34db43e4f04158cb937ddf7efbbcc346aa2a23946d5a7f82"
+            "date": 1769131995737,
+            "name": "C:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\mcp-puppeteer-2026-01-22.log",
+            "hash": "688f2b076e937be256dfcce26b73c72ff3b876a76068a837370d2513bf02e78b"
+        },
+        {
+            "date": 1769182485362,
+            "name": "C:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\mcp-puppeteer-2026-01-23.log",
+            "hash": "6a78b97defd39ef57da5223b9f7e4a7f760744fa271f995a56eaa24460c97838"
         }
     ],
     "hashType": "sha256"
