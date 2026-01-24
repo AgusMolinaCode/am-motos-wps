@@ -41,15 +41,9 @@ export default function ProductList({ data, sort }: ProductListProps) {
     return 0;
   });
 
-  console.log("data items for schema:", sortedItems);
-
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1 md:gap-4">
-      {sortedItems.map((item) => {
-        const hasInventory =
-          item.inventory?.data?.total && item.inventory.data.total > 0;
-
-        return (
+      {sortedItems.map((item) => (
           <ProductDetailsSheet key={item.id} item={item}>
             <SheetTrigger asChild>
               <div className="border rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col relative animate-fade-in cursor-pointer">
@@ -80,8 +74,7 @@ export default function ProductList({ data, sort }: ProductListProps) {
               </div>
             </SheetTrigger>
           </ProductDetailsSheet>
-        );
-      })}
+        ))}
     </div>
   );
 }

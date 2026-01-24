@@ -1,12 +1,11 @@
 import { getBrandsItems, getBrandName } from "@/lib/brands";
 import React, { Suspense } from "react";
-import Link from "next/link";
 import { getCatalogProductTypes } from "@/lib/actions";
-import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import brandData from "@/public/csv/brand2.json";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
 import ProductTypeFilter from "@/components/brand-section/ProductTypeFilter";
+import OffsetPage from "@/components/cursor-page/OffsetPage";
 import { Metadata } from "next";
 
 type Props = {
@@ -67,41 +66,36 @@ const ProductListSkeleton = () => (
 
 export const revalidate = 0;
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
-}
-
-export default async function BrandPage({ params, searchParams }: PageProps) { 
-  const slug = params.slug;
+export default async function BrandPage({ params, searchParams }: Props) {
+  const { slug } = await params;
+  const resolvedSearchParams = await searchParams;
 
   const brandId = getBrandIdFromSlug(slug);
 
   // Codificar correctamente el productType
   const productType =
-    typeof searchParams.productType === "string"
-      ? searchParams.productType.replace(/&/g, "%26")
+    typeof resolvedSearchParams.productType === "string"
+      ? resolvedSearchParams.productType.replace(/&/g, "%26")
       : undefined;
 
-  // Codificar correctamente el cursor
-  const cursor =
-    typeof searchParams.cursor === "string"
-      ? searchParams.cursor.replace(/&/g, "%26")
-      : null;
+  // Obtener página actual
+  const page = typeof resolvedSearchParams.page === "string"
+    ? parseInt(resolvedSearchParams.page)
+    : 1;
 
   // Obtener el nombre de la marca
   const brandName = await getBrandName(brandId);
 
-  // Obtener los datos de la marca
-  const { data, meta } = await getBrandsItems(brandId, cursor, productType);
+  // Obtener los datos de la marca desde PostgreSQL con paginación
+  const { data, meta } = await getBrandsItems(brandId, productType, page);
 
   // Obtener todos los product types
   const brandProductTypes = await getCatalogProductTypes();
 
   // Obtener los product types del brand actual usando el ID
   const currentBrandProductTypes = brandProductTypes[Number(brandId)] || [];
+
+  console.log("Brand Page - data:", data);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -126,34 +120,7 @@ export default async function BrandPage({ params, searchParams }: PageProps) {
           <Suspense fallback={<ProductListSkeleton />}>
             <ProductList data={data} />
           </Suspense>
-
-          <div className="flex justify-center mt-6 gap-4">
-            {meta?.cursor?.prev && (
-              <div className="flex justify-center mt-6">
-                <Link
-                  href={`/brand/${slug}${
-                    productType ? `?productType=${productType}&` : "?"
-                  }cursor=${meta.cursor.prev.replace(/&/g, "%26")}`}
-                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                >
-                  <ArrowLeftIcon className="w-4 h-4" />
-                </Link>
-              </div>
-            )}
-
-            {meta?.cursor?.next && (
-              <div className="flex justify-center mt-6">
-                <Link
-                  href={`/brand/${slug}${
-                    productType ? `?productType=${productType}&` : "?"
-                  }cursor=${meta.cursor.next.replace(/&/g, "%26")}`}
-                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                >
-                  <ArrowRightIcon className="w-4 h-4" />
-                </Link>
-              </div>
-            )}
-          </div>
+          <OffsetPage meta={meta} slug={slug} productType={productType} />
         </>
       )}
     </div>

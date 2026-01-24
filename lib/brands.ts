@@ -1,87 +1,84 @@
 "use server";
 
 import { BrandId, Brands, Meta, BrandStatus, VehicleDataId, VehicleCompatibilityData, VehicleModel } from "@/types/interface";
+import { prisma } from "@/lib/prisma";
 import brandData from "@/public/csv/brand2.json";
 
 export async function getBrandsItems(
   brandId: string,
-  cursor: string | null = null,
-  productType?: string
-): Promise<{ data: BrandId[]; meta: Meta }> {
-  const headers: HeadersInit = {
-    Authorization: process.env.PUBLIC_WPS ?? "",
-  };
-
-  // Construir la URL base
-  let url = `https://api.wps-inc.com/items?filter[brand_id]=${brandId}&include=inventory,images,attributevalues&sort[desc]=created_at&page[size]=100`;
-
-  // Agregar filtro de tipo de producto si está presente
-  if (productType) {
-    // Decodificar el tipo de producto y reemplazar '%26' con '&'
-    const decodedProductType = decodeURIComponent(productType).replace(
-      /%26/g,
-      "&"
-    );
-
-    url += `&filter[product_type]=${encodeURIComponent(decodedProductType)}`;
-  }
-
-  // Agregar cursor si está presente
-  if (cursor) {
-    url += `&page[cursor]=${encodeURIComponent(cursor)}`;
-  }
-
-  const response = await fetch(url, {
-    method: "GET",
-    headers,
-  });
-
-  if (!response.ok) {
-    console.error(`Error fetching brand ${brandId}:`, await response.json());
-    return {
-      data: [],
-      meta: {
-        cursor: {
-          current: "",
-          prev: null,
-          next: null,
-          count: 0,
+  productType?: string,
+  page: number = 1,
+  limit: number = 30
+): Promise<{ data: BrandId[]; meta: Meta; total: number }> {
+  // Query Prisma filtrando por brand_id Y inventory_total > 0
+  const [products, total] = await prisma.$transaction([
+    prisma.product.findMany({
+      where: {
+        brand_id: parseInt(brandId),
+        ...(productType && {
+          product_type: decodeURIComponent(productType).replace(/%26/g, "&"),
+        }),
+        inventory_total: {
+          gt: 0, // Solo productos con stock
         },
       },
+      orderBy: { created_at: "desc" },
+      skip: (page - 1) * limit,
+      take: limit,
+    }),
+    prisma.product.count({
+      where: {
+        brand_id: parseInt(brandId),
+        ...(productType && {
+          product_type: decodeURIComponent(productType).replace(/%26/g, "&"),
+        }),
+        inventory_total: {
+          gt: 0,
+        },
+      },
+    }),
+  ]);
+
+  // Transformar al formato BrandId
+  const transformedData = products.map((product) => {
+    const images = product.images as string[] | null;
+
+    return {
+      id: parseInt(product.wps_id),
+      wps_id: product.wps_id,
+      brand_id: product.brand_id ?? undefined,
+      name: product.name,
+      sku: product.sku ?? undefined,
+      supplier_product_id: product.supplier_product_id ?? undefined,
+      list_price: product.list_price?.toNumber() ?? undefined,
+      dealer_price: product.dealer_price?.toNumber() ?? undefined,
+      product_type: product.product_type ?? undefined,
+      status: product.status ?? undefined,
+      weight: product.weight?.toNumber() ?? undefined,
+      inventory: {
+        data: {
+          total: product.inventory_total ?? 0,
+        },
+      },
+      images: {
+        data: images ?? [],
+      },
+      attributevalues: undefined,
     };
-  }
-
-  const result = await response.json();
-
-  // Separar productos con inventario mayor a 0 y con inventario igual a 0
-  const itemsWithInventory = (result.data as BrandId[]).filter(
-    (item) =>
-      item.inventory?.data?.total !== undefined && item.inventory.data.total > 0
-  );
-
-  const itemsWithoutInventory = (result.data as BrandId[]).filter(
-    (item) =>
-      !item.inventory?.data?.total || item.inventory.data.total === 0
-  );
-
-  // Combinar los arrays, primero los que tienen inventario
-  const combinedItems = [...itemsWithInventory, ...itemsWithoutInventory];
-
-  // Eliminar duplicados basados en el ID
-  const uniqueItemsWithInventory = Array.from(
-    new Map(combinedItems.map((item) => [item.id, item])).values()
-  );
+  });
 
   return {
-    data: uniqueItemsWithInventory.slice(0, 30),
+    data: transformedData as unknown as BrandId[],
     meta: {
-      ...result.meta,
       cursor: {
-        ...result.meta.cursor,
-        count: uniqueItemsWithInventory.length,
-        next: result.meta.cursor.next,
+        current: page.toString(),
+        prev: page > 1 ? (page - 1).toString() : null,
+        next: page * limit < total ? (page + 1).toString() : null,
+        count: transformedData.length,
+        total,
       },
     },
+    total,
   };
 }
 

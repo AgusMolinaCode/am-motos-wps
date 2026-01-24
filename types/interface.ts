@@ -37,6 +37,9 @@ export interface BrandId {
       total: number;
     }
   };
+  inventory_details?: {
+    total: number;
+  };
 }
 
 export interface Images {
@@ -71,6 +74,7 @@ export interface Meta {
     prev: string | null;
     next: string | null;
     count: number;
+    total?: number;
   };
   productTypes?: string[];
 }
@@ -80,6 +84,7 @@ export interface Cursor {
     prev:    string | null;
     next:    string | null;
     count:   number;
+    total?: number;
 }
 
 export interface SupabaseCatalog {

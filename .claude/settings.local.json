@@ -11,7 +11,10 @@
       "Bash(dir \"C:\\\\Users\\\\urano\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-urano-OneDrive-Escritorio-Programacion-am-motos-wps\\\\tasks\\\\b92e99b.*\")",
       "Bash(powershell:*)",
       "Bash(docker ps:*)",
-      "Bash(docker compose:*)"
+      "Bash(docker compose:*)",
+      "Bash(npm run build)",
+      "mcp__Prisma-Local__migrate-status",
+      "mcp__Prisma-Local__Prisma-Studio"
     ]
   },
   "enableAllProjectMcpServers": true,
