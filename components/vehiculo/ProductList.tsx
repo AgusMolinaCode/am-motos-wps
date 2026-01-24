@@ -42,7 +42,7 @@ export default function ProductList({ data, sort }: ProductListProps) {
   });
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1 md:gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-1 md:gap-4">
       {sortedItems.map((item) => (
           <ProductDetailsSheet key={item.id} item={item}>
             <SheetTrigger asChild>

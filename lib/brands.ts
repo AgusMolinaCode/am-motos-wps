@@ -19,7 +19,7 @@ export async function getBrandsItems(
           product_type: decodeURIComponent(productType).replace(/%26/g, "&"),
         }),
         inventory_total: {
-          gt: 0, // Solo productos con stock
+          gt: -1, // Solo productos con stock
         },
       },
       orderBy: { created_at: "desc" },
@@ -33,7 +33,7 @@ export async function getBrandsItems(
           product_type: decodeURIComponent(productType).replace(/%26/g, "&"),
         }),
         inventory_total: {
-          gt: 0,
+          gt: -1,
         },
       },
     }),

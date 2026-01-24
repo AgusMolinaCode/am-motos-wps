@@ -130,7 +130,7 @@ export default async function CollectionPage({
   const uniqueAssociatedBrands = Array.from(new Set(associatedBrands));
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className=" mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 capitalize">
         {slug === "productos-nuevos"
           ? "Productos Nuevos"

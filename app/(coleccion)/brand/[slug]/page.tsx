@@ -98,7 +98,7 @@ export default async function BrandPage({ params, searchParams }: Props) {
   console.log("Brand Page - data:", data);
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className=" mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 uppercase">{brandName}</h1>
 
       {currentBrandProductTypes.length > 0 && (

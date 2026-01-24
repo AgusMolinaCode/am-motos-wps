@@ -115,7 +115,7 @@ export default function RootLayout({
                   forceHoverState={false}
                 />
               </div>
-              <div className="max-w-[90rem] mx-auto px-2">
+              <div className="max-w-[110rem] mx-auto px-2">
                 <Navbar />
                 {children}
                 <SpeedInsights />
