@@ -27,7 +27,7 @@ const footer = () => {
           </div>
         </div>
         <div>
-          <Link href="https://wa.me/5491150494936" target="_blank">
+          <Link href="https://wa.me/5491161607732" target="_blank">
             <div className="flex items-center justify-center md:justify-start gap-2">
               <Image
                 src="/svg/whatsapp.svg"

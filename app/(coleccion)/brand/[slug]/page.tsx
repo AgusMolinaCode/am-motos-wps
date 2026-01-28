@@ -5,7 +5,7 @@ import brandData from "@/public/csv/brand2.json";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
 import ProductTypeFilter from "@/components/brand-section/ProductTypeFilter";
-import OffsetPage from "@/components/cursor-page/OffsetPage";
+import { SimplePagination } from "@/components/cursor-page/SimplePagination";
 import { Metadata } from "next";
 
 type Props = {
@@ -87,15 +87,13 @@ export default async function BrandPage({ params, searchParams }: Props) {
   const brandName = await getBrandName(brandId);
 
   // Obtener los datos de la marca desde PostgreSQL con paginación
-  const { data, meta } = await getBrandsItems(brandId, productType, page);
+  const { data, total } = await getBrandsItems(brandId, productType, page);
 
   // Obtener todos los product types
   const brandProductTypes = await getCatalogProductTypes();
 
   // Obtener los product types del brand actual usando el ID
   const currentBrandProductTypes = brandProductTypes[Number(brandId)] || [];
-
-  console.log("Brand Page - data:", data);
 
   return (
     <div className=" mx-auto px-4 py-8">
@@ -120,7 +118,12 @@ export default async function BrandPage({ params, searchParams }: Props) {
           <Suspense fallback={<ProductListSkeleton />}>
             <ProductList data={data} />
           </Suspense>
-          <OffsetPage meta={meta} slug={slug} productType={productType} />
+          <SimplePagination
+            currentPage={page}
+            totalPages={Math.ceil(total / 30)}
+            basePath={`/brand/${slug}`}
+            productType={productType}
+          />
         </>
       )}
     </div>

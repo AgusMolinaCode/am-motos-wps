@@ -52,3 +52,59 @@ model Product {
   @@index([product_type])
   @@index([status])
 }
+
+model Brand {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model VehicleMake {
+  id         Int            @id
+  db2_key    String?
+  name       String
+  created_at DateTime?
+  updated_at DateTime?
+  models     VehicleModel[]
+
+  @@map("vehicle_make")
+}
+
+model VehicleModel {
+  id             Int          @id
+  vehiclemake_id Int
+  db2_key        String?
+  name           String
+  created_at     DateTime?
+  updated_at     DateTime?
+  make           VehicleMake  @relation(fields: [vehiclemake_id], references: [id])
+  years          VehicleYear[]
+  vehicles       Vehicle[]
+
+  @@map("vehicle_model")
+}
+
+model VehicleYear {
+  id         Int           @id
+  year       Int
+  created_at DateTime?
+  updated_at DateTime?
+  models     VehicleModel[]
+  vehicles   Vehicle[]
+
+  @@map("vehicle_year")
+}
+
+model Vehicle {
+  id              Int          @id
+  vehiclemodel_id Int?
+  vehicleyear_id  Int?
+  active          Boolean      @default(true)
+  created_at      DateTime?
+  updated_at      DateTime?
+  model           VehicleModel? @relation(fields: [vehiclemodel_id], references: [id])
+  year            VehicleYear?  @relation(fields: [vehicleyear_id], references: [id])
+
+  @@map("vehicle")
+}

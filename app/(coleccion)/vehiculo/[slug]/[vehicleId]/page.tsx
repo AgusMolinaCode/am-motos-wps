@@ -38,17 +38,6 @@ export const generateMetadata = async ({ params }: PageProps): Promise<Metadata>
   };
 };
 
-// Función para obtener datos
-async function getData(
-  vehicleId: string,
-  cursor: string | null,
-  productType: string | null,
-  sort: string | null
-) {
-  const result = await getVehicleItems(vehicleId, cursor, productType, sort);
-  return result;
-}
-
 export default async function Page({ params, searchParams }: PageProps) {
   const resolvedParams = await params;
   const slug = resolvedParams.slug || "";
@@ -116,7 +105,7 @@ async function ProductListContent({
 }) {
   // Solo usar el parámetro sort para ordenamiento en el servidor si no es finalTotalArs
   const sortParam = sort?.includes("finalTotalArs") ? null : sort;
-  const { data: vehicleItems, meta } = await getData(
+  const { data: vehicleItems, meta } = await getVehicleItems(
     vehicleId,
     cursor,
     productType,

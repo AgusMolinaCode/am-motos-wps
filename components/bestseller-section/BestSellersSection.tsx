@@ -11,7 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { usePriceCalculation } from "@/hooks/usePriceCalculation";
 
 const CACHE_KEY = 'recommended_items_cache';
-const CACHE_DURATION = 1000 * 60 * 60; // 1 hora
+const CACHE_DURATION = 1000 * 60 * 5; // 5 minutos
 
 const ProductListSkeleton = () => (
   <div className="py-4 md:py-10">
