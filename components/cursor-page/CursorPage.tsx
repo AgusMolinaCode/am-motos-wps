@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { useSearchParams } from 'next/navigation'
 import {
   Pagination,
   PaginationContent,
@@ -10,42 +9,63 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 
-const CursorPage = ({ meta, slug, vehicleId, productType, brandId }: { 
-  meta: any, 
-  slug: string, 
-  vehicleId: string,
-  productType?: string,
-  brandId?: string 
-}) => {
-  const searchParams = useSearchParams();
-
-  const createPaginationUrl = (cursor: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('cursor', cursor.replace(/&/g, "%26"));
-    if (productType) params.set('productType', productType);
-    if (brandId) params.set('brandId', brandId);
-    
-    // Si estamos en una página de vehículo
-    if (vehicleId) {
-      return `/vehiculo/${slug}/${vehicleId}?${params.toString()}`;
+interface CursorPageProps {
+  meta: {
+    cursor: {
+      current: string
+      prev: string | null
+      next: string | null
+      count: number
+      total: number
     }
-    
-    // Si estamos en una página de colección
-    return `/coleccion/${slug}?${params.toString()}`;
-  };
+  }
+  slug: string
+  vehicleId: string
+  productType?: string
+  brandId?: string
+  usePageParam?: boolean
+}
+
+const CursorPage = ({ meta, slug, vehicleId, productType, brandId, usePageParam = false }: CursorPageProps) => {
+  const currentPage = parseInt(meta.cursor.current, 10) || 1
+  const totalPages = Math.ceil(meta.cursor.total / 30)
+  const hasNext = currentPage < totalPages
+  const hasPrev = currentPage > 1
+
+  const createUrl = (page: number) => {
+    const params = new URLSearchParams()
+    if (usePageParam) {
+      params.set('page', page.toString())
+    }
+    if (productType) params.set('productType', productType)
+    if (brandId) params.set('brandId', brandId)
+
+    const queryString = params.toString()
+    const basePath = vehicleId
+      ? `/vehiculo/${slug}/${vehicleId}`
+      : `/coleccion/${slug}`
+
+    return queryString ? `${basePath}?${queryString}` : basePath
+  }
 
   return (
     <Pagination className="my-4">
       <PaginationContent>
-        {meta?.cursor?.prev && (
+        {hasPrev && (
           <PaginationItem>
-            <PaginationPrevious href={createPaginationUrl(meta.cursor.prev)} />
+            <PaginationPrevious href={createUrl(currentPage - 1)} />
           </PaginationItem>
         )}
-        
-        {meta?.cursor?.next && (
+
+        <PaginationItem>
+          <span className="px-4 text-sm">
+            Página {currentPage} de {totalPages}
+          </span>
+        </PaginationItem>
+
+        {hasNext && (
           <PaginationItem>
-            <PaginationNext href={createPaginationUrl(meta.cursor.next)} />
+            <PaginationNext href={createUrl(currentPage + 1)} />
           </PaginationItem>
         )}
       </PaginationContent>

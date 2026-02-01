@@ -1,11 +1,11 @@
 import React, { Suspense } from "react";
 import { getStatusItems, getCollectionByProductType } from "@/lib/brands";
-import { BrandStatus, Meta } from "@/types/interface";
+import { BrandStatus } from "@/types/interface";
 import ProductTypeFilter from "@/components/brand-section/ProductTypeFilter";
 import productBrands from "@/public/csv/product_brands.json";
 import BrandFilterButtons from "../../../../components/category-section/CollectionFilterButtons";
 import { productTypeMap, ProductTypeUrlReverseMap } from "@/constants";
-import CursorPage from "@/components/cursor-page/CursorPage";
+import { SimplePagination } from "@/components/cursor-page/SimplePagination";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Metadata } from "next";
@@ -31,14 +31,15 @@ const ProductListSkeleton = () => (
 export const revalidate = 0;
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
+  }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export const generateMetadata = async ({ params }: PageProps): Promise<Metadata> => {
-  const slug = params.slug;
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug?.toLowerCase() || "";
   const collectionName = slug === "productos-nuevos"
     ? "Productos Nuevos"
     : slug === "productos-ofertas"
@@ -60,66 +61,62 @@ export default async function CollectionPage({
   params,
   searchParams,
 }: PageProps) {
-  const slug = params.slug;
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+  const slug = resolvedParams.slug?.toLowerCase() || "";
 
   // Obtener el tipo de producto original en inglés si existe una traducción
   const originalProductType =
-    ProductTypeUrlReverseMap[
-      slug.toLowerCase() as keyof typeof ProductTypeUrlReverseMap
-    ] || slug;
+    ProductTypeUrlReverseMap[slug as keyof typeof ProductTypeUrlReverseMap] || slug;
 
   // Codificar correctamente el productType
   const productType =
-    typeof searchParams.productType === "string"
-      ? searchParams.productType.replace(/&/g, "%26")
+    typeof resolvedSearchParams.productType === "string"
+      ? resolvedSearchParams.productType.replace(/&/g, "%26")
       : "";
 
   // Obtener el brandId de los searchParams
   const brandId =
-    typeof searchParams.brandId === "string" ? searchParams.brandId : undefined;
+    typeof resolvedSearchParams.brandId === "string" ? resolvedSearchParams.brandId : undefined;
 
-  // Codificar correctamente el cursor
-  const cursor =
-    typeof searchParams.cursor === "string"
-      ? searchParams.cursor.replace(/&/g, "%26")
-      : null;
+  // Page para paginación numérica
+  const page = typeof resolvedSearchParams.page === "string" ? parseInt(resolvedSearchParams.page, 10) : 1;
+
+  console.log("📄 Page debug:", {
+    slug,
+    page,
+    searchParams: Object.fromEntries(Object.entries(resolvedSearchParams))
+  });
 
   let data: BrandStatus[] = [];
-  let meta: Meta = {
-    cursor: {
-      current: '',
-      prev: null,
-      next: null,
-      count: 0,
-    },
-  };
+  let total = 0;
   let availableProductTypes: string[] = [];
 
   if (slug === "productos-nuevos" || slug === "productos-ofertas") {
     // Obtener los datos de la colección NEW o CLO
     const result = await getStatusItems(
       slug === "productos-nuevos" ? "NEW" : "CLO",
-      cursor,
+      page,
       productType || undefined
     );
     data = result.data;
-    meta = result.meta;
+    total = result.total;
     // Obtener los tipos de productos disponibles
-    availableProductTypes = meta.productTypes || [];
+    availableProductTypes = result.productTypes || [];
   } else {
     // Obtener los datos de una colección específica usando el tipo de producto original
     const result = await getCollectionByProductType(
       originalProductType,
-      cursor,
+      page,
       brandId
     );
     data = result.data;
-    meta = result.meta;
+    total = result.total;
   }
 
   // Obtener las marcas asociadas a los tipos de producto actuales
   const currentProductTypes = (
-    productTypeMap[slug.toLowerCase()] || originalProductType
+    productTypeMap[slug] || originalProductType
   ).split(",");
   const associatedBrands = currentProductTypes.reduce<string[]>((acc, type) => {
     const brands = productBrands[type as keyof typeof productBrands] || [];
@@ -130,7 +127,7 @@ export default async function CollectionPage({
   const uniqueAssociatedBrands = Array.from(new Set(associatedBrands));
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className=" mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 capitalize">
         {slug === "productos-nuevos"
           ? "Productos Nuevos"
@@ -152,7 +149,6 @@ export default async function CollectionPage({
         uniqueAssociatedBrands.length > 0 && (
           <BrandFilterButtons
             slug={slug}
-            productType={productType}
             associatedBrands={uniqueAssociatedBrands}
           />
         )}
@@ -167,12 +163,12 @@ export default async function CollectionPage({
             <ProductList data={data} />
           </Suspense>
 
-          <CursorPage
-            meta={meta}
-            slug={slug}
+          <SimplePagination
+            currentPage={page}
+            totalPages={Math.ceil(total / 30)}
+            basePath={`/coleccion/${slug}`}
             productType={productType}
             brandId={brandId}
-            vehicleId={""}
           />
         </>
       )}

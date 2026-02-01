@@ -1,7 +1,7 @@
-import { createClient } from "@/utils/supabase/server";
 import { UsadosAlternativosContent } from "@/components/usados-section/UsadosAlternativosContent";
 
-export interface SupabaseProductItem {
+// Tipo para items usados
+interface UsedItem {
   id: number;
   titulo: string;
   descripcion: string;
@@ -15,31 +15,17 @@ export interface SupabaseProductItem {
   category: string;
   weight: number;
   calculatedPrices: Record<string, any>;
-  images: {
-    data: any[];
-  };
-  // Required properties for ItemSheet compatibility
-  name: string;
-  brand_id: number;
-  supplier_product_id: string;
-  standard_dealer_price: string;
-  list_price: string;
-  brand?: string;
 }
 
 export default async function page() {
-  const supabase = await createClient();
-  const { data: ItemsUsados } = await supabase.from("productos").select().order('id', { ascending: false });
-
-  console.log(ItemsUsados);
-
-  // Obtener categorías únicas
-  const categorias = [...new Set(ItemsUsados?.map(item => item.category) || [])];
+  // Por ahora retorna datos vacíos -有待实现从PostgreSQL获取二手商品
+  const ItemsUsados: UsedItem[] = [];
+  const categorias: string[] = [];
 
   return (
-    <UsadosAlternativosContent 
-      initialItems={ItemsUsados || []} 
-      categorias={categorias || []} 
+    <UsadosAlternativosContent
+      initialItems={ItemsUsados}
+      categorias={categorias}
     />
   );
 }

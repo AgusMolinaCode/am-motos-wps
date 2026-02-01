@@ -6,9 +6,44 @@
     "auditLog": "C:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\.7335de85e5933b66e5d2a05e204faa7df8dec607-audit.json",
     "files": [
         {
-            "date": 1766749400450,
-            "name": "C:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\mcp-puppeteer-2025-12-26.log",
-            "hash": "2c7de0d9dce27a6a34db43e4f04158cb937ddf7efbbcc346aa2a23946d5a7f82"
+            "date": 1769131995737,
+            "name": "C:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\mcp-puppeteer-2026-01-22.log",
+            "hash": "688f2b076e937be256dfcce26b73c72ff3b876a76068a837370d2513bf02e78b"
+        },
+        {
+            "date": 1769182485362,
+            "name": "C:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\mcp-puppeteer-2026-01-23.log",
+            "hash": "6a78b97defd39ef57da5223b9f7e4a7f760744fa271f995a56eaa24460c97838"
+        },
+        {
+            "date": 1769367232561,
+            "name": "C:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\mcp-puppeteer-2026-01-25.log",
+            "hash": "e1372c4f7e4118f8ca389caf0c420c7bbba660757ea42c003dbbb6e6e433cf1c"
+        },
+        {
+            "date": 1769429314852,
+            "name": "C:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\mcp-puppeteer-2026-01-26.log",
+            "hash": "20a827770802479a6c218b359677137e82f7ca22a67d229f99e2ff878547e10b"
+        },
+        {
+            "date": 1769518854499,
+            "name": "C:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\mcp-puppeteer-2026-01-27.log",
+            "hash": "8851c0b1c0f5499500cdeb315af1aa41b65d0faf6c2515b0077c685bf0b952ee"
+        },
+        {
+            "date": 1769601706958,
+            "name": "C:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\mcp-puppeteer-2026-01-28.log",
+            "hash": "e49c3a8531ae4820c4075f4b84b4e5a03d3ea1b9c363040bef47ce1af5601b12"
+        },
+        {
+            "date": 1769690727585,
+            "name": "C:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\mcp-puppeteer-2026-01-29.log",
+            "hash": "baa89472a9f22221a964c7e73386ea2b3350ee61a9f7067114e5f2ad826eb0c1"
+        },
+        {
+            "date": 1769778459259,
+            "name": "C:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\mcp-puppeteer-2026-01-30.log",
+            "hash": "e60f032393e17fac3257444aaeaec8a41bc3289888c1616fa71d0d951045840a"
         }
     ],
     "hashType": "sha256"

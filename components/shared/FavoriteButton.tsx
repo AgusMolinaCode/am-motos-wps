@@ -50,14 +50,13 @@ interface FilteredItem {
 
 interface FavoriteButtonProps {
   item: any;
-  isUsedItem?: boolean;
   className?: string;
 }
 
 // Evento personalizado para sincronizar favoritos
 const FAVORITE_CHANGE_EVENT = 'favoriteChange';
 
-const FavoriteButton: React.FC<FavoriteButtonProps> = ({ item, isUsedItem = false, className = "" }) => {
+const FavoriteButton: React.FC<FavoriteButtonProps> = ({ item, className = "" }) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   // Función para filtrar solo los datos necesarios del item
@@ -119,16 +118,7 @@ const FavoriteButton: React.FC<FavoriteButtonProps> = ({ item, isUsedItem = fals
       localStorage.setItem("favorites", JSON.stringify(newFavorites));
       setIsFavorite(false);
     } else {
-      let filteredItem = filterItemData(item);
-      
-      // Si es un item usado, asegurarse de guardar las propiedades específicas
-      if (isUsedItem) {
-        filteredItem = {
-          ...filteredItem,
-          priceFormatted: item.priceFormatted,
-          brand: item.brand
-        };
-      }
+      const filteredItem = filterItemData(item);
       
       const newFavorites = [...favorites, filteredItem];
       localStorage.setItem("favorites", JSON.stringify(newFavorites));

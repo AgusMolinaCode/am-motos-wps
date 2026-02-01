@@ -17,7 +17,6 @@ interface Item {
   standard_dealer_price: string;
   list_price: string;
   weight: number;
-  priceFormatted?: string;
   inventory?: {
     data?: {
       total?: number;
@@ -80,47 +79,43 @@ export default function FavoritosPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className=" mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Mis Favoritos</h1>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-        {itemsWithPrices.map((item) => {
-          // Determinar si es un item usado basado en la presencia de priceFormatted
-          const isUsedItem = 'priceFormatted' in item;
-          return (
-            <ProductDetailsSheet key={item.id} item={item} isUsedItem={isUsedItem}>
-              <SheetTrigger asChild>
-                <div className="border rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col relative animate-fade-in cursor-pointer">
-                  <div className="absolute top-2 right-2">
-                    <FavoriteButton item={item} isUsedItem={isUsedItem} />
-                  </div>
-                  <ColeccionImage item={item} />
-                  <h2 className="text-sm font-semibold truncate">
-                    {item.name}
-                  </h2>
-                  <p className="text-xs text-gray-600">
-                    SKU: {item.supplier_product_id}
-                  </p>
-
-                  <div className="flex flex-col gap-1 mt-2">
-                    {item.weight === 0 ? (
-                      <div className="flex justify-between items-center gap-1">
-                        <span className="text-sm font-bold text-green-600">
-                          Consultar Precio
-                        </span>
-                      </div>
-                    ) : (
-                      <div className="flex flex-col gap-1">
-                        <span className="text-md font-bold text-green-600">
-                          {item.priceFormatted || formatPrice(item.calculatedPrices?.finalTotalArs || 0)}
-                        </span>
-                      </div>
-                    )}
-                  </div>
+        {itemsWithPrices.map((item) => (
+          <ProductDetailsSheet key={item.id} item={item}>
+            <SheetTrigger asChild>
+              <div className="border rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col relative animate-fade-in cursor-pointer">
+                <div className="absolute top-2 right-2">
+                  <FavoriteButton item={item} />
                 </div>
-              </SheetTrigger>
-            </ProductDetailsSheet>
-          );
-        })}
+                <ColeccionImage item={item} />
+                <h2 className="text-sm font-semibold truncate">
+                  {item.name}
+                </h2>
+                <p className="text-xs text-gray-600">
+                  SKU: {item.supplier_product_id}
+                </p>
+
+                <div className="flex flex-col gap-1 mt-2">
+                  {item.weight === 0 ? (
+                    <div className="flex justify-between items-center gap-1">
+                      <span className="text-sm font-bold text-green-600">
+                        Consultar Precio
+                      </span>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col gap-1">
+                      <span className="text-md font-bold text-green-600">
+                        {formatPrice(item.calculatedPrices?.finalTotalArs || 0)}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </SheetTrigger>
+          </ProductDetailsSheet>
+        ))}
       </div>
     </div>
   );

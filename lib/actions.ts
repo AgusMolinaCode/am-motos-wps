@@ -1,7 +1,6 @@
 "use server";
 
-import  {SupabaseCatalog} from "@/types/interface";
-import { createClient } from "@/utils/supabase/server";
+import { prisma } from "@/lib/prisma";
 import fs from 'fs';
 import path from 'path';
 import Papa from 'papaparse';
@@ -15,19 +14,14 @@ interface CSVItem {
     product_name: string;
 }
 
-export async function getCatalog(): Promise<SupabaseCatalog[]> {
-    const supabase = await createClient();
-    const { data: items, error } = await supabase.from("wps-31-01-2025").select('sku, name, brand, vendor_number, product_name, product_type');
-    if (error) {
-        console.error("Error fetching data:", error);
-        return [];
-    }
-    return items as SupabaseCatalog[];
+export async function getCatalog() {
+    // Por ahora retorna array vacío -有待实现从PostgreSQL获取目录
+    return [];
 }
 
 export async function getCatalogProductTypes(): Promise<Record<string, string[]>> {
     const filePath = path.join(process.cwd(), 'public', 'csv', 'brands_with_ids.json');
-    
+
     return new Promise<Record<string, string[]>>((resolve) => {
         fs.readFile(filePath, 'utf8', (err, fileContents) => {
             if (err) {
@@ -54,7 +48,7 @@ export async function getCatalogProductTypes(): Promise<Record<string, string[]>
 
 export async function getProductTypeBrands(): Promise<Record<string, string[]>> {
     const filePath = path.join(process.cwd(), 'public', 'csv', 'filtered5.csv');
-    
+
     return new Promise<Record<string, string[]>>((resolve) => {
         fs.readFile(filePath, 'utf8', (err, fileContents) => {
             if (err) {
@@ -66,7 +60,6 @@ export async function getProductTypeBrands(): Promise<Record<string, string[]>> 
             Papa.parse(fileContents, {
                 header: true,
                 complete: (results) => {
-                    // Agrupar marcas por product_type, eliminando duplicados
                     const productTypeBrands = (results.data as CSVItem[]).reduce((acc: Record<string, string[]>, item) => {
                         const { brand, product_type } = item;
 
@@ -93,31 +86,6 @@ export async function getProductTypeBrands(): Promise<Record<string, string[]>> 
 }
 
 export async function getLatestUsedItems() {
-    const supabase = await createClient();
-    const { data: items, error } = await supabase
-        .from("productos")
-        .select("*")
-        .order('id', { ascending: false })
-        .limit(3);
-    
-    if (error) {
-        console.error("Error fetching latest used items:", error);
-        return [];
-    }
-    
-    // Transformar los datos para que sean compatibles con ItemSheet
-    const transformedItems = items?.map(item => ({
-        ...item,
-        name: item.titulo,
-        brand: item.marca,
-        brand_id: 0, // Los productos usados no tienen brand_id
-        supplier_product_id: item.id.toString(),
-        standard_dealer_price: "0",
-        list_price: "0",
-        weight: 1, // Peso por defecto para productos usados
-        images: { data: [] }, // Estructura compatible
-    })) || [];
-    
-    return transformedItems;
+    // Por ahora retorna array vacío -有待实现从PostgreSQL获取二手商品
+    return [];
 }
-

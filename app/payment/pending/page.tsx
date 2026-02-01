@@ -35,7 +35,7 @@ export default function PaymentPending() {
 
 Gracias.`;
 
-    const url = `https://wa.me/+541150494936?text=${encodeURIComponent(message)}`;
+    const url = `https://wa.me/+541161607732?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
   };
 
