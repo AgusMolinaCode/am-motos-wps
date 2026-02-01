@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
