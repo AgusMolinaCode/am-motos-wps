@@ -1,14 +1,14 @@
-"use client";
-
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { brands } from "@/constants";
-import SelectBrand from "./SelectBrand";
+import { getBrands } from "@/lib/brands";
 import { Button } from "../ui/button";
+import SelectBrand from "./SelectBrand";
 
-
-const BrandLink = () => {
+const BrandLink = async () => {
+  const { data: brandsData } = await getBrands();
+  
   return (
     <div className="mx-auto pt-4 md:pt-10">
       <div className="flex flex-col md:flex-row justify-between gap-2 items-center">
@@ -19,7 +19,7 @@ const BrandLink = () => {
           <Link href="/brands">
             <Button>Ver todas las marcas</Button>
           </Link>
-          <SelectBrand />
+          <SelectBrand brands={brandsData} />
         </div>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 justify-center items-center gap-2 mt-6 mx-auto content-center place-items-center">
@@ -42,13 +42,11 @@ const BrandLink = () => {
                   height={200}
                   className="object-contain "
                 />
-                {/* <p>{name}</p> */}
               </div>
             </Link>
           );
         })}
       </div>
-      
     </div>
   );
 };

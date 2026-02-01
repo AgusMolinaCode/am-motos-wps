@@ -1,9 +1,7 @@
+'use client';
 
-
-import { useState, use } from 'react';
+import { useState } from 'react';
 import { Brands } from "@/types/interface";
-import { getBrands } from "@/lib/brands";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -12,16 +10,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-async function fetchBrands(): Promise<Brands[]> {
-  const { data } = await getBrands();
-  return data;
+interface SelectBrandProps {
+  brands: Brands[];
 }
 
-const brandsPromise = fetchBrands();
-
-const SelectBrand = () => {
+const SelectBrand = ({ brands }: SelectBrandProps) => {
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
-  const brands = use(brandsPromise);
 
   return (
     <div>
@@ -44,18 +38,6 @@ const SelectBrand = () => {
             ))}
           </SelectContent>
         </Select>
-        {/* {selectedBrand && (
-          <Button
-            variant="destructive"
-            onClick={() => {
-              setSelectedBrand(null);
-              window.location.href = '/brand';
-            }}
-            className="ml-2"
-          >
-            Reiniciar
-          </Button>
-        )} */}
     </div>
   );
 }

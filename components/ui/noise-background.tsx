@@ -9,7 +9,7 @@ import {
   useSpring,
   useTransform,
   MotionValue,
-} from "motion/react";
+} from "framer-motion";
 import { useEffect, useRef } from "react";
 
 // Helper component for gradient layers

@@ -11,7 +11,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SupabaseProductItem } from "@/app/usados-alternativos/page";
+// Tipo para items usados (debe coincidir con el tipo en page.tsx)
+interface UsedItem {
+  id: number;
+  titulo: string;
+  descripcion: string;
+  marca: string;
+  modelo: string;
+  condicion: string;
+  origen: string;
+  preciopagina: number;
+  priceFormatted: string;
+  imagenes: string[];
+  category: string;
+  weight: number;
+  calculatedPrices: Record<string, any>;
+}
+
+type SupabaseProductItem = UsedItem;
 
 export function UsadosAlternativosContent({
   initialItems,

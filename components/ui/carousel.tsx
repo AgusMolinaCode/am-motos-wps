@@ -90,11 +90,11 @@ const Carousel = React.forwardRef<
 
     const onAutoplayButtonClick = React.useCallback(
       (callback: () => void) => {
-        const autoScroll = api?.plugins()?.autoplay
+        const autoScroll = api?.plugins()?.autoplay as any
         if (!autoScroll) return
 
         const resetOrStop =
-          autoScroll.options.stopOnInteraction === false
+          autoScroll.options?.stopOnInteraction === false
             ? autoScroll.reset
             : autoScroll.stop
 
