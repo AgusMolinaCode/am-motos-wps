@@ -36,7 +36,10 @@
       "Bash(npx prisma db push:*)",
       "Bash(npx ts-node:*)",
       "Bash(node:*)",
-      "Bash(npx prisma generate)"
+      "Bash(npx prisma generate)",
+      "mcp__ide__getDiagnostics",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(pnpm add:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

@@ -1,4 +1,4 @@
-import { getBrandsItems, getBrandName } from "@/lib/brands";
+import { getBrandsItems, getBrandName, getProductByPartNumber } from "@/lib/brands";
 import React, { Suspense } from "react";
 import { getCatalogProductTypes } from "@/lib/actions";
 import brandData from "@/public/csv/brand2.json";
@@ -95,6 +95,16 @@ export default async function BrandPage({ params, searchParams }: Props) {
   // Obtener los product types del brand actual usando el ID
   const currentBrandProductTypes = brandProductTypes[Number(brandId)] || [];
 
+  // Verificar si hay un producto seleccionado por query param
+  const selectedPartNumber = typeof resolvedSearchParams.item === "string"
+    ? resolvedSearchParams.item
+    : undefined;
+
+  let selectedItem = null;
+  if (selectedPartNumber) {
+    selectedItem = await getProductByPartNumber(selectedPartNumber);
+  }
+
   return (
     <div className=" mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 uppercase">{brandName}</h1>
@@ -116,7 +126,11 @@ export default async function BrandPage({ params, searchParams }: Props) {
       ) : (
         <>
           <Suspense fallback={<ProductListSkeleton />}>
-            <ProductList data={data} />
+            <ProductList
+              data={data}
+              slug={slug}
+              selectedItem={selectedItem || undefined}
+            />
           </Suspense>
           <SimplePagination
             currentPage={page}

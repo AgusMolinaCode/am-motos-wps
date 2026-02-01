@@ -244,3 +244,76 @@ export interface ItemSheet {
     data?: AttributeValue[];
   };
 }
+
+// Vehicle items from WPS API
+export interface VehicleItem {
+  id: number;
+  brand_id: number;
+  country_id: number;
+  product_id: number;
+  sku: string;
+  name: string;
+  list_price: string;
+  standard_dealer_price: string;
+  supplier_product_id: string;
+  length: number;
+  width: number;
+  height: number;
+  weight: number;
+  upc: string;
+  superseded_sku: null;
+  status_id: string;
+  status: string;
+  unit_of_measurement_id: number;
+  has_map_policy: boolean;
+  sort: number;
+  created_at: string;
+  updated_at: string;
+  published_at: string;
+  product_type: string;
+  mapp_price: string;
+  carb: null;
+  propd1: null;
+  propd2: null;
+  prop_65_code: null;
+  prop_65_detail: null;
+  drop_ship_fee: string;
+  drop_ship_eligible: boolean;
+  attributevalues: {
+    data: AttributeValue[];
+  };
+  images: {
+    data: Datum[];
+  };
+  inventory: {
+    data: {
+      id: number;
+      item_id: number;
+      sku: string;
+      ca_warehouse: number;
+      ga_warehouse: number;
+      id_warehouse: number;
+      in_warehouse: number;
+      pa_warehouse: number;
+      pa2_warehouse: number;
+      tx_warehouse: number;
+      total: number;
+      created_at: string;
+      updated_at: string;
+    };
+  };
+}
+
+export interface VehicleItemsResponse {
+  data: VehicleItem[];
+  meta: {
+    cursor: Cursor;
+  };
+}
+
+export interface VehicleItemWithPrices extends VehicleItem {
+  calculatedPrices: {
+    finalTotalArs: number;
+    shippingCharge: number;
+  };
+}

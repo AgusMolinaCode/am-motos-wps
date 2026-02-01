@@ -42,7 +42,7 @@ const PopularProductsTypes = () => {
 
   // Vista móvil (select)
   const MobileView = () => (
-    <div className="block md:hidden">
+    <div className="block lg:hidden">
       <Select value={currentProductType || "default"} onValueChange={handleProductTypeClick}>
         <SelectTrigger className="w-[238px]">
           <SelectValue placeholder="Filtrar por tipo" />
@@ -79,56 +79,50 @@ const PopularProductsTypes = () => {
 
   // Vista desktop
   const DesktopView = () => (
-    <div className="hidden md:block w-48 lg:w-64 h-full bg-gray-100 dark:bg-gray-800 p-2">
-      <div className="sticky h-[calc(100vh-1rem)]">
-        <div className="flex flex-col h-full">
-          <div className="flex-1 overflow-y-auto pr-2">
-            {currentProductType && (
-              <div className="">
-                <button
-                  onClick={() => handleProductTypeClick(currentProductType)}
-                  className="w-full px-4 py-1 text-sm bg-red-500/50 text-white rounded-lg hover:bg-red-600/80 transition-colors"
-                >
-                  Limpiar filtro
-                </button>
-              </div>
-            )}
-            <h2 className="text-lg font-bold mb-4">Tipos Populares</h2>
-            <div className="flex flex-col gap-2 mb-2">
-              {popularProductTypes.map((type) => (
-                <button
-                  key={type.id}
-                  onClick={() => handleProductTypeClick(type.name)}
-                  className={`text-left px-3 py-1 rounded-lg text-sm transition-colors ${
-                    currentProductType === type.name
-                      ? "bg-blue-600 text-white"
-                      : "hover:bg-gray-200 dark:hover:bg-gray-700"
-                  }`}
-                >
-                  {type.name_translated}
-                </button>
-              ))}
-            </div>
+    <div className="hidden lg:block w-48 lg:w-72 bg-gray-100 dark:bg-gray-800 p-2 rounded-lg">
+      <div className="flex flex-col">
+        {currentProductType && (
+          <button
+            onClick={() => handleProductTypeClick(currentProductType)}
+            className="w-full px-4 py-1 text-sm bg-red-500/50 text-white rounded-lg hover:bg-red-600/80 transition-colors mb-2"
+          >
+            Limpiar filtro
+          </button>
+        )}
+        <h2 className="text-lg font-bold mb-4">Tipos Populares</h2>
+        <div className="flex flex-col gap-2 mb-4">
+          {popularProductTypes.map((type) => (
+            <button
+              key={type.id}
+              onClick={() => handleProductTypeClick(type.name)}
+              className={`text-left px-3 py-1 rounded-lg text-sm transition-colors ${
+                currentProductType === type.name
+                  ? "bg-blue-600 text-white"
+                  : "hover:bg-gray-200 dark:hover:bg-gray-700"
+              }`}
+            >
+              {type.name_translated}
+            </button>
+          ))}
+        </div>
 
-            <Separator className="my-4" />
+        <Separator className="my-4" />
 
-            <h2 className="text-lg font-bold mb-4">Otros Tipos</h2>
-            <div className="flex flex-col gap-2">
-              {otherProductTypes.map((type) => (
-                <button
-                  key={type.id}
-                  onClick={() => handleProductTypeClick(type.name)}
-                  className={`text-left px-3 py-1 rounded-lg text-sm transition-colors ${
-                    currentProductType === type.name
-                      ? "bg-blue-600 text-white"
-                      : "hover:bg-gray-200 dark:hover:bg-gray-700"
-                  }`}
-                >
-                  {type.name_translated}
-                </button>
-              ))}
-            </div>
-          </div>
+        <h2 className="text-lg font-bold mb-4">Otros Tipos</h2>
+        <div className="flex flex-col gap-2">
+          {otherProductTypes.map((type) => (
+            <button
+              key={type.id}
+              onClick={() => handleProductTypeClick(type.name)}
+              className={`text-left px-3 py-1 rounded-lg text-sm transition-colors ${
+                currentProductType === type.name
+                  ? "bg-blue-600 text-white"
+                  : "hover:bg-gray-200 dark:hover:bg-gray-700"
+              }`}
+            >
+              {type.name_translated}
+            </button>
+          ))}
         </div>
       </div>
     </div>

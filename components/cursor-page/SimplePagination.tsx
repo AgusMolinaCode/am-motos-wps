@@ -15,27 +15,30 @@ interface SimplePaginationProps {
   currentPage: number
   totalPages: number
   basePath: string
+  // Params para marcas (formato simple)
   productType?: string
   brandId?: string
+  // Params personalizados (para vehículos)
+  customParams?: Record<string, string>
 }
 
-export function SimplePagination({ currentPage, totalPages, basePath, productType, brandId }: SimplePaginationProps) {
-  console.log("🎯 SimplePagination debug:", {
-    currentPage,
-    totalPages,
-    basePath,
-    productType,
-    brandId
-  });
-
+export function SimplePagination({ currentPage, totalPages, basePath, productType, brandId, customParams }: SimplePaginationProps) {
   const createUrl = (page: number) => {
     const params = new URLSearchParams()
     params.set('page', page.toString())
+
+    // Params simples (para marcas)
     if (productType) params.set('productType', productType)
     if (brandId) params.set('brandId', brandId)
-    const url = `${basePath}?${params.toString()}`
-    console.log("🔗 Generated URL:", url);
-    return url
+
+    // Params personalizados (para vehículos como filter[product_type])
+    if (customParams) {
+      Object.entries(customParams).forEach(([key, value]) => {
+        params.set(key, value)
+      })
+    }
+
+    return `${basePath}?${params.toString()}`
   }
 
   // Generar páginas a mostrar (máximo 3 páginas alrededor de la actual)

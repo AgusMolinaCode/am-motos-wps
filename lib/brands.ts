@@ -3,13 +3,14 @@
 import {
   BrandId,
   Brands,
-  Meta,
   BrandStatus,
   VehicleDataId,
   VehicleCompatibilityData,
   VehicleModel,
   Data as InventoryData,
   Datum as ImageDatum,
+  VehicleItem,
+  VehicleItemsResponse,
 } from "@/types/interface";
 import { prisma } from "@/lib/prisma";
 import brandData from "@/public/csv/brand2.json";
@@ -57,11 +58,11 @@ export async function getBrandsItems(
       name: product.name,
       sku: product.sku ?? undefined,
       supplier_product_id: product.supplier_product_id ?? undefined,
-      list_price: product.list_price?.toNumber() ?? undefined,
-      dealer_price: product.dealer_price?.toNumber() ?? undefined,
+      list_price: product.list_price?.toString() ?? "0",
+      standard_dealer_price: product.dealer_price?.toString() ?? "0",
       product_type: product.product_type ?? undefined,
       status: product.status ?? undefined,
-      weight: product.weight?.toNumber() ?? undefined,
+      weight: product.weight?.toNumber() ?? 0,
       inventory: {
         data: {
           total: product.inventory_total ?? 0,
@@ -70,7 +71,6 @@ export async function getBrandsItems(
       images: {
         data: images ?? [],
       },
-      attributevalues: undefined,
     };
   });
 
@@ -125,8 +125,7 @@ export async function getBrands(
       })),
       count: brands.length,
     };
-  } catch (error) {
-    console.error("Unexpected error in getBrands:", error);
+  } catch {
     return { data: [], count: 0 };
   }
 }
@@ -141,18 +140,16 @@ export async function getBrandName(brandId: string): Promise<string> {
     if (brand) {
       return brand.name;
     }
-
-    // Si no se encuentra en DB, buscar en el archivo local como fallback
-    const localBrand = brandData.find((b) => b.id.toString() === brandId);
-    if (localBrand) {
-      return localBrand.name;
-    }
-
-    return brandId;
-  } catch (error) {
-    console.error(`Error fetching brand name for ID ${brandId}:`, error);
-    return brandId;
+  } catch {
+    // Silencioso
   }
+
+  const localBrand = brandData.find((b) => b.id.toString() === brandId);
+  if (localBrand) {
+    return localBrand.name;
+  }
+
+  return brandId;
 }
 
 const ProductTypeUrlReverseMap: Record<string, string> = {
@@ -262,11 +259,11 @@ export async function getCollectionByProductType(
       name: product.name,
       sku: product.sku ?? undefined,
       supplier_product_id: product.supplier_product_id ?? undefined,
-      list_price: product.list_price?.toNumber() ?? undefined,
-      dealer_price: product.dealer_price?.toNumber() ?? undefined,
+      list_price: product.list_price?.toString() ?? "0",
+      standard_dealer_price: product.dealer_price?.toString() ?? "0",
       product_type: product.product_type ?? undefined,
       status: product.status ?? undefined,
-      weight: product.weight?.toNumber() ?? undefined,
+      weight: product.weight?.toNumber() ?? 0,
       inventory: {
         data: {
           total: product.inventory_total ?? 0,
@@ -275,7 +272,6 @@ export async function getCollectionByProductType(
       images: {
         data: images ?? [],
       },
-      attributevalues: undefined,
     };
   });
 
@@ -349,11 +345,11 @@ export async function getStatusItems(
       name: product.name,
       sku: product.sku ?? undefined,
       supplier_product_id: product.supplier_product_id ?? undefined,
-      list_price: product.list_price?.toNumber() ?? undefined,
-      dealer_price: product.dealer_price?.toNumber() ?? undefined,
+      list_price: product.list_price?.toString() ?? "0",
+      standard_dealer_price: product.dealer_price?.toString() ?? "0",
       product_type: product.product_type ?? undefined,
       status: product.status ?? undefined,
-      weight: product.weight?.toNumber() ?? undefined,
+      weight: product.weight?.toNumber() ?? 0,
       inventory: {
         data: {
           total: product.inventory_total ?? 0,
@@ -362,7 +358,6 @@ export async function getStatusItems(
       images: {
         data: images ?? [],
       },
-      attributevalues: undefined,
     };
   });
 
@@ -402,7 +397,7 @@ function transformToBrandStatus(product: Product): BrandStatus {
           };
         }
         // Si ya es objeto, usar directamente
-        return img as ImageDatum;
+        return img as unknown as ImageDatum;
       })
     : [];
 
@@ -457,7 +452,6 @@ function transformToBrandStatus(product: Product): BrandStatus {
     drop_ship_eligible: product.drop_ship_eligible,
     inventory: { data: inventoryData },
     images: { data: imageData },
-    attributevalues: undefined,
   };
 }
 
@@ -475,12 +469,15 @@ export async function getRecommendedItems(): Promise<{
         brand_id: brandId,
         inventory_total: { gt: 0 },
         status: "NEW",
-        images: { not: null },
       },
       take: 10, // Tomar más para tener variedad
     });
+    // Filtrar productos con images[] no vacío y no null
+    const productsWithImages = products.filter(
+      (p) => Array.isArray(p.images) && p.images.length > 0
+    );
     // Mezclar y tomar los primeros
-    const shuffled = products.sort(() => Math.random() - 0.5);
+    const shuffled = productsWithImages.sort(() => Math.random() - 0.5);
     data.push(...shuffled.slice(0, productsPerBrand));
   }
 
@@ -541,8 +538,7 @@ export async function getVehicleCompatibility(
       }
 
       nextCursor = result.meta?.cursor?.next || null;
-    } catch (error) {
-      console.error("Error fetching vehicle compatibility:", error);
+    } catch {
       break;
     }
   } while (nextCursor);
@@ -627,8 +623,8 @@ export async function getVehicleCompatibilityByItemId(
       if (result.data) {
         allVehicles.push(...result.data);
       }
-    } catch (error) {
-      console.error("Error fetching vehicle details:", error);
+    } catch {
+      // Skip this chunk
     }
   }
 
@@ -661,8 +657,7 @@ export async function getVehicleModel(
       created_at: model.created_at?.toISOString() || "",
       updated_at: model.updated_at?.toISOString() || "",
     }));
-  } catch (error) {
-    console.error("Error fetching vehicle models from DB:", error);
+  } catch {
     return [];
   }
 }
@@ -692,8 +687,7 @@ export async function getVehicleItemsId(
       created_at: vehicle.created_at?.toISOString() || "",
       updated_at: vehicle.updated_at?.toISOString() || "",
     }));
-  } catch (error) {
-    console.error("Error fetching vehicle items from DB:", error);
+  } catch {
     return [];
   }
 }
@@ -702,14 +696,15 @@ export async function getVehicleItems(
   vehicleId: string,
   cursor: string | null = null,
   productType: string | null = null,
-  sort: string | null = null,
-): Promise<{ data: any[]; meta: Meta }> {
+  sort: string | null = null
+): Promise<VehicleItemsResponse> {
   const headers: HeadersInit = {
     Authorization: process.env.PUBLIC_WPS ?? "",
   };
 
   try {
-    let url = `https://api.wps-inc.com/vehicles/${vehicleId}/items?include=inventory,images,attributevalues&page[size]=30`;
+    // Incluir inventory e images
+    let url = `https://api.wps-inc.com/vehicles/${vehicleId}/items?include=inventory,images&page[size]=30`;
 
     if (cursor) {
       url += `&page[cursor]=${encodeURIComponent(cursor)}`;
@@ -723,39 +718,191 @@ export async function getVehicleItems(
       url += `&${sort}`;
     }
 
-    const response = await fetch(url, { method: "GET", headers });
+    const response = await fetch(url, {
+      method: "GET",
+      headers,
+      cache: "no-store",
+      next: { revalidate: 0 },
+    });
 
     if (!response.ok) {
-      const errorData = await response.text();
-      console.error("API Error:", errorData);
       throw new Error(`API responded with status ${response.status}`);
     }
 
     const result = await response.json();
 
-    // Ordenar los productos por inventario
-    result.data.sort((a: any, b: any) => {
-      const inventoryA = a.inventory?.data?.total || 0;
-      const inventoryB = b.inventory?.data?.total || 0;
+    // No filtrar por inventario - la API ya retorna los productos
+    // El filtrado de inventario se puede hacer en el futuro si es necesario
+    const itemsWithInventory = result.data as VehicleItem[];
 
-      // Si ambos tienen inventario 0 o ambos tienen inventario > 0, mantener el orden original
-      if (
-        (inventoryA === 0 && inventoryB === 0) ||
-        (inventoryA > 0 && inventoryB > 0)
-      ) {
-        return 0;
-      }
-      // Si A tiene inventario > 0 y B tiene inventario 0, A va primero
-      if (inventoryA > 0 && inventoryB === 0) {
-        return -1;
-      }
-      // Si B tiene inventario > 0 y A tiene inventario 0, B va primero
-      return 1;
+    return {
+      data: itemsWithInventory,
+      meta: result.meta,
+    };
+  } catch {
+    return { data: [], meta: { cursor: { current: "", prev: null, next: null, count: 0 } } };
+  }
+}
+
+export async function getVehicleCompatibilityDb(
+  itemId: number
+): Promise<VehicleCompatibilityData[]> {
+  try {
+    // Obtener los vehicle_ids desde la API de WPS para este item
+    const headers: HeadersInit = {
+      Authorization: process.env.PUBLIC_WPS ?? "",
+    };
+
+    const response = await fetch(
+      `https://api.wps-inc.com/items/${itemId}/vehicles?page[size]=650`,
+      { headers }
+    );
+
+    if (!response.ok) {
+      throw new Error(`API responded with status ${response.status}`);
+    }
+
+    const result = await response.json();
+    const vehicleIds = result.data?.map((v: VehicleDataId) => v.id) || [];
+
+    if (vehicleIds.length === 0) {
+      return [];
+    }
+
+    // Buscar los vehículos específicos en la DB local
+    const vehicles = await prisma.vehicle.findMany({
+      where: {
+        id: { in: vehicleIds },
+      },
+      include: {
+        model: {
+          include: {
+            make: true,
+          },
+        },
+        year: true,
+      },
     });
 
-    return result;
-  } catch (error) {
-    console.error("Error fetching vehicle items:", error);
-    return { data: [], meta: {} as Meta };
+    // Transformar al formato VehicleCompatibilityData
+    return vehicles.map((vehicle) => ({
+      id: vehicle.id,
+      vehiclemodel_id: vehicle.vehiclemodel_id ?? 0,
+      vehicleyear_id: vehicle.vehicleyear_id ?? 0,
+      created_at: vehicle.created_at?.toISOString() || "",
+      updated_at: vehicle.updated_at?.toISOString() || "",
+      vehiclemodel: {
+        data: {
+          id: vehicle.model?.id ?? 0,
+          vehiclemake_id: vehicle.model?.vehiclemake_id ?? 0,
+          db2_key: vehicle.model?.db2_key || "",
+          name: vehicle.model?.name || "",
+          created_at: vehicle.model?.created_at?.toISOString() || "",
+          updated_at: vehicle.model?.updated_at?.toISOString() || "",
+          vehiclemake: {
+            data: {
+              id: vehicle.model?.make?.id ?? 0,
+              db2_key: vehicle.model?.make?.db2_key || "",
+              name: vehicle.model?.make?.name || "",
+              created_at: vehicle.model?.make?.created_at?.toISOString() || "",
+              updated_at: vehicle.model?.make?.updated_at?.toISOString() || "",
+            },
+          },
+        },
+      },
+      vehicleyear: {
+        data: {
+          id: vehicle.year?.id ?? 0,
+          name: vehicle.year?.year ?? 0,
+          created_at: vehicle.year?.created_at?.toISOString() || "",
+          updated_at: vehicle.year?.updated_at?.toISOString() || "",
+        },
+      },
+    }));
+  } catch {
+    return [];
   }
+}
+
+// Buscar producto por supplier_product_id
+export async function getProductByPartNumber(
+  partNumber: string
+): Promise<BrandStatus | null> {
+  if (!partNumber || partNumber.length < 2) return null;
+
+  const product = await prisma.product.findFirst({
+    where: {
+      supplier_product_id: partNumber,
+    },
+  });
+
+  if (!product) return null;
+
+  return transformToBrandStatus(product);
+}
+
+// Obtener productos para slider con imágenes y stock
+// seed: valor que cambia cada minuto para rotar productos mostrados
+export async function getSliderProducts(
+  brandId: number,
+  productType: string,
+  limit: number = 10,
+  seed?: number
+): Promise<BrandStatus[]> {
+  // Sanitizar productType como en otras funciones
+  const sanitizedProductType = decodeURIComponent(productType).replace(/%26/g, "&");
+
+  // Obtener el total de productos disponibles para calcular offset
+  const totalProducts = await prisma.product.count({
+    where: {
+      brand_id: brandId,
+      product_type: sanitizedProductType,
+      inventory_total: { gt: 0 },
+      images: { not: { equals: [] } },
+    },
+  });
+
+  // Si hay pocos productos, mostrar todos
+  if (totalProducts <= limit) {
+    const data = await prisma.product.findMany({
+      where: {
+        brand_id: brandId,
+        product_type: sanitizedProductType,
+        inventory_total: { gt: 0 },
+      },
+      orderBy: { created_at: "desc" },
+    });
+    
+    const productsWithImages = data.filter(
+      (p) => Array.isArray(p.images) && p.images.length > 0
+    );
+    
+    return productsWithImages.slice(0, limit).map(transformToBrandStatus);
+  }
+
+  // Calcular offset basado en seed (cambia cada minuto) para rotar productos
+  const maxOffset = Math.max(0, totalProducts - limit);
+  const offset = seed !== undefined 
+    ? (seed * 17) % (maxOffset + 1)  // Usar seed para calcular offset
+    : 0;
+
+  // Obtener productos con offset
+  const data = await prisma.product.findMany({
+    where: {
+      brand_id: brandId,
+      product_type: sanitizedProductType,
+      inventory_total: { gt: 0 },
+    },
+    orderBy: { created_at: "desc" },
+    skip: offset,
+    take: limit * 2, // Tomar más para filtrar por imágenes
+  });
+
+  // Filtrar productos con imágenes
+  const productsWithImages = data.filter(
+    (p) => Array.isArray(p.images) && p.images.length > 0
+  );
+
+  // Tomar solo la cantidad solicitada
+  return productsWithImages.slice(0, limit).map(transformToBrandStatus);
 }

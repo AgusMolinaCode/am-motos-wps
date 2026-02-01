@@ -10,6 +10,13 @@ export const metadata: Metadata = {
 const page = () => {
   const catalogos = [
     {
+      id: 4,
+      title: "Catalogo Offroad",
+      image:
+        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2025-Offroad-Cover.jpg",
+      href: "http://catalogs.wps-inc.com/2025/offroad/",
+    },
+    {
       id: 1,
       title: "Pro-x Offroad Catalogo",
       image: "/images/prox_dirt.png",
@@ -19,8 +26,8 @@ const page = () => {
       id: 2,
       title: "Catalogo Alpinestars",
       image:
-        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2025-Alpine-Collection.jpg",
-      href: "http://catalogs.wps-inc.com/2025/alpinestars/",
+        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2026-Alpine-Collection.jpg",
+      href: "http://catalogs.wps-inc.com/2026/alpinestars/",
     },
     {
       id: 6,
@@ -29,25 +36,18 @@ const page = () => {
       href: "https://www.pro-x.com/wp-content/uploads/2024/07/ProX-Catalog-2024-ATV-UTV.pdf",
     },
     {
-      id: 4,
-      title: "Catalogo Offroad",
-      image:
-        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2024-Offroad-Cover.jpg",
-      href: "http://catalogs.wps-inc.com/2023/offroad/",
-    },
-    {
       id: 3,
       title: "Catalogo ATV",
       image:
-        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2025-ATV-Cover.jpg",
-      href: "http://catalogs.wps-inc.com/2025/atv/",
+        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2026-ATV-Cover.jpg",
+      href: "https://western-power-sports.dcatalog.com/v/2026-ATVUTV-Updated-012226/?page=1",
     },
     {
       id: 5,
       title: "Catalogo Road",
       image:
-        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2025-Street-Cover.jpg",
-      href: "http://catalogs.wps-inc.com/2024/street/",
+        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2026-Street-Cover.jpg",
+      href: "https://western-power-sports.dcatalog.com/v/2026-Street/?page=1",
     },
     {
       id: 7,
@@ -60,36 +60,36 @@ const page = () => {
       id: 8,
       title: "Catalogo Indumentaria",
       image:
-        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2025-Apparel-Cover.jpg",
-      href: "http://catalogs.wps-inc.com/2025/apparel/",
+        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2026-Apparel-Cover.jpg",
+      href: "http://catalogs.wps-inc.com/2026/apparel/",
     },
     {
       id: 9,
       title: "Catalogo Indumentaria Suplementaria",
       image:
-        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2024-Apparel-Supp-Cover.jpg",
-      href: "http://catalogs.wps-inc.com/2024/apparel-supp/",
+        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2025-Apparel-Supp-Cover.jpg",
+      href: "http://catalogs.wps-inc.com/2025/apparel%20supp/",
     },
     {
       id: 10,
       title: "Catalogo FLY Racing",
       image:
-        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2025-FLY-Racing-Cover.jpg",
-      href: "http://catalogs.wps-inc.com/2025/fly_mx/",
+        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2026-FLY-Racing-Cover.jpg",
+      href: "http://catalogs.wps-inc.com/2026/FLY%20Sales%20Access/",
     },
     {
       id: 11,
       title: "Catalogo Cubiertas / Herramientas",
       image:
-        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2024-Tires-Cover.jpg",
-      href: "http://catalogs.wps-inc.com/2024/tires/",
+        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2025-Tire-Cover.jpg",
+      href: "http://catalogs.wps-inc.com/2025/tires/",
     },
     {
       id: 12,
-      title: "Catalogo FLY Racing Road",
+      title: "Scorpion Catalogo",
       image:
-        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2023-FLY-Street-Cover.jpg",
-      href: "http://catalogs.wps-inc.com/2023/flystreet/",
+        "https://www.wpsstatic.com/miscimages/catalog-front-covers/2025-Scorpion-Cover.jpg",
+      href: "http://catalogs.wps-inc.com/2025/scorpion/",
     },
   ];
 

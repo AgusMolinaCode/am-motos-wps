@@ -9,9 +9,10 @@ import { useState, useEffect } from "react";
 import { BrandStatus } from "@/types/interface";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePriceCalculation } from "@/hooks/usePriceCalculation";
+import { useAuth } from "@clerk/nextjs";
 
 const CACHE_KEY = 'recommended_items_cache';
-const CACHE_DURATION = 1000 * 60 * 5; // 5 minutos
+const CACHE_DURATION = 1000 * 60 * 60 * 24; // 24 horas
 
 const ProductListSkeleton = () => (
   <div className="py-4 md:py-10">
@@ -33,6 +34,7 @@ export default function BestSellersSection() {
   const [recommendedItems, setRecommendedItems] = useState<BrandStatus[]>([]);
   const [loading, setLoading] = useState(true);
   const { calculateTotalPrice, formatPrice } = usePriceCalculation();
+  const { isSignedIn } = useAuth();
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -82,6 +84,20 @@ export default function BestSellersSection() {
     return <ProductListSkeleton />;
   }
 
+  // Calcular precios para todos los items
+  const itemsWithPrices = recommendedItems.map((item) => {
+    const retailCalc = calculateTotalPrice(item, false);
+    const wholesaleCalc = calculateTotalPrice(item, true);
+
+    return {
+      ...item,
+      hasStock: retailCalc.hasStock,
+      retailPrice: retailCalc.finalTotalArs,
+      wholesalePrice: wholesaleCalc.finalTotalArs,
+      listPriceWithMarkup: retailCalc.listPriceWithMarkup,
+    };
+  });
+
   return (
     <div className="mx-auto pt-4 md:pt-10">
       <div className="flex justify-between gap-2 items-center mb-4">
@@ -98,7 +114,7 @@ export default function BestSellersSection() {
         </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          {recommendedItems.map((item) => (
+          {itemsWithPrices.map((item) => (
             <ProductDetailsSheet key={item.id} item={item}>
               <SheetTrigger asChild>
                 <div className="border rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col relative animate-fade-in cursor-pointer">
@@ -112,16 +128,28 @@ export default function BestSellersSection() {
                   </p>
 
                   <div className="flex flex-col gap-1 mt-2">
-                    {item.weight === 0 ? (
-                      <div className="flex justify-between items-center gap-1">
-                        <span className="text-sm font-bold text-green-600">
-                          Consultar Precio
+                    {!item.hasStock ? (
+                      // Sin stock: mostrar precio list_price +50% en verde
+                      <div className="flex flex-col gap-1">
+                        <span className="text-lg font-bold text-green-600">
+                          {formatPrice(item.listPriceWithMarkup || 0)}
+                        </span>
+                      </div>
+                    ) : isSignedIn ? (
+                      // Autenticado: mostrar precio mayorista (+20%)
+                      <div className="flex flex-col gap-1">
+                        <span className="text-lg font-bold text-green-600">
+                          {formatPrice(item.wholesalePrice || 0)}
                         </span>
                       </div>
                     ) : (
+                      // No autenticado: precio retail (+40%) con precio lista tachado
                       <div className="flex flex-col gap-1">
-                        <span className="text-md font-bold text-green-600">
-                          {formatPrice(calculateTotalPrice(item).finalTotalArs)}
+                        <span className="text-lg font-bold text-green-600">
+                          {formatPrice(item.retailPrice || 0)}
+                        </span>
+                        <span className="text-xs text-gray-400 line-through">
+                          {formatPrice(item.listPriceWithMarkup || 0)}
                         </span>
                       </div>
                     )}

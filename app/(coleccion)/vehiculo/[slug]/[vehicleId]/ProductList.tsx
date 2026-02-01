@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { BrandStatus, BrandId } from "@/types/interface";
+import { VehicleItem } from "@/types/interface";
 import ColeccionImage from "@/components/category-section/ColeccionImage";
 import ProductDetailsSheet from "@/components/shared/ProductDetailsSheet";
 import FavoriteButton from "@/components/shared/FavoriteButton";
@@ -9,20 +9,17 @@ import { SheetTrigger } from "@/components/ui/sheet";
 import { usePriceCalculation } from "@/hooks/usePriceCalculation";
 import { useAuth } from "@clerk/nextjs";
 
-interface ProductListProps {
-  data: BrandStatus[] | BrandId[];
+interface VehicleProductListProps {
+  data: VehicleItem[];
   sort?: string | null;
   slug?: string;
   productType?: string | null;
-  selectedItem?: BrandStatus | BrandId | null;
 }
 
 export default function ProductList({
   data,
   sort,
-  slug,
-  selectedItem,
-}: ProductListProps) {
+}: VehicleProductListProps) {
   const { calculateTotalPrice, formatPrice } = usePriceCalculation();
   const { isSignedIn } = useAuth();
 
@@ -42,7 +39,7 @@ export default function ProductList({
     };
   });
 
-  // Ordenar items según el parámetro sort
+  // Ordenar según el parámetro sort
   const sortedItems = [...itemsWithPrices].sort((a, b) => {
     if (!sort) return 0;
 
@@ -62,14 +59,7 @@ export default function ProductList({
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-1 md:gap-4">
       {sortedItems.map((item) => (
-        <ProductDetailsSheet
-          key={item.id}
-          item={item}
-          slug={slug}
-          openAutomatically={
-            selectedItem?.supplier_product_id === item.supplier_product_id
-          }
-        >
+        <ProductDetailsSheet key={item.id} item={item}>
           <SheetTrigger asChild>
             <div className="border rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col relative animate-fade-in cursor-pointer">
               <div className="absolute top-2 right-2">

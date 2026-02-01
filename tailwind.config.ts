@@ -11,8 +11,11 @@ const config: Config = {
   	extend: {
   		keyframes: {
   			scroll: {
-  				to: {
-  					transform: 'translate(calc(-50% - 0.5rem))'
+  				'0%': {
+  					transform: 'translateX(0)'
+  				},
+  				'100%': {
+  					transform: 'translateX(calc(-16.666% - 0.333rem))'
   				}
   			},
   			shimmer: {

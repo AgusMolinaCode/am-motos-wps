@@ -1,26 +1,28 @@
 import { getVehicleItems } from "@/lib/brands";
 import React, { Suspense } from "react";
-import CursorPage from "@/components/cursor-page/CursorPage";
 import PopularProductsTypes from "@/components/vehiculo/PopularProductsTypes";
 import SortBy from "@/components/vehiculo/SortBy";
-import dynamic from "next/dynamic";
 import Loading from "./loading";
 import { Metadata } from "next";
+import { CursorPagination } from "@/components/cursor-page/CursorPagination";
+import ProductList from "./ProductList";
 
-// Importar ProductList de manera dinámica con suspense
-const ProductList = dynamic(() => import("@/components/vehiculo/ProductList"), {
-  loading: () => <Loading />,
-});
+// Disable cache for Turbopack
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+export const revalidate = 0;
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
     vehicleId: string;
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
+  }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export const generateMetadata = async ({ params }: PageProps): Promise<Metadata> => {
+export const generateMetadata = async ({
+  params,
+}: PageProps): Promise<Metadata> => {
   const resolvedParams = await params;
   const slug = resolvedParams.slug || "";
   const [make, model, year] = slug
@@ -29,30 +31,35 @@ export const generateMetadata = async ({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `AM MOTOS - ${make} ${model} ${year}`,
-    description: `Venta de repuestos, accesorios e indumentaria para ${make} ${model} ${year}`,
+    description: `Venta de repuestos para ${make} ${model} ${year}`,
     openGraph: {
       title: `AM MOTOS - ${make} ${model} ${year}`,
-      description: `Venta de repuestos, accesorios e indumentaria para ${make} ${model} ${year}`,
-      images: "/favicon.ico",
+      description: `Venta de repuestos para ${make} ${model} ${year}`,
+      images: ["/favicon.ico"],
     },
   };
 };
 
 export default async function Page({ params, searchParams }: PageProps) {
   const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
   const slug = resolvedParams.slug || "";
   const [make, model, year] = slug
     .split("-")
     .map((part) => part.replace(/\b\w/g, (c) => c.toUpperCase()));
 
   const cursor =
-    typeof searchParams["cursor"] === "string" ? searchParams["cursor"] : null;
+    typeof resolvedSearchParams["cursor"] === "string"
+      ? resolvedSearchParams["cursor"]
+      : null;
   const productType =
-    typeof searchParams["filter[product_type]"] === "string"
-      ? searchParams["filter[product_type]"]
+    typeof resolvedSearchParams["filter[product_type]"] === "string"
+      ? resolvedSearchParams["filter[product_type]"]
       : null;
   const sort =
-    typeof searchParams["sort"] === "string" ? searchParams["sort"] : null;
+    typeof resolvedSearchParams["sort"] === "string"
+      ? resolvedSearchParams["sort"]
+      : null;
 
   return (
     <div className="container mx-auto md:px-4 py-4 md:py-8">
@@ -60,15 +67,15 @@ export default async function Page({ params, searchParams }: PageProps) {
         <h1 className="text-xl md:text-3xl font-bold text-center md:text-left capitalize">
           {make} {model} {year}
         </h1>
-        <div className="hidden md:flex">
+        <div className="hidden lg:flex">
           <SortBy />
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4 md:gap-6">
+      <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
         <div className="flex justify-between gap-2">
           <PopularProductsTypes />
-          <div className="flex md:hidden">
+          <div className="flex lg:hidden">
             <SortBy />
           </div>
         </div>
@@ -89,7 +96,6 @@ export default async function Page({ params, searchParams }: PageProps) {
   );
 }
 
-// Componente separado para el contenido que requiere datos
 async function ProductListContent({
   vehicleId,
   cursor,
@@ -103,13 +109,11 @@ async function ProductListContent({
   sort: string | null;
   slug: string;
 }) {
-  // Solo usar el parámetro sort para ordenamiento en el servidor si no es finalTotalArs
-  const sortParam = sort?.includes("finalTotalArs") ? null : sort;
   const { data: vehicleItems, meta } = await getVehicleItems(
     vehicleId,
     cursor,
     productType,
-    sortParam
+    sort,
   );
 
   if (vehicleItems.length === 0) {
@@ -122,8 +126,19 @@ async function ProductListContent({
 
   return (
     <>
-      <ProductList data={vehicleItems} sort={sort} />
-      <CursorPage meta={meta} slug={slug} vehicleId={vehicleId} />
+      <ProductList
+        data={vehicleItems}
+        sort={sort}
+        slug={slug}
+        productType={productType}
+      />
+      <CursorPagination
+        cursor={meta.cursor || null}
+        slug={slug}
+        vehicleId={vehicleId}
+        productType={productType}
+        sort={sort}
+      />
     </>
   );
 }
