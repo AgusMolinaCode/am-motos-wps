@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "c:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\.8114e93b2b2ea6f0caa54ee6241399ddd9dd5b2c-audit.json",
+    "files": [
+        {
+            "date": 1769388567797,
+            "name": "c:\\Users\\urano\\OneDrive\\Escritorio\\Programacion\\am-motos-wps\\logs\\mcp-puppeteer-2026-01-25.log",
+            "hash": "8b7823095681e0e349f082a821d056befa301fd24e2213c8a78a1520a45ae467"
+        }
+    ],
+    "hashType": "sha256"
+}

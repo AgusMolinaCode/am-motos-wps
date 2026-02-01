@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { getVehicleCompatibility, getVehicleCompatibilityByItemId } from "@/lib/brands";
+import { getVehicleCompatibilityDb } from "@/lib/brands";
 import { VehicleCompatibilityData } from "@/types/interface";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/Separator";
 
 // Cache para almacenar los resultados de las consultas
-const compatibilityCache: Record<number, VehicleCompatibilityData[]> = {};
+let compatibilityCache: Record<number, VehicleCompatibilityData[]> = {};
 
 const VehicleCompatibility = ({ item, isVisible = false }: { item: any, isVisible: boolean }) => {
   const [vehicles, setVehicles] = useState<VehicleCompatibilityData[]>([]);
@@ -15,7 +15,7 @@ const VehicleCompatibility = ({ item, isVisible = false }: { item: any, isVisibl
     if (!isVisible) return;
 
     const fetchVehicleCompatibility = async () => {
-      // Si ya tenemos los datos en caché, los usamos
+      // Si ya tenemos los datos en caché para este item, los usamos
       if (compatibilityCache[item.id]) {
         setVehicles(compatibilityCache[item.id]);
         return;
@@ -23,11 +23,8 @@ const VehicleCompatibility = ({ item, isVisible = false }: { item: any, isVisibl
 
       setLoading(true);
       try {
-        // Obtener los IDs de los vehículos compatibles
-        const vehicleIds = await getVehicleCompatibility(item.id);
-
-        // Obtener los detalles completos de los vehículos
-        const vehicleDetails = await getVehicleCompatibilityByItemId(vehicleIds.map(v => v.id));
+        // Obtener los vehículos compatibles desde la DB (usa API de WPS + DB local)
+        const vehicleDetails = await getVehicleCompatibilityDb(item.id);
 
         // Ordenar los vehículos por marca, modelo y año
         const sortedVehicles = vehicleDetails.sort((a, b) => {

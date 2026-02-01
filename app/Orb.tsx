@@ -303,7 +303,7 @@ export default function Orb({
   return (
     <div className="relative w-full h-full">
       <Link
-        href="https://wa.me/+5491150494936"
+        href="https://wa.me/+5491161607732"
         target="_blank"
         rel="noopener noreferrer"
         className="w-full h-full flex items-center justify-center"

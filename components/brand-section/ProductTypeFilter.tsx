@@ -62,7 +62,9 @@ export default function ProductTypeFilter({
       params.set("productType", encodeURIComponent(selectedType));
     }
 
+    // Resetear página a 1 al cambiar filtro
     params.delete("cursor");
+    params.delete("page");
 
     router.push(`${pathname}${params.toString() ? `?${params.toString()}` : ""}`);
   };

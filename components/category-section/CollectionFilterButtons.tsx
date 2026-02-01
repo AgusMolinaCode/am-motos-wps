@@ -13,13 +13,11 @@ import {
 
 interface CollectionFilterButtonsProps {
   slug: string;
-  productType?: string;
   associatedBrands: string[];
 }
 
 const CollectionFilterButtons: React.FC<CollectionFilterButtonsProps> = ({
   slug,
-  productType,
   associatedBrands,
 }) => {
   const router = useRouter();
@@ -31,43 +29,26 @@ const CollectionFilterButtons: React.FC<CollectionFilterButtonsProps> = ({
     brandData.map(brand => [brand.name, brand.id.toString()])
   );
 
-  // Mapa de tipos de producto para colecciones específicas
-  const productTypeMap: Record<string, string> = {
-    'motor': 'Engine,Piston kits & Components',
-    'accesorios': 'Accessories',
-    'indumentaria': 'Pants,Jerseys,Footwear,Gloves,Eyewear',
-    'cascos': 'Helmets',
-    'proteccion': 'Protective/Safety,Luggage',
-    'herramientas': 'Tools',
-    'casual': 'Vests,Sweaters,Suits,Socks,Shorts,Shoes,Jackets,Hoodies,Bags,Luggage'
-  };
-
-  // Si productType es undefined, usar el tipo de producto de la colección
-  const encodedProductType = productType 
-    ? encodeURIComponent(productType)
-    : productTypeMap[slug.toLowerCase()] 
-      ? encodeURIComponent(productTypeMap[slug.toLowerCase()])
-      : undefined;
-
   const handleBrandFilter = (brandId: string) => {
     // Crear un nuevo objeto URLSearchParams
     const params = new URLSearchParams(searchParams.toString());
-    
+
     if (brandId === "all") {
-      // Si seleccionamos "Todas las Marcas", eliminar el filtro
+      // Si seleccionamos "Todas las Marcas", eliminar el filtro de marca
       params.delete('brandId');
     } else {
       // Establecer el brandId
       params.set('brandId', brandId);
-      
-      // Si hay un productType, también lo incluimos
-      if (encodedProductType) {
-        params.set('productType', encodedProductType);
-      }
     }
+
+    // Eliminar el productType ya que al filtrar por marca no es necesario
+    params.delete('productType');
 
     // Eliminar el cursor para comenzar desde el principio
     params.delete('cursor');
+
+    // Resetear la página a 1 cuando se cambia de marca
+    params.set('page', '1');
 
     // Navegar a la nueva URL sin recargar la página
     router.push(`${pathname}?${params.toString()}`, { scroll: false });

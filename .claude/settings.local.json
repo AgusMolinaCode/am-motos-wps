@@ -1,6 +1,49 @@
 {
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "mcp__context7__resolve-library-id",
+      "Bash(npx prisma:*)",
+      "Bash(npx prisma migrate dev:*)",
+      "Bash(npx tsx:*)",
+      "Bash(timeout 120 bash:*)",
+      "Bash(timeout 60 bash:*)",
+      "Bash(dir \"C:\\\\Users\\\\urano\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-urano-OneDrive-Escritorio-Programacion-am-motos-wps\\\\tasks\\\\b92e99b.*\")",
+      "Bash(powershell:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker compose:*)",
+      "Bash(npm run build)",
+      "mcp__Prisma-Local__migrate-status",
+      "mcp__Prisma-Local__Prisma-Studio",
+      "Bash(npm run lint)",
+      "Bash(npx next lint:*)",
+      "Bash(node_modules/.bin/next lint:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npx tsc:*)",
+      "mcp__next-devtools__browser_eval",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_console_messages",
+      "mcp__playwright__browser_run_code",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_click",
+      "Bash(npx prisma studio)",
+      "Bash(npx:*)",
+      "Bash(npm run lint:*)",
+      "Bash(timeout:*)",
+      "Bash(npx prisma -c prisma/schema.prisma db push)",
+      "mcp__Prisma-Local__migrate-dev",
+      "Bash(npx prisma db push:*)",
+      "Bash(npx ts-node:*)",
+      "Bash(node:*)",
+      "Bash(npx prisma generate)",
+      "mcp__ide__getDiagnostics",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(pnpm add:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "supabase"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }

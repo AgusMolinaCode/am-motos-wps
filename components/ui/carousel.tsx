@@ -28,6 +28,9 @@ type CarouselContextProps = {
   scrollNext: () => void
   canScrollPrev: boolean
   canScrollNext: boolean
+  isPlaying: boolean
+  scrollTo: (index: number) => void
+  onAutoplayButtonClick: (callback: () => void) => void
 } & CarouselProps
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null)
@@ -67,6 +70,7 @@ const Carousel = React.forwardRef<
     )
     const [canScrollPrev, setCanScrollPrev] = React.useState(false)
     const [canScrollNext, setCanScrollNext] = React.useState(false)
+    const [isPlaying, setIsPlaying] = React.useState(true)
 
     const onSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
@@ -76,6 +80,29 @@ const Carousel = React.forwardRef<
       setCanScrollPrev(api.canScrollPrev())
       setCanScrollNext(api.canScrollNext())
     }, [])
+
+    const scrollTo = React.useCallback(
+      (index: number) => {
+        api?.scrollTo(index)
+      },
+      [api]
+    )
+
+    const onAutoplayButtonClick = React.useCallback(
+      (callback: () => void) => {
+        const autoScroll = api?.plugins()?.autoplay
+        if (!autoScroll) return
+
+        const resetOrStop =
+          autoScroll.options.stopOnInteraction === false
+            ? autoScroll.reset
+            : autoScroll.stop
+
+        resetOrStop()
+        callback()
+      },
+      [api]
+    )
 
     const scrollPrev = React.useCallback(() => {
       api?.scrollPrev()
@@ -132,6 +159,9 @@ const Carousel = React.forwardRef<
           scrollNext,
           canScrollPrev,
           canScrollNext,
+          isPlaying,
+          scrollTo,
+          onAutoplayButtonClick,
         }}
       >
         <div

@@ -3,10 +3,11 @@
 import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Search, Loader2, X, ChevronRight } from "lucide-react";
-import { getItemBySupplierProductId } from "@/lib/brands";
+import { searchProductsByTerm } from "@/lib/brands";
 import { useDebounce } from "@/hooks/useDebounce";
 import { BrandStatus } from "@/types/interface";
 import ProductDetailsSheet from "@/components/shared/ProductDetailsSheet";
+import Image from "next/image";
 
 interface RecentSearch {
   term: string;
@@ -38,16 +39,12 @@ const SearchNavbar = () => {
 
   useEffect(() => {
     const searchProducts = async () => {
-      if (debouncedSearchTerm) {
+      if (debouncedSearchTerm && debouncedSearchTerm.length >= 2) {
         setIsSearching(true);
         try {
-          const result = await getItemBySupplierProductId(debouncedSearchTerm);
-          if (result) {
-            setSearchResults(Array.isArray(result) ? result : [result]);
-            setShowDropdown(true);
-          } else {
-            setSearchResults([]);
-          }
+          const results = await searchProductsByTerm(debouncedSearchTerm);
+          setSearchResults(results);
+          setShowDropdown(true);
         } catch (error) {
           console.error("Error searching products:", error);
           setSearchResults([]);
@@ -150,22 +147,32 @@ const SearchNavbar = () => {
               searchResults.map((product) => (
                 <button
                   key={product.id}
-                  className="w-full px-2 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center justify-between"
+                  className="w-full px-2 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-3"
                   onClick={() => handleProductClick(product)}
                 >
-                  <div>
+                  {/* Mini thumbnail */}
+                  {product.images?.data?.[0] ? (
+                    <Image
+                      src={`https://${product.images.data[0].domain}${product.images.data[0].path}${product.images.data[0].filename}`}
+                      alt={product.name}
+                      className="w-12 h-12 object-cover rounded flex-shrink-0"
+                      width={48}
+                      height={48}
+                    />
+                  ) : (
+                    <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded flex-shrink-0 flex items-center justify-center">
+                      <span className="text-xs text-gray-500">Sin img</span>
+                    </div>
+                  )}
+                  <div className="flex-1 min-w-0">
                     <div className="font-medium">
                       {product.supplier_product_id}
                     </div>
-                    <div className="flex items-center justify-between w-full">
-                      <div className="text-sm text-gray-500 dark:text-gray-400 max-w-[284px] truncate lg:max-w-[354px]">
-                        {product.name}
-                      </div>
-                      <div>
-                        <ChevronRight className="w-4 h-4" />
-                      </div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400 truncate">
+                      {product.name}
                     </div>
                   </div>
+                  <ChevronRight className="w-4 h-4 flex-shrink-0" />
                 </button>
               ))
             : // Mostrar búsquedas recientes solo si hay búsquedas y el input está enfocado

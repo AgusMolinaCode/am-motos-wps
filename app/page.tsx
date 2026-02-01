@@ -8,6 +8,7 @@ import { ImagesSliderDemo } from "@/components/hero/ImagesSliderDemo";
 import MercadoLibreBanner from "@/components/shared/MercadoLibreBanner";
 import UsadosSection from "@/components/usados-section/UsadosSection";
 import BestUsadosSection from "@/components/usados-section/BestUsadosSection";
+import { BrandCarousel } from "@/components/main-sliders/BrandCarousel";
 
 export default function Home() {
   return (
@@ -15,7 +16,16 @@ export default function Home() {
       <InfiniteSliderBasic />
       <ImagesSliderDemo />
       <CategorySection />
-      <BestUsadosSection /> 
+      <BrandCarousel
+        brandId={454}
+        productType="Piston kits & Components"
+        direction="left"
+      />
+      {/* <BrandCarousel brandId={662} productType="Piston kits & Components" /> */}
+      <BrandCarousel brandId={46} productType="Engine" direction="right" />
+
+      <BestUsadosSection />
+
       <DealSection />
       <BrandLink />
       <BestSellersSection />
