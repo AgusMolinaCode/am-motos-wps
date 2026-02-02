@@ -23,7 +23,7 @@ const HERO_IMAGES = [
 
 export function ImagesSliderDemo() {
   return (
-    <div className="relative">
+    <div className="relative z-[0]">
       <ImagesSlider className="h-[26rem] rounded-xl mt-2" images={[...HERO_IMAGES]}>
         <motion.div
           initial={{ opacity: 0, y: -20 }}

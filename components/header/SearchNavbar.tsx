@@ -113,7 +113,7 @@ const SearchNavbar = () => {
   }, [showDropdown]);
 
   return (
-    <div className="relative search-container">
+    <div className="relative search-container z-[100]">
       <div className="flex items-center justify-center relative w-80 lg:w-96">
         {isSearching ? (
           <Loader2 className="text-gray-700 dark:text-gray-300 absolute right-4 animate-spin" />
@@ -140,7 +140,7 @@ const SearchNavbar = () => {
 
       {/* Dropdown de resultados y búsquedas recientes */}
       {showDropdown && (
-        <div className="absolute z-50 w-full mt-1 bg-white dark:bg-gray-800 shadow-lg border dark:border-gray-700">
+        <div className="absolute z-[60] w-full mt-1 bg-white dark:bg-gray-800 shadow-lg border dark:border-gray-700">
           {searchTerm
             ? // Mostrar resultados de búsqueda
               searchResults.length > 0 &&
