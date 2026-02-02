@@ -5,18 +5,18 @@ import "./globals.css";
 import ThemeWrapper from "@/components/theme/ThemeWrapper";
 import Navbar from "@/components/header/navbar";
 import Footer from "@/components/footer/footer";
-import Orb from "@/app/Orb";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 import { ClerkProvider } from "@clerk/nextjs";
-import CircularText from "@/components/CircularText";
 import { CartProvider } from "@/hooks/useCart";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -73,15 +73,44 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning className="scroll-smooth">
         <head>
+          {/* Preconnect críticos para reducir LCP */}
+          <link rel="preconnect" href="https://cdn.wpsstatic.com" />
+          <link rel="preconnect" href="https://www.wpsstatic.com" />
+          <link rel="preconnect" href="https://va.vercel-scripts.com" />
+          <link rel="preconnect" href="https://www.mxstore.com.au" />
+          
+          {/* DNS prefetch para dominios secundarios */}
+          <link rel="dns-prefetch" href="https://cloud.umami.is" />
+          <link rel="dns-prefetch" href="https://cdn.vemetric.com" />
+
+          {/* Preload de imagen LCP crítica */}
+          <link 
+            rel="preload" 
+            href="/images/fmf.webp" 
+            as="image" 
+            type="image/webp"
+            fetchPriority="high"
+          />
+          
+          {/* Preload del logo */}
+          <link 
+            rel="preload" 
+            href="/images/escudo.png" 
+            as="image" 
+            type="image/png"
+            fetchPriority="high"
+          />
+
+          {/* Scripts de analytics: lazyOnload para no bloquear render */}
           <Script
-            defer
             src="https://cloud.umami.is/script.js"
             data-website-id="36578345-3034-4851-93e2-055aa08ec8d8"
+            strategy="lazyOnload"
           />
           <Script
-            defer
             src="https://cdn.vemetric.com/main.js"
             data-token="PIpA5f4LjR35AZ5K"
+            strategy="lazyOnload"
           />
         </head>
         <body className={`${outfit.variable} font-sans antialiased`}>
@@ -92,29 +121,20 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <CartProvider>
-            <ThemeWrapper>
-              <div className="fixed md:right-20 md:bottom-20 bottom-3 w-[100px] h-[100px] md:w-[120px] md:h-[120px] right-1 z-50">
-                <Orb
-                  hoverIntensity={0.5}
-                  rotateOnHover={true}
-                  hue={3}
-                  forceHoverState={false}
-                />
-                {/* <CircularText
-                  text="WhatsApp • 1161607732 • WhatsApp • 1161607732 •"
-                  onHover="speedUp"
-                  spinDuration={20}
-                  className="custom-class"
-                /> */}
-              </div>
-              <div className="max-w-[110rem] mx-auto px-2">
-                <Navbar />
-                {children}
-                <SpeedInsights />
-                <Analytics />
-                <Footer />
-              </div>
-            </ThemeWrapper>
+              <ThemeWrapper>
+                {/* WhatsApp Button - Versión optimizada sin WebGL */}
+                <div className="fixed md:right-20 md:bottom-20 bottom-3 w-[60px] h-[60px] md:w-[70px] md:h-[70px] right-3 z-50">
+                  <WhatsAppButton />
+                </div>
+                
+                <div className="max-w-[110rem] mx-auto px-2">
+                  <Navbar />
+                  <main>{children}</main>
+                  <SpeedInsights />
+                  <Analytics />
+                  <Footer />
+                </div>
+              </ThemeWrapper>
             </CartProvider>
           </ThemeProvider>
         </body>

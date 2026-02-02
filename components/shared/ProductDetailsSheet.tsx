@@ -46,16 +46,16 @@ const ProductDetailsSheetInner: React.FC<ProductDetailsSheetProps> = ({
   const cartItem = items.find((i) => i.product.id === item.id);
   const quantity = cartItem?.quantity || 0;
   const [copySuccess, setCopySuccess] = useState(false);
-  const [sheetOpen, setSheetOpen] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(openAutomatically);
   const hasOpenedRef = useRef(false);
 
   // Abrir automáticamente el sheet cuando openAutomatically es true
   useEffect(() => {
-    if (openAutomatically && !hasOpenedRef.current) {
+    if (openAutomatically && !hasOpenedRef.current && !sheetOpen) {
       hasOpenedRef.current = true;
       setSheetOpen(true);
     }
-  }, [openAutomatically]);
+  }, [openAutomatically, sheetOpen]);
 
   // Funciones para manejar el contador y carrito
   const incrementQuantity = () => {

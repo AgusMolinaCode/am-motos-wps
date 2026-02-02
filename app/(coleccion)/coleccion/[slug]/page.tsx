@@ -1,4 +1,7 @@
 import React, { Suspense } from "react";
+import { Metadata } from "next";
+import dynamic from "next/dynamic";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getStatusItems, getCollectionByProductType } from "@/lib/brands";
 import { BrandStatus } from "@/types/interface";
 import ProductTypeFilter from "@/components/brand-section/ProductTypeFilter";
@@ -6,9 +9,6 @@ import productBrands from "@/public/csv/product_brands.json";
 import BrandFilterButtons from "../../../../components/category-section/CollectionFilterButtons";
 import { productTypeMap, ProductTypeUrlReverseMap } from "@/constants";
 import { SimplePagination } from "@/components/cursor-page/SimplePagination";
-import dynamic from "next/dynamic";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Metadata } from "next";
 
 const ProductList = dynamic(() => import("@/components/vehiculo/ProductList"), {
   loading: () => <ProductListSkeleton />,
@@ -28,7 +28,11 @@ const ProductListSkeleton = () => (
   </div>
 );
 
-export const revalidate = 0;
+/**
+ * Revalidar cada 5 minutos (300 segundos)
+ * Regla aplicada: server-cache-lru
+ */
+export const revalidate = 300;
 
 interface PageProps {
   params: Promise<{
@@ -57,6 +61,13 @@ export const generateMetadata = async ({ params }: PageProps): Promise<Metadata>
   };
 };
 
+/**
+ * Collection Page - Optimizada
+ * 
+ * - Suspense boundaries para streaming
+ * - Caché con revalidate
+ * - Mejor manejo de errores
+ */
 export default async function CollectionPage({
   params,
   searchParams,
@@ -82,12 +93,6 @@ export default async function CollectionPage({
   // Page para paginación numérica
   const page = typeof resolvedSearchParams.page === "string" ? parseInt(resolvedSearchParams.page, 10) : 1;
 
-  console.log("📄 Page debug:", {
-    slug,
-    page,
-    searchParams: Object.fromEntries(Object.entries(resolvedSearchParams))
-  });
-
   let data: BrandStatus[] = [];
   let total = 0;
   let availableProductTypes: string[] = [];
@@ -101,7 +106,6 @@ export default async function CollectionPage({
     );
     data = result.data;
     total = result.total;
-    // Obtener los tipos de productos disponibles
     availableProductTypes = result.productTypes || [];
   } else {
     // Obtener los datos de una colección específica usando el tipo de producto original
@@ -127,7 +131,7 @@ export default async function CollectionPage({
   const uniqueAssociatedBrands = Array.from(new Set(associatedBrands));
 
   return (
-    <div className=" mx-auto px-4 py-8">
+    <div className="mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 capitalize">
         {slug === "productos-nuevos"
           ? "Productos Nuevos"

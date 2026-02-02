@@ -1,52 +1,16 @@
-import { getBrandsItems, getBrandName, getProductByPartNumber } from "@/lib/brands";
 import React, { Suspense } from "react";
-import { getCatalogProductTypes } from "@/lib/actions";
-import brandData from "@/public/csv/brand2.json";
+import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getBrandsItems, getBrandName, getProductByPartNumber } from "@/lib/brands";
+import { getCatalogProductTypes } from "@/lib/actions";
+import brandData from "@/public/csv/brand2.json";
 import ProductTypeFilter from "@/components/brand-section/ProductTypeFilter";
 import { SimplePagination } from "@/components/cursor-page/SimplePagination";
-import { Metadata } from "next";
 
-type Props = {
-  params: Promise<{ slug: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
-
-// Función para obtener el ID de la marca desde el slug
-const getBrandIdFromSlug = (slug: string) => {
-  // Si el slug es un número, es un ID directo
-  if (!isNaN(Number(slug))) {
-    return slug;
-  }
-
-  // Buscar la marca por nombre en el archivo brand2.json
-  const brand = brandData.find(
-    (brand) =>
-      brand.name.toLowerCase().replace(/\s+/g, "-") === slug.toLowerCase()
-  );
-
-  return brand ? brand.id.toString() : slug;
-};
-
-export const generateMetadata = async ({ params }: Props ) : Promise<Metadata> => {
-  const { slug } = await params;
-  const brandId = getBrandIdFromSlug(slug);
-  const brandName = await getBrandName(brandId);
-  return {
-    title: `AM MOTOS - ${brandName}`,
-    description: `Venta de repuestos, accesorios e indumentaria para motos - ATV de la marca ${brandName}`,
-    openGraph: {
-      title: `AM MOTOS - ${brandName}`,
-      description: `Venta de repuestos, accesorios e indumentaria para motos - ATV de la marca ${brandName}`,
-      images: "/favicon.ico",
-    },
-  };
-};
-
-// Importar ProductList de manera dinámica
+// Dynamic import para ProductList
 const ProductList = dynamic(() => import("@/components/vehiculo/ProductList"), {
-  loading: () => <ProductListSkeleton />
+  loading: () => <ProductListSkeleton />,
 });
 
 // Componente Skeleton para la carga
@@ -58,14 +22,65 @@ const ProductListSkeleton = () => (
         <Skeleton className="h-4 w-1/2" />
         <Skeleton className="h-48 w-full" />
         <Skeleton className="h-8 w-full" />
-        
       </div>
     ))}
   </div>
 );
 
-export const revalidate = 0;
+type Props = {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
+// Función para obtener el ID de la marca desde el slug
+const getBrandIdFromSlug = (slug: string) => {
+  if (!isNaN(Number(slug))) {
+    return slug;
+  }
+
+  const brand = brandData.find(
+    (brand) =>
+      brand.name.toLowerCase().replace(/\s+/g, "-") === slug.toLowerCase()
+  );
+
+  return brand ? brand.id.toString() : slug;
+};
+
+/**
+ * Generate metadata - Optimizado con caché
+ */
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
+  const { slug } = await params;
+  const brandId = getBrandIdFromSlug(slug);
+  const brandName = await getBrandName(brandId);
+  
+  return {
+    title: `AM MOTOS - ${brandName}`,
+    description: `Venta de repuestos, accesorios e indumentaria para motos - ATV de la marca ${brandName}`,
+    openGraph: {
+      title: `AM MOTOS - ${brandName}`,
+      description: `Venta de repuestos, accesorios e indumentaria para motos - ATV de la marca ${brandName}`,
+      images: "/favicon.ico",
+    },
+  };
+};
+
+/**
+ * Revalidar cada 5 minutos (300 segundos)
+ * Los datos de productos no cambian constantemente,
+ * pero queremos un balance entre fresh data y performance.
+ * 
+ * Regla aplicada: server-cache-lru
+ */
+export const revalidate = 300;
+
+/**
+ * Brand Page - Optimizada
+ * 
+ * - Suspense boundaries para streaming
+ * - Paralelización de fetches independientes
+ * - Caché con revalidate
+ */
 export default async function BrandPage({ params, searchParams }: Props) {
   const { slug } = await params;
   const resolvedSearchParams = await searchParams;
@@ -83,14 +98,13 @@ export default async function BrandPage({ params, searchParams }: Props) {
     ? parseInt(resolvedSearchParams.page)
     : 1;
 
-  // Obtener el nombre de la marca
-  const brandName = await getBrandName(brandId);
-
-  // Obtener los datos de la marca desde PostgreSQL con paginación
-  const { data, total } = await getBrandsItems(brandId, productType, page);
-
-  // Obtener todos los product types
-  const brandProductTypes = await getCatalogProductTypes();
+  // Paralelizar fetches independientes
+  // Regla aplicada: async-parallel
+  const [brandName, { data: rawData, total }, brandProductTypes] = await Promise.all([
+    getBrandName(brandId),
+    getBrandsItems(brandId, productType, page),
+    getCatalogProductTypes(),
+  ]);
 
   // Obtener los product types del brand actual usando el ID
   const currentBrandProductTypes = brandProductTypes[Number(brandId)] || [];
@@ -100,13 +114,27 @@ export default async function BrandPage({ params, searchParams }: Props) {
     ? resolvedSearchParams.item
     : undefined;
 
+  // Obtener item seleccionado si existe (lazy - solo si es necesario)
   let selectedItem = null;
   if (selectedPartNumber) {
     selectedItem = await getProductByPartNumber(selectedPartNumber);
   }
 
+  // Crear una copia de los datos para poder modificarlos
+  let data = [...rawData];
+
+  // Si hay un item seleccionado y no está en la lista, agregarlo
+  if (selectedItem) {
+    const itemExists = data.some(
+      (item) => item.supplier_product_id === selectedItem?.supplier_product_id
+    );
+    if (!itemExists) {
+      data.unshift(selectedItem);
+    }
+  }
+
   return (
-    <div className=" mx-auto px-4 py-8">
+    <div className="mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6 uppercase">{brandName}</h1>
 
       {currentBrandProductTypes.length > 0 && (

@@ -1,6 +1,5 @@
 import { getSliderProducts, getBrandName } from "@/lib/brands";
 import { BrandCarouselClient } from "./BrandCarouselClient";
-import { Product_Type_Translations } from "@/constants";
 
 // Revalidar cada 24 horas (86400 segundos)
 export const revalidate = 86400;
@@ -9,14 +8,12 @@ interface BrandCarouselProps {
   brandId: number;
   productType: string;
   limit?: number;
-  direction?: "left" | "right";
 }
 
 export async function BrandCarousel({
   brandId,
   productType,
   limit = 10,
-  direction = "left",
 }: BrandCarouselProps) {
   // Calcular offset basado en el día actual para rotar productos cada 24 horas
   const now = new Date();
@@ -43,7 +40,7 @@ export async function BrandCarousel({
   }
 
   // Pasar los productos BrandStatus completos al cliente
-  return <BrandCarouselClient items={products} productType={title} direction={direction} />;
+  return <BrandCarouselClient items={products} productType={title} />;
 }
 
 export default BrandCarousel;

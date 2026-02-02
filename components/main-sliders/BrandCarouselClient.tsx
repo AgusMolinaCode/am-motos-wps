@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect, useMemo } from "react";
+import { useState, useRef, useCallback } from "react";
 import { usePriceCalculation } from "@/hooks/usePriceCalculation";
 import { useAuth } from "@clerk/nextjs";
 import { BrandStatus, ItemSheet } from "@/types/interface";
@@ -22,21 +22,18 @@ const ITEM_WIDTH = 224; // 208px + 16px gap
 
 export function BrandCarouselClient({ 
   items, 
-  productType, 
-  direction = "left" 
+  productType
 }: BrandCarouselClientProps) {
   const { calculateTotalPrice, formatPrice } = usePriceCalculation();
   const { isSignedIn } = useAuth();
   const [selectedItem, setSelectedItem] = useState<BrandStatus | null>(null);
-  const [isPaused, setIsPaused] = useState(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number>();
-  const positionRef = useRef(0);
+  const scrollPositionRef = useRef(0);
   const isDraggingRef = useRef(false);
   const startXRef = useRef(0);
-  const startPositionRef = useRef(0);
+  const startScrollRef = useRef(0);
 
   // Convertir BrandStatus a ItemSheet
   const toItemSheet = (item: BrandStatus): ItemSheet => ({
@@ -51,99 +48,50 @@ export function BrandCarouselClient({
     images: item.images,
   });
 
-  // Calcular cuántas copias necesitamos (mínimo 4 para loop fluido)
-  const copiesNeeded = useMemo(() => {
-    return Math.max(4, Math.ceil((typeof window !== 'undefined' ? window.innerWidth : 1200) / (items.length * ITEM_WIDTH)) + 2);
-  }, [items.length]);
-
-  // Duplicar items
-  const duplicatedItems = useMemo(() => {
-    const result = [];
-    for (let i = 0; i < copiesNeeded; i++) {
-      result.push(...items);
-    }
-    return result;
-  }, [items, copiesNeeded]);
-
-  const singleSetWidth = items.length * ITEM_WIDTH;
-
-  // Aplicar transform
-  const applyTransform = useCallback((pos: number) => {
-    if (trackRef.current) {
-      trackRef.current.style.transform = `translateX(${-pos}px)`;
-    }
+  // Calcular el scroll máximo
+  const getMaxScroll = useCallback(() => {
+    if (!containerRef.current || !trackRef.current) return 0;
+    const containerWidth = containerRef.current.offsetWidth;
+    const trackWidth = trackRef.current.scrollWidth;
+    return Math.max(0, trackWidth - containerWidth);
   }, []);
 
-  // Normalizar posición para loop infinito
-  const normalizePosition = useCallback((pos: number) => {
-    // Si nos pasamos del segundo set, volver al primero
-    if (pos >= singleSetWidth * 2) {
-      return pos - singleSetWidth;
-    }
-    // Si vamos antes del primer set, ir al segundo
-    if (pos < singleSetWidth) {
-      return pos + singleSetWidth;
-    }
-    return pos;
-  }, [singleSetWidth]);
-
-  // Animación continua
-  useEffect(() => {
-    if (!trackRef.current || duplicatedItems.length === 0) return;
+  // Aplicar scroll con transform
+  const applyScroll = useCallback((position: number) => {
+    const maxScroll = getMaxScroll();
+    const clampedPosition = Math.max(0, Math.min(position, maxScroll));
+    scrollPositionRef.current = clampedPosition;
     
-    // Iniciar en el segundo set
-    if (positionRef.current === 0) {
-      positionRef.current = singleSetWidth;
-      applyTransform(positionRef.current);
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translateX(${-clampedPosition}px)`;
     }
-
-    const animate = () => {
-      if (!isPaused && !isDraggingRef.current) {
-        const speed = direction === "right" ? -0.8 : 0.8;
-        positionRef.current += speed;
-        positionRef.current = normalizePosition(positionRef.current);
-        applyTransform(positionRef.current);
-      }
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animationRef.current = requestAnimationFrame(animate);
-    
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [duplicatedItems.length, isPaused, direction, normalizePosition, applyTransform, singleSetWidth]);
+  }, [getMaxScroll]);
 
   // Navegación con flechas
-  const scroll = useCallback((dir: "left" | "right") => {
+  const scroll = useCallback((direction: "left" | "right") => {
     const scrollAmount = ITEM_WIDTH * 2;
-    if (dir === "left") {
-      positionRef.current -= scrollAmount;
-    } else {
-      positionRef.current += scrollAmount;
-    }
-    positionRef.current = normalizePosition(positionRef.current);
+    const newPosition = direction === "left" 
+      ? scrollPositionRef.current - scrollAmount 
+      : scrollPositionRef.current + scrollAmount;
     
     // Animación suave
     if (trackRef.current) {
-      trackRef.current.style.transition = 'transform 0.5s ease-out';
-      applyTransform(positionRef.current);
+      trackRef.current.style.transition = 'transform 0.3s ease-out';
+      applyScroll(newPosition);
+      
       setTimeout(() => {
         if (trackRef.current) {
           trackRef.current.style.transition = '';
         }
-      }, 500);
+      }, 300);
     }
-  }, [normalizePosition, applyTransform]);
+  }, [applyScroll]);
 
-  // Drag handlers
+  // Drag handlers - Mouse
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     isDraggingRef.current = true;
     startXRef.current = e.clientX;
-    startPositionRef.current = positionRef.current;
-    setIsPaused(true);
+    startScrollRef.current = scrollPositionRef.current;
     
     if (trackRef.current) {
       trackRef.current.style.transition = '';
@@ -155,29 +103,41 @@ export function BrandCarouselClient({
     if (!isDraggingRef.current) return;
     
     const delta = startXRef.current - e.clientX;
-    positionRef.current = startPositionRef.current + delta;
-    applyTransform(positionRef.current);
-  }, [applyTransform]);
+    const newPosition = startScrollRef.current + delta;
+    applyScroll(newPosition);
+  }, [applyScroll]);
 
   const handleMouseUp = useCallback(() => {
     if (!isDraggingRef.current) return;
     isDraggingRef.current = false;
     
-    // Normalizar y reanudar
-    positionRef.current = normalizePosition(positionRef.current);
-    applyTransform(positionRef.current);
-    setIsPaused(false);
-    
     if (trackRef.current) {
       trackRef.current.style.cursor = 'grab';
     }
-  }, [normalizePosition, applyTransform]);
+  }, []);
 
-  const handleMouseLeave = useCallback(() => {
-    if (isDraggingRef.current) {
-      handleMouseUp();
+  // Drag handlers - Touch (para móvil)
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    isDraggingRef.current = true;
+    startXRef.current = e.touches[0].clientX;
+    startScrollRef.current = scrollPositionRef.current;
+    
+    if (trackRef.current) {
+      trackRef.current.style.transition = '';
     }
-  }, [handleMouseUp]);
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!isDraggingRef.current) return;
+    
+    const delta = startXRef.current - e.touches[0].clientX;
+    const newPosition = startScrollRef.current + delta;
+    applyScroll(newPosition);
+  }, [applyScroll]);
+
+  const handleTouchEnd = useCallback(() => {
+    isDraggingRef.current = false;
+  }, []);
 
   if (items.length === 0) {
     return (
@@ -197,7 +157,7 @@ export function BrandCarouselClient({
       </h3>
       
       <div className="relative w-full max-w-[90%] mx-auto">
-        {/* Flecha izquierda - SIEMPRE VISIBLE */}
+        {/* Flecha izquierda */}
         <Button
           variant="outline"
           size="icon"
@@ -207,7 +167,7 @@ export function BrandCarouselClient({
           <ChevronLeft className="h-4 w-4" />
         </Button>
 
-        {/* Flecha derecha - SIEMPRE VISIBLE */}
+        {/* Flecha derecha */}
         <Button
           variant="outline"
           size="icon"
@@ -217,27 +177,25 @@ export function BrandCarouselClient({
           <ChevronRight className="h-4 w-4" />
         </Button>
 
-        {/* Contenedor */}
+        {/* Contenedor del carousel */}
         <div 
           ref={containerRef}
-          className="overflow-hidden"
-          onMouseEnter={() => !isDraggingRef.current && setIsPaused(true)}
-          onMouseLeave={() => {
-            setIsPaused(false);
-            handleMouseLeave();
-          }}
+          className="overflow-hidden cursor-grab active:cursor-grabbing"
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
-          {/* Track con transform */}
+          {/* Track con items */}
           <div 
             ref={trackRef}
-            className="flex gap-4 cursor-grab"
-            style={{ width: 'max-content', willChange: 'transform' }}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseLeave}
+            className="flex gap-4"
+            style={{ width: 'max-content' }}
           >
-            {duplicatedItems.map((item, index) => {
+            {items.map((item, index) => {
               const retailCalc = calculateTotalPrice(item, false);
               const wholesaleCalc = calculateTotalPrice(item, true);
               const hasStock = retailCalc.hasStock;
@@ -263,7 +221,7 @@ export function BrandCarouselClient({
                     }}
                   >
                     <SheetTrigger asChild>
-                      <div className="cursor-pointer" onClick={() => setIsPaused(true)}>
+                      <div className="cursor-pointer">
                         <Card className="overflow-hidden border-slate-200 dark:border-slate-700 hover:shadow-lg transition-shadow">
                           <CardContent className="flex flex-col aspect-[3/4] p-3">
                             <div className="relative flex-1 min-h-0">

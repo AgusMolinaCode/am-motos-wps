@@ -1,5 +1,6 @@
 "use server";
 
+import React from "react";
 import {
   BrandId,
   Brands,
@@ -7,56 +8,61 @@ import {
   VehicleDataId,
   VehicleCompatibilityData,
   VehicleModel,
-  Data as InventoryData,
-  Datum as ImageDatum,
   VehicleItem,
   VehicleItemsResponse,
 } from "@/types/interface";
 import { prisma } from "@/lib/prisma";
-import brandData from "@/public/csv/brand2.json";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
  type Product = any;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
  type Brand = any;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
- type VehicleModelDB = any;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
- type VehicleDB = any;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
- type VehicleWithRelations = any;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
- type ProductTypeSelect = any;
 
+// ============================================
+// CACHE CONFIGURATION
+// ============================================
+
+/**
+ * React.cache() deduplica llamadas durante el mismo request.
+ * Si la misma función se llama múltiples veces con los mismos argumentos,
+ * solo se ejecuta una vez y el resultado se comparte.
+ * 
+ * Regla aplicada: server-cache-react
+ */
+
+// ============================================
+// BRAND FUNCTIONS
+// ============================================
+
+/**
+ * Obtiene items de una marca con paginación
+ * Optimizado: paraleliza count y findMany
+ * Regla aplicada: async-parallel
+ */
 export async function getBrandsItems(
   brandId: string,
   productType?: string,
   page: number = 1,
   limit: number = 30,
 ): Promise<{ data: BrandId[]; total: number }> {
-  // Obtener productos directamente sin filtro de imágenes
-  const productsData = await prisma.product.findMany({
-    where: {
-      brand_id: parseInt(brandId),
-      ...(productType && {
-        product_type: decodeURIComponent(productType).replace(/%26/g, "&"),
-      }),
-      inventory_total: { gt: -1 },
-    },
-    orderBy: { created_at: "desc" },
-    skip: (page - 1) * limit,
-    take: limit,
-  });
-  
-  const total = await prisma.product.count({
-    where: {
-      brand_id: parseInt(brandId),
-      ...(productType && {
-        product_type: decodeURIComponent(productType).replace(/%26/g, "&"),
-      }),
-      inventory_total: { gt: -1 },
-    },
-  });
+  const where = {
+    brand_id: parseInt(brandId),
+    ...(productType && {
+      product_type: decodeURIComponent(productType).replace(/%26/g, "&"),
+    }),
+    inventory_total: { gt: -1 },
+  };
+
+  // Paralelizar count y findMany - son independientes
+  const [productsData, total] = await Promise.all([
+    prisma.product.findMany({
+      where,
+      orderBy: { created_at: "desc" },
+      skip: (page - 1) * limit,
+      take: limit,
+    }),
+    prisma.product.count({ where }),
+  ]);
 
   // Transformar al formato BrandId
   const transformedData = productsData.map((product) => {
@@ -91,9 +97,13 @@ export async function getBrandsItems(
   };
 }
 
-export async function getBrands(
+/**
+ * Obtiene todas las marcas o una específica
+ * Cacheada con React.cache() para deduplicación
+ */
+export const getBrands = React.cache(async (
   brandId?: string | null,
-): Promise<{ data: Brands[]; count: number }> {
+): Promise<{ data: Brands[]; count: number }> => {
   try {
     // Validar y sanitizar el brandId
     const sanitizedBrandId =
@@ -139,11 +149,14 @@ export async function getBrands(
   } catch {
     return { data: [], count: 0 };
   }
-}
+});
 
-export async function getBrandName(brandId: string): Promise<string> {
+/**
+ * Obtiene el nombre de una marca
+ * Cacheada con React.cache() para deduplicación
+ */
+export const getBrandName = React.cache(async (brandId: string): Promise<string> => {
   try {
-    // Buscar en la base de datos
     const brand = await prisma.brand.findUnique({
       where: { id: parseInt(brandId) },
     });
@@ -155,13 +168,19 @@ export async function getBrandName(brandId: string): Promise<string> {
     // Silencioso
   }
 
-  const localBrand = brandData.find((b) => b.id.toString() === brandId);
+  // Fallback: buscar en brandData importado
+  const { default: brandData } = await import("@/public/csv/brand2.json");
+  const localBrand = brandData.find((b: { id: number; name: string }) => b.id.toString() === brandId);
   if (localBrand) {
     return localBrand.name;
   }
 
   return brandId;
-}
+});
+
+// ============================================
+// PRODUCT TYPE MAPPING
+// ============================================
 
 const ProductTypeUrlReverseMap: Record<string, string> = {
   "protective-safety": "Protective/Safety",
@@ -182,6 +201,15 @@ const ProductTypeUrlReverseMap: Record<string, string> = {
   "fuel-tanks": "Fuel Tank",
 };
 
+// ============================================
+// COLLECTION FUNCTIONS
+// ============================================
+
+/**
+ * Obtiene productos por tipo de producto con paginación
+ * Optimizado: paraleliza count y findMany
+ * Regla aplicada: async-parallel
+ */
 export async function getCollectionByProductType(
   productType: string,
   page: number = 1,
@@ -231,32 +259,27 @@ export async function getCollectionByProductType(
     productTypeMap[productType.toLowerCase()] ||
     productType;
 
-  // Determinar los tipos de producto a filtrar (puede ser uno o varios separados por coma)
+  // Determinar los tipos de producto a filtrar
   const productTypes = sanitizedProductType.split(",").map((pt) => pt.trim());
 
-  // Obtener productos directamente sin filtro de imágenes
-  const productsData = await prisma.product.findMany({
-    where: {
-      ...(productTypes.length === 1
-        ? { product_type: productTypes[0] }
-        : { product_type: { in: productTypes } }),
-      ...(brandId && { brand_id: parseInt(brandId) }),
-      inventory_total: { gt: -1 },
-    },
-    orderBy: { created_at: "desc" },
-    skip: (page - 1) * limit,
-    take: limit,
-  });
-  
-  const total = await prisma.product.count({
-    where: {
-      ...(productTypes.length === 1
-        ? { product_type: productTypes[0] }
-        : { product_type: { in: productTypes } }),
-      ...(brandId && { brand_id: parseInt(brandId) }),
-      inventory_total: { gt: -1 },
-    },
-  });
+  const where = {
+    ...(productTypes.length === 1
+      ? { product_type: productTypes[0] }
+      : { product_type: { in: productTypes } }),
+    ...(brandId && { brand_id: parseInt(brandId) }),
+    inventory_total: { gt: -1 },
+  };
+
+  // Paralelizar count y findMany
+  const [productsData, total] = await Promise.all([
+    prisma.product.findMany({
+      where,
+      orderBy: { created_at: "desc" },
+      skip: (page - 1) * limit,
+      take: limit,
+    }),
+    prisma.product.count({ where }),
+  ]);
 
   // Transformar al formato BrandStatus
   const transformedData = productsData.map((product) => {
@@ -291,13 +314,17 @@ export async function getCollectionByProductType(
   };
 }
 
+/**
+ * Obtiene items por status (NEW/CLO) con paginación
+ * Optimizado: paraleliza queries independientes
+ * Regla aplicada: async-parallel
+ */
 export async function getStatusItems(
   status: "NEW" | "CLO",
   page: number = 1,
   productType?: string,
   limit: number = 30,
 ): Promise<{ data: BrandStatus[]; total: number; productTypes: string[] }> {
-  // Mapeo de status a status_id (ajustar según los valores reales en la DB)
   const statusIdMap: Record<string, string> = {
     NEW: "NEW",
     CLO: "CLO",
@@ -305,41 +332,35 @@ export async function getStatusItems(
 
   const statusId = statusIdMap[status] || status;
 
-  // Obtener productos directamente sin filtro de imágenes
-  const productsData = await prisma.product.findMany({
-    where: {
-      status_id: statusId,
-      ...(productType && {
-        product_type: decodeURIComponent(productType).replace(/%26/g, "&"),
-      }),
-      inventory_total: { gt: -1 },
-    },
-    orderBy: { created_at: "desc" },
-    skip: (page - 1) * limit,
-    take: limit,
-  });
-  
-  const total = await prisma.product.count({
-    where: {
-      status_id: statusId,
-      ...(productType && {
-        product_type: decodeURIComponent(productType).replace(/%26/g, "&"),
-      }),
-      inventory_total: { gt: -1 },
-    },
-  });
-  
-  // Tipos de producto únicos
-  const allProductTypes = await prisma.product.findMany({
-    where: {
-      status_id: statusId,
-      inventory_total: { gt: -1 },
-    },
-    select: { product_type: true },
-    distinct: ["product_type"],
-  });
+  const where = {
+    status_id: statusId,
+    ...(productType && {
+      product_type: decodeURIComponent(productType).replace(/%26/g, "&"),
+    }),
+    inventory_total: { gt: -1 },
+  };
 
-  // Obtener tipos de producto únicos
+  // Paralelizar todas las queries independientes
+  const [productsData, total, allProductTypes] = await Promise.all([
+    prisma.product.findMany({
+      where,
+      orderBy: { created_at: "desc" },
+      skip: (page - 1) * limit,
+      take: limit,
+    }),
+    prisma.product.count({ where }),
+    // Query para obtener tipos de producto únicos
+    prisma.product.findMany({
+      where: {
+        status_id: statusId,
+        inventory_total: { gt: -1 },
+      },
+      select: { product_type: true },
+      distinct: ["product_type"],
+    }),
+  ]);
+
+  // Extraer tipos de producto únicos
   const productTypes = allProductTypes
     .map((p) => p.product_type)
     .filter((pt): pt is string => pt !== null);
@@ -378,6 +399,10 @@ export async function getStatusItems(
   };
 }
 
+// ============================================
+// TRANSFORM FUNCTION
+// ============================================
+
 function transformToBrandStatus(product: Product): BrandStatus {
   const inventoryDetails = product.inventory_details as Record<
     string,
@@ -385,12 +410,9 @@ function transformToBrandStatus(product: Product): BrandStatus {
   > | null;
   const rawImages = product.images;
 
-  // Las imágenes en DB ya vienen como Datum[] (objetos con path, domain, etc.)
-  // O pueden venir como strings[]
-  const imageData: ImageDatum[] = Array.isArray(rawImages)
+  const imageData = Array.isArray(rawImages)
     ? rawImages.map((img, index) => {
         if (typeof img === "string") {
-          // Si es string, convertir a objeto Datum
           return {
             id: index,
             domain: "",
@@ -406,12 +428,11 @@ function transformToBrandStatus(product: Product): BrandStatus {
             updated_at: new Date(),
           };
         }
-        // Si ya es objeto, usar directamente
-        return img as unknown as ImageDatum;
+        return img as unknown as import("@/types/interface").Datum;
       })
     : [];
 
-  const inventoryData: InventoryData = {
+  const inventoryData: import("@/types/interface").Data = {
     id: 0,
     item_id: parseInt(product.wps_id),
     sku: product.sku ?? "",
@@ -465,33 +486,63 @@ function transformToBrandStatus(product: Product): BrandStatus {
   };
 }
 
+// ============================================
+// RECOMMENDED ITEMS - OPTIMIZED
+// ============================================
+
+/**
+ * Obtiene items recomendados de múltiples marcas
+ * OPTIMIZACIÓN CRÍTICA: Antes hacía queries en un loop (N+1),
+ * ahora hace UNA sola query con OR condiciones
+ * 
+ * Reglas aplicadas: async-parallel, server-cache-react
+ */
 export async function getRecommendedItems(): Promise<{
   data: BrandStatus[];
   total: number;
 }> {
   const brandIds = [778, 692, 769, 99, 220];
   const productsPerBrand = 2;
-  const data: Product[] = [];
 
-  for (const brandId of brandIds) {
-    const products = await prisma.product.findMany({
-      where: {
-        brand_id: brandId,
-        inventory_total: { gt: 0 },
-        status: "NEW",
-      },
-      take: 10, // Tomar más para tener variedad
-    });
-    // Filtrar productos con images[] no vacío y no null
-    const productsWithImages = products.filter(
-      (p) => Array.isArray(p.images) && p.images.length > 0
-    );
-    // Mezclar y tomar los primeros
-    const shuffled = productsWithImages.sort(() => Math.random() - 0.5);
-    data.push(...shuffled.slice(0, productsPerBrand));
+  // OPTIMIZACIÓN: Una sola query para todas las marcas
+  // en lugar de múltiples queries en un loop
+  const allProducts = await prisma.product.findMany({
+    where: {
+      brand_id: { in: brandIds },
+      inventory_total: { gt: 0 },
+      status: "NEW",
+    },
+    orderBy: { created_at: "desc" },
+  });
+
+  // Agrupar por marca y seleccionar aleatoriamente
+  const productsByBrand = new Map<number, Product[]>();
+  
+  for (const product of allProducts) {
+    const brandId = product.brand_id;
+    if (!brandId || !brandIds.includes(brandId)) continue;
+    
+    if (!productsByBrand.has(brandId)) {
+      productsByBrand.set(brandId, []);
+    }
+    productsByBrand.get(brandId)!.push(product);
   }
 
-  const transformedData = data.map(transformToBrandStatus);
+  // Seleccionar productos aleatorios de cada marca
+  const selectedProducts: Product[] = [];
+  
+  for (const brandId of brandIds) {
+    const brandProducts = productsByBrand.get(brandId) || [];
+    const productsWithImages = brandProducts.filter(
+      (p) => Array.isArray(p.images) && p.images.length > 0
+    );
+    
+    // Mezclar y tomar los primeros
+    const shuffled = [...productsWithImages].sort(() => Math.random() - 0.5);
+    selectedProducts.push(...shuffled.slice(0, productsPerBrand));
+  }
+
+  const transformedData = selectedProducts.map(transformToBrandStatus);
 
   return {
     data: transformedData,
@@ -499,13 +550,19 @@ export async function getRecommendedItems(): Promise<{
   };
 }
 
+// ============================================
+// SEARCH FUNCTIONS
+// ============================================
+
+/**
+ * Busca productos por término
+ */
 export async function searchProductsByTerm(
   searchTerm: string,
   limit: number = 10,
 ): Promise<BrandStatus[]> {
   if (!searchTerm || searchTerm.length < 2) return [];
 
-  // Buscar por supplier_product_id o sku
   const products = await prisma.product.findMany({
     where: {
       OR: [
@@ -521,6 +578,34 @@ export async function searchProductsByTerm(
   return products.map(transformToBrandStatus);
 }
 
+/**
+ * Busca producto por número de parte
+ * Cacheada con React.cache()
+ */
+export const getProductByPartNumber = React.cache(async (
+  partNumber: string
+): Promise<BrandStatus | null> => {
+  if (!partNumber || partNumber.length < 2) return null;
+
+  const product = await prisma.product.findFirst({
+    where: {
+      supplier_product_id: partNumber,
+    },
+  });
+
+  if (!product) return null;
+
+  return transformToBrandStatus(product);
+});
+
+// ============================================
+// VEHICLE FUNCTIONS
+// ============================================
+
+/**
+ * Obtiene compatibilidad de vehículos para un item
+ * OPTIMIZACIÓN: Evita N+1 queries
+ */
 export async function getVehicleCompatibility(
   itemId: string,
 ): Promise<VehicleDataId[]> {
@@ -531,13 +616,14 @@ export async function getVehicleCompatibility(
   let allVehicles: VehicleDataId[] = [];
   let nextCursor: string | null = null;
 
+  // Obtener todos los vehículos de la API
   do {
-    const url: string = `https://api.wps-inc.com/items/${encodeURIComponent(itemId)}/vehicles?page[size]=650${
+    const url = `https://api.wps-inc.com/items/${encodeURIComponent(itemId)}/vehicles?page[size]=650${
       nextCursor ? `&page[cursor]=${nextCursor}` : ""
     }`;
 
     try {
-      const response: Response = await fetch(url, { method: "GET", headers });
+      const response = await fetch(url, { method: "GET", headers });
       const result: {
         data: VehicleDataId[];
         meta?: { cursor?: { next: string | null } };
@@ -553,64 +639,84 @@ export async function getVehicleCompatibility(
     }
   } while (nextCursor);
 
-  // Enrich con datos locales de DB (vehicle_make, vehicle_model, vehicle_year)
-  const enrichedVehicles = await Promise.all(
-    allVehicles.map(async (vehicle) => {
-      // Buscar el vehicle completo con relaciones
-      const vehicleData = await prisma.vehicle.findFirst({
-        where: { id: vehicle.id },
-        include: {
-          model: {
-            include: { make: true },
-          },
-          year: true,
-        },
-      });
+  if (allVehicles.length === 0) {
+    return [];
+  }
 
-      if (vehicleData) {
-        return {
-          ...vehicle,
-          vehiclemodel: vehicleData.model
-            ? {
-                data: {
-                  id: vehicleData.model.id,
-                  vehiclemake_id: vehicleData.model.vehiclemake_id,
-                  db2_key: vehicleData.model.db2_key || "",
-                  name: vehicleData.model.name,
-                  created_at: vehicleData.model.created_at?.toISOString() || "",
-                  updated_at: vehicleData.model.updated_at?.toISOString() || "",
-                  vehiclemake: {
-                    data: {
-                      id: vehicleData.model.make.id,
-                      db2_key: vehicleData.model.make.db2_key || "",
-                      name: vehicleData.model.make.name,
-                      created_at: vehicleData.model.make.created_at?.toISOString() || "",
-                      updated_at: vehicleData.model.make.updated_at?.toISOString() || "",
-                    },
+  // OPTIMIZACIÓN: Extraer todos los IDs de vehículos y hacer UNA query
+  // en lugar de N queries (N+1 problem)
+  const vehicleIds = allVehicles.map((v) => v.id);
+
+  // Obtener todos los vehículos con sus relaciones en UNA sola query
+  const vehiclesData = await prisma.vehicle.findMany({
+    where: {
+      id: { in: vehicleIds },
+    },
+    include: {
+      model: {
+        include: {
+          make: true,
+        },
+      },
+      year: true,
+    },
+  });
+
+  // Crear un mapa para lookup O(1)
+  const vehicleDataMap = new Map(
+    vehiclesData.map((v) => [v.id, v])
+  );
+
+  // Enrich con datos locales
+  const enrichedVehicles = allVehicles.map((vehicle) => {
+    const vehicleData = vehicleDataMap.get(vehicle.id);
+
+    if (vehicleData) {
+      return {
+        ...vehicle,
+        vehiclemodel: vehicleData.model
+          ? {
+              data: {
+                id: vehicleData.model.id,
+                vehiclemake_id: vehicleData.model.vehiclemake_id,
+                db2_key: vehicleData.model.db2_key || "",
+                name: vehicleData.model.name,
+                created_at: vehicleData.model.created_at?.toISOString() || "",
+                updated_at: vehicleData.model.updated_at?.toISOString() || "",
+                vehiclemake: {
+                  data: {
+                    id: vehicleData.model.make.id,
+                    db2_key: vehicleData.model.make.db2_key || "",
+                    name: vehicleData.model.make.name,
+                    created_at: vehicleData.model.make.created_at?.toISOString() || "",
+                    updated_at: vehicleData.model.make.updated_at?.toISOString() || "",
                   },
                 },
-              }
-            : undefined,
-          vehicleyear: vehicleData.year
-            ? {
-                data: {
-                  id: vehicleData.year.id,
-                  name: vehicleData.year.year,
-                  created_at: vehicleData.year.created_at?.toISOString() || "",
-                  updated_at: vehicleData.year.updated_at?.toISOString() || "",
-                },
-              }
-            : undefined,
-        };
-      }
+              },
+            }
+          : undefined,
+        vehicleyear: vehicleData.year
+          ? {
+              data: {
+                id: vehicleData.year.id,
+                name: vehicleData.year.year,
+                created_at: vehicleData.year.created_at?.toISOString() || "",
+                updated_at: vehicleData.year.updated_at?.toISOString() || "",
+              },
+            }
+          : undefined,
+      };
+    }
 
-      return vehicle;
-    })
-  );
+    return vehicle;
+  });
 
   return enrichedVehicles;
 }
 
+/**
+ * Obtiene compatibilidad de vehículos por IDs
+ */
 export async function getVehicleCompatibilityByItemId(
   vehicleIds: number[],
 ): Promise<VehicleCompatibilityData[]> {
@@ -618,7 +724,7 @@ export async function getVehicleCompatibilityByItemId(
     Authorization: process.env.PUBLIC_WPS ?? "",
   };
 
-  // Procesar los IDs en grupos de 50 para evitar URLs demasiado largas
+  // Procesar los IDs en grupos de 50
   const chunkSize = 50;
   const allVehicles: VehicleCompatibilityData[] = [];
 
@@ -641,6 +747,9 @@ export async function getVehicleCompatibilityByItemId(
   return allVehicles;
 }
 
+/**
+ * Obtiene modelos de vehículo por año y marca
+ */
 export async function getVehicleModel(
   yearId: string,
   makeId: string,
@@ -649,7 +758,6 @@ export async function getVehicleModel(
     const models = await prisma.vehicleModel.findMany({
       where: {
         vehiclemake_id: parseInt(makeId),
-        // Si yearId es especificado, filtrar modelos que tengan ese año
         ...(yearId && { years: { some: { id: parseInt(yearId) } } }),
       },
       include: {
@@ -658,7 +766,6 @@ export async function getVehicleModel(
       },
     });
 
-    // Transformar al formato esperado
     return models.map((model) => ({
       id: model.id,
       vehiclemake_id: model.vehiclemake_id,
@@ -672,6 +779,9 @@ export async function getVehicleModel(
   }
 }
 
+/**
+ * Obtiene items de vehículo por modelo y año
+ */
 export async function getVehicleItemsId(
   modelId: string,
   yearId: string,
@@ -688,7 +798,6 @@ export async function getVehicleItemsId(
       },
     });
 
-    // Transformar al formato esperado (VehicleModel)
     return vehicles.map((vehicle) => ({
       id: vehicle.id,
       vehiclemake_id: vehicle.model?.vehiclemake_id || vehicle.vehiclemodel_id || 0,
@@ -702,6 +811,9 @@ export async function getVehicleItemsId(
   }
 }
 
+/**
+ * Obtiene items de vehículo de la API WPS
+ */
 export async function getVehicleItems(
   vehicleId: string,
   cursor: string | null = null,
@@ -713,7 +825,6 @@ export async function getVehicleItems(
   };
 
   try {
-    // Incluir inventory e images
     let url = `https://api.wps-inc.com/vehicles/${vehicleId}/items?include=inventory,images&page[size]=30`;
 
     if (cursor) {
@@ -740,9 +851,6 @@ export async function getVehicleItems(
     }
 
     const result = await response.json();
-
-    // No filtrar por inventario - la API ya retorna los productos
-    // El filtrado de inventario se puede hacer en el futuro si es necesario
     const itemsWithInventory = result.data as VehicleItem[];
 
     return {
@@ -754,11 +862,14 @@ export async function getVehicleItems(
   }
 }
 
+/**
+ * Obtiene compatibilidad de vehículo desde DB local
+ * OPTIMIZACIÓN: Usa una sola query con include anidado
+ */
 export async function getVehicleCompatibilityDb(
   itemId: number
 ): Promise<VehicleCompatibilityData[]> {
   try {
-    // Obtener los vehicle_ids desde la API de WPS para este item
     const headers: HeadersInit = {
       Authorization: process.env.PUBLIC_WPS ?? "",
     };
@@ -779,7 +890,7 @@ export async function getVehicleCompatibilityDb(
       return [];
     }
 
-    // Buscar los vehículos específicos en la DB local
+    // Una sola query con relaciones anidadas
     const vehicles = await prisma.vehicle.findMany({
       where: {
         id: { in: vehicleIds },
@@ -834,55 +945,44 @@ export async function getVehicleCompatibilityDb(
   }
 }
 
-// Buscar producto por supplier_product_id
-export async function getProductByPartNumber(
-  partNumber: string
-): Promise<BrandStatus | null> {
-  if (!partNumber || partNumber.length < 2) return null;
+// ============================================
+// SLIDER PRODUCTS
+// ============================================
 
-  const product = await prisma.product.findFirst({
-    where: {
-      supplier_product_id: partNumber,
-    },
-  });
-
-  if (!product) return null;
-
-  return transformToBrandStatus(product);
-}
-
-// Obtener productos para slider con imágenes y stock
-// seed: valor que cambia cada minuto para rotar productos mostrados
+/**
+ * Obtiene productos para sliders con rotación
+ * Optimizado: paraleliza count y findMany
+ */
 export async function getSliderProducts(
   brandId: number,
   productType: string,
   limit: number = 10,
   seed?: number
 ): Promise<BrandStatus[]> {
-  // Sanitizar productType como en otras funciones
   const sanitizedProductType = decodeURIComponent(productType).replace(/%26/g, "&");
 
-  // Obtener el total de productos disponibles para calcular offset
-  const totalProducts = await prisma.product.count({
-    where: {
-      brand_id: brandId,
-      product_type: sanitizedProductType,
-      inventory_total: { gt: 0 },
-      images: { not: { equals: [] } },
-    },
-  });
+  const where = {
+    brand_id: brandId,
+    product_type: sanitizedProductType,
+    inventory_total: { gt: 0 },
+    images: { not: { equals: [] } },
+  };
 
-  // Si hay pocos productos, mostrar todos
-  if (totalProducts <= limit) {
-    const data = await prisma.product.findMany({
+  // Paralelizar count y findMany
+  const [totalProducts, data] = await Promise.all([
+    prisma.product.count({ where }),
+    prisma.product.findMany({
       where: {
         brand_id: brandId,
         product_type: sanitizedProductType,
         inventory_total: { gt: 0 },
       },
       orderBy: { created_at: "desc" },
-    });
-    
+    }),
+  ]);
+
+  // Si hay pocos productos, retornar todos
+  if (totalProducts <= limit) {
     const productsWithImages = data.filter(
       (p) => Array.isArray(p.images) && p.images.length > 0
     );
@@ -890,14 +990,14 @@ export async function getSliderProducts(
     return productsWithImages.slice(0, limit).map(transformToBrandStatus);
   }
 
-  // Calcular offset basado en seed (cambia cada minuto) para rotar productos
+  // Calcular offset basado en seed
   const maxOffset = Math.max(0, totalProducts - limit);
   const offset = seed !== undefined 
-    ? (seed * 17) % (maxOffset + 1)  // Usar seed para calcular offset
+    ? (seed * 17) % (maxOffset + 1)
     : 0;
 
   // Obtener productos con offset
-  const data = await prisma.product.findMany({
+  const productsWithOffset = await prisma.product.findMany({
     where: {
       brand_id: brandId,
       product_type: sanitizedProductType,
@@ -905,14 +1005,13 @@ export async function getSliderProducts(
     },
     orderBy: { created_at: "desc" },
     skip: offset,
-    take: limit * 2, // Tomar más para filtrar por imágenes
+    take: limit * 2,
   });
 
   // Filtrar productos con imágenes
-  const productsWithImages = data.filter(
+  const productsWithImages = productsWithOffset.filter(
     (p) => Array.isArray(p.images) && p.images.length > 0
   );
 
-  // Tomar solo la cantidad solicitada
   return productsWithImages.slice(0, limit).map(transformToBrandStatus);
 }
