@@ -7,7 +7,7 @@ import { CheckCircle, User, MapPin, Package, CreditCard } from 'lucide-react';
 import { markDiscountAsUsed } from '@/app/payment/_actions/mark-discount-used';
 import { saveOrder } from '@/app/payment/_actions/save-order';
 import { useCart } from '@/hooks/useCart';
-import type { OrderItem } from '@/types/interface';
+import type { OrderItem, OrderData } from '@/types/interface';
 
 // Datos del pago de Mercado Pago
 interface PaymentData {
@@ -17,39 +17,7 @@ interface PaymentData {
   preference_id: string | null;
 }
 
-// Datos del pedido guardados en localStorage durante el checkout
-interface OrderData {
-  customer: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-    dni: string;
-  };
-  shipping: {
-    address: string;
-    city: string;
-    province: string;
-    zipCode: string;
-    notes: string;
-  };
-  items: Array<{
-    id: string;
-    title: string;
-    quantity: number;
-    unit_price: number; // Precio original sin descuento
-    sku: string;
-  }>;
-  subtotal: number;
-  discount?: {
-    code: string;
-    description?: string;
-    discount_type: "percent" | "fixed";
-    discount_percent: number;
-    discount_amount: number;
-  };
-  total: number;
-}
+// OrderData se importa desde @/types/interface
 
 export default function PaymentSuccess() {
   const searchParams = useSearchParams();

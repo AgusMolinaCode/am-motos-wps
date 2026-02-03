@@ -353,6 +353,15 @@ export interface CartItemMp {
   currency_id: string;
 }
 
+// Item del pedido guardado en localStorage (sin campos de MercadoPago)
+export interface OrderItemStored {
+  id: string;
+  title: string;
+  quantity: number;
+  unit_price: number; // Precio original sin descuento
+  sku: string;
+}
+
 export interface OrderData {
   customer: {
     firstName: string;
@@ -368,9 +377,9 @@ export interface OrderData {
     zipCode: string;
     notes: string;
   };
-  items: CartItemMp[];
+  items: OrderItemStored[];
   subtotal: number;
-  discount: AppliedDiscount | null;
+  discount?: AppliedDiscount | null;
   total: number;
 }
 

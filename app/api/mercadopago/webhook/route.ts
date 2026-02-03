@@ -96,8 +96,8 @@ export async function POST(request: NextRequest) {
 
         const orderData: CreateOrderInput = {
           payment_id: paymentId.toString(),
-          preference_id: paymentData.preference_id,
-          external_ref: paymentData.external_reference,
+          preference_id: (paymentData as any).preference_id || metadata?.preference_id,
+          external_ref: paymentData.external_reference || metadata?.external_reference,
           customer: {
             firstName: customer.firstName,
             lastName: customer.lastName,
