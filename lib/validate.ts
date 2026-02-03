@@ -142,7 +142,22 @@ export async function validateDiscountCode(
     // Calcular el descuento
     let discountAmount = 0;
 
-    if (discountCode.discount_percent > 0) {
+    // Código especial: deja el carrito en $1 ARS
+    // El código se obtiene de la base de datos por ID, así puedes cambiarlo sin deploy
+    const SPECIAL_DISCOUNT_ID = 'a56b5821-8d67-4b4b-8cfc-273104619922';
+    const specialCodeResult = await prisma.$queryRaw<DiscountCodeRow[]>`
+      SELECT * FROM discount_codes 
+      WHERE id = ${SPECIAL_DISCOUNT_ID}
+      LIMIT 1
+    `;
+    const specialDiscountCode = specialCodeResult[0];
+    
+    if (specialDiscountCode && 
+        specialDiscountCode.is_active && 
+        discountCode.code.toUpperCase() === specialDiscountCode.code.toUpperCase()) {
+      // Descuento especial: deja el total en $1 ARS
+      discountAmount = Math.max(0, purchaseAmount - 1);
+    } else if (discountCode.discount_percent > 0) {
       // Descuento por porcentaje
       discountAmount = purchaseAmount * (discountCode.discount_percent / 100);
     } else if (discountCode.discount_amount !== null) {

@@ -78,6 +78,8 @@ const nextConfig = {
       allowedOrigins: [
         'localhost:3000',
         '2cb0j40q-3000.brs.devtunnels.ms',
+        'am-motos-repuestos.com.ar',
+        'www.am-motos-repuestos.com.ar',
       ],
     },
   },

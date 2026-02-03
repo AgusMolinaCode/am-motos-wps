@@ -115,7 +115,7 @@ export async function createPreference(formData: FormData): Promise<never> {
   const preference = new Preference(client);
 
   // URL base para las redirecciones
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://2cb0j40q-3000.brs.devtunnels.ms";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.am-motos-repuestos.com.ar";
 
   // Generar external_reference única
   const externalReference = `order_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
