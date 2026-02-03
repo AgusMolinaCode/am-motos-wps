@@ -109,3 +109,73 @@ model Vehicle {
 
   @@map("vehicle")
 }
+
+// Pedidos exitosos (pagos aprobados en Mercado Pago)
+model Order {
+  id                String   @id @default(uuid())
+  
+  // IDs de pago de Mercado Pago
+  payment_id        String   @unique  // ID del pago en MP
+  preference_id     String?           // ID de la preferencia
+  external_ref      String?           // Referencia externa
+  
+  // Estado del pedido
+  status            String   @default("approved") // approved, processing, shipped, delivered, cancelled
+  
+  // Datos del cliente
+  customer_first_name  String
+  customer_last_name   String
+  customer_email       String
+  customer_phone       String
+  customer_dni         String
+  
+  // Datos de envío
+  shipping_address     String
+  shipping_city        String
+  shipping_province    String
+  shipping_zip_code    String
+  shipping_notes       String?
+  
+  // Productos comprados (array JSON con sku, name, quantity, unit_price)
+  items                Json
+  
+  // Resumen de totales
+  subtotal             Decimal  @db.Decimal(10, 2)
+  discount_code        String?
+  discount_amount      Decimal  @default(0) @db.Decimal(10, 2)
+  total                Decimal  @db.Decimal(10, 2)
+  
+  // Metadata adicional
+  metadata             Json?    // Cualquier dato adicional del pago
+  
+  // Timestamps
+  created_at           DateTime @default(now())
+  updated_at           DateTime @updatedAt
+  
+  @@index([payment_id])
+  @@index([customer_email])
+  @@index([status])
+  @@index([created_at])
+  @@map("orders")
+}
+
+// Códigos de descuento para el checkout
+model DiscountCode {
+  id          String    @id @default(uuid())
+  code        String    @unique  // Código único (ej: "DESCUENTO10", "VERANO2024")
+  description String?   // Descripción opcional del descuento
+  discount_percent Int  @default(0)  // Porcentaje de descuento (0-100)
+  discount_amount  Decimal? @db.Decimal(10, 2)  // O monto fijo de descuento
+  max_uses    Int?      // Máximo de usos permitidos (null = ilimitado)
+  used_count  Int       @default(0)  // Contador de usos
+  min_purchase_amount Decimal? @db.Decimal(10, 2)  // Monto mínimo de compra para aplicar
+  valid_from  DateTime  @default(now())  // Fecha de inicio
+  valid_until DateTime?  // Fecha de expiración (null = no expira)
+  is_active   Boolean   @default(true)  // Activo/inactivo
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  @@index([code])
+  @@index([is_active])
+  @@map("discount_codes")
+}

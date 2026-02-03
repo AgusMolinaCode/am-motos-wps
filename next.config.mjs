@@ -73,6 +73,13 @@ const nextConfig = {
     ],
     // Optimización de CSS
     optimizeCss: true,
+    // Permitir Server Actions desde el túnel de DevTunnels
+    serverActions: {
+      allowedOrigins: [
+        'localhost:3000',
+        '2cb0j40q-3000.brs.devtunnels.ms',
+      ],
+    },
   },
 
   // ============================================
