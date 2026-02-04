@@ -19,6 +19,7 @@ import ProductTypeContent from "./ProductTypeContent";
 import BrandMenuContent from "./BrandMenuContent";
 import CubiertasMenuContent from "./CubiertasMenuContent";
 import RepuestosMenuContent from "./RepuestosMenuContent";
+import { SignedIn } from "@clerk/nextjs";
 
 // Interfaz para definir la estructura de una marca
 interface Brand {
@@ -48,7 +49,7 @@ const featuredBrands: Brand[] = [
 
 // Obtener IDs de featuredBrands para excluir
 const featuredBrandIds = new Set(
-  featuredBrands.map((brand) => brand.id.toString())
+  featuredBrands.map((brand) => brand.id.toString()),
 );
 
 // Filtrar y ordenar allBrands desde brand2.json, excluyendo featuredBrands
@@ -66,6 +67,14 @@ export function NavigationMenuDemo() {
   return (
     <NavigationMenu className="hidden md:block">
       <NavigationMenuList>
+        <SignedIn>
+          <NavigationMenuItem>
+            <Link href="/catalogos" className={navigationMenuTriggerStyle()}>
+              CATALOGOS
+            </Link>
+          </NavigationMenuItem>
+        </SignedIn>
+
         <NavigationMenuItem>
           <NavigationMenuTrigger>MARCAS</NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -118,7 +127,7 @@ const ListItem = React.forwardRef<
           ref={ref}
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
+            className,
           )}
           {...props}
         >

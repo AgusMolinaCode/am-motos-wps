@@ -99,6 +99,11 @@ export async function createPreference(
   
   // Extraer clerk_user_id del form data (viene del input hidden)
   const clerkUserIdFromForm = formData.get("clerk_user_id") as string;
+  
+  // DEBUG: Log para verificar qué está llegando
+  console.log("[DEBUG createPreference] clerkUserId (param):", clerkUserId);
+  console.log("[DEBUG createPreference] clerkUserIdFromForm (form):", clerkUserIdFromForm);
+  console.log("[DEBUG createPreference] Final clerk_user_id:", clerkUserId || clerkUserIdFromForm || undefined);
 
   if (!itemsJson) {
     throw new Error("El carrito está vacío");

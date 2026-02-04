@@ -94,6 +94,10 @@ export async function POST(request: NextRequest) {
           notes: "",
         };
 
+        // DEBUG: Verificar metadata recibida
+        console.log("[DEBUG Webhook] metadata:", JSON.stringify(metadata, null, 2));
+        console.log("[DEBUG Webhook] clerk_user_id from metadata:", metadata?.clerk_user_id);
+        
         const orderData: CreateOrderInput = {
           payment_id: paymentId.toString(),
           preference_id: (paymentData as any).preference_id || metadata?.preference_id,

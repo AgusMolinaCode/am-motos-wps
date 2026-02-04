@@ -19,6 +19,9 @@ export async function saveOrder(input: CreateOrderInput): Promise<{ success: boo
       return { success: true, orderId: existingOrder.id };
     }
 
+    // DEBUG: Verificar datos antes de guardar
+    console.log("[DEBUG saveOrder] input.clerk_user_id:", input.clerk_user_id);
+    
     // Crear el pedido
     const order = await prisma.order.create({
       data: {
