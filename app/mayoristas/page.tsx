@@ -1,5 +1,7 @@
 import { auth, currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
+import { getOrdersByUserId, getWholesaleStats } from './_actions/get-orders'
+import type { Order } from '@/types/interface'
 import {
   Package,
   ShoppingCart,
@@ -20,77 +22,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
-// Datos harcodeados para el panel de mayoristas
-const statsData = [
-  {
-    title: 'Pedidos Activos',
-    value: '12',
-    change: '+3 este mes',
-    icon: Package,
-    trend: 'up',
-    color: 'from-orange-500 to-amber-500',
-  },
-  {
-    title: 'Total Comprado (2024)',
-    value: '$4.2M',
-    change: '+18% vs 2023',
-    icon: ShoppingCart,
-    trend: 'up',
-    color: 'from-emerald-500 to-teal-500',
-  },
-  {
-    title: 'Descuento Actual',
-    value: '25%',
-    change: 'Nivel Oro Mayorista',
-    icon: Percent,
-    trend: 'neutral',
-    color: 'from-violet-500 to-purple-500',
-  },
-  {
-    title: 'Envíos Pendientes',
-    value: '5',
-    change: '2 en tránsito',
-    icon: Truck,
-    trend: 'down',
-    color: 'from-blue-500 to-cyan-500',
-  },
-]
-
-const pedidosRecientes = [
-  {
-    id: 'PED-2024-0892',
-    fecha: '28 Ene 2024',
-    productos: 45,
-    total: 2850000,
-    estado: 'en_proceso',
-    items: ['Kit pistón Yamaha YZ450F x20', 'Biela KTM 450 SX-F x15', 'Filtros aceite mix x50'],
-  },
-  {
-    id: 'PED-2024-0885',
-    fecha: '25 Ene 2024',
-    productos: 32,
-    total: 1920000,
-    estado: 'enviado',
-    items: ['Cadenas DID 520 x30', 'Piñones Renthal x40', 'Kits transmisión Honda x25'],
-  },
-  {
-    id: 'PED-2024-0871',
-    fecha: '20 Ene 2024',
-    productos: 68,
-    total: 4560000,
-    estado: 'entregado',
-    items: ['Suspensiones Ohlins TTX x8', 'Kit retenes horquilla x30', 'Aceite suspensiones x50'],
-  },
-  {
-    id: 'PED-2024-0854',
-    fecha: '15 Ene 2024',
-    productos: 23,
-    total: 1380000,
-    estado: 'entregado',
-    items: ['Pastillas freno Brembo x40', 'Discos de freno Galfer x20', 'Líquido de frenos x30'],
-  },
-]
-
+// Datos hardcodeados para secciones que no usan DB
 const ofertasEspeciales = [
   {
     id: 1,
@@ -133,6 +65,40 @@ const historialCompras = [
   { mes: 'Ago 2023', monto: 11200000, pedidos: 5 },
 ]
 
+// Helper para mapear status de DB a UI
+const mapOrderStatus = (status: string): 'en_proceso' | 'enviado' | 'entregado' => {
+  switch (status) {
+    case 'approved':
+    case 'processing':
+      return 'en_proceso'
+    case 'shipped':
+      return 'enviado'
+    case 'delivered':
+      return 'entregado'
+    default:
+      return 'en_proceso'
+  }
+}
+
+// Helper para formatear fecha
+const formatOrderDate = (dateString: string): string => {
+  const date = new Date(dateString)
+  return date.toLocaleDateString('es-AR', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  })
+}
+
+// Helper para formatear precio
+const formatPrice = (price: number): string => {
+  return new Intl.NumberFormat('es-AR', {
+    style: 'currency',
+    currency: 'ARS',
+    minimumFractionDigits: 0,
+  }).format(price)
+}
+
 const getEstadoBadge = (estado: string) => {
   const styles = {
     en_proceso: 'bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/25',
@@ -158,24 +124,66 @@ const getEstadoBadge = (estado: string) => {
   )
 }
 
-const formatPrice = (price: number) => {
-  return new Intl.NumberFormat('es-AR', {
-    style: 'currency',
-    currency: 'ARS',
-    minimumFractionDigits: 0,
-  }).format(price)
-}
-
 export default async function MayoristasPage() {
-  const { isAuthenticated } = await auth()
+  const { isAuthenticated, userId } = await auth()
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated || !userId) {
     redirect('/sign-in')
   }
 
   const user = await currentUser()
   const nombreNegocio = (user?.publicMetadata?.nombreNegocio as string) || user?.firstName || 'Mayorista'
   const nivel = (user?.publicMetadata?.nivel as string) || 'oro'
+
+  // Fetch datos reales
+  const orders = await getOrdersByUserId(userId)
+  const stats = await getWholesaleStats(userId)
+
+  // Transformar orders para el UI
+  const pedidosRecientes = orders.slice(0, 5).map(order => ({
+    id: order.external_ref || `PED-${order.id.slice(-8).toUpperCase()}`,
+    fecha: formatOrderDate(order.created_at),
+    productos: order.items.length,
+    total: order.total,
+    estado: mapOrderStatus(order.status),
+    items: order.items.map(item => `${item.name} x${item.quantity}`),
+  }))
+
+  // Stats reales
+  const statsData = [
+    {
+      title: 'Pedidos Activos',
+      value: stats.activeOrders.toString(),
+      change: `${stats.activeOrders} en proceso`,
+      icon: Package,
+      trend: 'up' as const,
+      color: 'from-orange-500 to-amber-500',
+    },
+    {
+      title: 'Total Comprado',
+      value: formatPrice(stats.totalSpent),
+      change: `${stats.totalOrders} pedidos totales`,
+      icon: ShoppingCart,
+      trend: 'up' as const,
+      color: 'from-emerald-500 to-teal-500',
+    },
+    {
+      title: 'Descuento Actual',
+      value: '25%',
+      change: 'Nivel Oro Mayorista',
+      icon: Percent,
+      trend: 'neutral' as const,
+      color: 'from-violet-500 to-purple-500',
+    },
+    {
+      title: 'Envíos Pendientes',
+      value: stats.pendingShipments.toString(),
+      change: stats.pendingShipments > 0 ? 'En tránsito' : 'Ninguno',
+      icon: Truck,
+      trend: stats.pendingShipments > 0 ? 'up' as const : 'neutral' as const,
+      color: 'from-blue-500 to-cyan-500',
+    },
+  ]
 
   return (
     <div className="min-h-screen">
@@ -268,43 +276,51 @@ export default async function MayoristasPage() {
                 </div>
               </CardHeader>
               <CardContent className="p-0">
-                <div className="divide-y divide-border/50">
-                  {pedidosRecientes.map((pedido) => (
-                    <div
-                      key={pedido.id}
-                      className="p-5 hover:bg-accent/50 transition-colors group cursor-pointer"
-                    >
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-foreground font-bold font-mono">{pedido.id}</span>
-                            {getEstadoBadge(pedido.estado)}
+                {pedidosRecientes.length === 0 ? (
+                  <div className="p-8 text-center text-muted-foreground">
+                    <Package className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                    <p>No tenés pedidos todavía</p>
+                    <p className="text-sm mt-1">Hacé tu primer pedido para verlo aquí</p>
+                  </div>
+                ) : (
+                  <div className="divide-y divide-border/50">
+                    {pedidosRecientes.map((pedido) => (
+                      <div
+                        key={pedido.id}
+                        className="p-5 hover:bg-accent/50 transition-colors group cursor-pointer"
+                      >
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-3 mb-2">
+                              <span className="text-foreground font-bold font-mono">{pedido.id}</span>
+                              {getEstadoBadge(pedido.estado)}
+                            </div>
+                            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
+                              <span>{pedido.fecha}</span>
+                              <span className="w-1 h-1 rounded-full bg-border" />
+                              <span>{pedido.productos} productos</span>
+                            </div>
+                            <p className="text-muted-foreground text-sm line-clamp-1">
+                              {pedido.items.join(', ')}
+                            </p>
                           </div>
-                          <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
-                            <span>{pedido.fecha}</span>
-                            <span className="w-1 h-1 rounded-full bg-border" />
-                            <span>{pedido.productos} productos</span>
+                          <div className="flex items-center gap-4">
+                            <span className="text-xl font-bold text-foreground">
+                              {formatPrice(pedido.total)}
+                            </span>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-foreground"
+                            >
+                              <ArrowUpRight className="w-5 h-5" />
+                            </Button>
                           </div>
-                          <p className="text-muted-foreground text-sm line-clamp-1">
-                            {pedido.items.join(', ')}
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                          <span className="text-xl font-bold text-foreground">
-                            {formatPrice(pedido.total)}
-                          </span>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-foreground"
-                          >
-                            <ArrowUpRight className="w-5 h-5" />
-                          </Button>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
 
