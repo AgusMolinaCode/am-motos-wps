@@ -444,6 +444,7 @@ export interface Order {
   payment_id: string;
   preference_id?: string | null;
   external_ref?: string | null;
+  clerk_user_id?: string | null;
   status: "approved" | "processing" | "shipped" | "delivered" | "cancelled";
   customer: OrderCustomer;
   shipping: OrderShipping;
@@ -462,6 +463,7 @@ export interface CreateOrderInput {
   payment_id: string;
   preference_id?: string;
   external_ref?: string;
+  clerk_user_id?: string;
   customer: OrderCustomer;
   shipping: OrderShipping;
   items: OrderItem[];
