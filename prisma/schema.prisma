@@ -114,6 +114,9 @@ model Vehicle {
 model Order {
   id                String   @id @default(uuid())
   
+  // ID del usuario en Clerk (para usuarios autenticados)
+  clerk_user_id     String?
+  
   // IDs de pago de Mercado Pago
   payment_id        String   @unique  // ID del pago en MP
   preference_id     String?           // ID de la preferencia
@@ -153,6 +156,7 @@ model Order {
   updated_at           DateTime @updatedAt
   
   @@index([payment_id])
+  @@index([clerk_user_id])
   @@index([customer_email])
   @@index([status])
   @@index([created_at])
