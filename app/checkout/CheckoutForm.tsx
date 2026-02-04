@@ -60,6 +60,8 @@ export default function CheckoutForm({
   const mpItems = generateMpItems();
   const itemsWithSku = generateItemsWithSku();
 
+
+
   return (
     <div className="max-w-6xl mx-auto px-2 sm:px-4 py-4 sm:py-8">
       <h1 className="text-xl sm:text-3xl font-bold mb-4 sm:mb-8 text-gray-800 dark:text-gray-200">

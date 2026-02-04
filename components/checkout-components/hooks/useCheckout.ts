@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useTransition, useMemo } from "react";
+import { useState, useCallback, useTransition, useMemo, useEffect } from "react";
 import { useAuth, useUser } from "@clerk/nextjs";
 import { useCart } from "@/hooks/useCart";
 import { usePriceCalculation } from "@/hooks/usePriceCalculation";
@@ -60,6 +60,8 @@ export function useCheckout(): UseCheckoutReturn {
   const { calculateTotalPrice, formatPrice } = usePriceCalculation();
   const { isSignedIn } = useAuth();
   const { user } = useUser();
+
+
 
   // Estado del formulario de envío
   const [shippingData, setShippingData] = useState<ShippingData>({
@@ -159,6 +161,8 @@ export function useCheckout(): UseCheckoutReturn {
     title: string;
     quantity: number;
     unit_price: number;
+    brand_id: number;
+    product_type: string;
   }> => {
     return items.map((item) => {
       const priceInfo = getItemPriceInfo(item);
@@ -169,6 +173,8 @@ export function useCheckout(): UseCheckoutReturn {
         title: item.product.name,
         quantity: item.quantity,
         unit_price: Math.round(priceInfo.unitPrice * 100) / 100, // Precio original sin descuento
+        brand_id: item.product.brand_id || 0,
+        product_type: item.product.product_type || '',
       };
     });
   }, [items, getItemPriceInfo]);
@@ -235,6 +241,10 @@ export function useCheckout(): UseCheckoutReturn {
       const mpItems = generateMpItems();
       const itemsWithSku = generateItemsWithSku(); // Items con precio original sin descuento
 
+      // Extraer brand_ids y product_types únicos
+      const brandIds = [...new Set(itemsWithSku.map(item => item.brand_id).filter(id => id > 0))];
+      const productTypes = [...new Set(itemsWithSku.map(item => item.product_type).filter(type => type))];
+
       // Guardar datos del pedido en localStorage para recuperarlos en la página de éxito
       // NOTA: Usamos itemsWithSku para tener los precios originales sin descuento
       const orderData: OrderData = {
@@ -258,7 +268,11 @@ export function useCheckout(): UseCheckoutReturn {
           quantity: item.quantity,
           unit_price: item.unit_price,
           sku: item.sku,
+          brand_id: item.brand_id,
+          product_type: item.product_type,
         })),
+        brand_ids: brandIds,
+        product_types: productTypes,
         subtotal: Math.round(subtotal * 100) / 100,
         discount: appliedDiscount,
         total: Math.round(total * 100) / 100,

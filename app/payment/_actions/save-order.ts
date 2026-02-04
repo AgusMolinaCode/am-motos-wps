@@ -38,6 +38,8 @@ export async function saveOrder(input: CreateOrderInput): Promise<{ success: boo
         shipping_zip_code: input.shipping.zipCode,
         shipping_notes: input.shipping.notes,
         items: input.items as any,
+        brand_ids: input.brand_ids || [],
+        product_types: input.product_types || [],
         subtotal: input.subtotal,
         discount_code: input.discount_code,
         discount_amount: input.discount_amount,

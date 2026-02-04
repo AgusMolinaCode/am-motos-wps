@@ -40,16 +40,25 @@ interface ItemWithSku {
   title: string;
   quantity: number;
   unit_price: number;
+  brand_id: number;
+  product_type: string;
+}
+
+interface ItemWithSkuAndDetails extends ItemWithSku {
+  brand_id?: number;
+  product_type?: string;
 }
 
 interface PreferenceMetadata {
-  items: ItemWithSku[];
+  items: ItemWithSkuAndDetails[];
   items_count: number;
   subtotal: number;
   discount: AppliedDiscount | null;
   discount_code: string | null;
   discount_amount: number;
   total_amount: number;
+  brand_ids: number[];
+  product_types: string[];
   clerk_user_id?: string;
   customer: {
     firstName: string;
@@ -127,6 +136,10 @@ export async function createPreference(
   // Generar external_reference única
   const externalReference = `order_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
 
+  // Extraer brand_ids y product_types de los items
+  const brandIds = [...new Set(itemsWithSku.map(item => item.brand_id).filter(id => id > 0))];
+  const productTypes = [...new Set(itemsWithSku.map(item => item.product_type).filter(type => type))];
+
   // Construir el body de la preferencia con tipado correcto
   const preferenceBody: PreferenceBody = {
     items: items.map((item) => ({
@@ -147,6 +160,8 @@ export async function createPreference(
         title: item.title,
         quantity: item.quantity,
         unit_price: item.unit_price,
+        brand_id: 0,
+        product_type: '',
       })),
       items_count: items.length,
       subtotal: Math.round(subtotal * 100) / 100,
@@ -154,6 +169,8 @@ export async function createPreference(
       discount_code: discountCode || null,
       discount_amount: discountAmount,
       total_amount: Math.round(totalAmount * 100) / 100,
+      brand_ids: brandIds,
+      product_types: productTypes,
       clerk_user_id: clerkUserId || clerkUserIdFromForm || undefined,
       customer: {
         firstName: shippingData?.firstName || payerName || "",

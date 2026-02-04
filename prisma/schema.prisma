@@ -142,6 +142,12 @@ model Order {
   // Productos comprados (array JSON con sku, name, quantity, unit_price)
   items                Json
   
+  // IDs de marcas compradas (para análisis)
+  brand_ids            Int[]
+  
+  // Tipos de productos comprados (para análisis)
+  product_types        String[]
+  
   // Resumen de totales
   subtotal             Decimal  @db.Decimal(10, 2)
   discount_code        String?

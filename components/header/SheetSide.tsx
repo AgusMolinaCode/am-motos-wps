@@ -265,7 +265,7 @@ export function SheetSide() {
                 onClick={closeAll}
                 className="flex items-center justify-between p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors gap-2 "
               >
-                <span className="text-lg font-semibold">CATALOGO</span>
+                <span className="text-lg font-semibold">CATALOGO PRO-X</span>
                 <Image
                   src="/images/prox.png"
                   alt="ProX Catalogo"
@@ -274,6 +274,16 @@ export function SheetSide() {
                   className="w-auto h-8"
                 />
               </Link>
+              <SignedIn>
+                <Link
+                  href="/mayoristas"
+                  onClick={closeAll}
+                  className="flex items-center justify-between w-full p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors"
+                >
+                  <span className="text-lg font-semibold">MI CUENTA</span>
+                  <ChevronRight className="h-5 w-5" />
+                </Link>
+              </SignedIn>
               <SignedOut>
                 <SignInButton mode="modal">
                   <div className="px-2 w-full pt-2">
@@ -303,9 +313,12 @@ export function SheetSide() {
                 </SignInButton>
               </SignedOut>
               <SignedIn>
-                <div className="flex items-center justify-center mt-2">
-                  <UserButton afterSignOutUrl="/" />
-                </div>
+                <Link
+                  href="/mayoristas"
+                  className="text-[1.1rem] md:text-lg font-bold hover:dark:text-indigo-300 hover:text-indigo-800 duration-300 hidden md:block"
+                >
+                  Mi Cuenta
+                </Link>
               </SignedIn>
             </div>
           </div>

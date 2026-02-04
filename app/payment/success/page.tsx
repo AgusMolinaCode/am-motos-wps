@@ -2,7 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { useAuth } from '@clerk/nextjs';
 import { CheckCircle, User, MapPin, Package, CreditCard } from 'lucide-react';
 import { markDiscountAsUsed } from '@/app/payment/_actions/mark-discount-used';
 import { saveOrder } from '@/app/payment/_actions/save-order';
@@ -22,6 +24,7 @@ interface PaymentData {
 export default function PaymentSuccess() {
   const searchParams = useSearchParams();
   const { clearCart } = useCart();
+  const { isSignedIn } = useAuth();
   const [paymentData, setPaymentData] = useState<PaymentData | null>(null);
   const [orderData, setOrderData] = useState<OrderData | null>(null);
   const [orderSaved, setOrderSaved] = useState<boolean>(false);
@@ -89,6 +92,8 @@ export default function PaymentSuccess() {
         name: item.title,
         quantity: item.quantity,
         unit_price: item.unit_price,
+        brand_id: item.brand_id || 0,
+        product_type: item.product_type || '',
       }));
 
       const result = await saveOrder({
@@ -98,6 +103,8 @@ export default function PaymentSuccess() {
         customer: data.customer,
         shipping: data.shipping,
         items: orderItems,
+        brand_ids: data.brand_ids || [],
+        product_types: data.product_types || [],
         subtotal: data.subtotal,
         discount_code: data.discount?.code,
         discount_amount: data.discount?.discount_amount || 0,
@@ -105,12 +112,10 @@ export default function PaymentSuccess() {
       });
 
       if (result.success) {
-        console.log(`[PaymentSuccess] Order saved: ${result.orderId}`);
         setOrderSaved(true);
         
         // Limpiar el carrito después de guardar el pedido exitosamente
         clearCart();
-        console.log('[PaymentSuccess] Cart cleared successfully');
         
         // Opcional: Limpiar los datos del pedido del localStorage
         // localStorage.removeItem('lastOrderData');
@@ -169,7 +174,7 @@ Por favor, confirmen la recepción del pago y coordinemos el envío.
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <div className="max-w-2xl w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 sm:p-8">
         {/* Header */}
         <div className="text-center mb-8">
@@ -366,21 +371,35 @@ Por favor, confirmen la recepción del pago y coordinemos el envío.
           </div>
         )}
 
-        {/* Botón WhatsApp */}
-        <div className="mt-8">
-          <button
-            onClick={handleWhatsAppContact}
-            disabled={!orderData}
-            className="w-full py-4 px-6 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded-lg transition-colors flex items-center justify-center gap-3 font-semibold text-base"
-          >
-            <Image 
-              src="/whatsApp.svg"
-              alt="WhatsApp"
-              width={50}
-              height={50}
-            />
-            <span>Avisar a AM MOTOS que realizaste un pedido</span>
-          </button>
+        {/* Botones WhatsApp y Volver a Mi Cuenta */}
+        <div className="mt-8 space-y-3">
+          <div className="block md:flex gap-3">
+            <button
+              onClick={handleWhatsAppContact}
+              disabled={!orderData}
+              className="flex-1 py-2 mb-2 md:mb-0 px-4 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded-lg transition-colors flex items-center justify-center gap-2 font-medium text-sm w-full "
+            >
+              <Image 
+                src="/whatsApp.svg"
+                alt="WhatsApp"
+                width={24}
+                height={24}
+              />
+              <span className="hidden sm:inline">Avisar a AM MOTOS</span>
+              <span className="sm:hidden">Avisar pedido</span>
+            </button>
+            
+            {isSignedIn && (
+              <Link
+                href="/mayoristas"
+                className="flex-1 py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors flex items-center justify-center gap-2 font-medium text-sm"
+              >
+                <User className="w-5 h-5" />
+                <span>Mi Cuenta</span>
+              </Link>
+            )}
+          </div>
+          
           <p className="mt-3 text-xs text-center text-gray-500 dark:text-gray-400">
             Al hacer clic se abrirá WhatsApp con todos los datos de tu pedido
           </p>

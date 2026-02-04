@@ -44,6 +44,7 @@ export function BrandCarouselClient({
     standard_dealer_price: item.standard_dealer_price,
     list_price: item.list_price,
     weight: item.weight,
+    product_type: item.product_type,
     inventory: item.inventory,
     images: item.images,
   });

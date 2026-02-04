@@ -60,6 +60,9 @@ export default function Navbar() {
             )}
           </Link>
           <SheetSide />
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
         </div>
 
         <div className="md:flex hidden">
@@ -108,6 +111,7 @@ export default function Navbar() {
               </span>
             )}
           </Link>
+          
           <div className="md:flex hidden">
             <SignedOut>
               <SignInButton mode="modal">

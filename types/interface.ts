@@ -232,6 +232,7 @@ export interface ItemSheet {
   list_price: string;
   weight?: number;
   priceFormatted?: string;
+  product_type?: string;  // Tipo de producto (ej: "Spark Plugs", "Pistons", etc.)
   inventory?: {
     data?: {
       total?: number;
@@ -360,6 +361,8 @@ export interface OrderItemStored {
   quantity: number;
   unit_price: number; // Precio original sin descuento
   sku: string;
+  brand_id?: number;
+  product_type?: string;
 }
 
 export interface OrderData {
@@ -378,6 +381,8 @@ export interface OrderData {
     notes: string;
   };
   items: OrderItemStored[];
+  brand_ids: number[];      // IDs de marcas únicos
+  product_types: string[];  // Tipos de productos únicos
   subtotal: number;
   discount?: AppliedDiscount | null;
   total: number;
@@ -421,6 +426,8 @@ export interface OrderItem {
   name: string;         // Nombre del producto
   quantity: number;     // Cantidad comprada
   unit_price: number;   // Precio unitario
+  brand_id: number;     // ID de la marca
+  product_type: string; // Tipo de producto
 }
 
 export interface OrderCustomer {
@@ -467,6 +474,8 @@ export interface CreateOrderInput {
   customer: OrderCustomer;
   shipping: OrderShipping;
   items: OrderItem[];
+  brand_ids: number[];       // IDs de marcas únicos
+  product_types: string[];   // Tipos de productos únicos
   subtotal: number;
   discount_code?: string;
   discount_amount: number;

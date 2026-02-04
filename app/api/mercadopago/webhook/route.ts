@@ -74,6 +74,8 @@ export async function POST(request: NextRequest) {
           name: item.title,
           quantity: item.quantity,
           unit_price: item.unit_price,
+          brand_id: item.brand_id || 0,
+          product_type: item.product_type || '',
         })) || [];
 
         // Construir datos del cliente
@@ -98,6 +100,10 @@ export async function POST(request: NextRequest) {
           notes: shippingFromMeta?.notes || "",
         };
 
+        // Extraer brand_ids y product_types de la metadata
+        const brandIds = metadata?.brand_ids || [];
+        const productTypes = metadata?.product_types || [];
+
         const orderData: CreateOrderInput = {
           payment_id: paymentId.toString(),
           preference_id: (paymentData as any).preference_id || metadata?.preference_id,
@@ -118,6 +124,8 @@ export async function POST(request: NextRequest) {
             notes: shipping.notes,
           },
           items,
+          brand_ids: brandIds,
+          product_types: productTypes,
           subtotal: metadata?.subtotal || paymentData.transaction_amount || 0,
           discount_code: metadata?.discount?.code,
           discount_amount: metadata?.discount?.discount_amount || 0,
