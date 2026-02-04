@@ -241,8 +241,7 @@ export default async function MayoristasPage() {
                     <p className="text-muted-foreground text-sm font-medium mb-1">{stat.title}</p>
                     <p className="text-2xl sm:text-3xl font-black text-foreground">{stat.value}</p>
                     <p className={`text-xs mt-1 ${
-                      stat.trend === 'up' ? 'text-emerald-600 dark:text-emerald-400' : 
-                      stat.trend === 'down' ? 'text-amber-600 dark:text-amber-400' : 'text-muted-foreground'
+                      stat.trend === 'up' ? 'text-emerald-600 dark:text-emerald-400' : 'text-muted-foreground'
                     }`}>
                       {stat.change}
                     </p>
