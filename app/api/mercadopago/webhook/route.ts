@@ -98,6 +98,7 @@ export async function POST(request: NextRequest) {
           payment_id: paymentId.toString(),
           preference_id: (paymentData as any).preference_id || metadata?.preference_id,
           external_ref: paymentData.external_reference || metadata?.external_reference,
+          clerk_user_id: metadata?.clerk_user_id,
           customer: {
             firstName: customer.firstName,
             lastName: customer.lastName,

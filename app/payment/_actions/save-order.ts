@@ -25,6 +25,7 @@ export async function saveOrder(input: CreateOrderInput): Promise<{ success: boo
         payment_id: input.payment_id,
         preference_id: input.preference_id,
         external_ref: input.external_ref,
+        clerk_user_id: input.clerk_user_id,
         status: "approved",
         customer_first_name: input.customer.firstName,
         customer_last_name: input.customer.lastName,
