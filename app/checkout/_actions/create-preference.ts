@@ -50,6 +50,7 @@ interface PreferenceMetadata {
   discount_code: string | null;
   discount_amount: number;
   total_amount: number;
+  clerk_user_id?: string;
   customer: {
     firstName: string;
     lastName: string;
@@ -81,7 +82,10 @@ interface PreferenceBody {
  * Crea una preferencia de pago en Mercado Pago y redirige al usuario
  * Recibe los datos del formulario
  */
-export async function createPreference(formData: FormData): Promise<never> {
+export async function createPreference(
+  formData: FormData,
+  clerkUserId?: string
+): Promise<never> {
   // Extraer items del form data
   const itemsJson = formData.get("items") as string;
   const itemsWithSkuJson = formData.get("items_with_sku") as string;
@@ -147,6 +151,7 @@ export async function createPreference(formData: FormData): Promise<never> {
       discount_code: discountCode || null,
       discount_amount: discountAmount,
       total_amount: Math.round(totalAmount * 100) / 100,
+      clerk_user_id: clerkUserId,
       customer: {
         firstName: shippingData?.firstName || payerName || "",
         lastName: shippingData?.lastName || payerSurname || "",
