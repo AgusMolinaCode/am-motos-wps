@@ -77,21 +77,25 @@ export async function POST(request: NextRequest) {
         })) || [];
 
         // Construir datos del cliente
-        const customer = metadata?.customer || {
-          firstName: paymentData.payer?.first_name || "",
-          lastName: paymentData.payer?.last_name || "",
-          email: paymentData.payer?.email || "",
-          phone: paymentData.payer?.phone?.number || "",
-          dni: metadata?.customer?.dni || "",
+        // MP devuelve los campos en snake_case en el metadata
+        const customerFromMeta = metadata?.customer;
+        const customer = {
+          firstName: customerFromMeta?.first_name || customerFromMeta?.firstName || paymentData.payer?.first_name || "",
+          lastName: customerFromMeta?.last_name || customerFromMeta?.lastName || paymentData.payer?.last_name || "",
+          email: customerFromMeta?.email || paymentData.payer?.email || "",
+          phone: customerFromMeta?.phone || paymentData.payer?.phone?.number || "",
+          dni: customerFromMeta?.dni || "",
         };
 
         // Construir datos de envío
-        const shipping = metadata?.shipping || {
-          address: "",
-          city: "",
-          province: "",
-          zipCode: "",
-          notes: "",
+        // MP devuelve zip_code en lugar de zipCode
+        const shippingFromMeta = metadata?.shipping;
+        const shipping = {
+          address: shippingFromMeta?.address || "",
+          city: shippingFromMeta?.city || "",
+          province: shippingFromMeta?.province || "",
+          zipCode: shippingFromMeta?.zip_code || shippingFromMeta?.zipCode || "",
+          notes: shippingFromMeta?.notes || "",
         };
 
         // DEBUG: Verificar metadata recibida
