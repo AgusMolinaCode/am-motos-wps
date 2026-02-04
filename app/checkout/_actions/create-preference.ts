@@ -86,6 +86,9 @@ export async function createPreference(
   formData: FormData,
   clerkUserId?: string
 ): Promise<never> {
+  // DEBUG: Verificar que la Server Action se está ejecutando
+  console.log("[DEBUG createPreference] Server Action ejecutándose");
+  
   // Extraer items del form data
   const itemsJson = formData.get("items") as string;
   const itemsWithSkuJson = formData.get("items_with_sku") as string;
