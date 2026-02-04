@@ -96,6 +96,9 @@ export async function createPreference(
   const discountCode = formData.get("discount_code") as string;
   const discountAmount = parseFloat(formData.get("discount_amount") as string) || 0;
   const discountJson = formData.get("discount") as string;
+  
+  // Extraer clerk_user_id del form data (viene del input hidden)
+  const clerkUserIdFromForm = formData.get("clerk_user_id") as string;
 
   if (!itemsJson) {
     throw new Error("El carrito está vacío");
@@ -151,7 +154,7 @@ export async function createPreference(
       discount_code: discountCode || null,
       discount_amount: discountAmount,
       total_amount: Math.round(totalAmount * 100) / 100,
-      clerk_user_id: clerkUserId,
+      clerk_user_id: clerkUserId || clerkUserIdFromForm || undefined,
       customer: {
         firstName: shippingData?.firstName || payerName || "",
         lastName: shippingData?.lastName || payerSurname || "",
