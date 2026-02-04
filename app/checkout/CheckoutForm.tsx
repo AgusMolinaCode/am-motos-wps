@@ -19,9 +19,6 @@ export default function CheckoutForm({
   createPreferenceAction,
   clerkUserId,
 }: CheckoutFormProps) {
-  // DEBUG: Verificar que clerkUserId llega correctamente
-  console.log("[DEBUG CheckoutForm] clerkUserId:", clerkUserId);
-  
   const {
     // Estado
     shippingData,

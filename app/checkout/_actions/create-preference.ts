@@ -86,9 +86,6 @@ export async function createPreference(
   formData: FormData,
   clerkUserId?: string
 ): Promise<never> {
-  // DEBUG: Verificar que la Server Action se está ejecutando
-  console.log("[DEBUG createPreference] Server Action ejecutándose");
-  
   // Extraer items del form data
   const itemsJson = formData.get("items") as string;
   const itemsWithSkuJson = formData.get("items_with_sku") as string;
@@ -102,11 +99,6 @@ export async function createPreference(
   
   // Extraer clerk_user_id del form data (viene del input hidden)
   const clerkUserIdFromForm = formData.get("clerk_user_id") as string;
-  
-  // DEBUG: Log para verificar qué está llegando
-  console.log("[DEBUG createPreference] clerkUserId (param):", clerkUserId);
-  console.log("[DEBUG createPreference] clerkUserIdFromForm (form):", clerkUserIdFromForm);
-  console.log("[DEBUG createPreference] Final clerk_user_id:", clerkUserId || clerkUserIdFromForm || undefined);
 
   if (!itemsJson) {
     throw new Error("El carrito está vacío");

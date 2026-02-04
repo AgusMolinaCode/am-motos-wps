@@ -37,9 +37,6 @@ export function OrderSummary({
   clerkUserId,
   onSubmit,
 }: OrderSummaryProps) {
-  // DEBUG: Verificar clerkUserId
-  console.log("[DEBUG OrderSummary] clerkUserId:", clerkUserId);
-  
   const { formatPrice } = usePriceCalculation();
 
   return (
