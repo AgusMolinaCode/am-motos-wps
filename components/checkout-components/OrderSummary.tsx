@@ -21,6 +21,7 @@ interface OrderSummaryProps {
   }>;
   shippingData: ShippingData;
   isFormValid: boolean;
+  clerkUserId?: string;
   onSubmit: (formData: FormData) => void;
 }
 
@@ -33,6 +34,7 @@ export function OrderSummary({
   itemsWithSku,
   shippingData,
   isFormValid,
+  clerkUserId,
   onSubmit,
 }: OrderSummaryProps) {
   const { formatPrice } = usePriceCalculation();
@@ -83,6 +85,7 @@ export function OrderSummary({
         <input type="hidden" name="discount_code" value={appliedDiscount?.code || ""} />
         <input type="hidden" name="discount_amount" value={appliedDiscount?.discount_amount || 0} />
         <input type="hidden" name="discount" value={JSON.stringify(appliedDiscount)} />
+        <input type="hidden" name="clerk_user_id" value={clerkUserId || ""} />
 
         <Button
           type="submit"

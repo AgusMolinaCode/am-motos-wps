@@ -1,7 +1,12 @@
 import { createPreference } from "./_actions/create-preference";
 import CheckoutForm from "./CheckoutForm";
+import { auth } from "@clerk/nextjs/server";
 
-export default function CheckoutPage() {
-  // El Server Component pasa la Server Action al Client Component
-  return <CheckoutForm createPreferenceAction={createPreference} />;
+export default async function CheckoutPage() {
+  const { userId } = await auth();
+  
+  return <CheckoutForm 
+    createPreferenceAction={createPreference} 
+    clerkUserId={userId || undefined}
+  />;
 }

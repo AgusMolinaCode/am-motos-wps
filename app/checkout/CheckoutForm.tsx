@@ -11,10 +11,14 @@ import {
 } from "@/components/checkout-components";
 
 interface CheckoutFormProps {
-  createPreferenceAction: (formData: FormData) => void;
+  createPreferenceAction: (formData: FormData, clerkUserId?: string) => void;
+  clerkUserId?: string;
 }
 
-export default function CheckoutForm({ createPreferenceAction }: CheckoutFormProps) {
+export default function CheckoutForm({ 
+  createPreferenceAction,
+  clerkUserId,
+}: CheckoutFormProps) {
   const {
     // Estado
     shippingData,
@@ -107,6 +111,7 @@ export default function CheckoutForm({ createPreferenceAction }: CheckoutFormPro
             itemsWithSku={itemsWithSku}
             shippingData={shippingData}
             isFormValid={isFormValid}
+            clerkUserId={clerkUserId}
             onSubmit={handleSubmit(createPreferenceAction)}
           />
         </div>
