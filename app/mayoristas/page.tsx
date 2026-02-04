@@ -1,20 +1,17 @@
 import { auth, currentUser } from '@clerk/nextjs/server'
 import { redirect } from 'next/navigation'
-import { getOrdersByUserId, getWholesaleStats } from './_actions/get-orders'
+import { getOrdersByUserId, getWholesaleStats, getMonthlyPurchaseHistory } from './_actions/get-orders'
 import type { Order } from '@/types/interface'
 import {
   Package,
   ShoppingCart,
   TrendingDown,
   Truck,
-  Zap,
   Clock,
   CheckCircle2,
-  AlertCircle,
   ChevronRight,
   Box,
   CreditCard,
-  Percent,
   Award,
   ArrowUpRight,
   Cog,
@@ -42,7 +39,7 @@ const ofertasEspeciales = [
     stock: 'Ilimitado',
     tag: 'MAYORISTA',
     tagColor: 'bg-orange-500',
-    icon: Zap,
+    icon: Box,
   },
   {
     id: 3,
@@ -52,17 +49,8 @@ const ofertasEspeciales = [
     stock: 'Disponible',
     tag: 'EXCLUSIVO',
     tagColor: 'bg-emerald-500',
-    icon: Box,
+    icon: Cog,
   },
-]
-
-const historialCompras = [
-  { mes: 'Ene 2024', monto: 10110000, pedidos: 4 },
-  { mes: 'Dic 2023', monto: 8750000, pedidos: 3 },
-  { mes: 'Nov 2023', monto: 12300000, pedidos: 5 },
-  { mes: 'Oct 2023', monto: 9450000, pedidos: 4 },
-  { mes: 'Sep 2023', monto: 7800000, pedidos: 3 },
-  { mes: 'Ago 2023', monto: 11200000, pedidos: 5 },
 ]
 
 // Helper para mapear status de DB a UI
@@ -133,11 +121,11 @@ export default async function MayoristasPage() {
 
   const user = await currentUser()
   const nombreNegocio = (user?.publicMetadata?.nombreNegocio as string) || user?.firstName || 'Mayorista'
-  const nivel = (user?.publicMetadata?.nivel as string) || 'oro'
 
   // Fetch datos reales
   const orders = await getOrdersByUserId(userId)
   const stats = await getWholesaleStats(userId)
+  const historialCompras = await getMonthlyPurchaseHistory(userId)
 
   // Transformar orders para el UI
   const pedidosRecientes = orders.slice(0, 5).map(order => ({
@@ -149,12 +137,12 @@ export default async function MayoristasPage() {
     items: order.items.map(item => `${item.name} x${item.quantity}`),
   }))
 
-  // Stats reales
+  // Stats reales (4 cards)
   const statsData = [
     {
       title: 'Pedidos Activos',
-      value: stats.activeOrders.toString(),
-      change: `${stats.activeOrders} en proceso`,
+      value: stats.totalOrders.toString(),
+      change: `${stats.totalOrders} totales`,
       icon: Package,
       trend: 'up' as const,
       color: 'from-orange-500 to-amber-500',
@@ -162,26 +150,26 @@ export default async function MayoristasPage() {
     {
       title: 'Total Comprado',
       value: formatPrice(stats.totalSpent),
-      change: `${stats.totalOrders} pedidos totales`,
+      change: `${stats.totalOrders} pedidos`,
       icon: ShoppingCart,
       trend: 'up' as const,
       color: 'from-emerald-500 to-teal-500',
     },
     {
-      title: 'Descuento Actual',
-      value: '25%',
-      change: 'Nivel Oro Mayorista',
-      icon: Percent,
+      title: 'En Proceso',
+      value: stats.processingOrders.toString(),
+      change: stats.processingOrders > 0 ? 'Preparando envío' : 'Sin pendientes',
+      icon: Clock,
       trend: 'neutral' as const,
-      color: 'from-violet-500 to-purple-500',
+      color: 'from-blue-500 to-cyan-500',
     },
     {
-      title: 'Envíos Pendientes',
-      value: stats.pendingShipments.toString(),
-      change: stats.pendingShipments > 0 ? 'En tránsito' : 'Ninguno',
+      title: 'Enviados',
+      value: stats.shippedOrders.toString(),
+      change: stats.shippedOrders > 0 ? 'En tránsito' : 'Ninguno',
       icon: Truck,
-      trend: stats.pendingShipments > 0 ? 'up' as const : 'neutral' as const,
-      color: 'from-blue-500 to-cyan-500',
+      trend: 'neutral' as const,
+      color: 'from-violet-500 to-purple-500',
     },
   ]
 
@@ -203,9 +191,6 @@ export default async function MayoristasPage() {
                 <h1 className="text-3xl sm:text-4xl font-black text-foreground tracking-tight">
                   Panel Mayorista
                 </h1>
-                <span className="px-3 py-1 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-lg shadow-orange-500/25">
-                  {nivel}
-                </span>
               </div>
               <p className="text-muted-foreground text-lg">
                 Bienvenido, <span className="text-foreground font-semibold">{nombreNegocio}</span>
@@ -334,36 +319,44 @@ export default async function MayoristasPage() {
                 </div>
               </CardHeader>
               <CardContent className="p-6">
-                <div className="space-y-4">
-                  {historialCompras.map((mes) => {
-                    const maxMonto = Math.max(...historialCompras.map(h => h.monto))
-                    const percentage = (mes.monto / maxMonto) * 100
-                    return (
-                      <div key={mes.mes} className="group">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-muted-foreground text-sm font-medium">{mes.mes}</span>
-                          <div className="flex items-center gap-4">
-                            <span className="text-muted-foreground text-xs">{mes.pedidos} pedidos</span>
-                            <span className="text-foreground font-semibold text-sm">
-                              {formatPrice(mes.monto)}
-                            </span>
+                {historialCompras.length === 0 ? (
+                  <div className="text-center text-muted-foreground py-8">
+                    <TrendingDown className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                    <p>No hay historial de compras</p>
+                    <p className="text-sm mt-1">Tus compras aparecerán aquí</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {historialCompras.map((mes) => {
+                      const maxMonto = Math.max(...historialCompras.map(h => h.monto))
+                      const percentage = maxMonto > 0 ? (mes.monto / maxMonto) * 100 : 0
+                      return (
+                        <div key={mes.mes} className="group">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-muted-foreground text-sm font-medium">{mes.mes}</span>
+                            <div className="flex items-center gap-4">
+                              <span className="text-muted-foreground text-xs">{mes.pedidos} pedidos</span>
+                              <span className="text-foreground font-semibold text-sm">
+                                {formatPrice(mes.monto)}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="h-2 bg-muted rounded-full overflow-hidden">
+                            <div
+                              className="h-full rounded-full bg-gradient-to-r from-orange-500 to-amber-500 transition-all duration-500 group-hover:from-orange-400 group-hover:to-amber-400"
+                              style={{ width: `${percentage}%` }}
+                            />
                           </div>
                         </div>
-                        <div className="h-2 bg-muted rounded-full overflow-hidden">
-                          <div
-                            className="h-full rounded-full bg-gradient-to-r from-orange-500 to-amber-500 transition-all duration-500 group-hover:from-orange-400 group-hover:to-amber-400"
-                            style={{ width: `${percentage}%` }}
-                          />
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
+                      )
+                    })}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
 
-          {/* Right Column - Ofertas y Descuentos */}
+          {/* Right Column - Ofertas */}
           <div className="space-y-8">
             {/* Ofertas Especiales */}
             <Card className="bg-card/50 border-border/50 backdrop-blur-sm overflow-hidden">
@@ -419,64 +412,6 @@ export default async function MayoristasPage() {
                   Ver todas las ofertas
                 </Button>
               </div>
-            </Card>
-
-            {/* Descuentos por Volumen */}
-            <Card className="bg-gradient-to-br from-card/80 to-card/50 border-border/50 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500">
-                    <Percent className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-foreground font-bold">Tu Nivel Actual</h3>
-                    <p className="text-emerald-600 dark:text-emerald-400 text-sm font-semibold">Oro Mayorista - 25% OFF</p>
-                  </div>
-                </div>
-                
-                <div className="space-y-3">
-                  {[
-                    { nivel: 'Bronce', descuento: '10%', min: '$500k/mes', actual: false },
-                    { nivel: 'Plata', descuento: '15%', min: '$1M/mes', actual: false },
-                    { nivel: 'Oro', descuento: '25%', min: '$3M/mes', actual: true },
-                    { nivel: 'Platino', descuento: '35%', min: '$8M/mes', actual: false },
-                  ].map((n) => (
-                    <div
-                      key={n.nivel}
-                      className={`flex items-center justify-between p-3 rounded-lg border ${
-                        n.actual
-                          ? 'bg-emerald-500/10 border-emerald-500/30'
-                          : 'bg-muted/30 border-border/50'
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className={`w-2 h-2 rounded-full ${
-                          n.actual ? 'bg-emerald-500' : 'bg-muted-foreground/30'
-                        }`} />
-                        <span className={n.actual ? 'text-foreground font-semibold' : 'text-muted-foreground'}>
-                          {n.nivel}
-                        </span>
-                      </div>
-                      <div className="text-right">
-                        <span className={`font-bold ${n.actual ? 'text-emerald-600 dark:text-emerald-400' : 'text-muted-foreground'}`}>
-                          {n.descuento}
-                        </span>
-                        <p className="text-muted-foreground/60 text-xs">min: {n.min}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
-                  <div className="flex items-start gap-2">
-                    <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5" />
-                    <p className="text-amber-800 dark:text-amber-200 text-xs">
-                      Te faltan <span className="font-bold">$2.9M</span> este mes para alcanzar{' '}
-                      <span className="font-bold">Platino</span> y obtener 35% de descuento
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
             </Card>
 
             {/* Contacto Directo */}

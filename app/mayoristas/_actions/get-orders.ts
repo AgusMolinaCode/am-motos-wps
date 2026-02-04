@@ -60,8 +60,8 @@ export async function getOrdersByUserId(userId: string): Promise<Order[]> {
 export async function getWholesaleStats(userId: string): Promise<{
   totalOrders: number;
   totalSpent: number;
-  activeOrders: number;
-  pendingShipments: number;
+  processingOrders: number;
+  shippedOrders: number;
 }> {
   try {
     const orders = await prisma.order.findMany({
@@ -70,26 +70,79 @@ export async function getWholesaleStats(userId: string): Promise<{
     
     const totalOrders = orders.length;
     const totalSpent = orders.reduce((sum, order) => sum + Number(order.total), 0);
-    const activeOrders = orders.filter(o => 
+    const processingOrders = orders.filter(o => 
       ["approved", "processing"].includes(o.status)
     ).length;
-    const pendingShipments = orders.filter(o => 
+    const shippedOrders = orders.filter(o => 
       o.status === "shipped"
     ).length;
     
     return {
       totalOrders,
       totalSpent,
-      activeOrders,
-      pendingShipments,
+      processingOrders,
+      shippedOrders,
     };
   } catch (error) {
     console.error("[getWholesaleStats] Error:", error);
     return {
       totalOrders: 0,
       totalSpent: 0,
-      activeOrders: 0,
-      pendingShipments: 0,
+      processingOrders: 0,
+      shippedOrders: 0,
     };
+  }
+}
+
+/**
+ * Obtiene el historial de compras mensual para el usuario
+ * Agrupa pedidos por mes y suma subtotales originales (sin descuento)
+ */
+export async function getMonthlyPurchaseHistory(userId: string): Promise<{
+  mes: string;
+  monto: number;
+  pedidos: number;
+}[]> {
+  try {
+    const orders = await prisma.order.findMany({
+      where: { clerk_user_id: userId },
+      orderBy: { created_at: "desc" },
+    });
+
+    if (orders.length === 0) return [];
+
+    // Agrupar por mes (formato: "Ene 2024")
+    const grouped = new Map<string, { monto: number; pedidos: number }>();
+
+    orders.forEach(order => {
+      const date = new Date(order.created_at);
+      const mes = date.toLocaleDateString('es-AR', {
+        month: 'short',
+        year: 'numeric',
+      }).replace('.', ''); // "ene. 2024" -> "ene 2024"
+
+      // Capitalizar primera letra
+      const mesCapitalizado = mes.charAt(0).toUpperCase() + mes.slice(1);
+
+      if (!grouped.has(mesCapitalizado)) {
+        grouped.set(mesCapitalizado, { monto: 0, pedidos: 0 });
+      }
+
+      const current = grouped.get(mesCapitalizado)!;
+      current.monto += Number(order.subtotal); // Usar subtotal original
+      current.pedidos += 1;
+    });
+
+    // Convertir a array y ordenar cronológicamente (más reciente primero)
+    const result = Array.from(grouped.entries()).map(([mes, data]) => ({
+      mes,
+      monto: Math.round(data.monto * 100) / 100,
+      pedidos: data.pedidos,
+    }));
+
+    return result;
+  } catch (error) {
+    console.error("[getMonthlyPurchaseHistory] Error:", error);
+    return [];
   }
 }
