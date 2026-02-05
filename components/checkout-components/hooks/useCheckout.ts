@@ -52,6 +52,9 @@ interface UseCheckoutReturn {
     title: string;
     quantity: number;
     unit_price: number;
+    retail_unit_price: number;
+    brand_id: number;
+    product_type: string;
   }>;
 }
 
@@ -154,25 +157,30 @@ export function useCheckout(): UseCheckoutReturn {
   }, [items, getItemPriceInfo, calculateSubtotal, appliedDiscount]);
 
   // Generar items con SKU para guardar en la metadata y reconstruir el pedido
-  // NOTA: unit_price es el precio ORIGINAL sin descuento
+  // NOTA: unit_price es el precio ORIGINAL sin descuento (mayorista)
+  // NOTA: retail_unit_price es el precio retail para calcular ahorro
   const generateItemsWithSku = useCallback((): Array<{
     id: string;
     sku: string;
     title: string;
     quantity: number;
     unit_price: number;
+    retail_unit_price: number;
     brand_id: number;
     product_type: string;
   }> => {
     return items.map((item) => {
       const priceInfo = getItemPriceInfo(item);
+      // Calcular precio retail (sin ser mayorista)
+      const retailPrice = priceInfo.retailPrices.finalTotalArs || priceInfo.unitPrice;
 
       return {
         id: String(item.product.id),
         sku: item.product.supplier_product_id || String(item.product.id),
         title: item.product.name,
         quantity: item.quantity,
-        unit_price: Math.round(priceInfo.unitPrice * 100) / 100, // Precio original sin descuento
+        unit_price: Math.round(priceInfo.unitPrice * 100) / 100, // Precio mayorista
+        retail_unit_price: Math.round(retailPrice * 100) / 100, // Precio retail
         brand_id: item.product.brand_id || 0,
         product_type: item.product.product_type || '',
       };
@@ -267,6 +275,7 @@ export function useCheckout(): UseCheckoutReturn {
           title: item.title,
           quantity: item.quantity,
           unit_price: item.unit_price,
+          retail_unit_price: item.retail_unit_price,
           sku: item.sku,
           brand_id: item.brand_id,
           product_type: item.product_type,

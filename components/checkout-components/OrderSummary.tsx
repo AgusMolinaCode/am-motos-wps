@@ -18,6 +18,7 @@ interface OrderSummaryProps {
     title: string;
     quantity: number;
     unit_price: number;
+    retail_unit_price: number;
   }>;
   shippingData: ShippingData;
   isFormValid: boolean;

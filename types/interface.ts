@@ -359,7 +359,8 @@ export interface OrderItemStored {
   id: string;
   title: string;
   quantity: number;
-  unit_price: number; // Precio original sin descuento
+  unit_price: number; // Precio mayorista sin descuento
+  retail_unit_price?: number; // Precio retail para calcular ahorro
   sku: string;
   brand_id?: number;
   product_type?: string;
@@ -425,7 +426,8 @@ export interface OrderItem {
   sku: string;          // SKU del producto
   name: string;         // Nombre del producto
   quantity: number;     // Cantidad comprada
-  unit_price: number;   // Precio unitario
+  unit_price: number;   // Precio unitario mayorista
+  retail_unit_price?: number; // Precio unitario retail (para calcular ahorro)
   brand_id: number;     // ID de la marca
   product_type: string; // Tipo de producto
 }

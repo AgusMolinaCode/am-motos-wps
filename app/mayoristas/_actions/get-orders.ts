@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import type { Order } from "@/types/interface";
+import type { Order, OrderItem } from "@/types/interface";
 
 /**
  * Obtiene todos los pedidos de un usuario por su Clerk User ID
@@ -60,16 +60,50 @@ export async function getOrdersByUserId(userId: string): Promise<Order[]> {
 export async function getWholesaleStats(userId: string): Promise<{
   totalOrders: number;
   totalSpent: number;
+  totalDiscounted: number;
+  wholesaleSavings: number;
+  averageOrderValue: number;
+  lastPurchaseDate: string | null;
   processingOrders: number;
   shippedOrders: number;
 }> {
   try {
     const orders = await prisma.order.findMany({
       where: { clerk_user_id: userId },
+      orderBy: { created_at: 'desc' },
     });
     
     const totalOrders = orders.length;
-    const totalSpent = orders.reduce((sum, order) => sum + Number(order.total), 0);
+    const totalSpent = orders.reduce((sum, order) => sum + Number(order.subtotal), 0);
+    const totalDiscounted = orders.reduce((sum, order) => sum + Number(order.discount_amount), 0);
+    
+    // Calcular ahorro por ser mayorista vs retail
+    // Solo pedidos nuevos tienen retail_unit_price guardado
+    const wholesaleSavings = orders.reduce((sum, order) => {
+      const items = (order.items as unknown) as OrderItem[];
+      
+      // Calcular ahorro por cada item si tiene retail_unit_price (pedidos nuevos)
+      const orderSavings = items.reduce((itemSum, item) => {
+        if (item.retail_unit_price && item.retail_unit_price > item.unit_price) {
+          // Ahorro exacto = (precio retail - precio mayorista) * cantidad
+          const savingPerUnit = item.retail_unit_price - item.unit_price;
+          return itemSum + (savingPerUnit * item.quantity);
+        }
+        return itemSum;
+      }, 0);
+      
+      return sum + orderSavings;
+    }, 0);
+    
+    const averageOrderValue = totalOrders > 0 ? totalSpent / totalOrders : 0;
+    const lastOrder = orders[0];
+    const lastPurchaseDate = lastOrder 
+      ? new Date(lastOrder.created_at).toLocaleDateString('es-AR', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric'
+        })
+      : null;
     const processingOrders = orders.filter(o => 
       ["approved", "processing"].includes(o.status)
     ).length;
@@ -80,6 +114,10 @@ export async function getWholesaleStats(userId: string): Promise<{
     return {
       totalOrders,
       totalSpent,
+      totalDiscounted,
+      wholesaleSavings,
+      averageOrderValue,
+      lastPurchaseDate,
       processingOrders,
       shippedOrders,
     };
@@ -88,6 +126,10 @@ export async function getWholesaleStats(userId: string): Promise<{
     return {
       totalOrders: 0,
       totalSpent: 0,
+      totalDiscounted: 0,
+      wholesaleSavings: 0,
+      averageOrderValue: 0,
+      lastPurchaseDate: null,
       processingOrders: 0,
       shippedOrders: 0,
     };

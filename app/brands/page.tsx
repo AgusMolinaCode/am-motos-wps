@@ -24,7 +24,7 @@ const Page = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <ScrollArea className="w-96 md:w-full whitespace-nowrap">
+      <ScrollArea className="w-full md:w-full whitespace-nowrap">
         <div className="flex justify-center mb-4">
           <button
             onClick={() => setSelectedLetter("")}

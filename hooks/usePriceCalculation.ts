@@ -28,8 +28,8 @@ export function usePriceCalculation() {
   // Costo de envío por kilogramo (el peso viene en libras, se convierte a kg)
   const shippingRatePerKg = 44;
   // Márgenes de ganancia desde .env.local
-  const retailMarkup = Number(process.env.NEXT_PUBLIC_RETAIL_MARKUP) || 1.40;
-  const wholesaleMarkup = Number(process.env.NEXT_PUBLIC_WHOLESALE_MARKUP) || 1.20;
+  const retailMarkup = Number(process.env.NEXT_PUBLIC_RETAIL_MARKUP) || 1.25;
+  const wholesaleMarkup = Number(process.env.NEXT_PUBLIC_WHOLESALE_MARKUP) || 1.10;
   const consultMarkup = Number(process.env.NEXT_PUBLIC_CONSULT_MARKUP) || 1.50;
   const handling = Number(process.env.NEXT_PUBLIC_HANDLING_USD) || 11;
 

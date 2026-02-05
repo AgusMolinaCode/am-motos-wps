@@ -74,6 +74,7 @@ export async function POST(request: NextRequest) {
           name: item.title,
           quantity: item.quantity,
           unit_price: item.unit_price,
+          retail_unit_price: item.retail_unit_price || item.unit_price, // Precio retail para calcular ahorro
           brand_id: item.brand_id || 0,
           product_type: item.product_type || '',
         })) || [];

@@ -45,8 +45,7 @@ interface ItemWithSku {
 }
 
 interface ItemWithSkuAndDetails extends ItemWithSku {
-  brand_id?: number;
-  product_type?: string;
+  // brand_id y product_type ya están heredados de ItemWithSku
 }
 
 interface PreferenceMetadata {
@@ -160,6 +159,7 @@ export async function createPreference(
         title: item.title,
         quantity: item.quantity,
         unit_price: item.unit_price,
+        retail_unit_price: item.unit_price, // Fallback: usa mismo precio si no hay retail
         brand_id: 0,
         product_type: '',
       })),

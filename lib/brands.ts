@@ -598,6 +598,64 @@ export const getProductByPartNumber = React.cache(async (
   return transformToBrandStatus(product);
 });
 
+/**
+ * Busca producto por SKU o supplier_product_id
+ * Retorna formato ItemSheet para ProductDetailsSheet
+ */
+export const getProductBySku = React.cache(async (
+  sku: string
+): Promise<import("@/types/interface").ItemSheet | null> => {
+  if (!sku || sku.length < 2) return null;
+
+  // Intentar buscar por SKU exacto
+  let product = await prisma.product.findFirst({
+    where: {
+      sku: sku,
+    },
+  });
+
+  // Si no se encuentra, buscar por supplier_product_id
+  if (!product) {
+    product = await prisma.product.findFirst({
+      where: {
+        supplier_product_id: sku,
+      },
+    });
+  }
+
+  if (!product) return null;
+
+  const images = product.images as string[] | null;
+
+  return {
+    id: parseInt(product.wps_id),
+    name: product.name,
+    brand_id: product.brand_id ?? 0,
+    supplier_product_id: product.supplier_product_id ?? "",
+    standard_dealer_price: product.dealer_price?.toString() ?? "0",
+    list_price: product.list_price?.toString() ?? "0",
+    weight: product.weight?.toNumber() ?? 0,
+    product_type: product.product_type ?? undefined,
+    inventory: {
+      data: {
+        total: product.inventory_total ?? 0,
+      },
+    },
+    images: {
+      data: images?.map((img, index) => {
+        if (typeof img === "string") {
+          return {
+            domain: "",
+            path: img,
+            filename: img.split("/").pop() ?? "",
+          };
+        }
+        return img as import("@/types/interface").ImageData;
+      }) ?? [],
+    },
+  };
+});
+
 // ============================================
 // VEHICLE FUNCTIONS
 // ============================================

@@ -10,10 +10,11 @@
     "db:studio": "prisma studio",
     "db:generate": "prisma generate",
     "db:push": "prisma db push",
-    "db:seed:codes": "node scripts/seed-discount-codes.js",
-    "db:seed:orders": "node scripts/seed-orders.js",
     "postinstall": "prisma generate",
-    "update:safe": "npm update"
+    "update:safe": "npm update",
+    "sync:wps": "npx tsx scripts/sync-wps.ts",
+    "sync:inventory": "npx tsx scripts/inventory_actualizacion.ts",
+    "sync:new-products": "npx tsx scripts/sync-new-products.ts"
   },
   "dependencies": {
     "@ai-sdk/deepseek": "^0.1.17",
