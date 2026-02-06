@@ -16,13 +16,26 @@ export const shippingDataSchema = z.object({
   lastName: z.string().min(1, "El apellido es requerido"),
   email: z.string().email("Email inválido"),
   phone: z.string().min(1, "El teléfono es requerido"),
-  address: z.string().min(1, "La dirección es requerida"),
+  address: z.string().optional(),
   city: z.string().min(1, "La ciudad es requerida"),
   province: z.string().min(1, "La provincia es requerida"),
   zipCode: z.string().min(1, "El código postal es requerido"),
   dni: z.string().min(1, "El DNI/CUIL es requerido"),
   notes: z.string().optional(),
-});
+  deliveryType: z.enum(["home", "branch"]),
+  branchOffice: z.string().optional(),
+}).refine(
+  (data) => {
+    if (data.deliveryType === "home") {
+      return data.address && data.address.length > 0;
+    }
+    return data.branchOffice && data.branchOffice.length > 0;
+  },
+  {
+    message: "La dirección o sucursal es requerida",
+    path: ["address"],
+  }
+);
 
 // Schema for checkout form validation
 export const checkoutFormSchema = z.object({

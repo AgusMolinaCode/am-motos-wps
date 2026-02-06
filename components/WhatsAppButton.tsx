@@ -26,7 +26,7 @@ export const WhatsAppButton = React.memo(function WhatsAppButton() {
         alt="WhatsApp"
         width={55}
         height={55}
-        className="w-12 h-12 md:w-14 md:h-14"
+        className="w-9 h-9 md:w-11 md:h-11"
         priority
       />
     </Link>

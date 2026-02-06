@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import FavoriteButton from "@/components/shared/FavoriteButton";
 import Image from "next/image";
-import { SheetTrigger } from "@/components/ui/sheet";
 
 interface UsadosAlternativosContentProps {
   initialItems: any[];
@@ -54,9 +52,6 @@ export function UsadosAlternativosContent({
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-4">
         {filteredItems.map((item) => (
           <div key={item.id} className="border rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col relative animate-fade-in">
-            <div className="absolute top-2 right-2 z-10">
-              <FavoriteButton item={item} />
-            </div>
             {item.images.data && item.images.data.length > 0 ? (
               <Image
                 src={

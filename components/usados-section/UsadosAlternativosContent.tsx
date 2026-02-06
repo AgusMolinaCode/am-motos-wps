@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import FavoriteButton from "@/components/shared/FavoriteButton";
 import Image from "next/image";
-import { SheetTrigger } from "@/components/ui/sheet";
 import {
   Select,
   SelectContent,
@@ -11,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
 // Tipo para items usados (debe coincidir con el tipo en page.tsx)
 interface UsedItem {
   id: number;
@@ -95,9 +94,6 @@ export function UsadosAlternativosContent({
         {filteredItems && filteredItems.length > 0 ? (
           filteredItems.map((item) => (
             <div key={item.id} className="border rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col relative animate-fade-in">
-              <div className="absolute top-2 right-2 z-10">
-                <FavoriteButton item={item} />
-              </div>
               {item.imagenes && item.imagenes[0] ? (
                 <Image
                   src={item.imagenes[0]}

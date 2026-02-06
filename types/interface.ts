@@ -334,6 +334,8 @@ export interface ShippingData {
   zipCode: string;
   dni: string;
   notes: string;
+  deliveryType: "home" | "branch";
+  branchOffice?: string;
 }
 
 export interface AppliedDiscount {

@@ -2,7 +2,6 @@
 
 import ColeccionImage from "../category-section/ColeccionImage";
 import ProductDetailsSheet from "../shared/ProductDetailsSheet";
-import FavoriteButton from "../shared/FavoriteButton";
 import { SheetTrigger } from "@/components/ui/sheet";
 import { BrandStatus } from "@/types/interface";
 import { usePriceCalculation } from "@/hooks/usePriceCalculation";
@@ -52,9 +51,6 @@ export default function BestSellersClient({
             <ProductDetailsSheet key={item.id} item={item}>
               <SheetTrigger asChild>
                 <div className="border rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col relative animate-fade-in cursor-pointer">
-                  <div className="absolute top-2 right-2">
-                    <FavoriteButton item={item} />
-                  </div>
                   <ColeccionImage item={item} />
                   <h2 className="text-sm font-semibold truncate">{item.name}</h2>
                   <p className="text-xs text-gray-600 dark:text-gray-400">

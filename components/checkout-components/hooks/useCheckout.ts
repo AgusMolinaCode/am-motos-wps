@@ -14,6 +14,7 @@ import {
   CartItem as CartItemType,
   PriceInfo
 } from "@/types/interface";
+import { PROVINCIAS_ARGENTINA, FREE_SHIPPING_THRESHOLD } from "@/constants";
 
 interface UseCheckoutReturn {
   // Estado
@@ -38,6 +39,7 @@ interface UseCheckoutReturn {
   // Cálculos
   calculateSubtotal: () => number;
   calculateTotal: () => number;
+  calculateShippingCost: () => number;
   getItemPriceInfo: (item: CartItemType) => PriceInfo;
   generateMpItems: () => CartItemMp[];
   isFormValid: boolean;
@@ -78,7 +80,20 @@ export function useCheckout(): UseCheckoutReturn {
     zipCode: "",
     dni: "",
     notes: "",
+    deliveryType: "home",
+    branchOffice: "",
   });
+
+  // Cambiar tipo de entrega
+  const handleDeliveryTypeChange = useCallback((type: "home" | "branch") => {
+    setShippingData((prev) => ({ 
+      ...prev, 
+      deliveryType: type,
+      // Limpiar campos que no aplican
+      address: type === "home" ? prev.address : "",
+      branchOffice: type === "branch" ? prev.branchOffice : "",
+    }));
+  }, []);
 
   // Estado para el código de descuento
   const [discountCode, setDiscountCodeState] = useState("");
@@ -123,14 +138,42 @@ export function useCheckout(): UseCheckoutReturn {
     }, 0);
   }, [items, getItemPriceInfo]);
 
-  // Calcular total con descuento
+  // Calcular costo de envío basado en la provincia y tipo de entrega
+  const calculateShippingCost = useCallback(() => {
+    const subtotal = calculateSubtotal();
+    
+    // Envío gratis si supera $150.000 y NO tiene descuento aplicado
+    if (subtotal >= FREE_SHIPPING_THRESHOLD && !appliedDiscount) {
+      return 0;
+    }
+    
+    // Buscar precio base de envío según provincia (precio sucursal)
+    const provinceData = PROVINCIAS_ARGENTINA.find(
+      (p) => p.name.toLowerCase() === shippingData.province.toLowerCase()
+    );
+    
+    const basePrice = provinceData?.price || 14000; // Default $14.000 si no encuentra
+    
+    // Si es a domicilio, agregar 25% de recargo
+    if (shippingData.deliveryType === "home") {
+      return Math.round(basePrice * 1.25);
+    }
+    
+    return basePrice;
+  }, [calculateSubtotal, appliedDiscount, shippingData.province, shippingData.deliveryType]);
+
+  // Calcular total con descuento y envío
   const calculateTotal = useCallback(() => {
     const subtotal = calculateSubtotal();
+    const shippingCost = calculateShippingCost();
+    let total = subtotal + shippingCost;
+    
     if (appliedDiscount) {
-      return Math.max(0, subtotal - appliedDiscount.discount_amount);
+      total = Math.max(0, total - appliedDiscount.discount_amount);
     }
-    return subtotal;
-  }, [calculateSubtotal, appliedDiscount]);
+    
+    return total;
+  }, [calculateSubtotal, calculateShippingCost, appliedDiscount]);
 
   // Generar items para Mercado Pago (con descuento distribuido proporcionalmente)
   const generateMpItems = useCallback((): CartItemMp[] => {
@@ -317,6 +360,7 @@ export function useCheckout(): UseCheckoutReturn {
     // Cálculos
     calculateSubtotal,
     calculateTotal,
+    calculateShippingCost,
     getItemPriceInfo,
     generateMpItems,
     generateItemsWithSku,

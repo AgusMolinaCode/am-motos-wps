@@ -4,7 +4,6 @@ import React from "react";
 import { BrandStatus, BrandId } from "@/types/interface";
 import ColeccionImage from "@/components/category-section/ColeccionImage";
 import ProductDetailsSheet from "@/components/shared/ProductDetailsSheet";
-import FavoriteButton from "@/components/shared/FavoriteButton";
 import { SheetTrigger } from "@/components/ui/sheet";
 import { usePriceCalculation } from "@/hooks/usePriceCalculation";
 import { useAuth } from "@clerk/nextjs";
@@ -72,9 +71,6 @@ export default function ProductList({
         >
           <SheetTrigger asChild>
             <div className="border rounded-lg p-2 hover:shadow-lg transition-shadow flex flex-col relative animate-fade-in cursor-pointer">
-              <div className="absolute top-2 right-2">
-                <FavoriteButton item={item} />
-              </div>
               <ColeccionImage item={item} />
               <h2 className="text-sm font-semibold truncate">{item.name}</h2>
               <p className="text-xs text-gray-600">

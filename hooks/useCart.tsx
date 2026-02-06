@@ -10,10 +10,14 @@ interface CartItem {
 
 interface CartContextType {
   items: CartItem[];
+  savedItems: CartItem[];
   addItem: (product: ItemSheet) => void;
   removeItem: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
   clearCart: () => void;
+  saveForLater: (productId: number) => void;
+  moveToCart: (productId: number) => void;
+  removeSavedItem: (productId: number) => void;
   totalItems: number;
   subtotal: number;
 }
@@ -22,16 +26,25 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [savedItems, setSavedItems] = useState<CartItem[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Cargar carrito desde localStorage al iniciar
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
+    const storedSaved = localStorage.getItem("savedForLater");
     if (storedCart) {
       try {
         setItems(JSON.parse(storedCart));
       } catch {
         setItems([]);
+      }
+    }
+    if (storedSaved) {
+      try {
+        setSavedItems(JSON.parse(storedSaved));
+      } catch {
+        setSavedItems([]);
       }
     }
     setIsLoaded(true);
@@ -43,6 +56,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       localStorage.setItem("cart", JSON.stringify(items));
     }
   }, [items, isLoaded]);
+
+  // Guardar items guardados en localStorage cuando cambia
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem("savedForLater", JSON.stringify(savedItems));
+    }
+  }, [savedItems, isLoaded]);
 
   const addItem = (product: ItemSheet) => {
     setItems((currentItems) => {
@@ -85,6 +105,52 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setItems([]);
   };
 
+  // Guardar item para más tarde
+  const saveForLater = (productId: number) => {
+    const itemToSave = items.find((item) => item.product.id === productId);
+    if (itemToSave) {
+      setSavedItems((current) => {
+        const existing = current.find((i) => i.product.id === productId);
+        if (existing) {
+          // Si ya existe, sumar cantidades
+          return current.map((i) =>
+            i.product.id === productId
+              ? { ...i, quantity: i.quantity + itemToSave.quantity }
+              : i
+          );
+        }
+        return [...current, itemToSave];
+      });
+      removeItem(productId);
+    }
+  };
+
+  // Mover item guardado al carrito
+  const moveToCart = (productId: number) => {
+    const itemToMove = savedItems.find((item) => item.product.id === productId);
+    if (itemToMove) {
+      setItems((current) => {
+        const existing = current.find((i) => i.product.id === productId);
+        if (existing) {
+          return current.map((i) =>
+            i.product.id === productId
+              ? { ...i, quantity: i.quantity + itemToMove.quantity }
+              : i
+          );
+        }
+        return [...current, itemToMove];
+      });
+      removeSavedItem(productId);
+    }
+  };
+
+  // Eliminar item guardado
+  const removeSavedItem = (productId: number) => {
+    setSavedItems((current) =>
+      current.filter((item) => item.product.id !== productId)
+    );
+  };
+
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
 
   const subtotal = items.reduce((sum, item) => {
@@ -96,10 +162,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     <CartContext.Provider
       value={{
         items,
+        savedItems,
         addItem,
         removeItem,
         updateQuantity,
         clearCart,
+        saveForLater,
+        moveToCart,
+        removeSavedItem,
         totalItems,
         subtotal,
       }}

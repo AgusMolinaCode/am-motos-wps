@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit } from "next/font/google";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import "./globals.css";
@@ -19,49 +19,148 @@ const outfit = Outfit({
   display: "swap",
 });
 
+/**
+ * Viewport configuration for responsive design
+ * Separado de metadata según recomendaciones de Next.js 15+
+ */
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
+};
+
+/**
+ * Metadata principal optimizado para SEO tradicional y AI Search Engines
+ * - Estructura clara para ChatGPT, Perplexity, Claude
+ * - Keywords semánticas relacionadas
+ * - Open Graph completo para redes sociales
+ * - Twitter Cards para compartir
+ * - Robots para indexación
+ */
 export const metadata: Metadata = {
-  title: "AM MOTOS",
+  title: {
+    default: "AM MOTOS | Repuestos, Accesorios e Indumentaria para Motos y ATV",
+    template: "%s | AM MOTOS",
+  },
   description:
-    "AM MOTOS - Venta de repuestos, accesorios e indumentaria para motos - ATV",
-  icons: {
-    icon: "/favicon.ico",
-  },
-  openGraph: {
-    title: "AM MOTOS",
-    description:
-      "AM MOTOS - Venta de repuestos, accesorios e indumentaria para motos - ATV",
-    images: "/favicon.ico",
-  },
-  applicationName: "AM MOTOS - by Agustin Molina",
+    "AM MOTOS es tu tienda especializada en repuestos, accesorios e indumentaria para motos y ATV. Envíos a todo el país. Marcas: Honda, Yamaha, Suzuki, Kawasaki, BMW, KTM, Husqvarna y más. Compra online con precios mayoristas.",
+  
+  // Keywords estratégicas para SEO y AI search
+  keywords: [
+    "AM MOTOS",
+    "repuestos motos",
+    "accesorios motos",
+    "indumentaria motociclista",
+    "ATV repuestos",
+    "quad repuestos",
+    "Honda repuestos",
+    "Yamaha repuestos",
+    "Suzuki repuestos",
+    "Kawasaki repuestos",
+    "BMW motos repuestos",
+    "Ducati repuestos",
+    "KTM repuestos",
+    "Husqvarna repuestos",
+    "kit piston moto",
+    "kit biela moto",
+    "respuestos mayorista motos",
+    "tienda motos Argentina",
+    "repuestos enduro",
+    "repuestos cross",
+    "accesorios motocross",
+    "indumentaria Alpinestars",
+    "cascos motos",
+    "guantes motos",
+  ],
+  
+  // Autor y propietario del sitio
   authors: [
     {
       name: "Agustin Molina",
       url: "https://www.linkedin.com/in/agustin-molina-994635138/",
     },
   ],
-  keywords: [
-    "AM MOTOS",
-    "repuestos",
-    "accesorios",
-    "indumentaria",
-    "motos",
-    "ATV",
-    "Honda",
-    "Yamaha",
-    "Suzuki",
-    "Kawasaki",
-    "BMW",
-    "Ducati",
-    "Harley-Davidson",
-    "KTM",
-    "Husqvarna",
-    "MV Agusta",
-    "Aprilia",
-    "Beta",
-    "Husaberg",
-    "Kit piston",
-    "Kit biela",
-  ],
+  creator: "Agustin Molina",
+  publisher: "AM MOTOS",
+  applicationName: "AM MOTOS",
+  
+  // Configuración de robots para indexación
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  
+  // Canonical URL - importante para SEO
+  alternates: {
+    canonical: "https://ammotos.com",
+  },
+  
+  // Iconos del sitio
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180" },
+    ],
+    shortcut: "/favicon.ico",
+  },
+  
+  // Manifest para PWA
+  manifest: "/site.webmanifest",
+  
+  // Open Graph para Facebook, LinkedIn, etc.
+  openGraph: {
+    type: "website",
+    locale: "es_AR",
+    url: "https://ammotos.com",
+    siteName: "AM MOTOS",
+    title: "AM MOTOS | Repuestos, Accesorios e Indumentaria para Motos y ATV",
+    description:
+      "Tu tienda especializada en repuestos, accesorios e indumentaria para motos y ATV. Envíos a todo el país. Precios mayoristas disponibles.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "AM MOTOS - Repuestos y Accesorios para Motos",
+      },
+    ],
+  },
+  
+  // Twitter Cards
+  twitter: {
+    card: "summary_large_image",
+    title: "AM MOTOS | Repuestos, Accesorios e Indumentaria para Motos y ATV",
+    description:
+      "Tu tienda especializada en repuestos, accesorios e indumentaria para motos y ATV. Envíos a todo el país.",
+    images: ["/og-image.jpg"],
+    creator: "@ammotos",
+  },
+  
+  // Metadatos adicionales para verificación
+  verification: {
+    google: "tu-codigo-de-verificacion-google",
+  },
+  
+  // Categorización del sitio
+  classification: "E-commerce, Repuestos Motos, Accesorios Motocicletas",
+  
+  // Idioma y región
+  metadataBase: new URL("https://ammotos.com"),
 };
 
 export default function RootLayout({
@@ -71,7 +170,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning className="scroll-smooth">
+      <html lang="es-AR" suppressHydrationWarning className="scroll-smooth">
         <head>
           {/* Preconnect críticos para reducir LCP */}
           <link rel="preconnect" href="https://cdn.wpsstatic.com" />
@@ -101,6 +200,56 @@ export default function RootLayout({
             fetchPriority="high"
           />
 
+          {/* JSON-LD Structured Data para E-commerce */}
+          <Script
+            id="schema-organization"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "AM MOTOS",
+                alternateName: "AM MOTOS Argentina",
+                url: "https://ammotos.com",
+                logo: "https://ammotos.com/images/escudo.png",
+                description:
+                  "Tienda especializada en repuestos, accesorios e indumentaria para motos y ATV. Venta mayorista y minorista.",
+                sameAs: [
+                  "https://www.instagram.com/ammotos",
+                  "https://www.facebook.com/ammotos",
+                ],
+                contactPoint: {
+                  "@type": "ContactPoint",
+                  telephone: "+54-xxx-xxxxxxx",
+                  contactType: "sales",
+                  availableLanguage: ["Spanish"],
+                },
+              }),
+            }}
+          />
+
+          {/* JSON-LD WebSite para búsqueda con sitelinks */}
+          <Script
+            id="schema-website"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: "AM MOTOS",
+                url: "https://ammotos.com",
+                potentialAction: {
+                  "@type": "SearchAction",
+                  target: {
+                    "@type": "EntryPoint",
+                    urlTemplate: "https://ammotos.com/search?q={search_term_string}",
+                  },
+                  "query-input": "required name=search_term_string",
+                },
+              }),
+            }}
+          />
+
           {/* Scripts de analytics: lazyOnload para no bloquear render */}
           <Script
             src="https://cloud.umami.is/script.js"
@@ -123,7 +272,7 @@ export default function RootLayout({
             <CartProvider>
               <ThemeWrapper>
                 {/* WhatsApp Button - Versión optimizada sin WebGL */}
-                <div className="fixed md:right-20 md:bottom-20 bottom-3 w-[60px] h-[60px] md:w-[70px] md:h-[70px] right-3 z-50">
+                <div className="fixed md:right-5 md:bottom-5 bottom-3 w-[60px] h-[60px] md:w-[70px] md:h-[70px] right-3 z-50">
                   <WhatsAppButton />
                 </div>
                 

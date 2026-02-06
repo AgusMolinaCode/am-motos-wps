@@ -1,9 +1,9 @@
 // Components
 export { EmptyCart } from "./EmptyCart";
 export { CartItemCard } from "./CartItemCard";
+export { SavedItemCard } from "./SavedItemCard";
 export { CustomerForm } from "./CustomerForm";
 export { ShippingForm } from "./ShippingForm";
-export { DiscountSection } from "./DiscountSection";
 export { OrderSummary } from "./OrderSummary";
 
 // Hooks

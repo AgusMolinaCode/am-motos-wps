@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { NavigationMenuDemo } from "./NavigationMenuDemo";
-import { HeartIcon, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import BrandSelector from "./BrandSelector";
 import { SheetSide } from "./SheetSide";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
@@ -75,14 +75,7 @@ export default function Navbar() {
               moonClassName={"text-gray-700"}
             />
           </div>
-          <div className="md:flex hidden">
-            <Link
-              href="/favoritos"
-              className="text-lg font-bold hover:dark:text-indigo-300 hover:text-indigo-800 duration-300"
-            >
-              <HeartIcon className="w-4 h-4 md:w-6 md:h-6" />
-            </Link>
-          </div>
+
           <SignedIn>
             <Link
               href="/mayoristas"

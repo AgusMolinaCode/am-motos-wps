@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Trash2 } from "lucide-react";
+import { Trash2, Bookmark } from "lucide-react";
 import { QuantitySelector } from "@/components/shared/SheetComponents/QuantitySelector";
 import { ItemSheet, PriceInfo } from "@/types/interface";
 import { usePriceCalculation } from "@/hooks/usePriceCalculation";
@@ -12,6 +12,10 @@ interface CartItemCardProps {
   priceInfo: PriceInfo;
   onRemove: (productId: number) => void;
   onUpdateQuantity: (productId: number, quantity: number) => void;
+  onSaveForLater?: (productId: number) => void;
+  showSaveButton?: boolean;
+  showClearCart?: boolean;
+  onClearCart?: () => void;
 }
 
 function getImageUrl(item: ItemSheet): string {
@@ -32,6 +36,10 @@ export function CartItemCard({
   priceInfo,
   onRemove,
   onUpdateQuantity,
+  onSaveForLater,
+  showSaveButton = true,
+  showClearCart = false,
+  onClearCart,
 }: CartItemCardProps) {
   const { formatPrice } = usePriceCalculation();
   const { unitPrice, hasInventory, itemTotal } = priceInfo;
@@ -71,17 +79,38 @@ export function CartItemCard({
             {formatPrice(itemTotal)}
           </span>
         </p>
+        
+        {/* Botón vaciar carrito en el último producto */}
+        {showClearCart && onClearCart && (
+          <button
+            onClick={onClearCart}
+            className="text-red-500 hover:text-red-600 text-xs sm:text-sm underline mt-2"
+          >
+            Vaciar carrito
+          </button>
+        )}
       </div>
 
       {/* Controles */}
       <div className="flex flex-col items-end justify-between gap-1 sm:gap-2 flex-shrink-0">
-        <button
-          onClick={() => onRemove(product.id)}
-          className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 transition-colors p-1"
-          title="Eliminar producto"
-        >
-          <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
-        </button>
+        <div className="flex items-center gap-1">
+          {showSaveButton && onSaveForLater && (
+            <button
+              onClick={() => onSaveForLater(product.id)}
+              className="text-amber-500 hover:text-amber-600 dark:text-amber-400 dark:hover:text-amber-300 transition-colors p-1"
+              title="Guardar para más tarde"
+            >
+              <Bookmark className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+          )}
+          <button
+            onClick={() => onRemove(product.id)}
+            className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 transition-colors p-1"
+            title="Eliminar producto"
+          >
+            <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
+        </div>
 
         <div className="scale-90 sm:scale-100 origin-right">
           <QuantitySelector

@@ -361,6 +361,53 @@ export const TiresBrands = [
   { name: "System 3", id: "3262" },
 ];
 
+// ============================================
+// PROVINCIAS DE ARGENTINA CON NIVELES DE ENVÍO
+// ============================================
+
+export interface ShippingProvince {
+  name: string;
+  level: 1 | 2 | 3 | 4;
+  price: number;
+}
+
+export const PROVINCIAS_ARGENTINA: ShippingProvince[] = [
+  // Nivel 1 - Cercanas a Buenos Aires ($11.000)
+  { name: "Buenos Aires", level: 1, price: 11000 },
+  { name: "Ciudad Autónoma de Buenos Aires", level: 1, price: 11000 },
+  { name: "Córdoba", level: 1, price: 11000 },
+  { name: "Entre Ríos", level: 1, price: 11000 },
+  { name: "La Pampa", level: 1, price: 11000 },
+  { name: "Santa Fe", level: 1, price: 11000 },
+  
+  // Nivel 2 - Distancia media ($14.000)
+  { name: "Catamarca", level: 2, price: 14000 },
+  { name: "Chaco", level: 2, price: 14000 },
+  { name: "Corrientes", level: 2, price: 14000 },
+  { name: "Formosa", level: 2, price: 14000 },
+  { name: "Jujuy", level: 2, price: 14000 },
+  { name: "La Rioja", level: 2, price: 14000 },
+  { name: "Mendoza", level: 2, price: 14000 },
+  { name: "Misiones", level: 2, price: 14000 },
+  { name: "Salta", level: 2, price: 14000 },
+  { name: "San Juan", level: 2, price: 14000 },
+  { name: "San Luis", level: 2, price: 14000 },
+  { name: "Santiago del Estero", level: 2, price: 14000 },
+  { name: "Tucumán", level: 2, price: 14000 },
+  
+  // Nivel 3 - Lejanas ($17.000)
+  { name: "Chubut", level: 3, price: 17000 },
+  { name: "Neuquén", level: 3, price: 17000 },
+  { name: "Río Negro", level: 3, price: 17000 },
+  { name: "Santa Cruz", level: 3, price: 17000 },
+  
+  // Nivel 4 - Tierra del Fuego ($20.000)
+  { name: "Tierra del Fuego, Antártida e Islas del Atlántico Sur", level: 4, price: 20000 },
+];
+
+// Umbral para envío gratis
+export const FREE_SHIPPING_THRESHOLD = 150000;
+
 export const productTypeMap: Record<string, string> = {
   'motor': 'Engine,Piston kits & Components',
   'accesorios': 'Accessories,Drive',

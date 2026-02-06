@@ -12,8 +12,8 @@ interface CustomerFormProps {
 
 export function CustomerForm({ data, onChange }: CustomerFormProps) {
   return (
-    <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-3 sm:p-6">
-      <div className="flex items-center gap-2 mb-4">
+    <div className="bg-gray-50 dark:bg-gray-800 rounded-lg px-3 pb-3 sm:px-6 sm:pb-6 pt-0 sm:pt-0">
+      <div className="flex items-center gap-2 mb-4 pt-3 sm:pt-6">
         <User className="w-5 h-5 text-indigo-600" />
         <h2 className="text-base sm:text-lg font-bold text-gray-800 dark:text-gray-200">
           Datos Personales

@@ -10,7 +10,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { CarouselComponent } from "./CarouselComponent";
-import FavoriteButton from "./FavoriteButton";
+
 import VehicleCompatibility from "./VehicleCompatibility";
 import { QuantitySelector } from "./SheetComponents/QuantitySelector";
 import { getBrandName } from "@/lib/brands";
@@ -139,8 +139,7 @@ const ProductDetailsSheetInner: React.FC<ProductDetailsSheetProps> = ({
         <SheetHeader>
           <div className="flex justify-between items-center">
             <SheetTitle>{item.name}</SheetTitle>
-            <div className="flex items-center gap-2">
-              <FavoriteButton item={item as ItemSheet} />
+            <div>
               <button
                 onClick={copyProductLink}
                 className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"

@@ -240,17 +240,6 @@ export function SheetSide() {
               </SheetContent>
             </Sheet>
 
-            <div>
-              <Link
-                href="/favoritos"
-                onClick={closeAll}
-                className="flex items-center justify-between w-full p-4 hover:bg-gray-100 dark:hover:bg-gray-800 border-b transition-colors"
-              >
-                <span className="text-lg font-semibold">FAVORITOS</span>
-                <ChevronRight className="h-5 w-5" />
-              </Link>
-            </div>
-
             <div className="">
               <Link
                 href="/catalogos"
