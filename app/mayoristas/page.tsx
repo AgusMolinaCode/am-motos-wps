@@ -107,9 +107,6 @@ export default async function MayoristasPage() {
                   wholesaleSavings: stats.wholesaleSavings,
                   averageOrderValue: stats.averageOrderValue,
                   lastPurchaseDate: stats.lastPurchaseDate,
-                  activeOrders: stats.activeOrders,
-                  inTransitOrders: stats.inTransitOrders,
-                  deliveredOrders: stats.deliveredOrders,
                 }}
               />
               <Link href="/">
