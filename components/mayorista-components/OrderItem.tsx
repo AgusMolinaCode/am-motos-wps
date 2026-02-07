@@ -9,11 +9,14 @@ import {
 } from "@/components/ui/accordion";
 import { SheetTrigger } from "@/components/ui/sheet";
 import { StatusBadge } from './StatusBadge';
+import { PaymentStatusBadge } from './PaymentStatusBadge';
 import { formatPrice } from './utils';
 import type { PedidoReciente } from './types';
 import type { ItemSheet } from "@/types/interface";
 import ProductDetailsSheet from "@/components/shared/ProductDetailsSheet";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Truck, ExternalLink } from "lucide-react";
+import { formatShippingCompany } from './utils';
 
 interface OrderItemProps {
   pedido: PedidoReciente;
@@ -76,7 +79,7 @@ export function OrderItem({ pedido }: OrderItemProps) {
 
   // Si no se ha intentado cargar y no está abierto, mostrar items básicos
   const mostrarBasicos = !intentadoCargar && !abierto;
-
+  
   return (
     <Accordion 
       type="single" 
@@ -88,9 +91,12 @@ export function OrderItem({ pedido }: OrderItemProps) {
         <AccordionTrigger className="hover:no-underline py-0 hover:bg-accent/30 [&[data-state=open]]:bg-accent/20 transition-colors">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full text-left pr-4 py-5 px-5">
             <div className="flex-1">
-              <div className="flex items-center gap-3 mb-2">
+              <div className="flex items-center gap-3 mb-2 flex-wrap">
                 <span className="text-foreground font-bold">orden-{pedido.id}</span>
-                <StatusBadge estado={pedido.estado} />
+                <div className="flex items-center gap-2">
+                  <StatusBadge estado={pedido.estado} />
+                  <PaymentStatusBadge estado={pedido.estadoPago} />
+                </div>
               </div>
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
                 <span>{pedido.fecha}</span>
@@ -125,8 +131,8 @@ export function OrderItem({ pedido }: OrderItemProps) {
               {!cargando && mostrarBasicos && pedido.items.map((item) => (
                 <div key={item.id} className="flex justify-between items-center py-3 px-4 bg-muted/30 rounded-lg">
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-foreground truncate">{item.name}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">SKU: {item.sku}</p>
+                    <p className="text-base font-semibold text-foreground truncate leading-tight">{item.name}</p>
+                    <p className="text-[10px] text-muted-foreground mt-1 uppercase tracking-wide">SKU: {item.sku}</p>
                   </div>
                   <div className="flex items-center gap-4 text-sm">
                     <span className="text-muted-foreground whitespace-nowrap">
@@ -143,10 +149,10 @@ export function OrderItem({ pedido }: OrderItemProps) {
                 const itemContent = (
                   <div className="flex justify-between items-center py-3 px-4 bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 transition-colors">
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-foreground truncate">
+                      <p className="text-base font-semibold text-foreground truncate leading-tight">
                         {item.name}
                       </p>
-                      <p className="text-xs text-muted-foreground mt-0.5">
+                      <p className="text-[10px] text-muted-foreground mt-1 uppercase tracking-wide">
                         SKU: {item.sku}
                       </p>
                     </div>
@@ -211,6 +217,45 @@ export function OrderItem({ pedido }: OrderItemProps) {
                 </span>
               </div>
             </div>
+
+            {/* Información de Envío */}
+            {(pedido.estado === 'en_camino' || pedido.estado === 'entregado') &&
+              pedido.shipping_company &&
+              pedido.tracking_number && (
+              <div className="border-t border-border/50 pt-4 mt-4">
+                <h4 className="text-sm font-semibold text-foreground mb-3 flex items-center gap-2">
+                  <Truck className="w-4 h-4" />
+                  Información de Envío
+                </h4>
+                <div className="bg-muted/30 rounded-lg p-4 space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">Empresa</span>
+                    <span className="text-sm font-medium text-foreground">
+                      {formatShippingCompany(pedido.shipping_company)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-muted-foreground">Número de seguimiento</span>
+                    <span className="text-sm font-medium text-foreground font-mono">
+                      {pedido.tracking_number}
+                    </span>
+                  </div>
+                  {pedido.tracking_url && (
+                    <div className="pt-2">
+                      <a
+                        href={pedido.tracking_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Seguir envío
+                      </a>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </AccordionContent>
       </AccordionItem>

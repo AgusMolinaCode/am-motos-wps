@@ -1,5 +1,9 @@
 import type { LucideIcon } from 'lucide-react';
 
+export type ShippingStatus = 'en_proceso' | 'en_camino' | 'entregado';
+
+export type ShippingCompany = 'OCA' | 'ANDREANI' | 'VAIA_CARGO' | 'BUSPACK' | 'MD_CARGAS' | 'CUCRERO_EXPRESS';
+
 export interface PedidoItem {
   id: string;
   sku: string;
@@ -19,8 +23,13 @@ export interface PedidoReciente {
   total: number;
   discount_code?: string | null;
   discount_amount: number;
-  estado: 'en_proceso' | 'enviado' | 'entregado';
+  estado: ShippingStatus; // shipping_status del pedido
+  estadoPago: 'aprobado' | 'por_aprobar';
   items: PedidoItem[];
+  // Campos de envío (shipping_status controla si se muestran)
+  shipping_company?: ShippingCompany | null;  // Requerido cuando estado es 'en_camino' o 'entregado'
+  tracking_number?: string | null;   // Requerido cuando estado es 'en_camino' o 'entregado'
+  tracking_url?: string | null;      // Opcional, para rastrear el envío
 }
 
 export interface StatData {

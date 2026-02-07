@@ -359,7 +359,7 @@ export interface CartItemMp {
 // Item del pedido guardado en localStorage (sin campos de MercadoPago)
 export interface OrderItemStored {
   id: string;
-  title: string;
+  name: string;
   quantity: number;
   unit_price: number; // Precio mayorista sin descuento
   retail_unit_price?: number; // Precio retail para calcular ahorro
@@ -423,6 +423,10 @@ export interface PriceInfo {
 // TIPOS PARA PEDIDOS (ORDERS)
 // ============================================
 
+export type ShippingStatus = 'en_proceso' | 'en_camino' | 'entregado';
+
+export type ShippingCompany = 'OCA' | 'ANDREANI' | 'VAIA_CARGO' | 'BUSPACK' | 'MD_CARGAS' | 'CUCRERO_EXPRESS';
+
 export interface OrderItem {
   id: string;           // ID del producto
   sku: string;          // SKU del producto
@@ -467,6 +471,11 @@ export interface Order {
   metadata?: Record<string, any> | null;
   created_at: string;
   updated_at: string;
+  // Campos de envío (tracking) - cargados manualmente por admin
+  shipping_status?: ShippingStatus | null;
+  shipping_company?: ShippingCompany | null;
+  tracking_number?: string | null;
+  tracking_url?: string | null;
 }
 
 // Datos para crear un nuevo pedido

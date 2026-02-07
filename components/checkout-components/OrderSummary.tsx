@@ -8,8 +8,10 @@ import { AppliedDiscount, CartItemMp, ShippingData } from "@/types/interface";
 import { usePriceCalculation } from "@/hooks/usePriceCalculation";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { CreditCard, Wallet, ArrowRight, Truck, Tag, X } from "lucide-react";
+import { CreditCard, Wallet, ArrowRight, Truck, Tag, X, Loader2 } from "lucide-react";
 import { FREE_SHIPPING_THRESHOLD } from "@/constants";
+import { saveTransferOrder } from "@/app/payment/_actions/save-transfer-order";
+import { toast } from "sonner";
 
 interface CartItem {
   product: {
@@ -37,7 +39,7 @@ interface OrderSummaryProps {
   itemsWithSku: Array<{
     id: string;
     sku: string;
-    title: string;
+    name: string;
     quantity: number;
     unit_price: number;
     retail_unit_price: number;
@@ -78,11 +80,15 @@ export function OrderSummary({
   const { formatPrice } = usePriceCalculation();
   const router = useRouter();
   const [localCode, setLocalCode] = useState(discountCode);
+  const [isProcessingTransfer, setIsProcessingTransfer] = useState(false);
 
   const transferDiscount = Math.round(total * 0.1);
   const totalWithTransferDiscount = total - transferDiscount;
 
-  const handleTransferenciaClick = () => {
+  const handleTransferenciaClick = async () => {
+    setIsProcessingTransfer(true);
+    
+    try {
     // Crear mapa de SKU a imagen
     const cartImages: Record<string, string> = {};
     cartItems.forEach((item) => {
@@ -100,6 +106,7 @@ export function OrderSummary({
       image_url: cartImages[item.sku] || undefined,
     }));
 
+    // Guardar en localStorage para la página de transferencia
     const transferData = {
       items: itemsWithImages,
       subtotal,
@@ -112,7 +119,52 @@ export function OrderSummary({
       timestamp: Date.now(),
     };
     localStorage.setItem("transferencia_pedido", JSON.stringify(transferData));
+
+    // GUARDAR EN BASE DE DATOS
+    const result = await saveTransferOrder({
+      clerk_user_id: clerkUserId,
+      customer: {
+        firstName: shippingData.firstName,
+        lastName: shippingData.lastName,
+        email: shippingData.email,
+        phone: shippingData.phone,
+        dni: shippingData.dni,
+      },
+      shipping: {
+        address: shippingData.address,
+        city: shippingData.city,
+        province: shippingData.province,
+        zipCode: shippingData.zipCode,
+        notes: shippingData.notes,
+        deliveryType: shippingData.deliveryType,
+        branchOffice: shippingData.branchOffice,
+      },
+      items: itemsWithSku,
+      brand_ids: itemsWithSku.map(item => (item as any).brand_id).filter((id): id is number => id > 0),
+      product_types: [...new Set(itemsWithSku.map(item => (item as any).product_type).filter((type): type is string => !!type))],
+      subtotal,
+      discount_code: appliedDiscount?.code,
+      discount_amount: appliedDiscount?.discount_amount || 0,
+      shipping_cost: shippingCost,
+      transfer_discount: transferDiscount,
+      total: totalWithTransferDiscount,
+    });
+
+    if (!result.success) {
+      toast.error("Error al crear el pedido. Por favor intentá de nuevo.");
+      setIsProcessingTransfer(false);
+      return;
+    }
+
+    // Guardar el paymentId en localStorage para referencia
+    localStorage.setItem("transferencia_payment_id", result.paymentId || "");
+
     router.push("/transferencia-bancaria");
+  } catch (error) {
+    console.error("Error creating transfer order:", error);
+    toast.error("Error al procesar el pedido");
+    setIsProcessingTransfer(false);
+  };
   };
 
   // Determinar si el envío es gratis
@@ -246,17 +298,21 @@ export function OrderSummary({
       {/* Botón Transferencia Bancaria */}
       <button
         onClick={handleTransferenciaClick}
-        disabled={itemsCount === 0 || !isFormValid}
+        disabled={itemsCount === 0 || !isFormValid || isProcessingTransfer}
         className="w-full group flex items-center justify-between px-4 py-3 mb-3 rounded-lg border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/20 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         <div className="flex items-center gap-2">
-          <Wallet className="w-5 h-5 text-emerald-600" />
+          {isProcessingTransfer ? (
+            <Loader2 className="w-5 h-5 text-emerald-600 animate-spin" />
+          ) : (
+            <Wallet className="w-5 h-5 text-emerald-600" />
+          )}
           <div className="text-left">
             <p className="text-sm font-medium text-emerald-800 dark:text-emerald-300">
-              Transferencia bancaria
+              {isProcessingTransfer ? "Procesando..." : "Transferencia bancaria"}
             </p>
             <p className="text-xs text-emerald-600 dark:text-emerald-400">
-              Ahorrá {formatPrice(transferDiscount)} (10% off)
+              {isProcessingTransfer ? "Creando pedido..." : `Ahorrá ${formatPrice(transferDiscount)} (10% off)`}
             </p>
           </div>
         </div>
@@ -264,7 +320,9 @@ export function OrderSummary({
           <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">
             {formatPrice(totalWithTransferDiscount)}
           </span>
-          <ArrowRight className="w-4 h-4 text-emerald-500 group-hover:translate-x-0.5 transition-transform" />
+          {!isProcessingTransfer && (
+            <ArrowRight className="w-4 h-4 text-emerald-500 group-hover:translate-x-0.5 transition-transform" />
+          )}
         </div>
       </button>
 

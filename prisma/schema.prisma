@@ -110,6 +110,21 @@ model Vehicle {
   @@map("vehicle")
 }
 
+enum ShippingStatus {
+  en_proceso
+  en_camino
+  entregado
+}
+
+enum ShippingCompany {
+  OCA
+  ANDREANI
+  VAIA_CARGO
+  BUSPACK
+  MD_CARGAS
+  CUCRERO_EXPRESS
+}
+
 // Pedidos exitosos (pagos aprobados en Mercado Pago)
 model Order {
   id                String   @id @default(uuid())
@@ -138,6 +153,12 @@ model Order {
   shipping_province    String
   shipping_zip_code    String
   shipping_notes       String?
+
+  // Información de tracking (cargada manualmente por admin)
+  shipping_status      ShippingStatus?  @default(en_proceso)
+  shipping_company     ShippingCompany?
+  tracking_number      String?  // Número de seguimiento
+  tracking_url         String?  // URL para rastrear el envío
   
   // Productos comprados (array JSON con sku, name, quantity, unit_price)
   items                Json

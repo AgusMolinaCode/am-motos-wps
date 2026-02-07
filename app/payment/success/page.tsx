@@ -89,7 +89,7 @@ export default function PaymentSuccess() {
       const orderItems: OrderItem[] = data.items.map(item => ({
         id: item.id,
         sku: item.sku || item.id,
-        name: item.title,
+        name: item.name,
         quantity: item.quantity,
         unit_price: item.unit_price,
         retail_unit_price: item.retail_unit_price || item.unit_price, // Precio retail para calcular ahorro
@@ -135,7 +135,7 @@ export default function PaymentSuccess() {
     
     // Construir lista de productos
     const itemsList = orderData.items.map((item, index) => 
-      `${index + 1}. ${item.title} - Cantidad: ${item.quantity} - $${item.unit_price.toLocaleString('es-AR')}`
+      `${index + 1}. ${item.name} - Cantidad: ${item.quantity} - $${item.unit_price.toLocaleString('es-AR')}`
     ).join('\n');
 
     const discountInfo = orderData.discount 
@@ -296,7 +296,7 @@ Por favor, confirmen la recepción del pago y coordinemos el envío.
                   >
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-gray-800 dark:text-gray-200 truncate">
-                        {item.title}
+                        {item.name}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">
                         Cantidad: {item.quantity}

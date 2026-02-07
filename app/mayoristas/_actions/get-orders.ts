@@ -10,7 +10,8 @@ export async function getOrdersByUserId(userId: string): Promise<Order[]> {
   try {
     const orders = await prisma.order.findMany({
       where: { 
-        clerk_user_id: userId 
+        clerk_user_id: userId
+        // Incluir todos los estados, incluyendo pending_transfer
       },
       orderBy: { 
         created_at: "desc" 
@@ -47,6 +48,11 @@ export async function getOrdersByUserId(userId: string): Promise<Order[]> {
       metadata: order.metadata as any,
       created_at: order.created_at.toISOString(),
       updated_at: order.updated_at.toISOString(),
+      // Campos de envío (tracking) - cargados manualmente por admin
+      shipping_status: order.shipping_status,
+      shipping_company: order.shipping_company,
+      tracking_number: order.tracking_number,
+      tracking_url: order.tracking_url,
     }));
   } catch (error) {
     console.error("[getOrdersByUserId] Error:", error);

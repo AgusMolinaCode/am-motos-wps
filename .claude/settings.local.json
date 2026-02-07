@@ -39,7 +39,12 @@
       "Bash(npx prisma generate)",
       "mcp__ide__getDiagnostics",
       "Bash(npx shadcn@latest add:*)",
-      "Bash(pnpm add:*)"
+      "Bash(pnpm add:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(npm run:*)",
+      "Bash(taskkill:*)",
+      "Bash(cmd:*)",
+      "Bash(del:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

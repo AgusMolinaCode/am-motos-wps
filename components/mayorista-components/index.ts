@@ -2,6 +2,7 @@
 export { StatCard } from './StatCard';
 export { StatsGrid } from './StatsGrid';
 export { StatusBadge } from './StatusBadge';
+export { PaymentStatusBadge } from './PaymentStatusBadge';
 export { OrderItem } from './OrderItem';
 export { OrderList } from './OrderList';
 export { PurchaseHistory } from './PurchaseHistory';
@@ -10,7 +11,7 @@ export { ContactCard } from './ContactCard';
 export { EstadoCuentaSheet } from './EstadoCuentaSheet';
 
 // Utils
-export { formatPrice, formatOrderDate, mapOrderStatus, transformOrders } from './utils';
+export { formatPrice, formatOrderDate, mapOrderStatus, mapPaymentStatus, transformOrders, formatShippingCompany } from './utils';
 
 // Types
-export type { PedidoReciente, StatData, OfertaEspecial, HistorialCompra } from './types';
+export type { PedidoReciente, StatData, OfertaEspecial, HistorialCompra, ShippingStatus, ShippingCompany } from './types';

@@ -51,7 +51,7 @@ interface UseCheckoutReturn {
   generateItemsWithSku: () => Array<{
     id: string;
     sku: string;
-    title: string;
+    name: string;
     quantity: number;
     unit_price: number;
     retail_unit_price: number;
@@ -205,7 +205,7 @@ export function useCheckout(): UseCheckoutReturn {
   const generateItemsWithSku = useCallback((): Array<{
     id: string;
     sku: string;
-    title: string;
+    name: string;
     quantity: number;
     unit_price: number;
     retail_unit_price: number;
@@ -220,7 +220,7 @@ export function useCheckout(): UseCheckoutReturn {
       return {
         id: String(item.product.id),
         sku: item.product.supplier_product_id || String(item.product.id),
-        title: item.product.name,
+        name: item.product.name,
         quantity: item.quantity,
         unit_price: Math.round(priceInfo.unitPrice * 100) / 100, // Precio mayorista
         retail_unit_price: Math.round(retailPrice * 100) / 100, // Precio retail
@@ -315,7 +315,7 @@ export function useCheckout(): UseCheckoutReturn {
         },
         items: itemsWithSku.map(item => ({ // Usar precios originales sin descuento
           id: item.id,
-          title: item.title,
+          name: item.name,
           quantity: item.quantity,
           unit_price: item.unit_price,
           retail_unit_price: item.retail_unit_price,

@@ -1,24 +1,25 @@
 import { Clock, Truck, CheckCircle2 } from 'lucide-react';
+import type { ShippingStatus } from './types';
 
 interface StatusBadgeProps {
-  estado: 'en_proceso' | 'enviado' | 'entregado';
+  estado: ShippingStatus;
 }
 
 const styles = {
   en_proceso: 'bg-amber-500/15 text-amber-700 dark:text-amber-400 border-amber-500/25',
-  enviado: 'bg-blue-500/15 text-blue-700 dark:text-blue-400 border-blue-500/25',
+  en_camino: 'bg-blue-500/15 text-blue-700 dark:text-blue-400 border-blue-500/25',
   entregado: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border-emerald-500/25',
 };
 
 const labels = {
   en_proceso: 'En Proceso',
-  enviado: 'Enviado',
+  en_camino: 'En camino',
   entregado: 'Entregado',
 };
 
 const icons = {
   en_proceso: Clock,
-  enviado: Truck,
+  en_camino: Truck,
   entregado: CheckCircle2,
 };
 
