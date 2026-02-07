@@ -40,6 +40,7 @@ export interface StatData {
   trend: 'up' | 'neutral';
   color: string;
   featured?: boolean;
+  compact?: boolean;
 }
 
 export interface OfertaEspecial {

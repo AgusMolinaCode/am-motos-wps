@@ -20,6 +20,8 @@ import { formatShippingCompany } from './utils';
 
 interface OrderItemProps {
   pedido: PedidoReciente;
+  isOpen?: boolean;
+  onOpenChange?: (isOpen: boolean) => void;
 }
 
 interface ItemConProducto {
@@ -31,11 +33,11 @@ interface ItemConProducto {
   producto: ItemSheet | null;
 }
 
-export function OrderItem({ pedido }: OrderItemProps) {
+export function OrderItem({ pedido, isOpen = false, onOpenChange }: OrderItemProps) {
   const [itemsConProductos, setItemsConProductos] = useState<ItemConProducto[]>([]);
   const [cargando, setCargando] = useState(false);
   const [intentadoCargar, setIntentadoCargar] = useState(false);
-  const [abierto, setAbierto] = useState(false);
+  const [abierto, setAbierto] = useState(isOpen);
 
   const cargarProductos = useCallback(async () => {
     if (cargando || intentadoCargar) return;
@@ -71,21 +73,36 @@ export function OrderItem({ pedido }: OrderItemProps) {
     }
   }, [pedido.items, cargando, intentadoCargar]);
 
+  // Sincronizar estado local con prop externa
   useEffect(() => {
-    if (abierto) {
+    setAbierto(isOpen);
+    if (isOpen && !intentadoCargar) {
       cargarProductos();
     }
-  }, [abierto, cargarProductos]);
+  }, [isOpen, cargarProductos, intentadoCargar]);
+
+  useEffect(() => {
+    if (abierto && !intentadoCargar) {
+      cargarProductos();
+    }
+  }, [abierto, cargarProductos, intentadoCargar]);
 
   // Si no se ha intentado cargar y no está abierto, mostrar items básicos
   const mostrarBasicos = !intentadoCargar && !abierto;
-  
+
+  const handleValueChange = (value: string) => {
+    const newOpenState = value === pedido.id;
+    setAbierto(newOpenState);
+    onOpenChange?.(newOpenState);
+  };
+
   return (
-    <Accordion 
-      type="single" 
-      collapsible 
+    <Accordion
+      type="single"
+      collapsible
+      value={abierto ? pedido.id : ""}
       className="w-full"
-      onValueChange={(value) => setAbierto(value === pedido.id)}
+      onValueChange={handleValueChange}
     >
       <AccordionItem value={pedido.id} className="border-0">
         <AccordionTrigger className="hover:no-underline py-0 hover:bg-accent/30 [&[data-state=open]]:bg-accent/20 transition-colors">

@@ -8,21 +8,26 @@ interface StatsGridProps {
 export function StatsGrid({ stats }: StatsGridProps) {
   // Encontrar el stat featured (Total Comprado)
   const featuredStat = stats.find(s => s.featured);
-  const regularStats = stats.filter(s => !s.featured);
+  // Stats compactos (los 3 de estado: activos, en tránsito, entregados)
+  const compactStats = stats.filter(s => s.compact);
 
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 mb-8">
-      {/* Featured stat - Total Comprado (ocupa más espacio en desktop) */}
+    <div className="flex flex-col xl:flex-row gap-4 mb-8">
+      {/* Featured stat - Total Comprado (ocupa más espacio) */}
       {featuredStat && (
-        <div className="md:col-span-1">
+        <div className="flex-1 min-w-0">
           <StatCard stat={featuredStat} featured />
         </div>
       )}
-      
-      {/* Stats regulares */}
-      {regularStats.map((stat) => (
-        <StatCard key={stat.title} stat={stat} />
-      ))}
+
+      {/* Stats compactos (juntos y más pequeños) */}
+      <div className="flex gap-3 xl:w-auto">
+        {compactStats.map((stat) => (
+          <div key={stat.title} className="flex-1 xl:flex-none xl:w-[258px]">
+            <StatCard stat={stat} compact />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

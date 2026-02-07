@@ -70,53 +70,59 @@ export async function getWholesaleStats(userId: string): Promise<{
   wholesaleSavings: number;
   averageOrderValue: number;
   lastPurchaseDate: string | null;
-  processingOrders: number;
-  shippedOrders: number;
+  // Estados basados en shipping_status
+  activeOrders: number;      // en_proceso + en_camino
+  inTransitOrders: number;   // en_camino
+  deliveredOrders: number;   // entregado
 }> {
   try {
     const orders = await prisma.order.findMany({
       where: { clerk_user_id: userId },
       orderBy: { created_at: 'desc' },
     });
-    
+
     const totalOrders = orders.length;
     const totalSpent = orders.reduce((sum, order) => sum + Number(order.subtotal), 0);
     const totalDiscounted = orders.reduce((sum, order) => sum + Number(order.discount_amount), 0);
-    
+
     // Calcular ahorro por ser mayorista vs retail
-    // Solo pedidos nuevos tienen retail_unit_price guardado
     const wholesaleSavings = orders.reduce((sum, order) => {
       const items = (order.items as unknown) as OrderItem[];
-      
-      // Calcular ahorro por cada item si tiene retail_unit_price (pedidos nuevos)
+
       const orderSavings = items.reduce((itemSum, item) => {
         if (item.retail_unit_price && item.retail_unit_price > item.unit_price) {
-          // Ahorro exacto = (precio retail - precio mayorista) * cantidad
           const savingPerUnit = item.retail_unit_price - item.unit_price;
           return itemSum + (savingPerUnit * item.quantity);
         }
         return itemSum;
       }, 0);
-      
+
       return sum + orderSavings;
     }, 0);
-    
+
     const averageOrderValue = totalOrders > 0 ? totalSpent / totalOrders : 0;
     const lastOrder = orders[0];
-    const lastPurchaseDate = lastOrder 
+    const lastPurchaseDate = lastOrder
       ? new Date(lastOrder.created_at).toLocaleDateString('es-AR', {
           day: 'numeric',
           month: 'long',
           year: 'numeric'
         })
       : null;
-    const processingOrders = orders.filter(o => 
-      ["approved", "processing"].includes(o.status)
+
+    // Conteos basados en shipping_status
+    const activeOrders = orders.filter(o =>
+      ['en_proceso', 'en_camino'].includes(o.shipping_status || '')
     ).length;
-    const shippedOrders = orders.filter(o => 
-      o.status === "shipped"
+
+    const inTransitOrders = orders.filter(o =>
+      o.shipping_status === 'en_camino'
     ).length;
-    
+
+    const deliveredOrders = orders.filter(o =>
+      o.shipping_status === 'entregado'
+    ).length;
+
     return {
       totalOrders,
       totalSpent,
@@ -124,8 +130,9 @@ export async function getWholesaleStats(userId: string): Promise<{
       wholesaleSavings,
       averageOrderValue,
       lastPurchaseDate,
-      processingOrders,
-      shippedOrders,
+      activeOrders,
+      inTransitOrders,
+      deliveredOrders,
     };
   } catch (error) {
     console.error("[getWholesaleStats] Error:", error);
@@ -136,8 +143,9 @@ export async function getWholesaleStats(userId: string): Promise<{
       wholesaleSavings: 0,
       averageOrderValue: 0,
       lastPurchaseDate: null,
-      processingOrders: 0,
-      shippedOrders: 0,
+      activeOrders: 0,
+      inTransitOrders: 0,
+      deliveredOrders: 0,
     };
   }
 }

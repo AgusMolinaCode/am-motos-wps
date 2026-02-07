@@ -4,11 +4,40 @@ import type { StatData } from './types';
 interface StatCardProps {
   stat: StatData;
   featured?: boolean;
+  compact?: boolean;
 }
 
-export function StatCard({ stat, featured = false }: StatCardProps) {
+export function StatCard({ stat, featured = false, compact = false }: StatCardProps) {
   const Icon = stat.icon;
-  
+
+  if (compact) {
+    return (
+      <Card className="group bg-card/50 border-border/50 backdrop-blur-sm overflow-hidden hover:border-border transition-all duration-300 h-full">
+        <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${stat.color}`} />
+        <CardContent className="p-4">
+          <div className="flex items-center gap-3">
+            <div className={`flex-shrink-0 rounded-lg bg-gradient-to-br ${stat.color} shadow-md p-2.5`}>
+              <Icon className="w-4 h-4 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs text-muted-foreground font-medium truncate">
+                {stat.title}
+              </p>
+              <p className="text-lg font-black text-foreground truncate">
+                {stat.value}
+              </p>
+            </div>
+          </div>
+          <p className={`text-xs mt-2 ${
+            stat.trend === 'up' ? 'text-emerald-600 dark:text-emerald-400' : 'text-muted-foreground'
+          }`}>
+            {stat.change}
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card className={`group bg-card/50 border-border/50 backdrop-blur-sm overflow-hidden hover:border-border transition-all duration-300 h-full ${
       featured ? 'ring-2 ring-emerald-500/20' : ''

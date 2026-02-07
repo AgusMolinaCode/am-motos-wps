@@ -1,7 +1,7 @@
 import { auth, currentUser } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { Package, ShoppingCart, Truck  } from 'lucide-react';
+import { Package, ShoppingCart, Truck, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getOrdersByUserId, getWholesaleStats, getMonthlyPurchaseHistory } from './_actions/get-orders';
 import {
@@ -35,7 +35,7 @@ export default async function MayoristasPage() {
   // Transformar orders para el UI
   const pedidosRecientes = transformOrders(orders);
 
-  // Stats reales
+  // Stats reales basados en shipping_status
   const statsData: StatData[] = [
     {
       title: 'Total Comprado',
@@ -48,19 +48,30 @@ export default async function MayoristasPage() {
     },
     {
       title: 'Pedidos Activos',
-      value: stats.totalOrders.toString(),
-      change: `${stats.totalOrders} totales`,
+      value: stats.activeOrders.toString(),
+      change: 'En proceso + En camino',
       icon: Package,
       trend: 'up',
       color: 'from-orange-500 to-amber-500',
+      compact: true,
     },
     {
       title: 'En Tránsito',
-      value: (stats.processingOrders + stats.shippedOrders).toString(),
-      change: `${stats.processingOrders} en proceso · ${stats.shippedOrders} enviados`,
+      value: stats.inTransitOrders.toString(),
+      change: 'Actualmente en camino',
       icon: Truck,
       trend: 'neutral',
       color: 'from-blue-500 to-violet-500',
+      compact: true,
+    },
+    {
+      title: 'Entregados',
+      value: stats.deliveredOrders.toString(),
+      change: 'Completados exitosamente',
+      icon: CheckCircle,
+      trend: 'up',
+      color: 'from-emerald-600 to-green-500',
+      compact: true,
     },
   ];
 
@@ -88,7 +99,7 @@ export default async function MayoristasPage() {
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <EstadoCuentaSheet 
+              <EstadoCuentaSheet
                 stats={{
                   totalOrders: stats.totalOrders,
                   totalSpent: stats.totalSpent,
@@ -96,7 +107,10 @@ export default async function MayoristasPage() {
                   wholesaleSavings: stats.wholesaleSavings,
                   averageOrderValue: stats.averageOrderValue,
                   lastPurchaseDate: stats.lastPurchaseDate,
-                }} 
+                  activeOrders: stats.activeOrders,
+                  inTransitOrders: stats.inTransitOrders,
+                  deliveredOrders: stats.deliveredOrders,
+                }}
               />
               <Link href="/">
                 <Button className="bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-semibold shadow-lg shadow-orange-500/25">

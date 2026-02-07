@@ -1,4 +1,7 @@
-import { Package, ChevronRight } from 'lucide-react';
+"use client";
+
+import { useState, useCallback } from 'react';
+import { Package, ChevronDown, ChevronUp } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { OrderItem } from './OrderItem';
@@ -9,6 +12,32 @@ interface OrderListProps {
 }
 
 export function OrderList({ pedidos }: OrderListProps) {
+  const [openItems, setOpenItems] = useState<Set<string>>(new Set());
+
+  const handleItemOpenChange = useCallback((pedidoId: string, isOpen: boolean) => {
+    setOpenItems(prev => {
+      const newSet = new Set(prev);
+      if (isOpen) {
+        newSet.add(pedidoId);
+      } else {
+        newSet.delete(pedidoId);
+      }
+      return newSet;
+    });
+  }, []);
+
+  const allOpen = pedidos.length > 0 && openItems.size === pedidos.length;
+
+  const toggleAll = useCallback(() => {
+    if (allOpen) {
+      // Cerrar todos
+      setOpenItems(new Set());
+    } else {
+      // Abrir todos
+      setOpenItems(new Set(pedidos.map(p => p.id)));
+    }
+  }, [allOpen, pedidos]);
+
   return (
     <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
       <CardHeader className="border-b border-border/50">
@@ -19,9 +48,24 @@ export function OrderList({ pedidos }: OrderListProps) {
             </div>
             <CardTitle className="text-xl font-bold text-foreground">Pedidos Recientes</CardTitle>
           </div>
-          <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-            Ver todos <ChevronRight className="w-4 h-4 ml-1" />
-          </Button>
+          {pedidos.length > 0 && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleAll}
+              className="text-muted-foreground hover:text-foreground"
+            >
+              {allOpen ? (
+                <>
+                  Cerrar compras <ChevronUp className="w-4 h-4 ml-1" />
+                </>
+              ) : (
+                <>
+                  Abrir compras <ChevronDown className="w-4 h-4 ml-1" />
+                </>
+              )}
+            </Button>
+          )}
         </div>
       </CardHeader>
       <CardContent className="p-0">
@@ -35,7 +79,11 @@ export function OrderList({ pedidos }: OrderListProps) {
           <div className="divide-y divide-border/50 max-h-[600px] overflow-y-auto">
             {pedidos.map((pedido) => (
               <div key={pedido.id} className="hover:bg-accent/20 transition-colors">
-                <OrderItem pedido={pedido} />
+                <OrderItem
+                  pedido={pedido}
+                  isOpen={openItems.has(pedido.id)}
+                  onOpenChange={(isOpen) => handleItemOpenChange(pedido.id, isOpen)}
+                />
               </div>
             ))}
           </div>
